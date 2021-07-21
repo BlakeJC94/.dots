@@ -140,5 +140,5 @@ wat() {
     firefox https://www.ecosia.org/search?q=${search_term}
 }
 mann() {
-    curl "https://cheat.sh/$1" | less -R
+    curl --silent "https://cheat.sh/$1" | less -R
 }

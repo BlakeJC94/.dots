@@ -2,17 +2,8 @@
 " == BLAKE'S NEOVIM CONFIGURATION =============================================
 " =============================================================================
 " The following files located in ~/.config/nvim/plugins are also autoloaded:
-"   - terminal.vim : integrated terminal improvments
-"   - colors.vim : colorscheme commands for vim
-"   - maps-arrows.vim : mappings for arrow keys in various modes
-"   - maps-leader.vim : additional madros assigned with leader key
-"   - abbrev.vim : abbreviations used in cmd mode
-"   - autogroups.vim : autogroups for extra functionality
-"   - telescope.vim : opetions and setup for telescope
-"   - lsp.vim : lspconfig and lspinstall setup
-"   - quickscope.vim : quickscope options
-"   - netrw.vim : options to improve netrw
-"   - folds.vim : options for folds in vim
+"   ./plugin/plugin-setup.vim : Additional configuration for plugins
+"   ./plugin/init-extra.vim : Options for view, term mode, arrow keys, augroups
 echo "Loading ~/.config/nvim/init.vim"
 " == BASIC BEHAVIOUR ==========================================================
 set clipboard=unnamedplus              " Access system clipboard
@@ -145,17 +136,18 @@ call plug#begin(plug_dir)
     Plug 'tpope/vim-surround'             " cs]} = Change surrounding syntax
     Plug 'tpope/vim-repeat'               "   Fix . cmd for plugins
     Plug 'gruvbox-community/gruvbox'      "   Colorscheme
-    Plug 'unblevable/quick-scope'         "   Highlight f/F targets
+    Plug 'unblevable/quick-scope'         "   Highlight f/t targets
     Plug 'jpalardy/vim-slime'             " <C-c><C-c> = Send to terminal
     Plug 'tpope/vim-commentary'           " gc<move> = Add comments
     Plug 'szw/vim-maximizer'              " <F3> = Maximise/restore splits
-    Plug 'tpope/vim-fugitive'             "   Git commands for Vim
-    Plug 'junegunn/gv.vim'                " :GV = Commit Browser
+    "Plug 'tpope/vim-fugitive'             "   Git commands for Vim
+    "Plug 'junegunn/gv.vim'                " :GV = Commit Browser
     Plug 'junegunn/vim-easy-align'        " ga<char> = align block
-    Plug 'junegunn/limelight.vim'         " use <F4> to hyperfocus
+    Plug 'junegunn/limelight.vim'         " <F4> = hyperfocus
     Plug 'sbdchd/neoformat'               " Q = format code
     Plug 'airblade/vim-gitgutter'         " <F6> = Show git markers
 call plug#end()
+" -- PLUGIN MAPPINGS ----------------------------------------------------------
 " Easyalign
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
@@ -166,7 +158,7 @@ imap <F4> :Limelight!!<CR>
 " Telescope
 if has('nvim')
     nnoremap <leader>ff <cmd>Telescope find_files<cr>
-    nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+    nnoremap <leader>fg <cmd>Telescope treesitter<cr>
     nnoremap <leader>fb <cmd>Telescope buffers<cr>
     nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 endif

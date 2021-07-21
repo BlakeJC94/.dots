@@ -34,6 +34,7 @@ function install_alacritty() {
 }
 
 function install_neovim(){
+    # WORKING
     # try
     (
         set -e
