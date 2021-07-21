@@ -49,13 +49,13 @@ nnoremap n nzz
 nnoremap N Nzz
 " gp: Visually select last pasted block
 nnoremap <expr> gp '`[' . getregtype()[0] . '`]'
-" Maintain Visual Mode after >/</= actions
+" Maintain Visual Mode after >/< actions
 vmap < <gv
 vmap > >gv
 vmap = =gv
 " Move visual block up or down
-vnoremap J :m '>+1<CR>gv=
-vnoremap K :m '<-2<CR>gv=
+vnoremap J :m '>+1<CR>gv
+vnoremap K :m '<-2<CR>gv
 " Navigate quickfix list
 nnoremap <C-h> :copen<CR>
 nnoremap <C-j> :cnext<CR>
@@ -100,54 +100,51 @@ noremap <Leader>h :set hls!<CR>
 nnoremap <Leader>w :%s/<C-r><C-w>//g<Left><Left>
 nnoremap <Leader>s :%s//g<Left><Left>
 vnoremap <Leader>s :s//g<Left><Left>
-" -- PLUGINS ------------------------------------------------------------------
-" Automatically install Vim-Plug if not installed
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-    silent exec join(['!curl -fLo ',
-                     \data_dir, '/autoload/plug.vim --create-dirs ',
-                     \'https://raw.githubusercontent.com/',
-                     \'junegunn/vim-plug/master/plug.vim'], '')
-endif
-" Run PlugInstall if there are missing plugins
-autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \| PlugInstall --sync | source $MYVIMRC
-\| endif
-" Load plugins
+" == PLUGINS ==================================================================
 let plug_dir = has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged'
 call plug#begin(plug_dir)
     if has('nvim')
+        " Telecsope
         Plug 'nvim-lua/popup.nvim'               "   Dep. for telescope
         Plug 'nvim-lua/plenary.nvim'             "   Dep. for telescope
         Plug 'nvim-telescope/telescope.nvim'     " <L>ff = Fuzzy finding
         Plug 'nvim-telescope/telescope-fzy-native.nvim' " Better fuzzy finding
             \{'do': ':!git submodule update --init --recursive'}
+        " Nvim LSP and TreeSitter
         Plug 'neovim/nvim-lspconfig'             "   Native nvim lsp
         Plug 'kabouzeid/nvim-lspinstall'         " :LspInstall <lang>
-        Plug 'theprimeagen/vim-be-good'          " :VimBeGood
         Plug 'nvim-lua/completion-nvim'          "   Autocompletion menu
         Plug 'nvim-treesitter/nvim-treesitter',  "   Improved syntax
             \{'do': ':TSUpdate'}
+        " Other Nvim tweaks
+        Plug 'theprimeagen/vim-be-good'          " :VimBeGood
     else
+        " Non-neo plugins
         Plug 'vim-syntastic/syntastic'  "   Check syntax on save
         Plug 'nvie/vim-flake8'          "   Python PEP8 checking
         Plug 'Valloric/YouCompleteMe'   "   Autocompletion engine
     endif
+    " Vim functions
+    Plug 'jpalardy/vim-slime'             " <C-c><C-c> = Send to terminal
+    Plug 'szw/vim-maximizer'              " <F3> = Maximise/restore splits
+    " Text functions
     Plug 'tpope/vim-surround'             " cs]} = Change surrounding syntax
     Plug 'tpope/vim-repeat'               "   Fix . cmd for plugins
+    Plug 'tpope/vim-commentary'           " gc<move> = Add comments
+    Plug 'junegunn/vim-easy-align'        " ga<char> = align block
+    Plug 'sbdchd/neoformat'               " Q = format code
+    Plug 'Raimondi/delimitMate'           "   Autocomplete brackets
+    " Colors and style
+    Plug 'junegunn/limelight.vim'         " <F4> = hyperfocus
+    Plug 'airblade/vim-gitgutter'         " <F6> = Show git markers
     Plug 'gruvbox-community/gruvbox'      "   Colorscheme
     Plug 'unblevable/quick-scope'         "   Highlight f/t targets
-    Plug 'jpalardy/vim-slime'             " <C-c><C-c> = Send to terminal
-    Plug 'tpope/vim-commentary'           " gc<move> = Add comments
-    Plug 'szw/vim-maximizer'              " <F3> = Maximise/restore splits
-    "Plug 'tpope/vim-fugitive'             "   Git commands for Vim
-    "Plug 'junegunn/gv.vim'                " :GV = Commit Browser
-    Plug 'junegunn/vim-easy-align'        " ga<char> = align block
-    Plug 'junegunn/limelight.vim'         " <F4> = hyperfocus
-    Plug 'sbdchd/neoformat'               " Q = format code
-    Plug 'airblade/vim-gitgutter'         " <F6> = Show git markers
 call plug#end()
-" -- PLUGIN MAPPINGS ----------------------------------------------------------
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
+" ---- PLUGIN MAPPINGS --------------------------------------------------------
 " Easyalign
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
@@ -164,10 +161,20 @@ if has('nvim')
 endif
 " Neoformat
 noremap Q :Neoformat<CR>
-" Neoformat
+" Gitgutter
 noremap <F6> :GitGutterToggle<CR>
 " -----------------------------------------------------------------------------
 " " In case things don't work out with new rc, use this to source .vimrc
 " set runtimepath^=~/.vim runtimepath+=~/.vim/after
 " let &packpath=&runtimepath
 " source ~/.vimrc
+" -----------------------------------------------------------------------------
+" Removed automatic Vim-Plug installer
+" " Automatically install Vim-Plug if not installed
+" let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+" if empty(glob(data_dir . '/autoload/plug.vim'))
+"     silent exec join(['!curl -fLo ',
+"                      \data_dir, '/autoload/plug.vim --create-dirs ',
+"                      \'https://raw.githubusercontent.com/',
+"                      \'junegunn/vim-plug/master/plug.vim'], '')
+" endif
