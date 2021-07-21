@@ -89,6 +89,8 @@ let mapleader = "\<Space>"
 noremap <Leader>q :q<CR>
 " L-a : Select all
 noremap <Leader>a ggVG
+" L-d : Change directory of vim to current file
+noremap <Leader>d :cd %:p:h<CR>:pwd<CR>
 " L-c, L-v : New splits
 noremap <Leader>c :split<CR>
 noremap <Leader>v :vsplit<CR>
