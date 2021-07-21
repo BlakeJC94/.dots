@@ -94,7 +94,7 @@ function install_dropbox() {
 }
 
 # echo "==== INSTALLING APT TOOLS ========"
-# sudo apt install -y tldr tree neofetch fzf python3-pip python3-venv python3-setuptools python3-dev  lua5.4 npm
+# sudo apt install -y tldr tree neofetch fzf python3-pip python3-venv python3-setuptools python3-dev  lua5.4 npm zathura zathura-djvu zathura-ps
 # sudo python3 -m pip install thefuck pynvim
 
 # echo "==== INSTALLING ALACRITTY ========"

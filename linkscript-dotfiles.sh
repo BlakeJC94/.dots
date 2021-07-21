@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-FILES=( .bashrc .bash_prompt .vimrc .gitconfig .gitignore .alacritty.yml .config/nvim )
+# FILES=( .bashrc .bash_prompt .vimrc .gitconfig .gitignore .alacritty.yml .config/nvim .config/zathura )
 DOTFILEDIR=$HOME/.dots
 
 for i in "${FILES[@]}"; do
