@@ -1,0 +1,56 @@
+[user]
+	name = Blake
+	email = blakejamescook@gmail.com
+	username = BlakeJC94
+
+[alias]
+	a = add .
+	co = checkout
+	cm = commit -m
+	st = status
+	br = branch
+	hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
+	type = cat-file -t
+	dump = cat-file -p
+
+[url "https://gitlab.com/"]
+    insteadOf = gl:
+
+[url "https://github.com/"]
+    insteadOf = gh:
+
+[url "https://gist.github.com/"]
+    insteadOf = gist:
+
+[url "https://bitbucket.org/"]
+    insteadOf = bb:
+
+[color]
+    ui = true
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = red
+[core]
+	excludesfile = /.gitignore
+[credential]
+	helper = cache --timeout=3600
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
+[pull]
+	rebase = false
