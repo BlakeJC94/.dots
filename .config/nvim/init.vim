@@ -78,6 +78,11 @@ cnoremap <expr> <Down>  wildmenumode() ? "\<Right>" : "\<Down>"
 cnoremap <expr> <Up>    wildmenumode() ? "\<Left>"  : "\<Up>"
 cnoremap <expr> <Right> wildmenumode() ? "\<Down>"  : "\<Right>"
 cnoremap <expr> <Left>  wildmenumode() ? "\<Up>"    : "\<Left>"
+" Use / and <Tab> to cycle through partial matches
+cnoremap <expr> <Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ?
+            \ "\<CR>/\<C-r>/" : "\<C-z>"
+cnoremap <expr> <S-Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ?
+            \ "\<CR>?\<C-r>/" : "\<S-Tab>"
 " ---- LEADER MAPPINGS --------------------------------------------------------
 let mapleader = "\<Space>"
 " L-q to quit
@@ -123,6 +128,7 @@ call plug#begin(plug_dir)
         Plug 'nvim-lua/plenary.nvim'             "   Dep. for telescope
         Plug 'nvim-telescope/telescope.nvim'     " <L>ff = Fuzzy finding
         Plug 'nvim-telescope/telescope-fzy-native.nvim' " Better fuzzy finding
+            \{'do': ':!git submodule update --init --recursive'}
         Plug 'neovim/nvim-lspconfig'             "   Native nvim lsp
         Plug 'kabouzeid/nvim-lspinstall'         " :LspInstall <lang>
         Plug 'theprimeagen/vim-be-good'          " :VimBeGood

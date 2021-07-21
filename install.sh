@@ -40,7 +40,8 @@ function install_neovim(){
         wget https://github.com/neovim/neovim/releases/download/v0.5.0/nvim.appimage
         chmod u+x nvim.appimage
         sudo mv nvim.appimage /opt/
-        sudo ln -s nvim.appimage /usr/bin/vim
+        sudo ln -sf /opt/nvim.appimage /usr/bin/vim
+        echo "install_neovim passed!"
     )
     # catch
     errorCode=$?
@@ -95,17 +96,17 @@ function install_dropbox() {
 # sudo apt install -y tldr tree neofetch fzf python3-pip python3-venv python3-setuptools python3-dev  lua5.4 npm
 # sudo python3 -m pip install thefuck pynvim
 
-echo "==== INSTALLING ALACRITTY ========"
-install_alacritty
+# echo "==== INSTALLING ALACRITTY ========"
+# install_alacritty
 
 echo "==== INSTALLING NEOVIM ========"
 install_neovim
 
-echo "==== INSTALLING DROPBOX ========"
-install_dropbox
+# echo "==== INSTALLING DROPBOX ========"
+# install_dropbox
 
-echo "==== INSTALLING SPOTIFY ========"
-install_spotify
+# echo "==== INSTALLING SPOTIFY ========"
+# install_spotify
 
 # # UNTESTED, ENSURE DROPBOX IS INSTALLED FIRST
 # echo "==== INSTALLING ZOTERO ========"
