@@ -155,7 +155,12 @@ nmap ga <Plug>(EasyAlign)
 " Limelight
 nmap <F4> :Limelight!!<CR>
 vmap <F4> :Limelight!!<CR>
-imap <F4> :Limelight!!<CR>
+imap <F4> <C-o>:Limelight!!<CR>
+if has('nvim')
+    tmap <F4> <C-\><C-n>:Limelight!!<CR>i
+else
+    tmap <F4> <C-w><S-n>:Limelight!!<CR>i
+endif
 " Telescope
 if has('nvim')
     nnoremap <leader>ff <cmd>Telescope find_files<cr>
