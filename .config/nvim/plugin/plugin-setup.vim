@@ -109,3 +109,9 @@ function! GitStatus()
   return printf(' +%d ~%d -%d', a, m, r)
 endfunction
 set statusline+=%{GitStatus()}
+" -- LIMELIGHT ----------------------------------------------------------------
+" Switch off limelight when entering terminal
+augroup limelight_term
+    autocmd!
+    autocmd TermEnter * Limelight!
+augroup END
