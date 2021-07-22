@@ -24,17 +24,27 @@ let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 " -- INTEGRATED TERMINAL ------------------------------------------------------
 if has('nvim')
-    tnoremap <A-:> <C-\><C-n>
-    cnoreabbrev term split term://bash
-    cnoreabbrev vterm vsplit term://bash
+    " Use Alt + ; to go to normal mode
+    tnoremap <A-;> <C-\><C-n>
+    " Use Alt + Shift + ; to go to command mode
+    tnoremap <A-:> <C-\><C-n>:
+    cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'split term://bash' : 'term')<CR>
+    cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vsplit term://bash' : 'vterm')<CR>
     augroup term_cmds
         autocmd!
+        " Bypass normal mode when changing focus to terminal buffer
         autocmd BufWinEnter,WinEnter term://* startinsert
-        autocmd BufWinEnter,WinEnter term://* setlocal nonu nornu
+        " Toggle numbers off when in terminal mode, on when in normal mode
+        autocmd TermEnter term://* setlocal nonu nornu
+        autocmd TermLeave term://* setlocal nu rnu
+        " Immediately close terminal window when process finishes
         autocmd TermClose term://* close
     augroup END
 else
+    " Use Alt + ; to go to normal mode
     tnoremap <A-:> <C-w><S-n>
+    " Use Alt + Shift + ; to go to command mode
+    tnoremap <A-:> <C-w><S-n>:
     cnoreabbrev vterm vert term
 endif
 " -- ABBREVIATIONS ------------------------------------------------------------
