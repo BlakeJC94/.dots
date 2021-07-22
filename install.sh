@@ -8,6 +8,8 @@ function install_spotify() {
         curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
         echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
         sudo apt update && sudo apt install -y spotify-client
+        mkdir -p $HOME/.local/share/keyrings
+        ln -s $HOME/.dots/.spotify $HOME/.local/share/keyrings/spotify.keyring
     )
     # catch
     errorCode=$?
@@ -42,6 +44,7 @@ function install_neovim(){
         chmod u+x nvim.appimage
         sudo mv nvim.appimage /opt/
         sudo ln -sf /opt/nvim.appimage /usr/bin/vim
+        curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         echo "install_neovim passed!"
     )
     # catch
@@ -100,14 +103,14 @@ function install_dropbox() {
 # echo "==== INSTALLING ALACRITTY ========"
 # install_alacritty
 
-echo "==== INSTALLING NEOVIM ========"
-install_neovim
+# echo "==== INSTALLING NEOVIM ========"
+# install_neovim
 
 # echo "==== INSTALLING DROPBOX ========"
 # install_dropbox
 
-# echo "==== INSTALLING SPOTIFY ========"
-# install_spotify
+echo "==== INSTALLING SPOTIFY ========"
+install_spotify
 
 # # UNTESTED, ENSURE DROPBOX IS INSTALLED FIRST
 # echo "==== INSTALLING ZOTERO ========"

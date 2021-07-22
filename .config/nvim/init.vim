@@ -11,6 +11,7 @@ set splitbelow splitright              " Split to open buffers below/right
 set scrolloff=8 sidescrolloff=8        " Keep lines above/below/beside cursor
 set noerrorbells                       " Disable error bells
 set nowrap                             " Disable wrapping by default
+set matchpairs+=<:>                    " Enable % jumping for </>
 set incsearch ic smartcase nohlsearch  " HL while typing, smartcase search
 set noswapfile nobackup                " Disable swaps and backups
 set undodir=~/.vim/undodir undofile    " Better local undofile location
@@ -37,6 +38,9 @@ set softtabstop=4  " Indent by 4 spaces on pressing tab
 set shiftwidth=4   " Indent by 4 spaces when auto-indenting
 set expandtab      " Replace tabs with spaces when indenting with </>
 " ---- MAPPINGS ---------------------------------------------------------------
+" Move on visual lines
+nnoremap j gj
+nnoremap k gk
 " Prevent x from overriding what's in the clipboard
 noremap x "_x
 noremap X "_x
