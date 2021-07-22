@@ -38,7 +38,7 @@ if has('nvim')
         autocmd TermEnter term://* setlocal nonu nornu
         autocmd TermLeave term://* setlocal nu rnu
         " Immediately close terminal window when process finishes
-        autocmd TermClose term://* close
+        autocmd TermClose term://* quit
     augroup END
 else
     " Use Alt + ; to go to normal mode

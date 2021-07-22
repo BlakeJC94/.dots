@@ -44,7 +44,10 @@ function install_neovim(){
         chmod u+x nvim.appimage
         sudo mv nvim.appimage /opt/
         sudo ln -sf /opt/nvim.appimage /usr/bin/vim
+        # Install vim-plug
         curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        # Configure clang
+        clang-format -style=webkit -dump-config > .clang-format
         echo "install_neovim passed!"
     )
     # catch
@@ -97,8 +100,7 @@ function install_dropbox() {
 }
 
 # echo "==== INSTALLING APT TOOLS ========"
-# sudo apt install -y tldr tree neofetch fzf python3-pip python3-venv
-# python3-setuptools python3-dev  lua5.4 npm zathura zathura-djvu zathura-ps ripgrep ipython3
+# sudo apt install -y tldr tree neofetch fzf python3-pip python3-venv python3-setuptools python3-dev lua5.4 npm zathura zathura-djvu zathura-ps ripgrep ipython3 clang-format
 # sudo python3 -m pip install thefuck pynvim
 
 # echo "==== INSTALLING ALACRITTY ========"
