@@ -133,12 +133,7 @@ alias :q="exit"
 # Change shortcuts to Vi
 #set -o vi
 
-# functions for searching web
-wat() {
-    local search_term="${*}"
-    search_term="${search_term// /+}"
-    firefox https://www.ecosia.org/search?q=${search_term}
-}
-mann() {
-    curl --silent "https://cheat.sh/$1" | less -R
-}
+# # Enable unclutter if installed (hide mouse after inactivity)
+# if [ -x "$(command -v unclutter)" ]; then
+#     unclutter --timeout 4 --ignore-scrolling &
+# fi

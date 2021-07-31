@@ -1,22 +1,21 @@
 " =============================================================================
 " == BLAKE'S NEOVIM CONFIGURATION =============================================
 " =============================================================================
-" Contents:
-" BASIC_BEHAVIOUR
-" BASIC_LAYOUT
-" TABS_AND_INDENTS
-" MAPPINGS
-" LEADER_MAPPINGS
-" PLUGINS
-" PLUGIN_MAPPINGS
-" TERMINAL
-" ADVANCED_BEHAVIOUR
-" ADVANCED_LAYOUT
-" AUTOCOMMANDS
-" ABBREVIATIONS
-" ARROW_KEYS
-" =============================================================================
 echo "Loading ~/.config/nvim/init.vim"
+" ==|CONTENTS|=================================================================
+"   BASIC_BEHAVIOUR
+"     BASIC_LAYOUT
+"     TABS_AND_INDENTS
+"     MAPPINGS
+"     LEADER_MAPPINGS
+"     PLUGINS
+"     PLUGIN_MAPPINGS
+"   ADVANCED_BEHAVIOUR
+"     ADVANCED_LAYOUT
+"     FORMATTING
+"     INTEGRATED_TERMINAL
+"     ABBREVIATIONS
+"     ARROW_KEYS
 " ==|BASIC_BEHAVIOUR|==========================================================
 set clipboard=unnamedplus              " Access system clipboard
 set splitbelow splitright              " Split to open buffers below/right
@@ -28,14 +27,14 @@ set noswapfile nobackup                " Disable swaps and backups
 set undodir=~/.vim/undodir undofile    " Better local undofile location
 set timeoutlen=500                     " More responsive keystrokes
 set ttimeoutlen=10                     " More repsonsive terminal keystrokes
-" ----|LAYOUT|-----------------------------------------------------------------
+" ----|BASIC_LAYOUT|-----------------------------------------------------------
 set number relativenumber                " Show rel/abs linenumbers
 set signcolumn=number                    " Signcol vals override numbers
 set showmatch                            " Highlight matching brackets
 set cursorline                           " Highlight current line
 set colorcolumn=80                       " Set vertical margin
 set textwidth=79                         " Margin for text input
-set foldmethod=indent foldlevel=1        " Fold all except top indent level
+set foldmethod=indent foldlevel=2        " Fold all except top indent level
 set showcmd cmdheight=2                  " Show command in bottom right
 set shortmess+=F                         " Hide filename when opening file
 set laststatus=2                         " Status line (from Mastering Vim)
@@ -66,10 +65,9 @@ nnoremap N Nzz
 " Make Q be the format command
 noremap Q gq
 " Navigate quickfix list
-nnoremap <C-h> :copen<CR>
 nnoremap <C-j> :cnext<CR>zz
 nnoremap <C-k> :cprev<CR>zz
-nnoremap <C-l> :cclose<CR>
+nnoremap <C-l> :cwindow<CR>
 " Activate spellcheck with <F2>
 nnoremap <F2> <Cmd>set spell!<CR>
 inoremap <F2> <Cmd>set spell!<CR>
@@ -86,11 +84,13 @@ vnoremap K :m '<-2<CR>gv
 " Use <Tab> and <S-Tab> to navigate through autocomplete menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Make wildmenu controls behave intuitively
-cnoremap <expr> <Down>  wildmenumode() ? "\<Right>" : "\<Down>"
-cnoremap <expr> <Up>    wildmenumode() ? "\<Left>"  : "\<Up>"
-cnoremap <expr> <Right> wildmenumode() ? "\<Down>"  : "\<Right>"
-cnoremap <expr> <Left>  wildmenumode() ? "\<Up>"    : "\<Left>"
+" Make vertical wildmenu controls behave intuitively
+if match(&wildmode, 'full') > -1
+    cnoremap <expr> <Down>  wildmenumode() ? "\<Right>" : "\<Down>"
+    cnoremap <expr> <Up>    wildmenumode() ? "\<Left>"  : "\<Up>"
+    cnoremap <expr> <Right> wildmenumode() ? "\<Down>"  : "\<Right>"
+    cnoremap <expr> <Left>  wildmenumode() ? "\<Up>"    : "\<Left>"
+endif
 " Use / and <Tab> to cycle through partial matches
 cnoremap <expr> <Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ?
             \ "\<CR>/\<C-r>/" : "\<C-z>"
@@ -108,10 +108,9 @@ noremap <Leader>a ggVG
 " L-d : Change directory of vim to current file
 noremap <Leader>d :cd %:p:h<CR>:pwd<CR>
 " Navigate location list
-nnoremap <Leader>h :lopen<CR>
 nnoremap <Leader>j :lnext<CR>zz
 nnoremap <Leader>k :lprev<CR>zz
-nnoremap <Leader>l :lclose<CR>
+nnoremap <Leader>k :lwindow<CR>
 " L-c, L-v : New splits
 noremap <Leader>c :split<CR>
 noremap <Leader>v :vsplit<CR>
@@ -123,19 +122,19 @@ noremap <Leader><BS> :sp $MYVIMRC<CR>
 " L-e : File explorer
 noremap <Leader>e :Ex %:p:h<CR>
 " L-<Esc> : toggle highlights on search
-noremap <Leader><Esc> :set hls!<CR>
+noremap <Leader><Tab> :set hls!<CR>
 " L-s, L-w : Open search and replace command (with word under cursor)
 nnoremap <Leader>w :%s/<C-r><C-w>//g<Left><Left>
 nnoremap <Leader>s :%s//g<Left><Left>
 vnoremap <Leader>s :s//g<Left><Left>
-" ==|PLUGINS|==================================================================
+" ----|PLUGINS|----------------------------------------------------------------
 let plug_dir = has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged'
 call plug#begin(plug_dir)
     if has('nvim')
         " Telescope
         Plug 'nvim-lua/popup.nvim'               "   Dep. for telescope
         Plug 'nvim-lua/plenary.nvim'             "   Dep. for telescope
-        Plug 'nvim-telescope/telescope.nvim'     " <L>ff = Fuzzy finding
+        Plug 'nvim-telescope/telescope.nvim'     " <L>tf = Fuzzy finding
         Plug 'nvim-telescope/telescope-fzy-native.nvim', " Better fuzzy finding
             \ {'do': ':!git submodule update --init --recursive'}
         " Nvim LSP and TreeSitter
@@ -171,9 +170,11 @@ call plug#begin(plug_dir)
     Plug 'tpope/vim-repeat'               "   Fix . cmd for plugins
     Plug 'tpope/vim-commentary'           " gc<move> = Add comments
     Plug 'junegunn/vim-easy-align'        " ga<char> = align block
+    Plug 'triglav/vim-visual-increment'   " [<C-v>]<C-a/x> = Increment column
     " Colors and style
     Plug 'gruvbox-community/gruvbox'      "   Colorscheme
     Plug 'unblevable/quick-scope'         "   Highlight f/t targets
+    Plug 'mhinz/vim-startify'             "   Start screen for Vim
 call plug#end()
 " Run PlugInstall if there are missing plugins
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
@@ -190,21 +191,18 @@ nmap ga <Plug>(EasyAlign)
 nmap <F4> :Limelight!!<CR>
 vmap <F4> :Limelight!!<CR>
 imap <F4> <C-o>:Limelight!!<CR>
-if has('nvim')
-    tmap <F4> <C-\><C-n>:Limelight!!<CR>i
-else
-    tmap <F4> <C-w><S-n>:Limelight!!<CR>i
-endif
+tmap <expr> <F4> (has('nvim') ? "\<C-\>\<C-n>" : "\<C-w>\<S-n>" ).":Limelight!!\<CR>i"
 " Goyo
 nmap <Leader>M :Goyo<CR>
 vmap <Leader>M :Goyo<CR>
 " Telescope and LSP
 if has('nvim')
-    nnoremap <leader>ff <cmd>Telescope find_files<cr>
-    nnoremap <leader>fg <cmd>Telescope treesitter<cr>
-    nnoremap <leader>fb <cmd>Telescope buffers<cr>
-    nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-    " nnoremap <leader>l <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
+    nnoremap <leader>tf <cmd>Telescope find_files<cr>
+    nnoremap <leader>tg <cmd>Telescope treesitter<cr>
+    nnoremap <leader>tb <cmd>Telescope buffers<cr>
+    nnoremap <leader>th <cmd>Telescope help_tags<cr>
+    nnoremap <leader>h <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
+    nnoremap <leader>H <Cmd>lua vim.lsp.buf.range_code_action()<CR>
 endif
 " Cht.sh
 if has('nvim')
@@ -213,8 +211,6 @@ else
     nmap <Leader>x <Leader>KB
 endif
 " ==|ADVANCED_BEHAVIOUR|=======================================================
-
-" Basic autocommands
 augroup default_cmds
     autocmd!
     " equally resize windows when terminal is resized
@@ -223,7 +219,7 @@ augroup default_cmds
     autocmd BufWritePre * retab
     " autoremove whitespace
     autocmd BufWritePre * :%s/\s\+$//e
-    " Press q to close help/qf list and disable spellcheck
+    " help/qf list: Press q to close and disable spellcheck
     autocmd Filetype qf,help nnoremap <buffer> q :q<CR>
     autocmd Filetype qf,help setl nospell
     " Autocomplete backticks in TeX files
@@ -234,21 +230,19 @@ augroup default_cmds
     autocmd FileType python setl
         \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
-
 " Set filetype-based formatprg and makrprgs here
 augroup set_prgs
     autocmd!
     autocmd FileType c set formatprg=clang-format
 augroup END
-
 " Autocomplete menu options
 set completeopt=menuone,noinsert,noselect
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 set shortmess+=c  " Hide extra message when using completion
-
 " Cht.sh options
 let g:cheat_default_window_layout = 'split'
-
+" Auto-update sessions from startify
+let g:startify_session_persistence = 1
 " >>>> NVIM_LUA >>>>>>>>
 if has('nvim')
 lua << EOF
@@ -264,7 +258,6 @@ require'lspinstall'.post_install_hook = function ()
   setup_servers() -- reload installed servers
   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
-
 ---- COMPE --------
 require'compe'.setup {
     enabled = true;
@@ -288,11 +281,9 @@ require'compe'.setup {
         calc = true;
     };
 }
-
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
-
 local check_back_space = function()
     local col = vim.fn.col('.') - 1
     if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
@@ -301,7 +292,6 @@ local check_back_space = function()
         return false
     end
 end
-
 -- Use (s-)tab to:
 --- move to prev/next item in completion menuone
 --- jump to prev/next snippet's placeholder
@@ -314,7 +304,6 @@ _G.tab_complete = function()
     return vim.fn['compe#complete']()
   end
 end
-
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-p>"
@@ -322,20 +311,16 @@ _G.s_tab_complete = function()
     return t "<S-Tab>"
   end
 end
-
 vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-
 -- This line is important for auto-import
 vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })
 vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true })
-
 ---- TELESCOPE --------
 require('telescope').setup()
 require('telescope').load_extension('fzy_native')
-
 ---- TREESITTER --------
 require'nvim-treesitter.configs'.setup {
     highlight = {
@@ -353,20 +338,16 @@ require'nvim-treesitter.configs'.setup {
     incremental_selection = { enable = true, },
     textobjects = { enable = true, },
 }
-
 ---- SPELLSITTER --------
 require('spellsitter').setup {
   hl = 'SpellBad',
   captures = {'comment'},  -- set to {} to spellcheck everything
 }
-
 EOF
 endif
 " <<<< NVIM_LUA <<<<<<<<
-
 " Allow LaTeX symbol completion in Markdown and Julia
 autocmd FileType markdown,julia let b:compe_latex_insert_code = v:true
-
 " Automatically list LSP errors in location list
 if has('nvim')
     fun! LspLocationList()
@@ -377,7 +358,10 @@ if has('nvim')
         autocmd! BufWritePre,InsertLeave * :call LspLocationList()
     augroup END
 endif
-
+" Firenvim options
+if exists('g:started_by_firenvim')
+  set wrap linebreak
+endif
 " ----|ADVANCED_LAYOUT|--------------------------------------------------------
 " Colorscheme
 set termguicolors
@@ -388,7 +372,6 @@ set background=dark
 " Set red bold itallics for spelling mistakes
 hi clear SpellBad
 hi SpellBad guifg='#cc241d' gui=bold,italic
-
 " Quickscope options
 let g:qs_max_chars=400
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -399,7 +382,6 @@ endfunction
 call SetQSColors()
 " Attempt to preserve color changes on goyo
 autocmd! User GoyoLeave nested call SetQSColors()
-
 " Custom fold text
 function! MyFoldText()
     let line = getline(v:foldstart)
@@ -412,29 +394,67 @@ set fillchars=fold: 
 " Treesitter folding
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-
 " Netrw options
 let g:netrw_banner=0        " disable annoying banner
 let g:netrw_liststyle=3     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-
-" Only show sursorline on active buffer
+" Startify options
+let g:startify_custom_header = [
+    \ '      _    __                             ',
+    \ '     | |  / /_                            ',
+    \ '     | | / /(_)__ _                       ',
+    \ '     | |/ // //  ` \                      ',
+    \ '     |___//_//_/_/_/                      ',
+    \ '                                          ',
+    \ ' ---------------------------------------- ',
+    \ ]
+let g:startify_lists = [
+    \ { 'type': 'sessions',  'header': ['   Sessions']       },
+    \ { 'type': 'files',     'header': ['   Recently edited files']},
+    \ { 'type': 'commands',  'header': ['   Commands']       },
+    \ ]
+let g:startify_custom_footer = 'startify#pad(startify#fortune#cowsay())'
+hi StartifyHeader guifg='#fabd2f'
+hi StartifySection guifg='#b8bb26'
+" Only show cursorline on active buffer
 augroup cursorline_on_active_buffer
     autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    autocmd WinLeave * setlocal nocursorline
+    autocmd VimEnter,WinEnter,BufWinEnter,Focusgained * setlocal cursorline
+    autocmd WinLeave,FocusLost * setlocal nocursorline
+    autocmd VimEnter,WinEnter,BufWinEnter,Focusgained term://* setl nocursorline
 augroup END
-
 " Hightlight yanks
 augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent!
         \ lua require'vim.highlight'.on_yank({timeout = 700})
 augroup END
-
-" ----|TERMINAL|---------------------------------------------------------------
-
+" ----|FORMATTING|-------------------------------------------------------------
+function SetFormatOpts()
+    setl fo-=t  " Auto-hardwrap text at textwidth
+    setl fo+=c  " Auto-hardwrap comments at textwidth
+    setl fo+=r  " Insert comment leaders on `CR` during insert mode
+    setl fo-=o  " Insert comment leaders on `o` during normal mode
+    setl fo+=q  " Allow comments formatting with gq (Q)
+    setl fo-=w  " Lines that end without whitespace ends paragraph obj
+    setl fo-=a  " Automatic formatting of paragraphs (only comments if fo+=c)
+    setl fo-=n  " Recognise numbered lists (compat issue w fo+=2)
+    setl fo+=2  " Use second line for par auto-indent
+    setl fo-=v  " Vi-style wrap (auto-hardwrap at soft wrap level, buggy)
+    setl fo-=b  " Vi-style wrap without breaking words
+    setl fo-=l  " Don't break long lines during insert mode
+    setl fo-=m  " Break at multibyte chars as well
+    setl fo-=M  " Don't insert space before or after mutibyte char when joining
+    setl fo-=B  " Don't insert space between mutibyte char when joining
+    setl fo-=1  " Break lines before 1 letter words if possible
+    setl fo-=]  " Rigorously enforce textwidth
+    setl fo+=j  " Remove comment leaders when joining lines
+    setl fo+=p  " Don't break lines at space after .
+endfunction
+" Automatically override format options
+autocmd! FileType * call SetFormatOpts()
+" ----|INTEGRATED_TERMINAL|----------------------------------------------------
 if has('nvim')
     " Use Alt + ; to go to normal mode
     tnoremap <A-;> <C-\><C-n>
@@ -447,8 +467,7 @@ if has('nvim')
         " Bypass normal mode when changing focus to terminal buffer
         autocmd BufWinEnter,WinEnter term://* startinsert
         " Toggle numbers off when in terminal mode, on when in normal mode
-        autocmd TermEnter term://* setlocal nonu nornu
-        autocmd TermLeave term://* setlocal nu rnu
+        autocmd TermOpen term://* setlocal nonu nornu
         " Immediately close terminal window when process finishes
         autocmd TermClose term://* quit
     augroup END
@@ -459,17 +478,15 @@ else
     tnoremap <A-:> <C-w><S-n>:
     cnoreabbrev vterm vert term
 endif
-
 " Vim-slime options
 let g:slime_target = has('nvim') ? "neovim" : "vimterminal"
+let g:slime_target = has('nvim') ? "neovim" : "vimterminal"
 let g:slime_python_ipython = 1
-
 " Switch off limelight when entering terminal
 augroup limelight_term
     autocmd!
     autocmd TermEnter * Limelight!
 augroup END
-
 " ----|ABBREVIATIONS|----------------------------------------------------------
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -481,7 +498,6 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
-cnoreabbrev vterm vert term
 cnoreabbrev fd %:p:h
 " ----|ARROW_KEYS|----------------------------------------------------------
 " [Arrow] : navigate window in normal/visual, disable in insert

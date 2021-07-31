@@ -1,0 +1,3 @@
+search_term="${*}"
+search_term="${search_term// /+}"
+firefox https://www.google.com.au/search?q=${search_term} &

@@ -100,8 +100,23 @@ function install_dropbox() {
 }
 
 # echo "==== INSTALLING APT TOOLS ========"
-# sudo apt install -y tldr tree neofetch fzf python3-pip python3-venv python3-setuptools python3-dev lua5.4 npm zathura zathura-djvu zathura-ps ripgrep ipython3 clang-format
-# sudo python3 -m pip install thefuck pynvim
+sudo apt install -y tldr tree neofetch fzf zathura zathura-djvu zathura-ps
+sudo apt install -y python3-pip python3-venv python3-setuptools python3-dev
+sudo apt install -y lua5.4 npm ripgrep ipython3 clang-format unclutter-xfixes
+sudo python3 -m pip install thefuck pynvim
+
+ln -s $HOME/.dots/.local/bin/wat $HOME/.local/bin/wat
+chmod u+x $HOME/.local/bin/wat
+ln -s $HOME/.dots/.local/bin/watt $HOME/.local/bin/watt
+chmod u+x $HOME/.local/bin/watt
+ln -s $HOME/.dots/.local/bin/mann $HOME/.local/bin/mann
+chmod u+x $HOME/.local/bin/mann
+
+curl https://cht.sh/:cht.sh > $HOME/.local/bin/cht.sh
+chmod +x $HOME/.local/bin/cht.ch
+ln -s $HOME/.local/bin/cht.sh $HOME/.local/bin/ch
+chmod +x $HOME/.local/bin/ch
+
 
 # echo "==== INSTALLING ALACRITTY ========"
 # install_alacritty
