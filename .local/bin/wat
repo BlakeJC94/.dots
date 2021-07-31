@@ -1,3 +1,0 @@
-search_term="${*}"
-search_term="${search_term// /+}"
-firefox https://www.ecosia.org/search?q=${search_term} &

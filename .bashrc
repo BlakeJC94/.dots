@@ -127,13 +127,20 @@ alias matlabcli="matlab -nodisplay"
 alias lsl="ls -lhFA | less"
 alias :q="exit"
 
+# Simple custom functions
+function mann() {
+    curl --silent "https://cheat.sh/$1" | less -R
+}
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+function wat() {
+	search_term="${*}"
+	search_term="${search_term// /+}"
+	firefox https://www.ecosia.org/search?q=${search_term} &
+}
 
-# Change shortcuts to Vi
-#set -o vi
+function watt() {
+	search_term="${*}"
+	search_term="${search_term// /+}"
+	firefox https://www.google.com.au/search?q=${search_term} &
+}
 
-# # Enable unclutter if installed (hide mouse after inactivity)
-# if [ -x "$(command -v unclutter)" ]; then
-#     unclutter --timeout 4 --ignore-scrolling &
-# fi
