@@ -13,10 +13,10 @@ for DIR in "${DIRS[@]}"; do
     ln -sf $HOME/Dropbox/Home-db/$DIR-db $HOME/$DIR
 done
 
-#echo "Setting up Workspace"
-#mkdir -p $HOME/Workspace/local/data
-#mkdir -p $HOME/Workspace/local/projects
-#mkdir -p $HOME/Workspace/local/latex
-#for DIR in "${WORKDIRS[@]}"; do
-#    ln -sf $HOME/Dropbox/Home-db/Workspace-db/$DIR $HOME/Workspace/$DIR
-#done
+echo "Setting up Workspace"
+mkdir -p $HOME/Workspace/local/data
+mkdir -p $HOME/Workspace/local/projects
+mkdir -p $HOME/Workspace/local/latex
+for DIR in "${WORKDIRS[@]}"; do
+    ln -sf $HOME/Dropbox/Home-db/Workspace-db/$DIR $HOME/Workspace/$DIR
+done

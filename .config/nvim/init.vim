@@ -253,8 +253,8 @@ nmap <Leader>x :Cheat<CR>
 nnoremap <Leader>l :lwindow<CR>
 
 " L-j,k : Navigate errors that automatically show in location list
-nnoremap <Leader>j :lnext<CR>zzzv<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
-nnoremap <Leader>k :lprev<CR>zzzv<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
+nnoremap <Leader>j <cmd>try | lnext | catch | ll | endtry<CR>zzzv:lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
+nnoremap <Leader>k <cmd>try | lprev | catch | ll | endtry<CR>zzzv:lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
 
 " L-h, i_C-h : Quickfix LSP errors if possible
 inoremap <C-h>     <Cmd>lua vim.lsp.buf.range_code_action()<CR>
@@ -264,6 +264,7 @@ nnoremap <leader>h <Cmd>lua vim.lsp.buf.range_code_action()<CR>
 augroup lsp_errors_llist
     autocmd!
     autocmd! BufWritePre,InsertLeave * :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
+    " autocmd! CursorHold * :lua vim.lsp.diagnostic.show_line_diagnostics()
 augroup END
 
 " ----|SPELLING|---------------------------------------------------------------
@@ -304,7 +305,6 @@ endfunction
 function! CheckqMark()
     try | marks q | return 1 | catch | return 0 | endtry
 endfunction
-
 
 " ==|ADVANCED_BEHAVIOUR|=======================================================
 
