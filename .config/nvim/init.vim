@@ -17,24 +17,37 @@ echo "Loading ~/.config/nvim/init.vim"
 "     ABBREVIATIONS
 "     ARROW_KEYS
 " ==|BASIC_BEHAVIOUR|==========================================================
+
+" Main input
 set clipboard=unnamedplus              " Access system clipboard
-set splitbelow splitright              " Split to open buffers below/right
-set scrolloff=999 sidescrolloff=8      " Keep lines above/below/beside cursor
 set noerrorbells                       " Disable error bells
-set nowrap                             " Disable wrapping by default
-set incsearch ic smartcase nohlsearch  " HL while typing, smartcase search
-set noswapfile nobackup                " Disable swaps and backups
-set undodir=~/.vim/undodir undofile    " Better local undofile location
 set timeoutlen=500                     " More responsive keystrokes
 set ttimeoutlen=10                     " More repsonsive terminal keystrokes
+
+" Searching
+set incsearch ic smartcase nohlsearch  " HL while typing, smartcase search
+
+" Backups and undos
+set noswapfile nobackup                " Disable swaps and backups
+set undodir=~/.vim/undodir undofile    " Better local undofile location
+
 " ----|BASIC_LAYOUT|-----------------------------------------------------------
+
+" LHS Margin
 set number relativenumber                " Show rel/abs line numbers
 set signcolumn=number                    " Sign col veils override numbers
 set showmatch                            " Highlight matching brackets
 set cursorline                           " Highlight current line
+
+" Text display
+set splitbelow splitright              " Split to open buffers below/right
 set colorcolumn=80                       " Set vertical margin
+set scrolloff=999 sidescrolloff=8        " Keep lines above/below/beside cursor
 set textwidth=79                         " Margin for text input
+set nowrap nolinebreak                   " Disable wrapping by default
 set foldmethod=indent foldlevel=2        " Fold all except top indent level
+
+" Bottom margin
 set showcmd cmdheight=2                  " Show command in bottom right
 set shortmess+=F                         " Hide filename when opening file
 set laststatus=2                         " Status line (from Mastering Vim)
@@ -42,6 +55,7 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)
 set wildignore+=*.pyc                    " Ignore pic files
 set wildignore+=**/.git/*                " Ignore git files
 set wildignore+=**/data/*                " Ignore data files
+
 " ----|TABS_AND_INDENTS|-------------------------------------------------------
 set smartindent    " Enable better indenting
 set tabstop=4      " Show 4 spaces for each tab char
@@ -402,7 +416,7 @@ augroup default_cmds
     autocmd FileType python setl
         \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
-" Set filetype-based formatprg and makrprgs here
+" Set filetype-based formatprg and makeprgs here
 augroup set_prgs
     autocmd!
     autocmd FileType c set formatprg=clang-format
@@ -419,7 +433,7 @@ let g:startify_session_persistence = 1
 autocmd! FileType markdown,julia let b:compe_latex_insert_code = v:true
 " Firenvim options
 if exists('g:started_by_firenvim')
-    setl wrap linebreak colorcolumn=0
+    set wrap linebreak colorcolumn=0
 endif
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<c-tab>"
