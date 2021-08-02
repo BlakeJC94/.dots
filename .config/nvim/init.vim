@@ -136,7 +136,6 @@ call plug#begin(plug_dir)
         Plug 'nvim-lua/plenary.nvim'             "   Dep. for telescope
         Plug 'nvim-telescope/telescope.nvim'     " <L>tf = Fuzzy finding
         Plug 'nvim-telescope/telescope-fzy-native.nvim', " Better fuzzy finding
-            \ {'do': ':!git submodule update --init --recursive'}
         " Nvim LSP and TreeSitter
         Plug 'neovim/nvim-lspconfig'             "   Native nvim lsp
         Plug 'kabouzeid/nvim-lspinstall'         " :LspInstall <lang>
@@ -178,7 +177,8 @@ call plug#begin(plug_dir)
 call plug#end()
 " Run PlugInstall if there are missing plugins
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-    \| PlugInstall --sync | source $MYVIMRC
+    \| PlugInstall --sync | PlugUpdate! telescope-fzy-native.nvim
+    \| source $MYVIMRC
     \| endif
 " ----|PLUGIN_MAPPINGS|--------------------------------------------------------
 " Maximizer
@@ -243,6 +243,7 @@ set shortmess+=c  " Hide extra message when using completion
 let g:cheat_default_window_layout = 'split'
 " Auto-update sessions from startify
 let g:startify_session_persistence = 1
+" Force update of fzy-native
 " >>>> NVIM_LUA >>>>>>>>
 if has('nvim')
 lua << EOF

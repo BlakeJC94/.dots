@@ -9,7 +9,7 @@ WORKDIRS=( applications devices languages scratchpad dotfiles )
 
 for DIR in "${DIRS[@]}"; do
     echo "Replacing $DIR"
-    rmdir $HOME/$DIR
+    mv $HOME/$DIR $HOME/.$DIR.bak
     ln -sf $HOME/Dropbox/Home-db/$DIR-db $HOME/$DIR
 done
 
