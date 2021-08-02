@@ -1,1 +1,0 @@
-curl --silent "https://cheat.sh/$1" | less -R
