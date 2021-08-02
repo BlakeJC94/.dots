@@ -253,8 +253,9 @@ nmap <Leader>x :Cheat<CR>
 nnoremap <Leader>l :lwindow<CR>
 
 " L-j,k : Navigate errors that automatically show in location list
-nnoremap <Leader>j <cmd>try | lnext | catch | ll | endtry<CR>zzzv:lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
-nnoremap <Leader>k <cmd>try | lprev | catch | ll | endtry<CR>zzzv:lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
+" nnoremap <Leader>j :try | lnext | catch /No more items/ | ll | endtry<CR>zzzv:lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
+nnoremap <Leader>j <cmd>call LspNext()<CR>
+nnoremap <Leader>k <cmd>call LspPrev()<CR>
 
 " L-h, i_C-h : Quickfix LSP errors if possible
 inoremap <C-h>     <Cmd>lua vim.lsp.buf.range_code_action()<CR>
@@ -266,6 +267,28 @@ augroup lsp_errors_llist
     autocmd! BufWritePre,InsertLeave * :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
     " autocmd! CursorHold * :lua vim.lsp.diagnostic.show_line_diagnostics()
 augroup END
+
+" Helper functions for navigating lsp errors
+function! LspNext()
+    try
+        lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
+        lnext
+    catch /No more items/
+        ll
+    catch
+        echo "Nil"
+    endtry
+endfunction
+function! LspPrev()
+    try
+        lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
+        lprev
+    catch /No more items/
+        ll
+    catch
+        echo "Nil"
+    endtry
+endfunction
 
 " ----|SPELLING|---------------------------------------------------------------
 set spell  " Enable spellcheck by default
