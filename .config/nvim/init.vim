@@ -41,12 +41,12 @@ set undodir=~/.vim/undodir undofile    " Better local undofile location
 " ----|BASIC_LAYOUT|-----------------------------------------------------------
 
 " Text display
-set splitbelow splitright              " Split to open buffers below/right
-set colorcolumn=80                       " Set vertical margin
-set scrolloff=999 sidescrolloff=8        " Keep lines above/below/beside cursor
-set textwidth=79                         " Margin for text input
-set nowrap nolinebreak                   " Disable wrapping by default
-set foldmethod=indent foldlevel=2        " Fold all except top indent level
+set splitbelow splitright          " Split to open buffers below/right
+set colorcolumn=80                 " Set vertical margin
+set scrolloff=8   sidescrolloff=8  " Keep lines above/below/beside cursor
+set textwidth=79                   " Margin for text input
+set nowrap nolinebreak             " Disable wrapping by default
+set foldmethod=indent foldlevel=2  " Fold all except top indent level
 
 " Left Margin
 set number relativenumber                " Show rel/abs line numbers
@@ -175,13 +175,14 @@ call plug#begin(plug_dir)
     Plug 'nvim-telescope/telescope.nvim'             " <L>tf = Fuzzy finding
     Plug 'nvim-telescope/telescope-fzy-native.nvim', " Better fuzzy finding
 
-    " Nvim LSP and TreeSitter
+    " Nvim LSP
     Plug 'neovim/nvim-lspconfig'             "   Native nvim lsp
     Plug 'kabouzeid/nvim-lspinstall'         " :LspInstall <lang>
     Plug 'hrsh7th/nvim-compe'                "   Autocompletion menu
     Plug 'GoldsteinE/compe-latex-symbols'    "   LaTeX symbol compe
-    Plug 'nvim-treesitter/nvim-treesitter',  "   Treesitter
-        \ {'do': ':TSUpdate'}
+    " Plug 'nvim-treesitter/nvim-treesitter',  "   Treesitter
+    "     \ {'do': ':TSUpdate'}
+    " Plug 'lewis6991/spellsitter.nvim'        "   Spellcheck comments only
 
     " Other Nvim tweaks
     Plug 'rhysd/vim-grammarous'      " :GrammarousCheck = grammar
@@ -240,7 +241,7 @@ vmap <Leader>f :Goyo<CR>
 
 " L-t : Telescope
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
-nnoremap <leader>tg <cmd>Telescope treesitter<cr>
+" nnoremap <leader>tg <cmd>Telescope treesitter<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
 
@@ -254,12 +255,12 @@ nnoremap <Leader>l :lwindow<CR>
 
 " L-j,k : Navigate errors that automatically show in location list
 " nnoremap <Leader>j :try | lnext | catch /No more items/ | ll | endtry<CR>zzzv:lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
-nnoremap <Leader>j <cmd>call LspNext()<CR>
-nnoremap <Leader>k <cmd>call LspPrev()<CR>
+nnoremap <Leader>j :call LspMove(1)<CR>
+nnoremap <Leader>k :call LspMove(0)<CR>
 
 " L-h, i_C-h : Quickfix LSP errors if possible
-inoremap <C-h>     <Cmd>lua vim.lsp.buf.range_code_action()<CR>
-nnoremap <leader>h <Cmd>lua vim.lsp.buf.range_code_action()<CR>
+inoremap <C-h> <Cmd>lua vim.lsp.buf.range_code_action()<CR>
+nnoremap <C-h> <Cmd>lua vim.lsp.buf.range_code_action()<CR>
 
 " Automatically list LSP errors in location list
 augroup lsp_errors_llist
@@ -269,22 +270,18 @@ augroup lsp_errors_llist
 augroup END
 
 " Helper functions for navigating lsp errors
-function! LspNext()
+function! LspMove(dir)
     try
         lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
-        lnext
+        if a:dir == 1
+            lnext
+        elseif a:dir == 0
+            lprev
+        endif
+        lua vim.lsp.diagnostic.show_line_diagnostics()
     catch /No more items/
         ll
-    catch
-        echo "Nil"
-    endtry
-endfunction
-function! LspPrev()
-    try
-        lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
-        lprev
-    catch /No more items/
-        ll
+        lua vim.lsp.diagnostic.show_line_diagnostics()
     catch
         echo "Nil"
     endtry
@@ -298,17 +295,17 @@ nnoremap <F2> <Cmd>set spell!<CR>
 inoremap <F2> <Cmd>set spell!<CR>
 vnoremap <F2> <Cmd>set spell!<CR>
 
-" L-s, i_C-s : Quickly correct spelling errors (undoable)
-inoremap <C-s>     <C-g>u<Esc>[S1z=`]a<c-g>u
-nnoremap <Leader>s m`i<C-g>u<Esc>[S1z=i<C-g>u<Esc>``
+" C-s : Quickly correct spelling errors (undoable)
+inoremap <C-s> <C-g>u<Esc>[S1z=`]a<c-g>u
+nnoremap <C-s> m`i<C-g>u<Esc>[S1z=i<C-g>u<Esc>``
 
-" L-a, i_C-a : Add word to spellfile (occupies mark q)
-inoremap <C-a>      <Esc>[Smqzg`]a
-nnoremap <Leader>a  m`[Smqzg``
+" C-q : Add word to spellfile (occupies mark q)
+inoremap <C-q> <Esc>[Smqzg`]a
+nnoremap <C-q> m`[Smqzg``
 
-" L-z, i_C-z : Undo last add word to spellfile
+" C-z : Undo last add word to spellfile
 inoremap <expr> <C-z> (CheckqMark() == 1 ? "\<Esc>`qzw`]:delm q\<CR>a" : "\<C-z>")
-nnoremap <expr> <Leader>z  (CheckqMark() == 1 ? "m``qzw\<C-o>:delm q\<CR>" : "")
+nnoremap <expr> <C-z> (CheckqMark() == 1 ? "m``qzw\<C-o>:delm q\<CR>" : "")
 
 " L-g : Activate grammar check
 nnoremap <expr> <Leader>g GrammarousCheck
@@ -378,7 +375,7 @@ if exists('g:started_by_firenvim')
 endif
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger="<c-tab>"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
@@ -455,9 +452,9 @@ set foldtext=MyFoldText()
 " note: had to use a special unicode space here! (e28083)
 set fillchars=fold: 
 
-" Treesitter folding
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+" " Treesitter folding
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
 
 " Netrw options
 let g:netrw_banner=0        " disable annoying banner
@@ -592,23 +589,23 @@ end
 ---- TELESCOPE --------
 require('telescope').setup()
 require('telescope').load_extension('fzy_native')
----- TREESITTER --------
-require'nvim-treesitter.configs'.setup {
-    highlight = {
-        enable = true,
-        -- custom_captures = {
-        --   -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-        --   ["foo.bar"] = "Identifier",
-        -- },
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        -- additional_vim_regex_highlighting = true,
-    },
-    incremental_selection = { enable = true, },
-    textobjects = { enable = true, },
-}
+-- ---- TREESITTER --------
+-- require'nvim-treesitter.configs'.setup {
+--     highlight = {
+--         enable = true,
+--         -- custom_captures = {
+--         --   -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+--         --   ["foo.bar"] = "Identifier",
+--         -- },
+--         -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+--         -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+--         -- Using this option may slow down your editor, and you may see some duplicate highlights.
+--         -- Instead of true it can also be a list of languages
+--         -- additional_vim_regex_highlighting = true,
+--     },
+--     incremental_selection = { enable = true, },
+--     textobjects = { enable = true, },
+-- }
 -- ---- SPELLSITTER --------
 -- require('spellsitter').setup {
 --   hl = 'SpellBad',
