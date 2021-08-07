@@ -22,24 +22,24 @@ function install_spotify() {
     fi
 }
 
-function install_alacritty() {
-    # Source: https://www.spotify.com/us/download/linux/
-    echo "---- [ALACRITTY] : INSTALL --------"
-    echo "-----------------------------------"
-    # try
-    (
-        set -e
-        sudo add-apt-repository -y ppa:aslatter/ppa
-        sudo apt install -y alacritty
-        echo "---- [ALACRITTY] : DONE --------"
-    )
-    # catch
-    errorCode=$?
-    if [ $errorCode -ne 0 ]; then
-        echo "---- [ALACRITTY] : ERROR --------"
-        exit $errorCode
-    fi
-}
+# function install_alacritty() {
+#     # Source: https://www.spotify.com/us/download/linux/
+#     echo "---- [ALACRITTY] : INSTALL --------"
+#     echo "-----------------------------------"
+#     # try
+#     (
+#         set -e
+#         sudo add-apt-repository -y ppa:aslatter/ppa
+#         sudo apt install -y alacritty
+#         echo "---- [ALACRITTY] : DONE --------"
+#     )
+#     # catch
+#     errorCode=$?
+#     if [ $errorCode -ne 0 ]; then
+#         echo "---- [ALACRITTY] : ERROR --------"
+#         exit $errorCode
+#     fi
+# }
 
 function install_neovim(){
     echo "---- [NEOVIM] : INSTALL --------"
@@ -168,7 +168,7 @@ function install_chtsh() {
 function install_apt_tools(){
     echo "--------------------------------------"
     echo "---- [APT TOOLS] : INSTALLING --------"
-    sudo apt install -y tldr tree neofetch fzf zathura zathura-djvu zathura-ps
+    sudo apt install -y kitty tldr tree neofetch fzf zathura zathura-djvu zathura-ps
     sudo apt install -y python3-pip python3-venv python3-setuptools python3-dev
     sudo apt install -y lua5.1 npm ripgrep ipython3 clang-format unclutter-xfixes
     sudo python3 -m pip install thefuck pynvim

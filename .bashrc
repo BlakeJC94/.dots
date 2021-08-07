@@ -133,14 +133,23 @@ function mann() {
 }
 
 function wat() {
-	search_term="${*}"
-	search_term="${search_term// /+}"
-	firefox https://www.ecosia.org/search?q=${search_term} &
+    search_term="${*}"
+    search_term="${search_term// /+}"
+    firefox https://www.ecosia.org/search?q=${search_term} &
 }
 
 function watt() {
-	search_term="${*}"
-	search_term="${search_term// /+}"
-	firefox https://www.google.com.au/search?q=${search_term} &
+    search_term="${*}"
+    search_term="${search_term// /+}"
+    firefox https://www.google.com.au/search?q=${search_term} &
 }
 
+# simple function to make and run c programs
+function crun { make $1 && ./$1; }
+
+# Stops alacritty from scaling differently on laptop vs external monitors
+# Might need to change this if a HiDPI screen is needed
+export WINIT_HIDPI_FACTOR=1.0
+
+# run alacritty under xwayland
+export WINIT_UNIX_BACKEND=x11
