@@ -127,15 +127,26 @@ function link_dotfiles() {
     #try
     (
         set -e
-        FILES=( .bashrc .bash_prompt .xinitrc .vimrc .gitconfig .gitignore .alacritty.yml .config/nvim .config/zathura )
         DOTFILEDIR=$HOME/.dots
+
+        FILES=( .bashrc .bash_prompt .xinitrc .vimrc .gitconfig .gitignore .alacritty.yml .config/nvim .config/zathura .config/kitty/ )
         for i in "${FILES[@]}"; do
             if [ -f "$HOME/$i" ]; then
-            echo "$i exists"
-            mv $HOME/$i $HOME/$i.bak
+                echo "$i exists"
+                mv $HOME/$i $HOME/$i.bak
             fi
             echo "Creating link for $i"
             ln -sf $DOTFILEDIR/$i $HOME/$i
+        done
+
+        DIRS=( .config/nvim .config/zathura .config/kitty )
+        for i in "${DIRS[@]}"; do
+            if [ -f "$HOME/$i" ]; then
+                echo "$i exists"
+                mv $HOME/$i $HOME/$i.bak
+            fi
+            echo "Creating link for $i"
+            ln -sf $DOTFILEDIR/$i/ $HOME/$i
         done
     )
     # catch
@@ -179,12 +190,12 @@ echo "====================================="
 echo "==== [INSTALL.SH] : STARTING ========"
 echo "====================================="
 
-install_chtsh
-install_alacritty
-install_neovim
-# install_dropbox
-install_spotify
-# install_zotero  # UNTESTED, ENSURE DROPBOX IS SYNCED FIRST
+# install_chtsh
+# install_alacritty
+# install_neovim
+# # install_dropbox
+# install_spotify
+# # install_zotero  # UNTESTED, ENSURE DROPBOX IS SYNCED FIRST
 link_dotfiles
 
 echo "================================="
