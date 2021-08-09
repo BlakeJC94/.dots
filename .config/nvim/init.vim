@@ -375,7 +375,7 @@ if exists('g:started_by_firenvim')
 endif
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsExpandTrigger="<c-tab>"  " select from compe w/ <CR>
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
