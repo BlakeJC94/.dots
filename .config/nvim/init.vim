@@ -110,8 +110,8 @@ nnoremap <Backspace> <C-o>
 nnoremap <CR> <C-i>
 
 " Better jumplist and move on visual lines
-nnoremap <expr> k (v:count > 5 ? "m`" . v:count : "") . 'gk'
-nnoremap <expr> j (v:count > 5 ? "m`" . v:count : "") . 'gj'
+nnoremap <expr> k (v:count > 5 ? "m`" . v:count : "") . 'k'
+nnoremap <expr> j (v:count > 5 ? "m`" . v:count : "") . 'j'
 
 " Change selected word (forward/backwards), . to repeat
 nnoremap c* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``cgn
@@ -205,6 +205,8 @@ call plug#begin(plug_dir)
     Plug 'tpope/vim-commentary'          " gc<move> = Add comments
     Plug 'junegunn/vim-easy-align'       " <V>ga*<char> = align block to char
     Plug 'triglav/vim-visual-increment'  " [<C-v>]<C-a/x> = Increment column
+
+    " Snippets
     Plug 'SirVer/ultisnips'              "   Snippet engine
     Plug 'honza/vim-snippets'            "   Preconfigured snippets
 
@@ -251,12 +253,13 @@ nmap <Leader>x :Cheat<CR>
 " ----|LINTING|----------------------------------------------------------------
 
 " L-l : Open location list with LSP errors
-nnoremap <Leader>l :lwindow<CR>
+nnoremap <Leader>h :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})<CR>:lopen<CR>
+nnoremap <Leader>l :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})<CR>:lclose<CR>
 
 " L-j,k : Navigate errors that automatically show in location list
 " nnoremap <Leader>j :try | lnext | catch /No more items/ | ll | endtry<CR>zzzv:lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
-nnoremap <Leader>j :call LspMove(1)<CR>
-nnoremap <Leader>k :call LspMove(0)<CR>
+nnoremap <Leader>j :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})<CR>:lnext<CR>:lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <Leader>k :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})<CR>:lprev<CR>:lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 " L-h, i_C-h : Quickfix LSP errors if possible
 inoremap <C-h> <Cmd>lua vim.lsp.buf.range_code_action()<CR>
@@ -266,26 +269,7 @@ nnoremap <C-h> <Cmd>lua vim.lsp.buf.range_code_action()<CR>
 augroup lsp_errors_llist
     autocmd!
     autocmd! BufWritePre,InsertLeave * :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
-    " autocmd! CursorHold * :lua vim.lsp.diagnostic.show_line_diagnostics()
 augroup END
-
-" Helper functions for navigating lsp errors
-function! LspMove(dir)
-    try
-        lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
-        if a:dir == 1
-            lnext
-        elseif a:dir == 0
-            lprev
-        endif
-        lua vim.lsp.diagnostic.show_line_diagnostics()
-    catch /No more items/
-        ll
-        lua vim.lsp.diagnostic.show_line_diagnostics()
-    catch
-        echo "Nil"
-    endtry
-endfunction
 
 " ----|SPELLING|---------------------------------------------------------------
 set spell  " Enable spellcheck by default
@@ -699,23 +683,23 @@ vnoremap <C-Down>  <C-w>j
 vnoremap <C-Up>    <C-w>k
 vnoremap <C-Right> <C-w>l
 
-" [Ctrl + Shift + Arrow] Move splits (drop <C-\><C-n> if using vim)
-tnoremap <C-S-Left>  <C-\><C-N><C-w>H
-tnoremap <C-S-Down>  <C-\><C-N><C-w>J
-tnoremap <C-S-Up>    <C-\><C-N><C-w>K
-tnoremap <C-S-Right> <C-\><C-N><C-w>L
-inoremap <C-S-Left>  <C-w>H
-inoremap <C-S-Down>  <C-w>J
-inoremap <C-S-Up>    <C-w>K
-inoremap <C-S-Right> <C-w>L
-nnoremap <C-S-Left>  <C-w>H
-nnoremap <C-S-Down>  <C-w>J
-nnoremap <C-S-Up>    <C-w>K
-nnoremap <C-S-Right> <C-w>L
-vnoremap <C-S-Left>  <C-w>H
-vnoremap <C-S-Down>  <C-w>J
-vnoremap <C-S-Up>    <C-w>K
-vnoremap <C-S-Right> <C-w>L
+" [Alt + Arrow] Move splits (drop <C-\><C-n> if using vim)
+tnoremap <A-Left>  <C-\><C-N><C-w>H
+tnoremap <A-Down>  <C-\><C-N><C-w>J
+tnoremap <A-Up>    <C-\><C-N><C-w>K
+tnoremap <A-Right> <C-\><C-N><C-w>L
+inoremap <A-Left>  <C-w>H
+inoremap <A-Down>  <C-w>J
+inoremap <A-Up>    <C-w>K
+inoremap <A-Right> <C-w>L
+nnoremap <A-Left>  <C-w>H
+nnoremap <A-Down>  <C-w>J
+nnoremap <A-Up>    <C-w>K
+nnoremap <A-Right> <C-w>L
+vnoremap <A-Left>  <C-w>H
+vnoremap <A-Down>  <C-w>J
+vnoremap <A-Up>    <C-w>K
+vnoremap <A-Right> <C-w>L
 
 " [Ctrl + Alt + Arrow] : resize splits (drop <C-\><C-n> if using vim)
 tnoremap <C-A-Left>  <C-\><C-N><C-w>8<
