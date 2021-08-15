@@ -127,6 +127,7 @@ alias matlabcli="matlab -nodisplay"
 alias lsl="ls -lhFA | less"
 alias :q="exit"
 alias bat="batcat"
+alias gitup="git commit -a && git push"
 
 # Simple custom functions
 function mann() {
