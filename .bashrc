@@ -126,6 +126,7 @@ export TEXMFHOME='~/.texmf'
 alias matlabcli="matlab -nodisplay"
 alias lsl="ls -lhFA | less"
 alias :q="exit"
+alias bat="batcat"
 
 # Simple custom functions
 function mann() {
@@ -147,9 +148,12 @@ function watt() {
 # simple function to make and run c programs
 function crun { make $1 && ./$1; }
 
-# Stops alacritty from scaling differently on laptop vs external monitors
-# Might need to change this if a HiDPI screen is needed
-export WINIT_HIDPI_FACTOR=1.0
+# # Stops alacritty from scaling differently on laptop vs external monitors
+# # Might need to change this if a HiDPI screen is needed
+# export WINIT_HIDPI_FACTOR=1.0
 
-# run alacritty under xwayland
-export WINIT_UNIX_BACKEND=x11
+# # run alacritty under xwayland
+# export WINIT_UNIX_BACKEND=x11
+
+# make qt apps look nicer (after installing qt5-style-plugins)
+export QT_QPA_PLATFORMTHEME=gtk2

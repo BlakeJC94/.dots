@@ -182,6 +182,7 @@ function install_apt_tools(){
     sudo apt install -y kitty tldr tree neofetch fzf zathura zathura-djvu zathura-ps
     sudo apt install -y python3-pip python3-venv python3-setuptools python3-dev
     sudo apt install -y lua5.1 npm ripgrep ipython3 clang-format unclutter-xfixes
+    sudo apt install -y exa bat qt5-style-plugins
     sudo python3 -m pip install thefuck pynvim
     echo "---- [APT TOOLS] : DONE --------"
 }

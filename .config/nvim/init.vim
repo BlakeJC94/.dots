@@ -20,8 +20,9 @@ echo "Loading ~/.config/nvim/init.vim"
 
 " Main input/output
 set clipboard=unnamedplus  " Access system clipboard
+set virtualedit=all        " Allow cursor to move past last character
 set noerrorbells           " Disable error bells
-set timeoutlen=500         " More responsive keystrokes
+set timeoutlen=800         " More responsive keystrokes
 set ttimeoutlen=10         " More responsive terminal keystrokes
 
 " Tabs and indents
@@ -85,15 +86,18 @@ vnoremap K :m '<-2<CR>gv
 " Make Y behave like D and C
 nnoremap Y y$
 
-" Open quickfix list with <C-l>
-nnoremap <C-l> :cwindow<CR>
-
+" Open/close quickfix list with <C-h/l>
+nnoremap <C-h> :copen<CR>
+nnoremap <C-l> :cclose<CR>
 " Navigate quickfix list with <C-j/k>
 nnoremap <C-j> :cnext<CR>zzzv
 nnoremap <C-k> :cprev<CR>zzzv
 
 " gp: Visually select last pasted block (like gv)
 nnoremap <expr> gp '`[' . getregtype()[0] . '`]'
+
+" gF: create new file at filename over cursor
+nnoremap gF :e <c-r><c-f><CR>
 
 " Navigate to front/back of line from home row
 nnoremap H ^
@@ -109,7 +113,7 @@ noremap Q gq
 nnoremap <Backspace> <C-o>
 nnoremap <CR> <C-i>
 
-" Better jumplist and move on visual lines
+" Better jumplist for large line steps
 nnoremap <expr> k (v:count > 5 ? "m`" . v:count : "") . 'k'
 nnoremap <expr> j (v:count > 5 ? "m`" . v:count : "") . 'j'
 
@@ -145,25 +149,27 @@ let mapleader = "\<Space>"
 " L-q to quit
 noremap <Leader>q :q<CR>
 
-" L-. : Change directory of vim to current file
-noremap <Leader>. :cd %:p:h<CR>:pwd<CR>
+" L-d : Change directory of vim to current file
+noremap <Leader>d :cd %:p:h<CR>:pwd<CR>
 
 " L-c, L-v : New splits
 noremap <Leader>c :split<CR>
 noremap <Leader>v :vsplit<CR>
 
-" L-; : Switch between last opened files
-noremap <Leader>; <C-^>
+" L-<BS> : Switch between last opened files
+noremap <Leader><BS> <C-^>
 
-" L-<CR>, L-<BS>: Re-source/edit vimrc
-noremap <Leader><CR> :so $MYVIMRC<CR>
-noremap <Leader><BS> :sp $MYVIMRC<CR>
+" L-<CR> : Edit vimrc
+noremap <Leader><CR> :sp $MYVIMRC<CR>
 
 " L-e : File explorer
-noremap <Leader>e :Ex %:p:h<CR>
+noremap <Leader>e :e %:p:h<CR>
 
 " L-<Tab> : toggle highlights on search
 noremap <Leader><Tab> :set hls!<CR>
+
+" L-<Esc>: open notes index
+nnoremap <silent> <Leader><Esc> :cd ~/Dropbox/Journals<CR>:!./update_index.sh<CR>:w<CR>:e index.md<CR>
 
 " ----|PLUGINS|----------------------------------------------------------------
 let plug_dir = has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged'
@@ -180,16 +186,13 @@ call plug#begin(plug_dir)
     Plug 'kabouzeid/nvim-lspinstall'         " :LspInstall <lang>
     Plug 'hrsh7th/nvim-compe'                "   Autocompletion menu
     Plug 'GoldsteinE/compe-latex-symbols'    "   LaTeX symbol compe
-    " Plug 'nvim-treesitter/nvim-treesitter',  "   Treesitter
-    "     \ {'do': ':TSUpdate'}
-    " Plug 'lewis6991/spellsitter.nvim'        "   Spellcheck comments only
 
-    " Other Nvim tweaks
-    Plug 'rhysd/vim-grammarous'      " :GrammarousCheck = grammar
-    Plug 'theprimeagen/vim-be-good'  " :VimBeGood
-    Plug 'RishabhRD/popfix'          "   Dep. for nvim-cheat
-    Plug 'RishabhRD/nvim-cheat.sh'   " <L>x = get cht.sh
-    Plug 'glacambre/firenvim',       "   Nvim in browser
+    " Writing tweaks
+    Plug 'rhysd/vim-grammarous'       " :GrammarousCheck = grammar
+    " Plug 'vimwiki/vimwiki'            " <L>w = Wiki mappings
+    Plug 'plasticboy/vim-markdown'    "   Better markdown support
+    Plug 'vim-pandoc/vim-pandoc-syntax'
+    Plug 'glacambre/firenvim',        "   Nvim in browser
         \ {'do': {_ -> firenvim#install(0)}}
 
     " Vim functions
@@ -247,23 +250,12 @@ nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
 
-" L-x : Cht.sh
-nmap <Leader>x :Cheat<CR>
-
-" ----|LINTING|----------------------------------------------------------------
-
-" L-l : Open location list with LSP errors
-nnoremap <Leader>h :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})<CR>:lopen<CR>
-nnoremap <Leader>l :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})<CR>:lclose<CR>
-
+" L-h/l : Open/close location list with LSP errors
+nnoremap <Leader>h :lua vim.lsp.diagnostic.set_loclist({open_loclist = true})<CR>
+nnoremap <Leader>l :lclose<CR>
 " L-j,k : Navigate errors that automatically show in location list
-" nnoremap <Leader>j :try | lnext | catch /No more items/ | ll | endtry<CR>zzzv:lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
 nnoremap <Leader>j :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})<CR>:lnext<CR>:lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <Leader>k :lua vim.lsp.diagnostic.set_loclist({open_loclist = false})<CR>:lprev<CR>:lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-
-" L-h, i_C-h : Quickfix LSP errors if possible
-inoremap <C-h> <Cmd>lua vim.lsp.buf.range_code_action()<CR>
-nnoremap <C-h> <Cmd>lua vim.lsp.buf.range_code_action()<CR>
 
 " Automatically list LSP errors in location list
 augroup lsp_errors_llist
@@ -274,11 +266,6 @@ augroup END
 " ----|SPELLING|---------------------------------------------------------------
 set spell  " Enable spellcheck by default
 
-" Toggle spellcheck with <F2>
-nnoremap <F2> <Cmd>set spell!<CR>
-inoremap <F2> <Cmd>set spell!<CR>
-vnoremap <F2> <Cmd>set spell!<CR>
-
 " C-s : Quickly correct spelling errors (undoable)
 inoremap <C-s> <C-g>u<Esc>[S1z=`]a<c-g>u
 nnoremap <C-s> m`i<C-g>u<Esc>[S1z=i<C-g>u<Esc>``
@@ -286,29 +273,38 @@ nnoremap <C-s> m`i<C-g>u<Esc>[S1z=i<C-g>u<Esc>``
 " C-q : Add word to spellfile (occupies mark q)
 inoremap <C-q> <Esc>[Smqzg`]a
 nnoremap <C-q> m`[Smqzg``
-
 " C-z : Undo last add word to spellfile
 inoremap <expr> <C-z> (CheckqMark() == 1 ? "\<Esc>`qzw`]:delm q\<CR>a" : "\<C-z>")
 nnoremap <expr> <C-z> (CheckqMark() == 1 ? "m``qzw\<C-o>:delm q\<CR>" : "")
-
-" L-g : Activate grammar check
-nnoremap <expr> <Leader>g GrammarousCheck
-
-" C-n, C-p : Navigate grammar errors after activating grammar checker
-let g:grammarous#hooks = {}
-function! g:grammarous#hooks.on_check(errs) abort
-    nmap <buffer> <C-n> <Plug>(grammarous-move-to-next-error)
-    nmap <buffer> <C-p> <Plug>(grammarous-move-to-previous-error)
-endfunction
-function! g:grammarous#hooks.on_reset(errs) abort
-    nunmap <buffer> <C-n>
-    nunmap <buffer> <C-p>
-endfunction
-
 " helper function for removing recently added word to spellfile
 function! CheckqMark()
     try | marks q | return 1 | catch | return 0 | endtry
 endfunction
+
+" L-. Toggle spellcheck
+nnoremap <Leader>. :set spell!<CR>
+" L-;, L-, : Jump between spelling mistakes
+nnoremap <Leader>; ]s
+nnoremap <Leader>, [s
+
+" L-S-. : Activate grammar check
+nnoremap <Leader>> :GrammarousCheck<CR>
+" L-S-;, L-S-, : Navigate grammar errors after activating grammar checker
+let g:grammarous#hooks = {}
+function! g:grammarous#hooks.on_check(errs) abort
+    nmap <buffer> <Leader>: <Plug>(grammarous-move-to-next-error)
+    nmap <buffer> <Leader>< <Plug>(grammarous-move-to-previous-error)
+    nnoremap <Leader>> <Plug>(grammarous-fixit)
+endfunction
+function! g:grammarous#hooks.on_reset(errs) abort
+    nunmap <buffer> <Leader>:
+    nunmap <buffer> <Leader><
+    nnoremap <Leader>> :GrammarousCheck<CR>
+endfunction
+" disable some rules
+let g:grammarous#disabled_rules = {
+    \ '*' : ['DASH_RULE', 'WHITESPACE_RULE', 'EN_QUOTES'],
+    \ }
 
 " ==|ADVANCED_BEHAVIOUR|=======================================================
 
@@ -320,13 +316,11 @@ augroup default_cmds
     " replace tabs with spaces
     autocmd BufWritePre * retab
     " autoremove whitespace
-    autocmd BufWritePre * :%s/\s\+$//e
+    autocmd BufWritePre * %s/\s\+$//e
     " help/cmd win/qf list: Press q to close and disable spellcheck
     autocmd Filetype qf,help nnoremap <buffer> q :q<CR>
     autocmd Filetype qf,help setl nospell
     autocmd CmdwinEnter * nnoremap <buffer> q :q<CR>
-    " Autocomplete backticks in TeX files
-    autocmd FileType tex inoremap <buffer> ` `'<C-o>h
     " Autocomplete braces in C files
     " autocmd FileType c inoremap {<CR> {<CR><CR>}<C-o>k<Tab>
     " Autoindent python structures
@@ -338,6 +332,27 @@ augroup END
 augroup set_prgs
     autocmd!
     autocmd FileType c set formatprg=clang-format
+    autocmd FileType Markdown set makeprg=pandoc\ %:p\ -o\ %:p:h/out.pdf
+augroup END
+
+let g:markdown_fenced_langages = ['python']
+
+" Set options for editing text here
+function TextEditOpts()
+    setlocal wrap
+    setlocal linebreak
+    " setlocal breakindent
+    setlocal showbreak=>\ >\  breakindent
+    setlocal breakindentopt=sbr
+    setlocal colorcolumn=0
+    setlocal list
+    nnoremap <expr> k (v:count > 5 ? "m`" . v:count : "") . 'gk'
+    nnoremap <expr> j (v:count > 5 ? "m`" . v:count : "") . 'gj'
+endfunction
+augroup text_edit
+    autocmd!
+    autocmd FileType markdown,text,tex call TextEditOpts()
+    autocmd FileType tex inoremap <buffer> ` `'<C-o>h
 augroup END
 
 " Autocomplete menu options
@@ -345,24 +360,58 @@ set completeopt=menuone,noinsert,noselect
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 set shortmess+=c  " Hide extra message when using completion
 
-" Cht.sh options
-let g:cheat_default_window_layout = 'split'
-
 " Auto-update sessions from startify
 let g:startify_session_persistence = 1
 
 " Allow LaTeX symbol completion in Markdown and Julia
 autocmd! FileType markdown,julia let b:compe_latex_insert_code = v:true
+
 " Firenvim options
 if exists('g:started_by_firenvim')
-    set wrap linebreak colorcolumn=0
+    set wrap linebreak colorcolumn=0 breakindent
 endif
 
 " Ultisnips
-" let g:UltiSnipsExpandTrigger="<c-tab>"  " select from compe w/ <CR>
+let g:UltiSnipsExpandTrigger="<c-tab>"  " select from compe w/ <CR>
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
+
+" vim-markdown options
+let g:vim_markdown_folding_disabled = 1
+" disable header folding
+let g:vim_markdown_folding_disabled = 1
+" do not use conceal feature, the implementation is not so good
+let g:vim_markdown_conceal = 0
+" disable math tex conceal feature
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+" support front matter of various format
+let g:vim_markdown_frontmatter = 1  " for YAML format
+let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+let g:vim_markdown_json_frontmatter = 1  " for JSON format
+augroup pandoc_syntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc conceallevel=0
+augroup END
+
+" " vim wiki options
+" let g:vimwiki_list = [{'path': '~/Dropbox/Journals/',
+"                       \'syntax': 'markdown', 'ext': '.md'}]
+" let g:vimwiki_hl_headers = 0
+" " let g:vimwiki_key_mappings =
+" "     \ {
+" "     \   'all_maps': 1,
+" "     \   'global': 1,
+" "     \   'headers': 0,
+" "     \   'text_objs': 1,
+" "     \   'table_format': 0,
+" "     \   'table_mappings': 1,
+" "     \   'lists': 0,
+" "     \   'links': 1,
+" "     \   'html': 1,
+" "     \   'mouse': 0,
+" "     \ }
+
 
 " Insert undo breakpoints when typing punctuation
 inoremap , ,<C-g>u
@@ -409,13 +458,21 @@ autocmd! FileType * call SetFormatOpts()
 
 " Colorscheme
 set termguicolors
-colorscheme gruvbox
+set background=dark
 let g:invert_selection='0'
 let g:gruvbox_contrast_dark='hard'
-set background=dark
+augroup fix_syntax_backgrounds
+    autocmd!
+    autocmd Colorscheme * hi Normal guibg='#1d2021' ctermbg=NONE
+    autocmd Colorscheme * hi Normal guibg='#1d2021' ctermbg=NONE
+    autocmd Colorscheme * hi GrammarousError gui=undercurl guisp='#98971a'
+    autocmd Colorscheme * hi markdownItalic gui=italic
+    autocmd Colorscheme * hi markdownBoldItalic gui=bold,italic
+augroup END
+colorscheme gruvbox
 
 " Quickscope options
-let g:qs_max_chars=400
+let g:qs_max_chars=800
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 function! SetQSColors()
     hi QuickScopePrimary guifg='#66b2ff' gui=underline
@@ -436,15 +493,11 @@ set foldtext=MyFoldText()
 " note: had to use a special unicode space here! (e28083)
 set fillchars=fold: 
 
-" " Treesitter folding
-" set foldmethod=expr
-" set foldexpr=nvim_treesitter#foldexpr()
-
 " Netrw options
 let g:netrw_banner=0        " disable annoying banner
-let g:netrw_liststyle=3     " tree view
+let g:netrw_liststyle=0     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide= '.*\.swp$,.DS_Store,*.so,*.zip,*.git,^\.\=/\=$'
 
 " Startify options
 let g:startify_custom_header = [
@@ -719,6 +772,10 @@ vnoremap <C-A-Down>  <C-w>8-
 vnoremap <C-A-Up>    <C-w>8+
 vnoremap <C-A-Right> <C-w>8>
 
+function! SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
 " -----------------------------------------------------------------------------
 " " In case things don't work out with new rc, use this to source .vimrc
 " set runtimepath^=~/.vim runtimepath+=~/.vim/after
