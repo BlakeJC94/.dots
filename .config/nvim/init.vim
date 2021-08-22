@@ -20,7 +20,6 @@ echo "Loading ~/.config/nvim/init.vim"
 
 " Main input/output
 set clipboard=unnamedplus  " Access system clipboard
-set virtualedit=all        " Allow cursor to move past last character
 set noerrorbells           " Disable error bells
 set timeoutlen=800         " More responsive keystrokes
 set ttimeoutlen=10         " More responsive terminal keystrokes
@@ -168,9 +167,6 @@ noremap <Leader>e :e %:p:h<CR>
 " L-<Tab> : toggle highlights on search
 noremap <Leader><Tab> :set hls!<CR>
 
-" L-<Esc>: open notes index
-nnoremap <silent> <Leader><Esc> :cd ~/Dropbox/Journals<CR>:!./update_index.sh<CR>:w<CR>:e index.md<CR>
-
 " ----|PLUGINS|----------------------------------------------------------------
 let plug_dir = has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged'
 call plug#begin(plug_dir)
@@ -218,7 +214,11 @@ call plug#begin(plug_dir)
     Plug 'unblevable/quick-scope'     "   Highlight f/t targets
     Plug 'mhinz/vim-startify'         "   Start screen for Vim
 
+    " My plugins (dev)
+    Plug '~/Workspace/local/projects/vim-simple-journal'
+
 call plug#end()
+let g:journal_location = "~/Dropbox/Journals"
 
 " Run PlugInstall if there are missing plugins
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
@@ -326,13 +326,15 @@ augroup default_cmds
     " Autoindent python structures
     autocmd FileType python setl
         \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+    " create nested directories if needed when creating files
+    autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
 augroup END
 
 " Set filetype-based formatprg and makeprgs here
 augroup set_prgs
     autocmd!
     autocmd FileType c set formatprg=clang-format
-    autocmd FileType Markdown set makeprg=pandoc\ %:p\ -o\ %:p:h/out.pdf
+    " autocmd FileType Markdown set makeprg=pandoc\ %:p\ -o\ %:p:h/out.pdf
 augroup END
 
 let g:markdown_fenced_langages = ['python']
@@ -346,6 +348,7 @@ function TextEditOpts()
     setlocal breakindentopt=sbr
     setlocal colorcolumn=0
     setlocal list
+    setlocal virtualedit=all
     nnoremap <expr> k (v:count > 5 ? "m`" . v:count : "") . 'gk'
     nnoremap <expr> j (v:count > 5 ? "m`" . v:count : "") . 'gj'
 endfunction
@@ -369,6 +372,7 @@ autocmd! FileType markdown,julia let b:compe_latex_insert_code = v:true
 " Firenvim options
 if exists('g:started_by_firenvim')
     set wrap linebreak colorcolumn=0 breakindent
+    hi Normal guibg='#1d2021'
 endif
 
 " Ultisnips
@@ -377,8 +381,9 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
-" vim-markdown options
-let g:vim_markdown_folding_disabled = 1
+" " vim-markdown options
+" disable mappings
+let g:vim_markdown_no_default_key_mappings = 1
 " disable header folding
 let g:vim_markdown_folding_disabled = 1
 " do not use conceal feature, the implementation is not so good
@@ -391,26 +396,36 @@ let g:vim_markdown_frontmatter = 1  " for YAML format
 let g:vim_markdown_toml_frontmatter = 1  " for TOML format
 let g:vim_markdown_json_frontmatter = 1  " for JSON format
 augroup pandoc_syntax
-    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc conceallevel=0
+    au! FileType vimwiki,markdown set filetype=markdown.pandoc conceallevel=0
+    " au! BufNewFile,BufFilePre,BufRead *.md hi VimwikiHeaderChar guibg=NONE
+    " au! BufNewFile,BufFilePre,BufRead *.md hi VimwikiItalicChar guibg=NONE
+    " au! BufNewFile,BufFilePre,BufRead *.md hi VimwikiBoldChar guibg=NONE
+    " au! BufNewFile,BufFilePre,BufRead *.md hi VimwikiItalicBoldChar guibg=NONE
 augroup END
 
 " " vim wiki options
 " let g:vimwiki_list = [{'path': '~/Dropbox/Journals/',
 "                       \'syntax': 'markdown', 'ext': '.md'}]
 " let g:vimwiki_hl_headers = 0
-" " let g:vimwiki_key_mappings =
-" "     \ {
-" "     \   'all_maps': 1,
-" "     \   'global': 1,
-" "     \   'headers': 0,
-" "     \   'text_objs': 1,
-" "     \   'table_format': 0,
-" "     \   'table_mappings': 1,
-" "     \   'lists': 0,
-" "     \   'links': 1,
-" "     \   'html': 1,
-" "     \   'mouse': 0,
-" "     \ }
+" let g:vimwiki_conceallevel = 0
+" let g:vimwiki_key_mappings =
+"     \ {
+"     \   'all_maps': 1,
+"     \   'global': 0,
+"     \   'headers': 0,
+"     \   'text_objs': 1,
+"     \   'table_format': 0,
+"     \   'table_mappings': 1,
+"     \   'lists': 1,
+"     \   'links': 1,
+"     \   'html': 1,
+"     \   'mouse': 0,
+"     \ }
+
+" " hi VimwikiHeaderChar guibg=NONE
+" " hi VimwikiItalicChar guibg=NONE
+" " hi VimwikiBoldChar guibg=NONE
+" " hi VimwikiItalicBoldChar guibg=NONE
 
 
 " Insert undo breakpoints when typing punctuation
@@ -463,11 +478,11 @@ let g:invert_selection='0'
 let g:gruvbox_contrast_dark='hard'
 augroup fix_syntax_backgrounds
     autocmd!
-    autocmd Colorscheme * hi Normal guibg='#1d2021' ctermbg=NONE
-    autocmd Colorscheme * hi Normal guibg='#1d2021' ctermbg=NONE
+    " autocmd Colorscheme * hi Normal guibg='#1d2021' ctermbg=NONE
+    autocmd Colorscheme * hi Normal guibg=NONE ctermbg=NONE
     autocmd Colorscheme * hi GrammarousError gui=undercurl guisp='#98971a'
-    autocmd Colorscheme * hi markdownItalic gui=italic
-    autocmd Colorscheme * hi markdownBoldItalic gui=bold,italic
+    autocmd FileType markdown hi markdownItalic gui=italic
+    autocmd FileType markdown hi markdownBoldItalic gui=bold,italic
 augroup END
 colorscheme gruvbox
 
@@ -652,9 +667,10 @@ EOF
 
 " ----|TERMINAL|---------------------------------------------------------------
 
-" Alt + ;/: = go to normal/command mode
-tnoremap <A-;> <C-\><C-n>
-tnoremap <A-:> <C-\><C-n>:
+" <Esc><Esc> = go to normal mode
+tnoremap <Esc><Esc> <C-\><C-n>
+" <Esc>: = go to normal mode
+tnoremap <Esc>: <C-\><C-n>:
 
 " terminal command shortcuts
 cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'split term://bash' : 'term')<CR>

@@ -133,6 +133,9 @@ alias gitup="git commit -a && git push"
 function mann() {
     curl --silent "https://cheat.sh/$1" | less -R
 }
+function mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
 
 function wat() {
     search_term="${*}"
@@ -158,3 +161,6 @@ function crun { make $1 && ./$1; }
 
 # make qt apps look nicer (after installing qt5-style-plugins)
 export QT_QPA_PLATFORMTHEME=gtk2
+
+# Set default editor to vim
+export EDITOR=vim
