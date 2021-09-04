@@ -129,7 +129,7 @@ function link_dotfiles() {
         set -e
         DOTFILEDIR=$HOME/.dots
 
-        FILES=( .bashrc .bash_prompt .xinitrc .vimrc .gitconfig .gitignore .alacritty.yml .config/nvim .config/zathura .config/kitty/ )
+        FILES=( .bashrc .bash_prompt .xinitrc .vimrc .gitconfig .gitignore .alacritty.yml .Rprofile )
         for i in "${FILES[@]}"; do
             if [ -f "$HOME/$i" ]; then
                 echo "$i exists"

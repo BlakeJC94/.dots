@@ -164,3 +164,7 @@ export QT_QPA_PLATFORMTHEME=gtk2
 
 # Set default editor to vim
 export EDITOR=vim
+
+# Shortcut to apt update
+alias aptup="sudo apt update && sudo apt upgrade -y"
+

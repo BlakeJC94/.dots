@@ -21,14 +21,14 @@ function SetFormatOpts()
     setl fo+=j  " Remove comment leaders when joining lines
     setl fo+=p  " Don't break lines at space after .
 endfunction
-autocmd! FileType * call SetFormatOpts()
+autocmd! BufRead * call SetFormatOpts()
 
 " Set options for editing text here
 function TextEditOpts()
     setlocal wrap
     setlocal linebreak
     " setlocal breakindent
-    setlocal showbreak=>\ >\  breakindent
+    setlocal showbreak=\ \ \|\  breakindent
     setlocal breakindentopt=sbr
     setlocal colorcolumn=0
     setlocal list

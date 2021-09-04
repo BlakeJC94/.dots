@@ -202,8 +202,20 @@ call plug#begin(plug_dir)
     " Nvim LSP
     Plug 'neovim/nvim-lspconfig'             "   Native nvim lsp
     Plug 'kabouzeid/nvim-lspinstall'         " :LspInstall <lang>
-    Plug 'hrsh7th/nvim-compe'                "   Autocompletion menu
-    Plug 'GoldsteinE/compe-latex-symbols'    "   LaTeX symbol compe
+    Plug 'hrsh7th/nvim-cmp'                  "   Autocompletion menu
+    Plug 'onsails/lspkind-nvim'              "   Icons for cmp
+    Plug 'hrsh7th/cmp-buffer'                "   Buffer cmp
+    Plug 'hrsh7th/cmp-nvim-lsp'              "   LSP cmp
+    Plug 'hrsh7th/cmp-path'                  "   Path cmp
+    Plug 'hrsh7th/cmp-calc'                  "   Calc cmp
+    Plug 'kdheepak/cmp-latex-symbols'        "   LaTeX Symbol cmp
+
+    " Snippets
+    Plug 'hrsh7th/vim-vsnip'
+    Plug 'hrsh7th/vim-vsnip-integ'
+    Plug 'rafamadriz/friendly-snippets'
+    " Plug 'GoldsteinE/compe-latex-symbols'    "   LaTeX symbol compe
+    " Plug 'quangnguyen30192/cmp-nvim-ultisnips'  " Ultisnips
 
     " Writing tweaks
     Plug 'rhysd/vim-grammarous'       " :GrammarousCheck = grammar
@@ -229,8 +241,8 @@ call plug#begin(plug_dir)
     Plug 'triglav/vim-visual-increment'  " [<C-v>]<C-a/x> = Increment column
 
     " Snippets
-    Plug 'SirVer/ultisnips'              "   Snippet engine
-    Plug 'honza/vim-snippets'            "   Preconfigured snippets
+    " Plug 'SirVer/ultisnips'              "   Snippet engine
+    " Plug 'honza/vim-snippets'            "   Preconfigured snippets
 
     " Colors and style
     Plug 'gruvbox-community/gruvbox'  "   Colorscheme
@@ -270,6 +282,12 @@ nnoremap <leader>tf <cmd>Telescope find_files<cr>
 " nnoremap <leader>tg <cmd>Telescope treesitter<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
+
+" let g:python3_host_prog = '/usr/bin/python3'
+" augroup quickfix
+"     autocmd!
+"     autocmd FileType qf setlocal wrap
+" augroup END
 
 " -----------------------------------------------------------------------------
 " " In case things don't work out with new rc, use this to source .vimrc
