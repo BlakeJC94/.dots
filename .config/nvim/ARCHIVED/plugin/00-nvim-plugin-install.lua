@@ -161,7 +161,6 @@ require'cmp'.setup{
 ---- LSP --------
 -- Source: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
 -- Install Python language server
--- `$ sudo npm install -g pyright`
 require'lspconfig'.pyright.setup{capabilities = capabilities}
 -- Install C lsp
 require'lspconfig'.clangd.setup{capabilities = capabilities}

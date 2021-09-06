@@ -289,6 +289,28 @@ nnoremap <leader>th <cmd>Telescope help_tags<cr>
 "     autocmd FileType qf setlocal wrap
 " augroup END
 
+" firer vim settings
+let g:firenvim_config = {
+    \ 'globalSettings': {
+        \ 'alt': 'all',
+    \  },
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'cmdline': 'neovim',
+            \ 'content': 'text',
+            \ 'priority': 0,
+            \ 'selector': 'textarea',
+            \ 'takeover': 'never',
+        \ },
+    \ }
+    \ }
+let fc = g:firenvim_config['localSettings']
+let fc['https://mail.google.com'] = { 'takeover': 'always' }
+augroup firenvim
+    autocmd!
+    autocmd BufEnter *ipynb_er-DIV*.txt set filetype=python
+    autocmd BufEnter *ipynb_ontainer-DIV*.txt set filetype=markdown
+augroup END
 " -----------------------------------------------------------------------------
 " " In case things don't work out with new rc, use this to source .vimrc
 " set runtimepath^=~/.vim runtimepath+=~/.vim/after
