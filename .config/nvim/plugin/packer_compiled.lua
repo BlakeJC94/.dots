@@ -94,6 +94,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/blake/.local/share/nvim/site/pack/packer/start/gruvbox.nvim"
   },
+  ["indent-blankline.nvim"] = {
+    config = { "require('plugin.indent-blankline')" },
+    loaded = true,
+    path = "/home/blake/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
+  },
   ["lush.nvim"] = {
     loaded = true,
     path = "/home/blake/.local/share/nvim/site/pack/packer/start/lush.nvim"
@@ -102,6 +107,17 @@ _G.packer_plugins = {
     config = { "require('plugin.cmp')" },
     loaded = true,
     path = "/home/blake/.local/share/nvim/site/pack/packer/start/nvim-cmp"
+  },
+  ["nvim-colorizer.lua"] = {
+    config = { "\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0" },
+    loaded = true,
+    path = "/home/blake/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
+  },
+  ["nvim-comment"] = {
+    config = { "\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17nvim_comment\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/blake/.local/share/nvim/site/pack/packer/opt/nvim-comment"
   },
   ["nvim-lspconfig"] = {
     config = { "require('plugin.lspconfig')" },
@@ -132,14 +148,29 @@ time([[Config for telescope.nvim]], false)
 time([[Config for nvim-cmp]], true)
 require('plugin.cmp')
 time([[Config for nvim-cmp]], false)
+-- Config for: indent-blankline.nvim
+time([[Config for indent-blankline.nvim]], true)
+require('plugin.indent-blankline')
+time([[Config for indent-blankline.nvim]], false)
 -- Config for: LuaSnip
 time([[Config for LuaSnip]], true)
 require('plugin.luasnip')
 time([[Config for LuaSnip]], false)
+-- Config for: nvim-colorizer.lua
+time([[Config for nvim-colorizer.lua]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
+time([[Config for nvim-colorizer.lua]], false)
 -- Config for: nvim-lspconfig
 time([[Config for nvim-lspconfig]], true)
 require('plugin.lspconfig')
 time([[Config for nvim-lspconfig]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Event lazy-loads
+time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au BufRead * ++once lua require("packer.load")({'nvim-comment'}, { event = "BufRead *" }, _G.packer_plugins)]]
+time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
 if should_profile then save_profiles() end
 
 end)

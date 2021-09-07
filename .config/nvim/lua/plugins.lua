@@ -46,32 +46,32 @@ packer_startup = function()
     }
 
     --use {
-    --    "L3MON4D3/LuaSnip",
-    --    requires = {
-    --        "rafamadriz/friendly-snippets",
-    --    },
-    --    config = "require('plugin.luasnip')",
-    --}
-
-
-    --use {
     --    'glepnir/lspsaga.nvim',
     --    config = [[reqiure('plugin.lspsaga')]],
     --}
 
+    use {
+        "terrortylor/nvim-comment",
+        event = "BufRead",
+        config = function()
+            require("nvim_comment").setup()
+        end,
+    }
 
-    -- use {
-    --     'glepnir/lspsaga.nvim',
-    --     config = function() require'lspsaga'.init_lsp_saga({
-    --  error_sign = '',
-    --  warn_sign = '',
-    --  hint_sign = '',
-    --  infor_sign = '',
-    --     }) end
-    -- }
-    --
-    -- use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-    -- use 'hrsh7th/cmp-nvim-lsp'
+
+    -- TODO add startify
+
+    use {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup()
+        end
+    }
+
+    use {
+        "lukas-reineke/indent-blankline.nvim",
+        config = "require('plugin.indent-blankline')",
+    }
 
     use {"ellisonleao/gruvbox.nvim",
         requires = {"rktjmp/lush.nvim"}
