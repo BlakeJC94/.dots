@@ -100,20 +100,22 @@ packer_startup = function()
         "goolord/alpha-nvim",
         config = function() require("config.alpha") end,
     }
-    -- use {
-    --     "glepnir/dashboard-nvim",
-    --     requires = {"mhinz/vim-startify"},
-    --     event = "BufWinEnter",
-    --     config = function() require("config.dashboard") end,
-    -- }
-    -- TODO
-    -- * firenvim
+
     use {
         'glacambre/firenvim',
         config = function() require("config.firenvim") end,
         run = function() vim.fn['firenvim#install'](0) end
     }
 
+
+    -- Quicker navigation
+    use {
+        'phaazon/hop.nvim',
+        as = 'hop',
+        config = function()
+            require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+        end
+    }
     -- Colors Hex codes
     use {
         "norcalli/nvim-colorizer.lua",
