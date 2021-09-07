@@ -16,20 +16,36 @@ packer_startup = function()
     use 'wbthomason/packer.nvim'
 
     use {
-        'neovim/nvim-lspconfig',
-        config = "require('plugin.lspconfig')",
+        "L3MON4D3/LuaSnip",
+        requires = {
+            "rafamadriz/friendly-snippets",
+        },
+        config = "require('plugin.luasnip')",
     }
 
     use {
         "hrsh7th/nvim-cmp",
         requires = {
-            "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
         },
         config = "require('plugin.cmp')",
     }
+
+    use {
+        'neovim/nvim-lspconfig',
+        config = "require('plugin.lspconfig')",
+    }
+
+
+    --use {
+    --    "L3MON4D3/LuaSnip",
+    --    requires = {
+    --        "rafamadriz/friendly-snippets",
+    --    },
+    --    config = "require('plugin.luasnip')",
+    --}
 
 
     --use {

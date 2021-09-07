@@ -85,6 +85,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/blake/.local/share/nvim/site/pack/packer/start/cmp_luasnip"
   },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "/home/blake/.local/share/nvim/site/pack/packer/start/friendly-snippets"
+  },
   ["gruvbox.nvim"] = {
     loaded = true,
     path = "/home/blake/.local/share/nvim/site/pack/packer/start/gruvbox.nvim"

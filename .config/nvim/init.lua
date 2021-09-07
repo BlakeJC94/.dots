@@ -59,7 +59,8 @@ local layout_options = {
     sidescrolloff = 8,  -- N columns to keep visible left/right of cursor
     textwidth = 79,     -- Margin for text input
     wrap = false,
-    linebreak = false,
+    linebreak = true,
+    breakindent = true,
     showmatch = true,   -- Highlight matching brackets
     -- FOLDS
     foldmethod = 'indent',
