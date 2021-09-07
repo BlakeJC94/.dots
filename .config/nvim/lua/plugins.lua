@@ -23,12 +23,19 @@ packer_startup = function()
         config = "require('plugin.luasnip')",
     }
 
+    -- use {
+    --     "onsails/lspkind-nvim",
+    --     config = function() require('lspkind').init() end
+    -- }
+
     use {
         "hrsh7th/nvim-cmp",
         requires = {
             "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "kdheepak/cmp-latex-symbols",
         },
         config = "require('plugin.cmp')",
     }
@@ -58,6 +65,7 @@ packer_startup = function()
         end,
     }
 
+    -- use "japlardy"
 
     -- TODO add startify
 
