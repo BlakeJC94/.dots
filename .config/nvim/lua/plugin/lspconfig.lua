@@ -26,7 +26,8 @@ local on_attach = function(client)
     buf_map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    --buf_map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_map('n', '<C-;>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_map('n', '\\wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_map('n', '\\wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_map('n', '\\wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -46,7 +47,7 @@ local on_attach = function(client)
     ]])
     -- send errors to location list automatically
     vim.cmd([[
-	autocmd BufWritePre,InsertLeave <buffer> lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
+        autocmd BufWritePre,InsertLeave <buffer> lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
     ]])
 
     -- Print message if loaded successfully

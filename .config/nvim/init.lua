@@ -23,7 +23,6 @@ cmd([[source ~/.config/nvim/vimscript/mappings.vim]])
 cmd([[source ~/.config/nvim/vimscript/mappings-leader.vim]])
 cmd([[source ~/.config/nvim/vimscript/mappings-insert.vim]])
 
-
 -- LOAD OPTIONS ----------------------------------------------
 
 local behaviour_options = {
@@ -80,7 +79,6 @@ local layout_options = {
 }
 
 -- Apply options
-local opt = vim.opt
 for _, options in pairs({behaviour_options, layout_options}) do
     for k, v in pairs(options) do
         opt[k] = v

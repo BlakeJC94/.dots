@@ -69,6 +69,22 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  LuaSnip = {
+    loaded = true,
+    path = "/home/blake/.local/share/nvim/site/pack/packer/start/LuaSnip"
+  },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "/home/blake/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+  },
+  ["cmp-nvim-lsp"] = {
+    loaded = true,
+    path = "/home/blake/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp"
+  },
+  cmp_luasnip = {
+    loaded = true,
+    path = "/home/blake/.local/share/nvim/site/pack/packer/start/cmp_luasnip"
+  },
   ["gruvbox.nvim"] = {
     loaded = true,
     path = "/home/blake/.local/share/nvim/site/pack/packer/start/gruvbox.nvim"
@@ -76,6 +92,11 @@ _G.packer_plugins = {
   ["lush.nvim"] = {
     loaded = true,
     path = "/home/blake/.local/share/nvim/site/pack/packer/start/lush.nvim"
+  },
+  ["nvim-cmp"] = {
+    config = { "require('plugin.cmp')" },
+    loaded = true,
+    path = "/home/blake/.local/share/nvim/site/pack/packer/start/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     config = { "require('plugin.lspconfig')" },
@@ -93,6 +114,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for nvim-lspconfig]], true)
 require('plugin.lspconfig')
 time([[Config for nvim-lspconfig]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+require('plugin.cmp')
+time([[Config for nvim-cmp]], false)
 if should_profile then save_profiles() end
 
 end)
