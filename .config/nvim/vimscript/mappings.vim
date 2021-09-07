@@ -149,6 +149,13 @@ vnoremap <C-A-Down>  <C-w>J
 vnoremap <C-A-Up>    <C-w>K
 vnoremap <C-A-Right> <C-w>L
 
+" Make vertical wildmenu controls behave intuitively
+if match(&wildmode, 'full') > -1
+    cnoremap <expr> <Down>  wildmenumode() ? "\<Right>" : "\<Down>"
+    cnoremap <expr> <Up>    wildmenumode() ? "\<Left>"  : "\<Up>"
+    cnoremap <expr> <Right> wildmenumode() ? "\<Down>"  : "\<Right>"
+    cnoremap <expr> <Left>  wildmenumode() ? "\<Up>"    : "\<Left>"
+endif
 
 " -----------------------------------------------------------------------------
 " " OLD MAPPINGS

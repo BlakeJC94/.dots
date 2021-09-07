@@ -34,21 +34,21 @@ noremap <Leader><Tab> :set hls!<CR>
 " " L-m : Toggle maximize current buffer
 " nnoremap <silent><Leader>m :MaximizerToggle<CR>
 " vnoremap <silent><Leader>m :MaximizerToggle<CR>gv
-" 
+"
 " " ga : Easyalign visual selection (e.g. vipga*| to align around all | chars)
 " xmap ga <Plug>(EasyAlign)
 " nmap ga <Plug>(EasyAlign)
-" 
+"
 " " <F4> : Limelight
 " nmap <F4> :Limelight!!<CR>
 " vmap <F4> :Limelight!!<CR>
 " imap <F4> <C-o>:Limelight!!<CR>
 " tmap <F4> <C-\><C-n>:Limelight!!<CR>i
-" 
+"
 " " L-f : Goyo
 " nmap <Leader>f :Goyo<CR>
 " vmap <Leader>f :Goyo<CR>
-" 
+"
 " " L-t : Telescope
 " nnoremap <leader>tf <cmd>Telescope find_files<cr>
 " " nnoremap <leader>tg <cmd>Telescope treesitter<cr>
