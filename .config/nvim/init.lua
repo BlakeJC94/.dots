@@ -29,7 +29,7 @@ local behaviour_options = {
     -- MAIN INPUT/OUTPUT
     clipboard = "unnamedplus",
     ttimeoutlen = 10,
-    updatetime = 2000,
+    updatetime = 500,
     -- TABS AND INDENTS
     smartindent = true,    -- Enable better indenting
     tabstop     = 4,       -- Number of space chars for each tab char
@@ -54,7 +54,6 @@ local layout_options = {
     splitright = true,  -- Open vsplits on right
     -- LINE DISPLAY
     cursorline = true,  -- Highlight current line
-    colorcolumn = {80},   -- Set vertical margin
     scrolloff = 8,      -- N lines to keep visible above/below cursor
     sidescrolloff = 8,  -- N columns to keep visible left/right of cursor
     textwidth = 79,     -- Margin for text input
@@ -70,7 +69,9 @@ local layout_options = {
     -- LEFT MARGIN
     number = true,
     relativenumber = true, -- Show rel/abs line numbers
-    signcolumn = 'number',  -- Sign col veils override numbers
+    signcolumn = 'yes:1',  -- Always show sign column beside numbers
+    -- RIGHT MARGIN
+    colorcolumn = {80},   -- Set vertical margin
     -- BOTTOM MARGIN
     showcmd = true,-- Show command in bottom right
     cmdheight = 2,

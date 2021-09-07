@@ -25,7 +25,8 @@ local on_attach = function(client)
     buf_map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    -- buf_map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_map('n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     --buf_map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_map('n', '<C-;>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_map('n', '\\wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -43,7 +44,7 @@ local on_attach = function(client)
 
     -- show line diagnostics under cursor after `updatetime`
     vim.cmd([[
-        autocmd CursorHold <buffer> lua require('plugin.lspconfig').show_line_diagnostics()
+        autocmd CursorHold <buffer> lua require('config.lspconfig').show_line_diagnostics()
     ]])
     -- send errors to location list automatically
     vim.cmd([[

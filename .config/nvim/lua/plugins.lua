@@ -15,19 +15,22 @@ vim.api.nvim_exec([[
 packer_startup = function()
     use 'wbthomason/packer.nvim'
 
+    -- Snippet engine
     use {
         "L3MON4D3/LuaSnip",
         requires = {
             "rafamadriz/friendly-snippets",
         },
-        config = "require('plugin.luasnip')",
+        config = "require('config.luasnip')",
     }
 
-    -- use {
-    --     "onsails/lspkind-nvim",
-    --     config = function() require('lspkind').init() end
-    -- }
+    -- Nice icons
+    use {
+        "onsails/lspkind-nvim",
+        config = function() require('lspkind').init() end
+    }
 
+    -- Completion engine
     use {
         "hrsh7th/nvim-cmp",
         requires = {
@@ -37,26 +40,27 @@ packer_startup = function()
             "hrsh7th/cmp-path",
             "kdheepak/cmp-latex-symbols",
         },
-        config = "require('plugin.cmp')",
+        config = "require('config.cmp')",
     }
 
+    -- LSP engine
+    -- TODO refactor mappings
     use {
         'neovim/nvim-lspconfig',
-        config = "require('plugin.lspconfig')",
+        config = "require('config.lspconfig')",
     }
+
+    -- :Telescope find_files = fuzzy finder
+    -- TODO refactor mappings
     use {
         'nvim-telescope/telescope.nvim',
         requires = {
             'nvim-lua/plenary.nvim'
         },
-        config = "require('plugin.telescope')",
+        config = "require('config.telescope')",
     }
 
-    --use {
-    --    'glepnir/lspsaga.nvim',
-    --    config = [[reqiure('plugin.lspsaga')]],
-    --}
-
+    -- gc<motion> = Toggle comments
     use {
         "terrortylor/nvim-comment",
         event = "BufRead",
@@ -65,10 +69,52 @@ packer_startup = function()
         end,
     }
 
-    -- use "japlardy"
+    -- <C-c><C-c> = Send selection to neovim terminal
+    use {
+        "jpalardy/vim-slime",
+        config = function() vim.g['slime_target'] = "neovim" end,
+    }
 
-    -- TODO add startify
+    -- :Zenmode = Maximise and focus buffer
+    use {
+        "folke/zen-mode.nvim",
+        config = function() require("zen-mode").setup({}) end
+    }
 
+    use 'tpope/vim-surround'            -- cs]} : Change surrounding brackets
+    use 'tpope/vim-repeat'              --   Fix . for some plugins
+    use 'junegunn/vim-easy-align'       -- [<C-v>]ga*<char> : align to char
+    use 'triglav/vim-visual-increment'  -- [<C-v>]<C-a/x> : Increment column
+
+    -- Git changes indicators
+    use {
+        'lewis6991/gitsigns.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim'
+        },
+        config = function() require('gitsigns').setup() end
+    }
+
+    -- Landing page
+    use {
+        "goolord/alpha-nvim",
+        config = function() require("config.alpha") end,
+    }
+    -- use {
+    --     "glepnir/dashboard-nvim",
+    --     requires = {"mhinz/vim-startify"},
+    --     event = "BufWinEnter",
+    --     config = function() require("config.dashboard") end,
+    -- }
+    -- TODO
+    -- * firenvim
+    use {
+        'glacambre/firenvim',
+        config = function() require("config.firenvim") end,
+        run = function() vim.fn['firenvim#install'](0) end
+    }
+
+    -- Colors Hex codes
     use {
         "norcalli/nvim-colorizer.lua",
         config = function()
@@ -76,11 +122,13 @@ packer_startup = function()
         end
     }
 
+    -- Shows indent guides
     use {
         "lukas-reineke/indent-blankline.nvim",
-        config = "require('plugin.indent-blankline')",
+        config = "require('config.indent-blankline')",
     }
 
+    -- Colorscheme
     use {"ellisonleao/gruvbox.nvim",
         requires = {"rktjmp/lush.nvim"}
     }
