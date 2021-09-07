@@ -82,9 +82,13 @@ set wildignore+=**/data/*                " Ignore data files
 
 " ----|MAPPINGS|---------------------------------------------------------------
 
+" L-c, L-v : New splits
+nnoremap _ :split<CR>
+nnoremap \| :vsplit<CR>
+
 " Prevent x from overriding what's in the clipboard
 noremap x "_x
-noremap X "_x
+noremap X "_X
 
 " Center screen and open folds when flicking through search matches
 nnoremap n nzzzv
@@ -157,10 +161,6 @@ noremap <Leader>q :q<CR>
 
 " L-d : Change directory of vim to current file
 noremap <Leader>d :cd %:p:h<CR>:pwd<CR>
-
-" L-c, L-v : New splits
-noremap <Leader>c :split<CR>
-noremap <Leader>v :vsplit<CR>
 
 " L-h,l : open/close loclist
 nnoremap <Leader>h :lopen<CR>
