@@ -37,7 +37,13 @@ packer_startup = function()
         'neovim/nvim-lspconfig',
         config = "require('plugin.lspconfig')",
     }
-
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim'
+        },
+        config = "require('plugin.telescope')",
+    }
 
     --use {
     --    "L3MON4D3/LuaSnip",
