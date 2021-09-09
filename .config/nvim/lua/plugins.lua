@@ -8,7 +8,7 @@ end
 vim.api.nvim_exec([[
     augroup Packer
         autocmd!
-        autocmd BufWritePost plugins.lua PackerCompile | echo "Compiling Packer"
+        autocmd BufWritePost plugins.lua source <afile> | PackerCompile
     augroup end
 ]], false)
 
@@ -89,14 +89,14 @@ packer_startup = function()
     use 'junegunn/vim-easy-align'       -- [<C-v>]ga*<char> : align to char
     use 'triglav/vim-visual-increment'  -- [<C-v>]<C-a/x> : Increment column
 
-    ---- Git changes indicators
-    --use {
-    --    'lewis6991/gitsigns.nvim',
-    --    requires = {
-    --        'nvim-lua/plenary.nvim'
-    --    },
-    --    config = function() require('gitsigns').setup() end
-    --}
+    -- Git changes indicators
+    use {
+        'lewis6991/gitsigns.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim'
+        },
+        config = function() require('gitsigns').setup() end
+    }
 
     -- Landing page
     use {

@@ -1,25 +1,56 @@
 
--- function! s:draw_box(lines) abort
---   let longest_line = max(map(copy(a:lines), 'strwidth(v:val)'))
---   let top_bottom_without_corners = repeat(s:char_top_bottom, longest_line + 2)
---   let top = s:char_top_left . top_bottom_without_corners . s:char_top_right
---   let bottom = s:char_bottom_left . top_bottom_without_corners . s:char_bottom_right
---   let lines = [top]
---   for l in a:lines
---     let offset = longest_line - strwidth(l)
---     let lines += [s:char_sides . ' '. l . repeat(' ', offset) .' ' . s:char_sides]
---   endfor
---   let lines += [bottom]
---   return lines
--- endfunction
+local get_quote = function(quote_list)
+    -- returns list of lines for quote
+    math.randomseed(os.time())
+    local ind = math.random(1, #quote_list)
+    return quote_list[ind]
+end
 
-local draw_box = function(lines)
-    local lines_len = {}
-    for k, line in pairs(lines) do
-        lines_len[k] = string.len(line)
+local format_line = function(line, max_width)
+    local formatted_line = "\n"
+    if line == '' then
+        formatted_line = formatted_line .. " "
+        return formatted_line
     end
 
-    -- local longest_line = max(map(lines, ))
+    -- split line by spaces into list of words
+    words = {}
+    target = "%S+"
+    for word in line:gmatch(target) do
+        table.insert(words, word)
+    end
+
+    -- split line into formatted_lines
+    bufstart = ""
+    buffer = bufstart
+    for i, word in ipairs(words) do
+        if ((#buffer + #word + 1) < max_width) then
+            buffer = buffer .. word .. " "
+            if (i == #words) then
+                formatted_line = formatted_line .. buffer:sub(1,-2) .. "\n"
+                -- table.insert(formatted_lines, buffer:sub(1,-2))
+            end
+        else
+            formatted_line = formatted_line .. buffer:sub(1,-2) .. "\n"
+            -- table.insert(formatted_lines, buffer:sub(1,-2))
+            buffer = bufstart .. word .. " "
+        end
+    end
+    -- right-justify text if the line begins with -
+    if line:sub(1,1) == '-' then
+        local space = "\n" .. string.rep(" ", max_width - #formatted_line - 2)
+        formatted_line = space .. formatted_line:sub(2,-1)
+    end
+    return formatted_line
+end
+
+local format_quote = function(quote, max_width)
+    formatted_quote = "\n "
+    for _, line in ipairs(quote) do
+        local formatted_line = format_line(line, max_width)
+        formatted_quote = formatted_quote .. formatted_line
+    end
+    return formatted_quote
 end
 
 
@@ -179,11 +210,11 @@ local F = function()
         {'Be curious. Read widely. Try new things. I think a lot of what people call intelligence boils down to curiosity.', '', '- Aaron Swartz'},
         {'What one programmer can do in one month, two programmers can do in two months.', '', '- Frederick P. Brooks'},
     }
-    -- local ind = 1
-    -- str = quote_list[ind]
+    local max_width = 54
+    local quote = get_quote(quote_list)
+    local formatted_quote = format_quote(quote, max_width)
 
-    local str = "Trace"
-    return str
+    return formatted_quote
 end
 
 return F

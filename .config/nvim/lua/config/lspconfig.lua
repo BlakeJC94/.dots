@@ -75,8 +75,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
 local lsp = require('lspconfig')
 -- Python : `npm install pyright`
 lsp.pyright.setup({
@@ -85,5 +83,39 @@ lsp.pyright.setup({
         debounce_text_changes = 150,
     }
 })
+
+-- Lua : Install LSP to path from source
+-- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
+local sumneko_root_path = "/opt/lua-language-server"
+local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
+lsp.sumneko_lua.setup {
+    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+    on_attach = on_attach,
+    flags = {
+        debounce_text_changes = 150,
+    },
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = runtime_path,
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+}
 
 return M
