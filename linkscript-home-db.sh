@@ -5,7 +5,7 @@
 # ONLY USE THIS IF DROPBOX IS INSTALLED AND LOCAL DIRS ARE EMPTY
 
 DIRS=( Desktop Documents Music Pictures Videos Public  )
-WORKDIRS=( applications devices languages scratchpad dotfiles )
+WORKDIRS=( scratchpad archived languages )
 
 for DIR in "${DIRS[@]}"; do
     echo "Replacing $DIR"
@@ -14,9 +14,8 @@ for DIR in "${DIRS[@]}"; do
 done
 
 echo "Setting up Workspace"
-mkdir -p $HOME/Workspace/local/data
-mkdir -p $HOME/Workspace/local/projects
-mkdir -p $HOME/Workspace/local/latex
+mkdir -p $HOME/Workspace/projects
+mkdir -p $HOME/Workspace/data
 for DIR in "${WORKDIRS[@]}"; do
     ln -sf $HOME/Dropbox/Home-db/Workspace-db/$DIR $HOME/Workspace/$DIR
 done

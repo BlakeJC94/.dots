@@ -8,7 +8,7 @@ end
 vim.api.nvim_exec([[
     augroup Packer
         autocmd!
-        autocmd BufWritePost plugins.lua PackerCompile
+        autocmd BufWritePost plugins.lua PackerCompile | echo "Compiling Packer"
     augroup end
 ]], false)
 
@@ -72,7 +72,10 @@ packer_startup = function()
     -- <C-c><C-c> = Send selection to neovim terminal
     use {
         "jpalardy/vim-slime",
-        config = function() vim.g['slime_target'] = "neovim" end,
+        config = function()
+            vim.g.slime_target = "neovim"
+            vim.g.slime_python_ipython = 1
+        end,
     }
 
     -- :Zenmode = Maximise and focus buffer
@@ -86,14 +89,14 @@ packer_startup = function()
     use 'junegunn/vim-easy-align'       -- [<C-v>]ga*<char> : align to char
     use 'triglav/vim-visual-increment'  -- [<C-v>]<C-a/x> : Increment column
 
-    -- Git changes indicators
-    use {
-        'lewis6991/gitsigns.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim'
-        },
-        config = function() require('gitsigns').setup() end
-    }
+    ---- Git changes indicators
+    --use {
+    --    'lewis6991/gitsigns.nvim',
+    --    requires = {
+    --        'nvim-lua/plenary.nvim'
+    --    },
+    --    config = function() require('gitsigns').setup() end
+    --}
 
     -- Landing page
     use {
