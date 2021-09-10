@@ -107,7 +107,7 @@ packer_startup = function()
     use {
         'glacambre/firenvim',
         config = function() require("config.firenvim") end,
-        run = function() vim.fn['firenvim#install'](0) end
+        run = function() vim.fn['firenvim#install'](0) end,
     }
 
 
