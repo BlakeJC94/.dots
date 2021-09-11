@@ -1,0 +1,18 @@
+[keyring]
+display-name=slack
+ctime=1631350688
+mtime=0
+lock-on-idle=false
+lock-after=false
+
+[1]
+item-type=2
+display-name=Chromium Safe Storage
+secret=Ft3Z6NQCgDWMliIB5mvQPw==
+mtime=1631350787
+ctime=1631350766
+
+[1:attribute0]
+name=xdg:schema
+type=string
+value=org.gnome.keyring.Note
