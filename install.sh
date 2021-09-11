@@ -14,6 +14,7 @@ $HOME/.dots/install_scripts/r.sh
 $HOME/.dots/install_scripts/dropbox.sh
 $HOME/.dots/install_scripts/spotify.sh
 $HOME/.dots/install_scripts/zotero.sh
+$HOME/.dots/install_scripts/slack.sh
 
 echo "==== [INSTALL.SH] : DONE ========"
 

@@ -12,9 +12,6 @@ echo "[${0##*/}] : INSTALLING >>>>>>>>>>>>>>>>"
     dpkg -i slack-desktop-4.19.2-amd64.deb
     rm slack-desktop-4.19.2-amd64.deb
 
-    mkdir -p $HOME/.local/share/keyrings
-    ln -s $HOME/.dots/.slack $HOME/.local/share/keyrings/slack.keyring
-
     echo -e "${date} \n INSTALLED ${0##*/}"
 ) >> /tmp/install_${0##*/}.log 2>&1
 # catch

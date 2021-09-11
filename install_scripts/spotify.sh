@@ -12,8 +12,6 @@ echo "[${0##*/}] : INSTALLING >>>>>>>>>>>>>>>>"
     curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
     sudo apt update && sudo apt install -y spotify-client
-    mkdir -p $HOME/.local/share/keyrings
-    ln -s $HOME/.dots/.spotify $HOME/.local/share/keyrings/spotify.keyring
 
     echo -e "${date} \n INSTALLED ${0##*/}"
 ) >> /tmp/install_${0##*/}.log 2>&1
