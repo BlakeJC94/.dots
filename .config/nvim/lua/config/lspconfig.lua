@@ -79,6 +79,7 @@ local lsp = require('lspconfig')
 -- Python : `npm install pyright`
 lsp.pyright.setup({
     on_attach = on_attach,
+    capabilities = capabilities,
     flags = {
         debounce_text_changes = 150,
     }
@@ -90,32 +91,31 @@ local sumneko_root_path = "/opt/lua-language-server"
 local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
 lsp.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
-    on_attach = on_attach,
-    flags = {
-        debounce_text_changes = 150,
-    },
+    capabilities = capabilities,
     settings = {
         Lua = {
             runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
                 version = 'LuaJIT',
-                -- Setup your lua path
-                path = runtime_path,
+                path = vim.split(package.path, ';'),
+            },
+            completion = {
+                enable = true,
+                callSnippet = "Both",
             },
             diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {'vim'},
+                enable = true,
+                globals = {'vim', 'decribe'},
+                disable = {"lowercase-global"},
             },
             workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
+                library = {
+                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                    [vim.fn.expand('$VIMRUNTIME/lua/cim/lsp')] = true,
+                }
             },
         },
     },
+    on_attach = on_attach,
 }
 
 return M

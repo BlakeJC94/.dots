@@ -1,12 +1,17 @@
+-- fortune printing (from vim-startify)
 
-local get_quote = function(quote_list)
-    -- returns list of lines for quote
-    math.randomseed(os.time())
-    local ind = math.random(1, #quote_list)
-    return quote_list[ind]
-end
+-- To add this to the footer, simply add the following lines to the config:
+-- use {
+--     'goolord/alpha-nvim',
+--     config = function ()
+--         require'alpha'.setup(require'alpha.themes.dashboard'.opts)
+--         dashboard.section.footer.val = require'alpha.fortune'()
+--     end
+-- }
 
 local format_line = function(line, max_width)
+    -- inserts linebreaks into line
+
     local formatted_line = "\n"
     if line == '' then
         formatted_line = formatted_line .. " "
@@ -20,7 +25,6 @@ local format_line = function(line, max_width)
         table.insert(words, word)
     end
 
-    -- split line into formatted_lines
     bufstart = ""
     buffer = bufstart
     for i, word in ipairs(words) do
@@ -44,19 +48,30 @@ local format_line = function(line, max_width)
     return formatted_line
 end
 
-local format_quote = function(quote, max_width)
-    formatted_quote = "\n "
-    for _, line in ipairs(quote) do
+local format_fortune = function(fortune, max_width)
+    -- Converts list of strings to one formatted string (with linebreaks)
+    formatted_fortune = " \n "  -- adds spacing between alpha-menu and footer
+    for _, line in ipairs(fortune) do
         local formatted_line = format_line(line, max_width)
-        formatted_quote = formatted_quote .. formatted_line
+        formatted_fortune = formatted_fortune .. formatted_line
     end
-    return formatted_quote
+    return formatted_fortune
+end
+
+local get_fortune = function(fortune_list)
+    -- selects an entry from fortune_list randomly
+    math.randomseed(os.time())
+    local ind = math.random(1, #fortune_list)
+    return fortune_list[ind]
 end
 
 
 
-local F = function()
-    local quote_list = {
+local main = function()
+    local max_width = 54
+
+    -- Credit to @mhinz for compiling this list in vim-startify
+    local fortune_list = {
         {"Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.", '', '- Brian Kernighan'},
         {"If you don't finish then you're just busy, not productive."},
         {'Adapting old programs to fit new machines usually means adapting new machines to behave like old ones.', '', '- Alan Perlis'},
@@ -210,11 +225,11 @@ local F = function()
         {'Be curious. Read widely. Try new things. I think a lot of what people call intelligence boils down to curiosity.', '', '- Aaron Swartz'},
         {'What one programmer can do in one month, two programmers can do in two months.', '', '- Frederick P. Brooks'},
     }
-    local max_width = 54
-    local quote = get_quote(quote_list)
-    local formatted_quote = format_quote(quote, max_width)
 
-    return formatted_quote
+    local fortune = get_fortune(fortune_list)
+    local formatted_fortune = format_fortune(fortune, max_width)
+
+    return formatted_fortune
 end
 
-return F
+return main

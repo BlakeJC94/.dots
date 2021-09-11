@@ -100,7 +100,7 @@ packer_startup = function()
 
     -- Landing page
     use {
-        "goolord/alpha-nvim",
+        'BlakeJC94/alpha-nvim', branch = 'feature/startify-fortune',
         config = function() require("config.alpha") end,
     }
 
@@ -115,16 +115,12 @@ packer_startup = function()
     use {
         'phaazon/hop.nvim',
         as = 'hop',
-        config = function()
-            require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-        end
+        config = function() require("config.hop") end,
     }
     -- Colors Hex codes
     use {
         "norcalli/nvim-colorizer.lua",
-        config = function()
-            require("colorizer").setup()
-        end
+        config = function() require("colorizer").setup() end
     }
 
     -- Shows indent guides
