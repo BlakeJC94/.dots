@@ -9,7 +9,7 @@ DOTFILES=( .bashrc .bash_prompt .bash_aliases .xinitrc .gitconfig .gitignore )
     echo -e "${date} \n INSTALLING ${0##*/}"
 
     # PUT INSTALL COMMANDS HERE
-    sudo apt install -y unclutter-xfixes
+    sudo apt install -y tldr tree exa bat qt5-style-plugins unclutter-xfixes
 
     for i in "${DOTFILES[@]}"; do
         if [ -f "$HOME/$i" ]; then

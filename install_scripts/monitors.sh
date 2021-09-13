@@ -8,7 +8,7 @@ echo "[${0##*/}] : INSTALLING >>>>>>>>>>>>>>>>"
     echo -e "${date} \n INSTALLING ${0##*/}"
 
     # PUT INSTALL COMMANDS HERE
-    sudo apt install -y tldr neofetch tree exa bat qt5-style-plugins
+    sudo apt install -y nvtop bashtop neofetch
 
     echo -e "${date} \n INSTALLED ${0##*/}"
 ) >> /tmp/install_${0##*/}.log 2>&1
