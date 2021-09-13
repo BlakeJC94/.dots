@@ -14,7 +14,7 @@ end
 cmp.setup({
     completion = {
         completeopt = 'menu,menuone,noinsert',
-        --autocomplete = true,
+        autocomplete = true,
     },
     snippet = {
         expand = function(args)
@@ -39,15 +39,15 @@ cmp.setup({
         end,
     },
     mapping = {
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<Esc>'] = cmp.mapping.close(),
+        ['<Up>'] = cmp.mapping.select_prev_item(),
+        ['<Down>'] = cmp.mapping.select_next_item(),
+        ['<S-Up>'] = cmp.mapping.scroll_docs(-4),
+        ['<S-Down>'] = cmp.mapping.scroll_docs(4),
+        ['<Right>'] = cmp.mapping.complete(),
+        ['<Left>'] = cmp.mapping.abort(),
+        ['<C-Space>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
+            behavior = cmp.ConfirmBehavior.Insert,
             select = true,
         },
         ["<Tab>"] = cmp.mapping(function(fallback)

@@ -56,7 +56,11 @@ require'lir'.setup {
 
 -- custom folder icon
 require'nvim-web-devicons'.set_icon({
-    lir_folder_icon={icon="",name="LirFolderNode",color="#7ebae4"}
+    lir_folder_icon={
+        icon="",
+        name="LirFolderNode",
+        color="#7ebae4",
+    }
 })
 -- require'nvim-web-devicons'.setup({
 --   -- override = {
@@ -81,3 +85,17 @@ vim.cmd [[augroup lir-settings]]
 vim.cmd [[  autocmd!]]
 vim.cmd [[  autocmd Filetype lir :lua LirSettings()]]
 vim.cmd [[augroup END]]
+
+-- disable netrw
+vim.g.loaded_netrw       = 1
+vim.g.loaded_netrwPlugin = 1
+
+
+-- old snippet: Netrw options
+-- g.loaded_netrw       = 1
+-- g.loaded_netrwPlugin = 1
+-- g.netrw_banner       = 0
+-- g.netrw_liststyle    = 0
+-- g.netrw_list_hide    = ".*\\.swp$,.DS_Store,*.so,*.zip,*.git,^\\.\\=/\\=$"
+
+

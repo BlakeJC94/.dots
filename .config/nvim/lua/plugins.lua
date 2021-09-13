@@ -14,6 +14,10 @@ vim.api.nvim_exec([[
 
 packer_startup = function()
     use 'wbthomason/packer.nvim'
+    use {
+        'glepnir/lspsaga.nvim',
+        config = function() require('lspsaga').init_lsp_saga() end,
+    }
 
     -- Snippet engine
     use {
@@ -45,8 +49,10 @@ packer_startup = function()
 
     -- LSP engine
     -- TODO refactor mappings
+    -- TODO saga
     use {
         'neovim/nvim-lspconfig',
+        requires = {'glepnir/lspsaga.nvim'},
         config = "require('config.lspconfig')",
     }
 
@@ -78,6 +84,10 @@ packer_startup = function()
     -- More text objects
     use {
         'wellle/targets.vim'
+    }
+
+    use {
+        'AndrewRadev/splitjoin.vim',
     }
 
     -- :Zenmode = Maximise and focus buffer

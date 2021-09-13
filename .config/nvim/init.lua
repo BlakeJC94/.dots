@@ -95,9 +95,3 @@ g.gruvbox_italicize_strings = 1
 g.gruvbox_contrast_dark     = 'hard'
 cmd [[colorscheme gruvbox]]
 
--- Netrw options
-g.netrw_banner    = 0
-g.netrw_liststyle = 0
-g.netrw_list_hide = ".*\\.swp$,.DS_Store,*.so,*.zip,*.git,^\\.\\=/\\=$"
-
-
