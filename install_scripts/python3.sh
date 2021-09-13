@@ -9,6 +9,7 @@ echo "[${0##*/}] : INSTALLING >>>>>>>>>>>>>>>>"
 
     # PUT INSTALL COMMANDS HERE
     sudo apt install -y python3-pip python3-venv python3-setuptools python3-dev ipython3 jupyter
+    curl https://pyenv.run | bash
 
     echo -e "${date} \n INSTALLED ${0##*/}"
 ) >> /tmp/install_${0##*/}.log 2>&1

@@ -87,11 +87,6 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -122,51 +117,12 @@ export TEXMFHOME='~/.texmf'
 # Run twolfson/sexy-bash-prompt
 . ~/.bash_prompt
 
-# More aliases
-alias matlabcli="matlab -nodisplay"
-alias lsl="ls -lhFA | less"
-alias :q="exit"
-alias bat="batcat"
-alias gitup="git commit -a && git push"
-
-# Simple custom functions
-function mann() {
-    curl --silent "https://cheat.sh/$1" | less -R
-}
-function mkcd() {
-    mkdir -p "$1" && cd "$1"
-}
-
-function wat() {
-    search_term="${*}"
-    search_term="${search_term// /+}"
-    firefox https://www.ecosia.org/search?q=${search_term} &
-}
-
-function watt() {
-    search_term="${*}"
-    search_term="${search_term// /+}"
-    firefox https://www.google.com.au/search?q=${search_term} &
-}
-
-# simple function to make and run c programs
-function crun { make $1 && ./$1; }
-
-# # Stops alacritty from scaling differently on laptop vs external monitors
-# # Might need to change this if a HiDPI screen is needed
-# export WINIT_HIDPI_FACTOR=1.0
-
-# # run alacritty under xwayland
-# export WINIT_UNIX_BACKEND=x11
 
 # make qt apps look nicer (after installing qt5-style-plugins)
 export QT_QPA_PLATFORMTHEME=gtk2
 
 # Set default editor to vim
 export EDITOR=vim
-
-# Shortcut to apt update
-alias aptup="sudo apt update && sudo apt upgrade -y"
 
 
 export NVM_DIR="$HOME/.nvm"
@@ -179,3 +135,9 @@ alias luamake=/opt/lua-language-server/3rd/luamake/luamake
 # FIX FOR PYRIGHT
 # source : https://fabiorosado.dev/blog/pyright-worker-threads-missing/
 export NODE\_OPTIONS=--experimental-worker
+
+# pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
