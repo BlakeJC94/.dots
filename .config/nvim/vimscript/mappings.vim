@@ -1,25 +1,31 @@
 
-" Prevent x from overriding what's in the clipboard
-nnoremap x "_x
-nnoremap X "_X
-
-" Easier splitting
+" Better splitting
 nnoremap _ :split<CR>
 nnoremap \| :vsplit<CR>
 
-" <Esc><Esc> = go to normal mode
+" <Esc><Esc> = (terminal) go to normal mode
 tnoremap <Esc><Esc> <C-\><C-n>
-" <Esc>: = go to normal mode
+" <Esc>: = (terminal) go to command mode
 tnoremap <Esc>: <C-\><C-n>:
+
+" Prevent x from overriding what's in the clipboard
+noremap x "_x
+noremap X "_X
+
+" Make <C-a/x> incrrease/decrease recursively in vblock mode
+vnoremap <C-a> g<C-a>
+vnoremap <C-x> g<C-x>
+vnoremap g<C-a> <C-a>
+vnoremap g<C-x> <C-x>
 
 " Center screen and open folds when flicking through search matches
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " Maintain Visual Mode after >/< actions
-vmap < <gv
-vmap > >gv
-vmap ^ =gv
+vnoremap < <gv
+vnoremap > >gv
+vnoremap = =gv
 
 " Move visual block up or down
 vnoremap J :m '>+1<CR>gv
@@ -28,9 +34,8 @@ vnoremap K :m '<-2<CR>gv
 " Make Y behave like D and C
 nmap Y y$
 
-" Open/close quickfix list with <C-h/l>
-nnoremap <C-h> :copen<CR>
-nnoremap <C-l> :cclose<CR>
+" Open/close quickfix list with <C-l> (custom function)
+nnoremap <C-l> :call ToggleQuickFix()<CR>
 " Navigate quickfix list with <C-j/k>
 nnoremap <C-j> :cnext<CR>zzzv
 nnoremap <C-k> :cprev<CR>zzzv
@@ -41,20 +46,8 @@ nnoremap <expr> gp '`[' . getregtype()[0] . '`]'
 " gF: create new file at filename over cursor
 nnoremap gF :e <c-r><c-f><CR>
 
-" Navigate to front/back of line from home row
-" (unique to my kb layout, $ is on K and = is on J w/ placement guide)
-nnoremap = ^
-nnoremap ^ =
-
 " J doesn't move cursor
 nnoremap J mzJ`z
-
-" C-z from insert mode does undo
-inoremap <C-z> <C-o>u
-inoremap <A-z> <C-o><C-r>
-
-" " Make Q be the format command
-" noremap Q gq
 
 " Backspace/Enter in normal mode for jumplist
 nnoremap <Backspace> <C-o>
@@ -72,8 +65,6 @@ nnoremap c# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``cgN
 nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
 nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 
-
-
 " [Arrow] : disable for all
 map <Left>  <Nop>
 map <Down>  <Nop>
@@ -89,10 +80,10 @@ vnoremap <S-Left>  4zh
 vnoremap <S-Down>  4<C-e>
 vnoremap <S-Up>    4<C-y>
 vnoremap <S-Right> 4zl
-inoremap <S-Left>  <C-o>4zh
-inoremap <S-Down>  <C-o>4<C-e>
-inoremap <S-Up>    <C-o>4<C-y>
-inoremap <S-Right> <C-o>4zl
+" inoremap <S-Left>  <C-o>4zh
+" inoremap <S-Down>  <C-o>4<C-e>
+" inoremap <S-Up>    <C-o>4<C-y>
+" inoremap <S-Right> <C-o>4zl
 
 
 " [Ctrl + Arrow] to navigate windows (drop <C-\><C-n> if using vim)
@@ -100,10 +91,10 @@ tnoremap <C-Left>  <C-\><C-n><C-w>h
 tnoremap <C-Down>  <C-\><C-n><C-w>j
 tnoremap <C-Up>    <C-\><C-n><C-w>k
 tnoremap <C-Right> <C-\><C-n><C-w>l
-inoremap <C-Left>  <C-w>h
-inoremap <C-Down>  <C-w>j
-inoremap <C-Up>    <C-w>k
-inoremap <C-Right> <C-w>l
+" inoremap <C-Left>  <C-w>h
+" inoremap <C-Down>  <C-w>j
+" inoremap <C-Up>    <C-w>k
+" inoremap <C-Right> <C-w>l
 nnoremap <C-Left>  <C-w>h
 nnoremap <C-Down>  <C-w>j
 nnoremap <C-Up>    <C-w>k
@@ -118,10 +109,10 @@ tnoremap <A-Left>  <C-\><C-N><C-w>8<
 tnoremap <A-Down>  <C-\><C-N><C-w>8-
 tnoremap <A-Up>    <C-\><C-N><C-w>8+
 tnoremap <A-Right> <C-\><C-N><C-w>8>
-inoremap <A-Left>  <C-w>8<
-inoremap <A-Down>  <C-w>8-
-inoremap <A-Up>    <C-w>8+
-inoremap <A-Right> <C-w>8>
+" inoremap <A-Left>  <C-w>8<
+" inoremap <A-Down>  <C-w>8-
+" inoremap <A-Up>    <C-w>8+
+" inoremap <A-Right> <C-w>8>
 nnoremap <A-Left>  <C-w>8<
 nnoremap <A-Down>  <C-w>8-
 nnoremap <A-Up>    <C-w>8+
@@ -136,10 +127,10 @@ tnoremap <C-A-Left>  <C-\><C-N><C-w>H
 tnoremap <C-A-Down>  <C-\><C-N><C-w>J
 tnoremap <C-A-Up>    <C-\><C-N><C-w>K
 tnoremap <C-A-Right> <C-\><C-N><C-w>L
-inoremap <C-A-Left>  <C-w>H
-inoremap <C-A-Down>  <C-w>J
-inoremap <C-A-Up>    <C-w>K
-inoremap <C-A-Right> <C-w>L
+" inoremap <C-A-Left>  <C-w>H
+" inoremap <C-A-Down>  <C-w>J
+" inoremap <C-A-Up>    <C-w>K
+" inoremap <C-A-Right> <C-w>L
 nnoremap <C-A-Left>  <C-w>H
 nnoremap <C-A-Down>  <C-w>J
 nnoremap <C-A-Up>    <C-w>K

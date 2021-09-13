@@ -10,8 +10,7 @@ noremap <Leader>d :cd %:p:h<CR>:pwd<CR>
 noremap <Leader>e :e %:p:h<CR>
 
 " L-h,l : open/close loclist
-nnoremap <Leader>h :lopen<CR>
-nnoremap <Leader>l :lclose<CR>
+nnoremap <Leader>l :call ToggleQuickFix()<CR>
 " L-j,k : Navigate loclist
 nnoremap <Leader>j :lnext<CR>
 nnoremap <Leader>k :lprev<CR>
@@ -30,6 +29,11 @@ noremap <Leader><BS> <C-^>
 " L-<Tab> : toggle highlights on search
 noremap <Leader><Tab> :set hls!<CR>
 
+" L-. Toggle spellcheck
+nnoremap <Leader>. :set spell!<CR>
+" L-;, L-, : Jump between spelling mistakes
+nnoremap <Leader>; ]s
+nnoremap <Leader>, [s
 
 " " L-m : Toggle maximize current buffer
 " nnoremap <silent><Leader>m :MaximizerToggle<CR>
@@ -49,12 +53,6 @@ noremap <Leader><Tab> :set hls!<CR>
 " nmap <Leader>f :Goyo<CR>
 " vmap <Leader>f :Goyo<CR>
 "
-" " L-t : Telescope
-" nnoremap <leader>tf <cmd>Telescope find_files<cr>
-" " nnoremap <leader>tg <cmd>Telescope treesitter<cr>
-" nnoremap <leader>tb <cmd>Telescope buffers<cr>
-" nnoremap <leader>th <cmd>Telescope help_tags<cr>
-
 
 " -----------------------------------------------------------------------------
 " " VIM TERMINAL MAPPINGS

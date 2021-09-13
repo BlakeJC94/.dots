@@ -62,11 +62,8 @@ packer_startup = function()
 
     -- gc<motion> = Toggle comments
     use {
-        "terrortylor/nvim-comment",
-        event = "BufRead",
-        config = function()
-            require("nvim_comment").setup()
-        end,
+        "tpope/vim-commentary",  -- how is this not default behaviour??
+        requires = {'tpope/vim-repeat'},
     }
 
     -- <C-c><C-c> = Send selection to neovim terminal
@@ -78,16 +75,38 @@ packer_startup = function()
         end,
     }
 
+    -- More text objects
+    use {
+        'wellle/targets.vim'
+    }
+
     -- :Zenmode = Maximise and focus buffer
     use {
         "folke/zen-mode.nvim",
         config = function() require("zen-mode").setup({}) end
     }
 
-    use 'tpope/vim-surround'            -- cs]} : Change surrounding brackets
-    use 'tpope/vim-repeat'              --   Fix . for some plugins
-    use 'junegunn/vim-easy-align'       -- [<C-v>]ga*<char> : align to char
-    use 'triglav/vim-visual-increment'  -- [<C-v>]<C-a/x> : Increment column
+    use {
+        "beauwilliams/focus.nvim",
+        requires = {'danilamihailov/beacon.nvim'},
+        config = function() require("focus").setup() end
+    }
+
+    -- cs]} : Change surrounding brackets
+    use 'tpope/vim-surround'
+
+    -- reveal registers when needed!
+    use {'junegunn/vim-peekaboo'}
+
+    -- select indent levels with <sel>i
+    use {
+        'michaeljsmith/vim-indent-object'
+    }
+
+    -- align with gl<sel><obj><char>
+    use {
+        'tommcdo/vim-lion'
+    }
 
     -- Git changes indicators
     use {
@@ -98,12 +117,23 @@ packer_startup = function()
         config = function() require('gitsigns').setup() end
     }
 
+    -- explorer
+    use {
+        "tamago324/lir.nvim",
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'kyazdani42/nvim-web-devicons',
+        },
+        config = function() require("config.lir") end,
+    }
     -- Landing page
     use {
-        'BlakeJC94/alpha-nvim', branch = 'feature/startify-fortune',
+        'goolord/alpha-nvim',
+        requires = {'BlakeJC94/alpha-nvim-fortune'},
         config = function() require("config.alpha") end,
     }
 
+    -- firefox injection
     use {
         'glacambre/firenvim',
         config = function() require("config.firenvim") end,
@@ -115,6 +145,7 @@ packer_startup = function()
     use {
         'phaazon/hop.nvim',
         as = 'hop',
+        requires = {'unblevable/quick-scope'},
         config = function() require("config.hop") end,
     }
     -- Colors Hex codes

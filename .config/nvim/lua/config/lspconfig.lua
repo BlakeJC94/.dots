@@ -28,7 +28,7 @@ local on_attach = function(client)
     -- buf_map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_map('n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     --buf_map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_map('n', '<C-;>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_map('n', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_map('n', '\\wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_map('n', '\\wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_map('n', '\\wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -85,37 +85,43 @@ lsp.pyright.setup({
     }
 })
 
+-- NOTE: the lua lsp completion only shows "Workspace loading:" and there are
+-- no window diagnostics.. no amount of googling has shown me why, disabled for
+-- now
 -- Lua : Install LSP to path from source
 -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
-local sumneko_root_path = "/opt/lua-language-server"
-local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
-lsp.sumneko_lua.setup {
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
-    capabilities = capabilities,
-    settings = {
-        Lua = {
-            runtime = {
-                version = 'LuaJIT',
-                path = vim.split(package.path, ';'),
-            },
-            completion = {
-                enable = true,
-                callSnippet = "Both",
-            },
-            diagnostics = {
-                enable = true,
-                globals = {'vim', 'decribe'},
-                disable = {"lowercase-global"},
-            },
-            workspace = {
-                library = {
-                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                    [vim.fn.expand('$VIMRUNTIME/lua/cim/lsp')] = true,
-                }
-            },
-        },
-    },
-    on_attach = on_attach,
-}
+-- local sumneko_root_path = "/opt/lua-language-server"
+-- local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
+-- lsp.sumneko_lua.setup {
+--     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+--     capabilities = capabilities,
+--     settings = {
+--         Lua = {
+--             runtime = {
+--                 version = 'LuaJIT',
+--                 path = vim.split(package.path, ';'),
+--             },
+--             completion = {
+--                 enable = true,
+--                 callSnippet = "Both",
+--             },
+--             diagnostics = {
+--                 enable = true,
+--                 globals = {'vim', 'decribe'},
+--                 disable = {"lowercase-global"},
+--             },
+--             hint = {
+--                 enable = true,
+--             },
+--             workspace = {
+--                 library = {
+--                     [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+--                     [vim.fn.expand('$VIMRUNTIME/lua/cim/lsp')] = true,
+--                 }
+--             },
+--         },
+--     },
+--     on_attach = on_attach,
+-- }
 
 return M

@@ -19,6 +19,18 @@ augroup default_cmds
     autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
 augroup END
 
+augroup auto_mkdir
+  autocmd!
+  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+  function! s:auto_mkdir(dir, force)
+    if !isdirectory(a:dir)
+          \   && (a:force
+          \       || input("'" . a:dir . "' does not exist. Create? [y/N]") =~? '^y\%[es]$')
+      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
+  endfunction
+augroup END
+
 augroup set_prgs
     autocmd!
     autocmd FileType c set formatprg=clang-format
@@ -26,12 +38,13 @@ augroup set_prgs
 augroup END
 
 
-augroup cursorline_on_active_buffer
-    autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter,Focusgained * setlocal cursorline
-    autocmd WinLeave,FocusLost * setlocal nocursorline
-    autocmd VimEnter,WinEnter,BufWinEnter,Focusgained term://* setl nocursorline
-augroup END
+" replaced by focus plugin
+" augroup cursorline_on_active_buffer
+"     autocmd!
+"     autocmd VimEnter,WinEnter,BufWinEnter,Focusgained * setlocal cursorline
+"     autocmd WinLeave,FocusLost * setlocal nocursorline
+"     autocmd VimEnter,WinEnter,BufWinEnter,Focusgained term://* setl nocursorline
+" augroup END
 
 
 augroup highlight_yank
