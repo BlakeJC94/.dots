@@ -158,6 +158,13 @@ packer_startup = function()
         requires = {'unblevable/quick-scope'},
         config = function() require("config.hop") end,
     }
+
+    -- Integrat cheat.sh
+    use {
+        'RishabhRD/nvim-cheat.sh',
+        requires = {'RishabhRD/popfix'},
+    }
+
     -- Colors Hex codes
     use {
         "norcalli/nvim-colorizer.lua",

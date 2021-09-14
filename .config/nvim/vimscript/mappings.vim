@@ -49,9 +49,9 @@ nnoremap gF :e <c-r><c-f><CR>
 " J doesn't move cursor
 nnoremap J mzJ`z
 
-" Backspace/Enter in normal mode for jumplist
-nnoremap <Backspace> <C-o>
-nnoremap <CR> <C-i>
+" " Backspace/Enter in normal mode for jumplist
+" nnoremap <Backspace> <C-o>
+" nnoremap <CR> <C-i>
 
 " Better jumplist for large line steps
 nnoremap <expr> k (v:count > 5 ? "m`" . v:count : "") . 'k'
@@ -64,6 +64,14 @@ nnoremap c# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``cgN
 " Delete selected word (forward/backwards), . to repeat
 nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
 nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
+
+" Make vertical wildmenu controls behave intuitively
+if match(&wildmode, 'full') > -1
+    cnoremap <expr> <Down>  wildmenumode() ? "\<Right>" : "\<Down>"
+    cnoremap <expr> <Up>    wildmenumode() ? "\<Left>"  : "\<Up>"
+    cnoremap <expr> <Right> wildmenumode() ? "\<Down>"  : "\<Right>"
+    cnoremap <expr> <Left>  wildmenumode() ? "\<Up>"    : "\<Left>"
+endif
 
 " [Arrow] : disable for all
 map <Left>  <Nop>
@@ -139,14 +147,6 @@ vnoremap <C-A-Left>  <C-w>H
 vnoremap <C-A-Down>  <C-w>J
 vnoremap <C-A-Up>    <C-w>K
 vnoremap <C-A-Right> <C-w>L
-
-" Make vertical wildmenu controls behave intuitively
-if match(&wildmode, 'full') > -1
-    cnoremap <expr> <Down>  wildmenumode() ? "\<Right>" : "\<Down>"
-    cnoremap <expr> <Up>    wildmenumode() ? "\<Left>"  : "\<Up>"
-    cnoremap <expr> <Right> wildmenumode() ? "\<Down>"  : "\<Right>"
-    cnoremap <expr> <Left>  wildmenumode() ? "\<Up>"    : "\<Left>"
-endif
 
 " -----------------------------------------------------------------------------
 " " OLD MAPPINGS

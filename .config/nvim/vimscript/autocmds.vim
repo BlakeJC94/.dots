@@ -1,3 +1,8 @@
+function TrimTrailingSpace()
+    %s/\s*$//
+    ''
+endfunction
+
 augroup default_cmds
     autocmd!
     " equally resize windows when terminal is resized
@@ -5,7 +10,7 @@ augroup default_cmds
     " replace tabs with spaces
     autocmd BufWritePre * retab
     " autoremove whitespace
-    autocmd BufWritePre * %s/\s\+$//e
+    autocmd BufWritePre * call TrimTrailingSpace()
     " help/cmd win/qf list: Press q to close and disable spellcheck
     autocmd Filetype qf,help nnoremap <buffer> q :q<CR>
     autocmd Filetype qf,help setl nospell
