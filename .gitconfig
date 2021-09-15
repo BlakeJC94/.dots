@@ -1,17 +1,17 @@
 [user]
-	name = Blake
-	email = blakejamescook@gmail.com
-	username = BlakeJC94
+    name = Blake
+    email = blakejamescook@gmail.com
+    username = BlakeJC94
 
 [alias]
-	a = add .
-	co = checkout
-	cm = commit -m
-	st = status
-	br = branch
-	hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
-	type = cat-file -t
-	dump = cat-file -p
+    a = add .
+    co = checkout
+    cm = commit -m
+    st = status
+    br = branch
+    hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
+    type = cat-file -t
+    dump = cat-file -p
 
 [url "https://gitlab.com/"]
     insteadOf = gl:
@@ -44,13 +44,18 @@
     changed = green
     untracked = red
 [core]
-	excludesfile = /.gitignore
+    excludesfile = /.gitignore
 [credential]
-	helper = cache --timeout=3600
+    helper = cache --timeout=3600
+[diff]
+    tool = nvimdiff
+[difftool]
+    prompt = false
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [merge]
-	tool = vimdiff
-	conflictstyle = diff3
+    tool = nvimdiff
 [mergetool]
-	prompt = false
-[pull]
-	rebase = false
+    prompt = true
+[mergetool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
