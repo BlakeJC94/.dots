@@ -2,9 +2,9 @@ require'hop'.setup {
     keys = 'asdghklqwertyuiopzxcvbnmfj',
 }
 
-vim.api.nvim_set_keymap('n', '<Leader>w', "<cmd>HopWord<CR>", {})
-vim.api.nvim_set_keymap('n', '<Leader>r', "<cmd>HopLine<CR>", {})
-vim.api.nvim_set_keymap('n', '<Leader>c', "<cmd>HopChar1<CR>", {})
+vim.api.nvim_set_keymap('n', 's', "<cmd>HopWord<CR>", {})
+vim.api.nvim_set_keymap('n', 'S', "<cmd>HopLine<CR>", {})
+vim.api.nvim_set_keymap('n', '<Leader>s', "<cmd>HopChar1<CR>", {})
 
 vim.g.qs_max_chars=800
 vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
