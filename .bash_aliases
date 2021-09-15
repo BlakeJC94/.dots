@@ -4,7 +4,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # lazygit alias
-alias gg='lazygit'
+alias g='lazygit'
 
 # More aliases
 alias aptup="sudo apt update && sudo apt upgrade -y"

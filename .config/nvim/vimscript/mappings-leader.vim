@@ -6,22 +6,14 @@ noremap <Leader>q :q<CR>
 
 " L-d : Change directory of vim to current file
 noremap <Leader>d :cd %:p:h<CR>:pwd<CR>
-" L-e : File explorer
-noremap <Leader>e :e %:p:h<CR>
+" L-<CR> : File explorer
+noremap <Leader><CR> :e %:p:h<CR>
 
 " L-h,l : open/close loclist
-nnoremap <Leader>l :call ToggleQuickFix()<CR>
+nnoremap <Leader>l :call ToggleLocation()<CR>
 " L-j,k : Navigate loclist
 nnoremap <Leader>j :lnext<CR>
 nnoremap <Leader>k :lprev<CR>
-
-" " L-y, L-p : System clipboard
-" nnoremap <Leader>y "+y
-" nnoremap <Leader>Y "+Y
-" vnoremap <Leader>y "+y
-" vnoremap <Leader>Y "+Y
-" nnoremap <Leader>p "+p
-" vnoremap <Leader>p "+p
 
 " L-<BS> : Switch between last opened files
 noremap <Leader><BS> <C-^>
@@ -34,25 +26,6 @@ nnoremap <Leader>. :set spell!<CR>
 " L-;, L-, : Jump between spelling mistakes
 nnoremap <Leader>; ]s
 nnoremap <Leader>, [s
-
-" " L-m : Toggle maximize current buffer
-" nnoremap <silent><Leader>m :MaximizerToggle<CR>
-" vnoremap <silent><Leader>m :MaximizerToggle<CR>gv
-"
-" " ga : Easyalign visual selection (e.g. vipga*| to align around all | chars)
-" xmap ga <Plug>(EasyAlign)
-" nmap ga <Plug>(EasyAlign)
-"
-" " <F4> : Limelight
-" nmap <F4> :Limelight!!<CR>
-" vmap <F4> :Limelight!!<CR>
-" imap <F4> <C-o>:Limelight!!<CR>
-" tmap <F4> <C-\><C-n>:Limelight!!<CR>i
-"
-" " L-f : Goyo
-" nmap <Leader>f :Goyo<CR>
-" vmap <Leader>f :Goyo<CR>
-"
 
 " -----------------------------------------------------------------------------
 " " VIM TERMINAL MAPPINGS

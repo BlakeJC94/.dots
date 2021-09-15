@@ -15,11 +15,6 @@ vim.api.nvim_exec([[
 packer_startup = function()
     use 'wbthomason/packer.nvim'
 
-    use {
-        'glepnir/lspsaga.nvim',
-        config = function() require('lspsaga').init_lsp_saga() end,
-    }
-
     -- Snippet engine
     use {
         "L3MON4D3/LuaSnip",
@@ -50,7 +45,6 @@ packer_startup = function()
 
     -- LSP engine
     -- TODO refactor mappings
-    -- TODO saga
     use {
         'neovim/nvim-lspconfig',
         requires = {'glepnir/lspsaga.nvim'},
@@ -94,7 +88,7 @@ packer_startup = function()
     -- :Zenmode = Maximise and focus buffer
     use {
         "folke/zen-mode.nvim",
-        config = function() require("zen-mode").setup({}) end
+        config = function() require("config.zen-mode") end,
     }
 
     use {
@@ -106,18 +100,41 @@ packer_startup = function()
     -- cs]} : Change surrounding brackets
     use 'tpope/vim-surround'
 
-    use {
-        "folke/which-key.nvim",
-        config = function()
-            require("which-key").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
-    }
+    -- use {
+    --     "folke/which-key.nvim",
+    --     config = function()
+    --         require("which-key").setup {
+    --             plugins = {
+    --                 marks = true, -- shows a list of your marks on ' and `
+    --                 registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+    --                 spelling = {
+    --                     enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+    --                     suggestions = 5, -- how many suggestions should be shown in the list?
+    --                 },
+    --                 -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+    --                 -- No actual key bindings are created
+    --                 presets = {
+    --                     operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+    --                     motions = false, -- adds help for motions
+    --                     text_objects = false, -- help for text objects triggered after entering an operator
+    --                     windows = false, -- default bindings on <c-w>
+    --                     nav = false, -- misc bindings to work with windows
+    --                     z = true, -- bindings for folds, spelling and others prefixed with z
+    --                     g = true, -- bindings for prefixed with g
+    --                 },
+    --                 window = {
+    --                     border = "none", -- none, single, double, shadow
+    --                     position = "top", -- bottom, top
+    --                     margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+    --                     padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+    --                 },
+    --             }
+    --         }
+        -- end
+    -- }
+
     -- reveal registers when needed!
-    -- use {'junegunn/vim-peekaboo'}
+    use {'junegunn/vim-peekaboo'}
 
     -- select indent levels with <sel>i
     use {
@@ -187,6 +204,9 @@ packer_startup = function()
         "lukas-reineke/indent-blankline.nvim",
         config = "require('config.indent-blankline')",
     }
+
+    -- Julia suport
+    use 'JuliaEditorSupport/julia-vim'
 
     -- Colorscheme
     use {"ellisonleao/gruvbox.nvim",

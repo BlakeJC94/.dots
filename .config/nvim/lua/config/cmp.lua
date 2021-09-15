@@ -52,11 +52,11 @@ cmp.setup({
         -- },
         ["<Tab>"] = cmp.mapping(function(fallback)
             if vim.fn.pumvisible() == 1 then
-                cmp.confirm {
-                    behavior = cmp.ConfirmBehavior.Insert,
-                    select = true,
-                }
-                -- vim.fn.feedkeys(t("<C-n>"), "n")
+                -- cmp.confirm {
+                --     behavior = cmp.ConfirmBehavior.Insert,
+                --     select = true,
+                -- }
+                vim.fn.feedkeys(t("<C-n>"), "n")
             elseif luasnip.expand_or_jumpable() then
                 vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
             elseif check_back_space() then
@@ -69,9 +69,9 @@ cmp.setup({
             "s",
         }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
-            -- if vim.fn.pumvisible() == 1 then
-            --     vim.fn.feedkeys(t("<C-p>"), "n")
-            if luasnip.jumpable(-1) then
+            if vim.fn.pumvisible() == 1 then
+                vim.fn.feedkeys(t("<C-p>"), "n")
+            elseif luasnip.jumpable(-1) then
                 vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
             else
                 fallback()
