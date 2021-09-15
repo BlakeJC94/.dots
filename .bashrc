@@ -141,3 +141,10 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
+
+# using vimn as man pager
+if [[ "$(command -v vim)" ]]; then
+    export EDITOR='vim'
+    export MANPAGER='vim +Man!'
+    export MANWIDTH=999
+fi

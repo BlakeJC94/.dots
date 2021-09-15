@@ -14,6 +14,7 @@ vim.api.nvim_exec([[
 
 packer_startup = function()
     use 'wbthomason/packer.nvim'
+
     use {
         'glepnir/lspsaga.nvim',
         config = function() require('lspsaga').init_lsp_saga() end,
@@ -105,8 +106,18 @@ packer_startup = function()
     -- cs]} : Change surrounding brackets
     use 'tpope/vim-surround'
 
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            require("which-key").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
     -- reveal registers when needed!
-    use {'junegunn/vim-peekaboo'}
+    -- use {'junegunn/vim-peekaboo'}
 
     -- select indent levels with <sel>i
     use {

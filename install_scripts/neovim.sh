@@ -10,11 +10,12 @@ echo "[${0##*/}] : INSTALLING >>>>>>>>>>>>>>>>"
     # PUT INSTALL COMMANDS HERE
     sudo apt install -y lua5.1 npm ripgrep python3-pip
     sudo python3 -m pip install pynvim
-    wget https://github.com/neovim/neovim/releases/download/v0.5.0/nvim.appimage
-    chmod u+x nvim.appimage
-    sudo mv nvim.appimage /opt/
-    sudo ln -sf /opt/nvim.appimage /usr/bin/nvim
-    sudo ln -sf /opt/nvim.appimage /usr/bin/vim
+    wget https://github.com/neovim/neovim/releases/download/v0.5.0/nvim-linux64.tar.gz
+    tar -xzf nvim-linux64.tar.gz
+    rm nvim-linux64.tar.gz
+    sudo mv nvim-linux64 /opt
+    sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/bin/nvim
+    sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/bin/vim
     ln -sf $HOME/.dots/.config/nvim $HOME/.config/nvim
 
     echo -e "${date} \n INSTALLED ${0##*/}"
@@ -25,11 +26,12 @@ if [ $errorCode -ne 0 ]; then
     echo "[${0##*/}] : ERROR ----------------"
 
     # PUT CLEAN-UP COMMANDS HERE
-    rm -f nvim.appimage
-    rm -f /opt/nvim.appimage
-    unlink /usr/bin/nvim
-    unlink /usr/bin/vim
-    unlink $HOME/.config/nvim
+    rm -f nvim-linux64.tar.gz
+    rm -rf nvim-linux64/
+    sudo rm -f /opt/nvim-linux64/
+    sudo unlink /usr/bin/nvim
+    sudo unlink /usr/bin/vim
+    sudo unlink $HOME/.config/nvim
 
     exit $errorCode
 fi
