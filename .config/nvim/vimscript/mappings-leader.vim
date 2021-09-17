@@ -7,10 +7,10 @@ noremap <Leader>q :q<CR>
 noremap <Leader><BS> :cd %:p:h<CR>:pwd<CR>
 " L-<CR> : File explorer
 noremap <Leader><CR> :lua require'lir.float'.toggle()<CR>
-" L-<Tab> : toggle highlights on search
-noremap <Leader><Tab> :set hls!<CR>
-" L-<Esc> : Switch between last opened files
-noremap <Leader><Esc> <C-^>
+" L-<Tab> : Switch between last opened files
+noremap <Leader><Tab> <C-^>
+" L-<Esc> : toggle highlights on search
+noremap <Leader><Esc> :set hls!<CR>
 
 " L-h,l : open/close loclist
 nnoremap <Leader>l :call ToggleLocation()<CR>

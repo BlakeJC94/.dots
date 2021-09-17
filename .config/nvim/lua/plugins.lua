@@ -15,6 +15,13 @@ vim.api.nvim_exec([[
 packer_startup = function()
     use 'wbthomason/packer.nvim'
 
+    -- :Telescope find_files = fuzzy finder
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = "require('config.telescope')",
+    }
+
     -- LSP engine
     use {
         'neovim/nvim-lspconfig',
@@ -36,13 +43,6 @@ packer_startup = function()
             "kdheepak/cmp-latex-symbols",
         },
         config = "require('config.cmp')",
-    }
-
-    -- :Telescope find_files = fuzzy finder
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = { 'nvim-lua/plenary.nvim' },
-        config = "require('config.telescope')",
     }
 
     -- explorer
@@ -90,11 +90,18 @@ packer_startup = function()
         config = function() require("config.zen-mode") end,
     }
 
-    use {
-        "beauwilliams/focus.nvim",
-        requires = {'danilamihailov/beacon.nvim'},
-        config = function() require("focus").setup({signcolumn = false}) end
-    }
+    use {'danilamihailov/beacon.nvim'}
+    -- use {
+    --     "beauwilliams/focus.nvim",
+    --     requires = {'danilamihailov/beacon.nvim'},
+    --     config = function()
+    --         require("focus").setup({
+    --             signcolumn = false,
+    --             excluded_filetypes = {"help"},
+    --             excluded_buftypes = {"help, terminal"},
+    --         })
+    --     end
+    -- }
 
 
     -- Git changes indicators
@@ -132,6 +139,14 @@ packer_startup = function()
         config = "require('config.indent-blankline')",
     }
 
+    -- Maximiser
+    use {"szw/vim-maximizer",
+        config = function()
+            vim.g.maximizer_set_default_mapping = 1
+            vim.g.maximizer_set_mapping_with_bang = 0
+            vim.g.maximizer_default_mapping_key = "<F11>"
+        end,
+    }
 
     -- Colorscheme
     use {"ellisonleao/gruvbox.nvim",

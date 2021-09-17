@@ -114,6 +114,7 @@ fi
 # TeXmgr added config
 # https://tex.stackexchange.com/questions/467824/is-it-possible-to-relocate-my-texmf-directory
 export TEXMFHOME='~/.texmf'
+
 # Run twolfson/sexy-bash-prompt
 . ~/.bash_prompt
 
@@ -123,7 +124,6 @@ export QT_QPA_PLATFORMTHEME=gtk2
 
 # Set default editor to vim
 export EDITOR=vim
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -141,10 +141,12 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
+# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
-# using vimn as man pager
+# using vim as man pager
 if [[ "$(command -v vim)" ]]; then
     export EDITOR='vim'
     export MANPAGER='vim +Man!'
     export MANWIDTH=999
 fi
+

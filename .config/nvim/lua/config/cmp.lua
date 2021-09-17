@@ -12,6 +12,16 @@ local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+local cr_complete = function(fallback)
+    if (vim.fn.pumvisible() == 1) or luasnip.expand_or_jumpable() then
+        vim.fn.feedkeys(t("<C-e>"), "n")
+        vim.fn.feedkeys(t("<CR>"), "n")
+    elseif check_back_space() then
+        vim.fn.feedkeys(t("<CR>"), "n")
+    else
+        fallback()
+    end
+end
 local tab_complete = function(fallback)
     if vim.fn.pumvisible() == 1 then
         vim.fn.feedkeys(t("<C-n>"), "n")
@@ -74,21 +84,21 @@ cmp.setup({
         ['<Down>'] = cmp.mapping.select_next_item(),
         ['<S-Up>'] = cmp.mapping.scroll_docs(-4),
         ['<S-Down>'] = cmp.mapping.scroll_docs(4),
-        ['<Right>'] = cmp.mapping.complete(),
-        ['<Left>'] = cmp.mapping.abort(),
-        ['<C-Space>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm {
+        ['<Right>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
         },
+        ['<Left>'] = cmp.mapping.close(),
+        -- ['<C-Space>'] = cmp.mapping.abort(),
+        ["<CR>"] = cmp.mapping(cr_complete, {"i","s"}),
         ["<Tab>"] = cmp.mapping(tab_complete, {"i","s"}),
         ["<S-Tab>"] = cmp.mapping(s_tab_complete, {"i","s"}),
     },
     sources = {
-        { name = 'buffer' },
-        { name = 'path' },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
+        { name = 'path' },
+        { name = 'buffer' },
         { name = 'latex_symbols' },
     },
 })
