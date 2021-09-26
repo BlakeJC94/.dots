@@ -1,12 +1,3 @@
-local saga = require('lspsaga')
-saga.init_lsp_saga({
-  error_sign = '',
-  warn_sign = '',
-  hint_sign = '',
-  infor_sign = '',
-  border_style = "round",
-})
-
 
 local M = {}
 function M.show_line_diagnostics()
@@ -36,23 +27,20 @@ local on_attach = function(client)
     buf_map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_map('n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_map('n', 'gs', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>', opts)
-    buf_map('n', 'gh', '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>', opts)
-    buf_map('n', '<Up>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<CR>', opts)
-    buf_map('n', '<Down>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<CR>', opts)
+    buf_map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_map('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
     buf_map('n', '\\wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_map('n', '\\wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_map('n', '\\wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 
-    buf_map('n', '\\d', '<cmd>lua require("lspsaga.provider").preview_definition()<CR>', opts)
-    buf_map('n', '\\r', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
-    buf_map('n', '\\f', '<cmd>lua require("lspsaga.codeaction").code_action()<CR>', opts)
-    buf_map('v', '\\f', '<cmd>lua require("lspsaga.codeaction").range_code_action()<CR>', opts)
+    buf_map('n', '\\d', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_map('n', '\\r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_map('n', '\\f', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
-    buf_map('n', '<Leader>h', '<cmd>lua require("lspsaga.diagnostic").show_line_diagnostics()<CR>', opts)
-    buf_map('n', '[d', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>', opts)
-    buf_map('n', ']d', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>', opts)
+    buf_map('n', '<Leader>h', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
     buf_map('n', '\\l', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     buf_map('n', '\\f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
