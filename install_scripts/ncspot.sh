@@ -10,6 +10,7 @@ echo "[${0##*/}] : INSTALLING >>>>>>>>>>>>>>>>"
     wget https://github.com/hrkfdn/ncspot/releases/download/v0.8.2/ncspot-v0.8.2-linux.tar.gz
     tar -xzvf ncspot-v0.8.2-linux.tar.gz
     sudo mv ncspot /opt/
+    sudo ln -s /opt/ncspot /usr/bin/ncspot
     rm ncspot-v0.8.2-linux.tar.gz
     ln -sf $HOME/.dots/.config/ncspot $HOME/.config/ncspot
 

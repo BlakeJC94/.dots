@@ -10,8 +10,8 @@ echo "[${0##*/}] : INSTALLING >>>>>>>>>>>>>>>>"
     # PUT INSTALL COMMANDS HERE
     sudo apt install python3-gpg
     cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-    cd ~ && wget -O - "https://linux.dropbox.com/packages/dropbox.py"
-    sudo mv ~/dropbox.py /opt/
+    cd ~ && curl "https://linux.dropbox.com/packages/dropbox.py" -o "/tmp/dropbox.py"
+    sudo mv /tmp/dropbox.py /opt/
     sudo chmod +x /opt/dropbox.py
     sudo ln -s /opt/dropbox.py /usr/bin/dropbox
 
