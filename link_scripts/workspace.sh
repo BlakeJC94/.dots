@@ -1,4 +1,5 @@
 
+WORKDIRS=( archived languages scratchpad )
 mkdir -p $HOME/Workspace/repos
 mkdir -p $HOME/Workspace/data
 for DIR in "${WORKDIRS[@]}"; do
