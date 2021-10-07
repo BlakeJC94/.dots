@@ -12,6 +12,7 @@ vim.api.nvim_exec([[
     augroup end
 ]], false)
 
+-- Select plugins to load
 packer_startup = function()
     use 'wbthomason/packer.nvim'
 
@@ -25,7 +26,6 @@ packer_startup = function()
     -- LSP engine
     use {
         'neovim/nvim-lspconfig',
-        requires = {'glepnir/lspsaga.nvim'},
         config = "require('config.lspconfig')",
     }
 
@@ -91,17 +91,6 @@ packer_startup = function()
     }
 
     use {'danilamihailov/beacon.nvim'}
-    -- use {
-    --     "beauwilliams/focus.nvim",
-    --     requires = {'danilamihailov/beacon.nvim'},
-    --     config = function()
-    --         require("focus").setup({
-    --             signcolumn = false,
-    --             excluded_filetypes = {"help"},
-    --             excluded_buftypes = {"help, terminal"},
-    --         })
-    --     end
-    -- }
 
 
     -- Git changes indicators
@@ -127,6 +116,12 @@ packer_startup = function()
         requires = {'RishabhRD/popfix'},
     }
 
+    -- This is a cool plugin, but I don't have much use for it now
+    -- use {
+    --     'dccsillag/magma-nvim',
+    --     run = ':UpdateRemotePlugins'
+    -- }
+
     -- Colors Hex codes
     use {
         "norcalli/nvim-colorizer.lua",
@@ -144,7 +139,7 @@ packer_startup = function()
         config = function()
             vim.g.maximizer_set_default_mapping = 1
             vim.g.maximizer_set_mapping_with_bang = 0
-            vim.g.maximizer_default_mapping_key = "<F11>"
+            vim.g.maximizer_default_mapping_key = "\\\\"
         end,
     }
 
@@ -161,10 +156,12 @@ packer_startup = function()
     use 'junegunn/vim-peekaboo'
     -- select indent levels with <sel>i
     use 'michaeljsmith/vim-indent-object'
-    -- align with gl<sel><obj><char>
+    -- align with <sel>gl<obj><char>
     use 'tommcdo/vim-lion'
     -- Julia suport
-    use 'JuliaEditorSupport/julia-vim'
+    -- use 'JuliaEditorSupport/julia-vim'
+    -- More languange support
+    use 'sheerun/vim-polyglot'
 
 end
 return require('packer').startup(packer_startup)

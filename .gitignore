@@ -35,3 +35,7 @@ Icon?
 Thumbs.db
 
 *.lock
+
+# Other
+######################
+.config/ncspot/userstate.cbor
