@@ -54,7 +54,7 @@ fi
 
 if [ $install_all = "Y" ] || [ $install_selected = "Y" ]; then
     for j in ${CONFIRMED_INSTALLS[@]}; do
-        sudo bash $j
+        sudo -H -u $USER bash $j
     done
 else
     echo "Install cancelled"
