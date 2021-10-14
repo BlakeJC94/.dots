@@ -143,7 +143,7 @@ packer_startup = function()
         end,
     }
 
-    -- Colorscheme
+    -- Colorschemes
     use {"ellisonleao/gruvbox.nvim",
         requires = {"rktjmp/lush.nvim"}
     }
