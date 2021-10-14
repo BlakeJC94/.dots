@@ -56,7 +56,7 @@ local layout_options = {
     cursorline    = true,   -- Highlight current line
     scrolloff     = 8,      -- N lines to keep visible above/below cursor
     sidescrolloff = 8,      -- N columns to keep visible left/right of cursor
-    textwidth     = 79,     -- Margin for text input
+    textwidth     = 99,     -- Margin for text input
     wrap          = false,  --
     linebreak     = true,   --
     breakindent   = true,   --
@@ -71,7 +71,7 @@ local layout_options = {
     relativenumber = true,     -- Show rel/abs line numbers
     signcolumn     = 'yes:1',  -- Always show sign column beside numbers
     -- RIGHT MARGIN
-    colorcolumn = {80},  -- Set vertical margin
+    colorcolumn = {100},  -- Set vertical margin
     -- BOTTOM MARGIN
     showcmd    = true,  -- Show command in bottom right
     cmdheight  = 2,     --

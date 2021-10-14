@@ -150,3 +150,7 @@ if [[ "$(command -v vim)" ]]; then
     export MANWIDTH=999
 fi
 
+# algodeploy tab completion
+if [ -f ~/.bash_algodeploy ]; then
+    . ~/.bash_algodeploy
+fi
