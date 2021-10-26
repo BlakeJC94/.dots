@@ -101,13 +101,7 @@ packer_startup = function()
         config = function() require('gitsigns').setup() end
     }
 
-    -- Jump between bigraphs with s/S
-    use {
-        'ggandor/lightspeed.nvim',
-        -- config = function() require("config.lightspeed") end,
-    }
-
-    -- Integrat cheat.sh
+    -- Integrate cheat.sh
     use {
         'RishabhRD/nvim-cheat.sh',
         requires = {'RishabhRD/popfix'},
