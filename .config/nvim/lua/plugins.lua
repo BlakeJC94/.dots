@@ -83,15 +83,14 @@ packer_startup = function()
         end,
     }
 
-
     -- :Zenmode = Maximise and focus buffer
     use {
         "folke/zen-mode.nvim",
         config = function() require("config.zen-mode") end,
     }
 
+    -- Ping cursor location after jump
     use {'danilamihailov/beacon.nvim'}
-
 
     -- Git changes indicators
     use {
@@ -102,13 +101,7 @@ packer_startup = function()
         config = function() require('gitsigns').setup() end
     }
 
-    -- Quicker navigation
-    -- use {
-    --     'phaazon/hop.nvim',
-    --     as = 'hop',
-    --     requires = {'unblevable/quick-scope'},
-    --     config = function() require("config.hop") end,
-    -- }
+    -- Jump between bigraphs with s/S
     use {
         'ggandor/lightspeed.nvim',
         -- config = function() require("config.lightspeed") end,
@@ -119,12 +112,6 @@ packer_startup = function()
         'RishabhRD/nvim-cheat.sh',
         requires = {'RishabhRD/popfix'},
     }
-
-    -- This is a cool plugin, but I don't have much use for it now
-    -- use {
-    --     'dccsillag/magma-nvim',
-    --     run = ':UpdateRemotePlugins'
-    -- }
 
     -- Colors Hex codes
     use {
@@ -139,7 +126,8 @@ packer_startup = function()
     }
 
     -- Maximiser
-    use {"szw/vim-maximizer",
+    use {
+        "szw/vim-maximizer",
         config = function()
             vim.g.maximizer_set_default_mapping = 1
             vim.g.maximizer_set_mapping_with_bang = 0
@@ -148,7 +136,8 @@ packer_startup = function()
     }
 
     -- Colorschemes
-    use {"ellisonleao/gruvbox.nvim",
+    use {
+        "ellisonleao/gruvbox.nvim",
         requires = {"rktjmp/lush.nvim"}
     }
 
@@ -162,8 +151,6 @@ packer_startup = function()
     use 'michaeljsmith/vim-indent-object'
     -- align with <sel>gl<obj><char>
     use 'tommcdo/vim-lion'
-    -- Julia suport
-    -- use 'JuliaEditorSupport/julia-vim'
     -- More languange support
     use 'sheerun/vim-polyglot'
 
