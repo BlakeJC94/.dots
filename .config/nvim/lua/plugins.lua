@@ -103,11 +103,15 @@ packer_startup = function()
     }
 
     -- Quicker navigation
+    -- use {
+    --     'phaazon/hop.nvim',
+    --     as = 'hop',
+    --     requires = {'unblevable/quick-scope'},
+    --     config = function() require("config.hop") end,
+    -- }
     use {
-        'phaazon/hop.nvim',
-        as = 'hop',
-        requires = {'unblevable/quick-scope'},
-        config = function() require("config.hop") end,
+        'ggandor/lightspeed.nvim',
+        -- config = function() require("config.lightspeed") end,
     }
 
     -- Integrat cheat.sh

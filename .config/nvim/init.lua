@@ -63,7 +63,7 @@ local layout_options = {
     showmatch     = true,   -- Highlight matching brackets
     -- FOLDS
     foldmethod = 'indent',        --
-    foldlevel  = 2,               -- Fold all except top indent level
+    foldlevel  = 1,               -- Fold all except top indent level
     foldtext   = 'MyFoldText()',  --
     fillchars  = 'fold: ',        --
     -- LEFT MARGIN
