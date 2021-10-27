@@ -89,7 +89,17 @@ lsp.pyright.setup({
     capabilities = capabilities,
     flags = {
         debounce_text_changes = 150,
-    }
+    },
+    settings = {
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                useLibraryCodeForTypes = true,
+                autoImportCompletions = false,
+            },
+        },
+    },
 })
 -- Julia: `julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'`
 lsp.julials.setup({

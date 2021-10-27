@@ -41,9 +41,10 @@ local behaviour_options = {
     ignorecase = true,   --
     smartcase  = true,   --
     hlsearch   = false,  --
-    -- BACKUPS AND UNDOS
+    -- BACKUPS AND SPELLING
     swapfile = false,  --
     backup   = false,  --
+    spell    = true,
     undofile = true,   --
     undodir  = os.getenv "HOME" .. '/.vim/undodir',
 }
