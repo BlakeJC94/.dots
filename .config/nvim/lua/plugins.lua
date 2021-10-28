@@ -135,6 +135,12 @@ packer_startup = function()
         requires = {"rktjmp/lush.nvim"}
     }
 
+    -- Enhanced f/t motion cues
+    use {
+        "unblevable/quick-scope",
+        config = "require('config.quickscope')",
+    }
+
     -- More text objects
     use 'wellle/targets.vim'
     -- cs]} : Change surrounding brackets

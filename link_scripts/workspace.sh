@@ -1,5 +1,5 @@
 
-WORKDIRS=( archived languages scratchpad )
+WORKDIRS=( archive langs scratch notebooks )
 mkdir -p $HOME/Workspace/repos
 mkdir -p $HOME/Workspace/data
 for DIR in "${WORKDIRS[@]}"; do
