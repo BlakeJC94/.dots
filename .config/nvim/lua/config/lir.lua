@@ -85,6 +85,7 @@ end
 vim.cmd [[augroup lir-settings]]
 vim.cmd [[  autocmd!]]
 vim.cmd [[  autocmd Filetype lir :lua LirSettings()]]
+vim.cmd [[  autocmd Filetype lir set nospell]]
 vim.cmd [[augroup END]]
 
 -- disable netrw
