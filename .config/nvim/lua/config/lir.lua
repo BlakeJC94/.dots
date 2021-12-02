@@ -7,29 +7,30 @@ require'lir'.setup {
   devicons_enable = true,
   mappings = {
     ['l']     = actions.edit,
-    ['<CR>']     = actions.edit,
-    ['<C-s>'] = actions.split,
-    ['<C-v>'] = actions.vsplit,
+    ['<CR>']  = actions.edit,
+    ['_']     = actions.split,
+    ['|']     = actions.vsplit,
     ['<C-t>'] = actions.tabedit,
 
     ['h']     = actions.up,
-    ['<BS>']     = actions.up,
+    ['<BS>']  = actions.up,
     ['q']     = actions.quit,
+    ['<ESC>'] = actions.quit,
 
-    ['K']     = actions.mkdir,
-    ['N']     = actions.newfile,
+    ['F']     = actions.mkdir,
+    ['f']     = actions.newfile,
     ['R']     = actions.rename,
     ['@']     = actions.cd,
-    ['Y']     = actions.yank_path,
+    ['P']     = actions.yank_path,
     ['.']     = actions.toggle_show_hidden,
     ['D']     = actions.delete,
 
-    ['J'] = function()
+    ['M'] = function()
       mark_actions.toggle_mark()
       vim.cmd('normal! j')
     end,
-    ['C'] = clipboard_actions.copy,
-    ['X'] = clipboard_actions.cut,
+    ['Y'] = clipboard_actions.copy,
+    ['C'] = clipboard_actions.cut,
     ['P'] = clipboard_actions.paste,
   },
   float = {
