@@ -10,7 +10,7 @@ require'lir'.setup {
     ['<CR>']  = actions.edit,
     ['_']     = actions.split,
     ['|']     = actions.vsplit,
-    ['<C-t>'] = actions.tabedit,
+    ['T']     = actions.tabedit,
 
     ['h']     = actions.up,
     ['<BS>']  = actions.up,
