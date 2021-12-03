@@ -141,6 +141,13 @@ packer_startup = function()
         config = "require('config.quickscope')",
     }
 
+    -- File switching
+    use {
+        "ThePrimeagen/harpoon",
+        requires={'nvim-lua/plenary.nvim'},
+        config = "require('config.harpoon')",
+    }
+
     -- More text objects
     use 'wellle/targets.vim'
     -- cs]} : Change surrounding brackets
