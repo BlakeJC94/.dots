@@ -158,7 +158,7 @@ packer_startup = function()
     use 'michaeljsmith/vim-indent-object'
     -- align with <sel>gl<obj><char>
     use 'tommcdo/vim-lion'
-    -- More languange support
+    -- More language support
     use 'sheerun/vim-polyglot'
 
 end

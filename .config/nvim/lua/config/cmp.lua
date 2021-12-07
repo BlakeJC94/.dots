@@ -59,11 +59,11 @@ end
 require("luasnip/loaders/from_vscode").lazy_load()
 
 -- Set up cmp
-vim.opt.completeopt = 'menuone,noselect,noinsert'
+vim.opt.completeopt = 'menu,menuone,noselect'
 cmp.setup({
     snippet = {
         expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            require('luasnip').lsp_expand(args.body)  -- TODO replace with snippy
         end,
     },
     formatting = {format = lspkind.cmp_format({with_text = true, maxwidth = 50})},
@@ -84,12 +84,13 @@ cmp.setup({
         ["<Tab>"] = cmp.mapping(tab_complete, {"i","s"}),
         ["<S-Tab>"] = cmp.mapping(s_tab_complete, {"i","s"}),
     },
-    sources = {
+    sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'path' },
-        { name = 'buffer' },
         { name = 'latex_symbols' },
-    },
+    }, {
+        { name = 'buffer' }
+    })
 })
 

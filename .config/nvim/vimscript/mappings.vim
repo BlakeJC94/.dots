@@ -32,7 +32,7 @@ vnoremap J :m '>+1<CR>gv
 vnoremap K :m '<-2<CR>gv
 
 " Make Y behave like D and C
-nmap Y y$
+" nmap Y y$
 
 " Open/close quickfix list with <C-l> (custom function)
 nnoremap <C-l> :call ToggleQuickFix()<CR>
