@@ -44,7 +44,7 @@ local behaviour_options = {
     -- BACKUPS AND SPELLING
     swapfile = false,  --
     backup   = false,  --
-    spell    = true,
+    spell    = true,   --
     undofile = true,   --
     undodir  = os.getenv "HOME" .. '/.vim/undodir',
 }
