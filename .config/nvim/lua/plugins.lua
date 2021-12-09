@@ -37,6 +37,15 @@ PLUGINS = function()
         },
         config = "require('plugin_configs').lir()",
     }
+    use {  -- Treesitter
+        'nvim-treesitter/nvim-treesitter',
+        requires = {
+            'nvim-treesitter/playground',
+            'lewis6991/spellsitter.nvim',
+        },
+        run = ':TSUpdate',
+        config = "require('plugin_configs').treesitter()",
+    }
     use {  -- Landing page
         'goolord/alpha-nvim',
         config = "require('plugin_configs').alpha()",

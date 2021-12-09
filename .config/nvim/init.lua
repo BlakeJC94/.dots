@@ -1,16 +1,3 @@
--- HELPERS ---------------------------------------------------------
-local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
-local g = vim.g      -- a table to access global variables
-local v = vim.v      -- a table to access vim variables
-local opt = vim.opt  -- to set options e.g. opt['number'] = true
-
-local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true, silent = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-
 -- -- PLUGINS ---------------------------------------------------------
 -- Download plugins with ~/.config/nvim/lua/plugins.lua
 -- Configure plugins with ~/.config/nvim/lua/plugin_configs.lua
@@ -19,13 +6,13 @@ require('plugins').disable_built_ins()
 require('plugins').load_plugins()
 
 -- -- LOAD CUSTOM FUNCTIONS ----------------------------------------------
-cmd [[source ~/.config/nvim/vimscript/functions.vim]]
-cmd [[source ~/.config/nvim/vimscript/autocmds.vim]]
+vim.cmd [[source ~/.config/nvim/vimscript/functions.vim]]
+vim.cmd [[source ~/.config/nvim/vimscript/autocmds.vim]]
 
 -- -- LOAD MAPPINGS ------------------------------------------------------
-cmd [[source ~/.config/nvim/vimscript/mappings.vim]]
-cmd [[source ~/.config/nvim/vimscript/mappings-leader.vim]]
-cmd [[source ~/.config/nvim/vimscript/mappings-insert.vim]]
+vim.cmd [[source ~/.config/nvim/vimscript/mappings.vim]]
+vim.cmd [[source ~/.config/nvim/vimscript/mappings-leader.vim]]
+vim.cmd [[source ~/.config/nvim/vimscript/mappings-insert.vim]]
 
 -- -- LOAD OPTIONS ----------------------------------------------
 
@@ -88,15 +75,15 @@ local layout_options = {
 -- Apply options
 for _, options in pairs({behaviour_options, layout_options}) do
     for k, v in pairs(options) do
-        opt[k] = v
+        vim.opt[k] = v
     end
 end
 
 -- Set colorscheme
-opt.termguicolors           = true
-opt.background              = 'dark'
-g.gruvbox_italic            = 1
-g.gruvbox_italicize_strings = 1
-g.gruvbox_contrast_dark     = 'hard'
-cmd [[colorscheme gruvbox]]
+vim.opt.termguicolors           = true
+vim.opt.background              = 'dark'
+vim.g.gruvbox_italic            = 1
+vim.g.gruvbox_italicize_strings = 1
+vim.g.gruvbox_contrast_dark     = 'hard'
+vim.cmd [[colorscheme gruvbox]]
 

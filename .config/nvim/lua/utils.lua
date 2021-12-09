@@ -14,9 +14,9 @@ M.b_map = function(mode, lhs, rhs, opts, bufnr)
     vim.api.nvim_buf_set_keymap(buffer, mode, lhs, rhs, map_opts)
 end
 
-M.b_opt = function(mode, lhs, rhs, opts, bufnr)
+M.b_opt = function(lhs, rhs, opts, bufnr)
     if bufnr then buffer = bufnr end
-    vim.api.nvim_buf_set_option(buffer, mode, lhs, rhs)
+    vim.api.nvim_buf_set_option(buffer, lhs, rhs)
 end
 
 M.has_words_before = function()

@@ -29,18 +29,11 @@ M.telescope = function()
 end
 
 M.lspconfig = function()
-    local lsp = require('lspconfig')
-    local lsp_installer = require("nvim-lsp-installer")
+    local lsp_config = require('lspconfig')
     local cmp = require('cmp')
 
-    -- Install Lsp servers automatically
-    -- local servers = {
-    --     "pylsp"
-    -- }
-
-    -- Use an on_attach function to only map the following keys
-    -- after the language server attaches to the current buffer
-    local lsp_on_attach = function(client)
+    -- Specify actions to happen when lsp server starts on a buffer
+    local on_attach = function(client)
         -- Enable completion triggered by <c-x><c-o>
         b_opt('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -66,44 +59,130 @@ M.lspconfig = function()
         }
         for lhs, rhs in pairs(lsp_mappings) do b_map('n', lhs, rhs) end
 
-        -- show line diagnostics under cursor after `updatetime`
-        -- vim.cmd([[
-        --     autocmd CursorHold <buffer> lua require('config.lspconfig').show_line_diagnostics()
-        -- ]])
-        --
         -- Print message if loaded successfully
         local msg = string.format("Language server %s started!", client.name)
         vim.api.nvim_echo({ { msg, "MoreMsg" } }, false, {})
     end
 
-    -- Add additional capabilities supported by nvim-cmp
+    -- Get additional capabilities supported by nvim-cmp
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-    -- TODO update this to simply use LspInstall
-    --   Is it possible to apply common on_attach and capabilities for all servers?
-    -- Python : `npm install pyright`
-    lsp.pyright.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = {
-            debounce_text_changes = 150,
+    -- Pass on_attach and capabilities to servers
+    local servers = {
+        "pyright",  -- npm i -g pyright
+        "julials",  -- julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
+        -- "bashls",
+        -- "sumneko_lua",
+    }
+    for _, lsp in ipairs(servers) do
+        lsp_config[lsp].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            flags = {
+                debounce_text_changes = 150,
+            }
+        })
+    end
+end
+
+M.treesitter = function()
+    local treesitter_config = require('nvim-treesitter.configs')
+    local treesitter = require('nvim-treesitter.configs')
+
+
+    -- Fix for spelling in comments (and not in code)
+    -- require('spellsitter').setup()
+    local commentstrings = {
+        python  = '#',
+        json    = '#',
+        bash    = '#',
+        lua     = '--',
+        verilog = '//'
+    }
+    local stringstrings = {
+        python  = '\'\"',
+        json    = '#',
+        bash    = '#',
+        lua     = '--',
+        verilog = '//'
+    }
+    treesitter.define_modules({
+        fixspellcomments = {
+            enable = true,
+            attach = function(bufnr, lang)
+                local cs = commentstrings[lang]
+                vim.cmd(
+                    ('syntax match spellComment "%s.*" contains=@Spell'):format(cs)
+                )
+            end,
+            detach = function(bufnr)
+            end,
+            is_supported = function(lang)
+                if commentstrings[lang] == nil then
+                    return false
+                end
+                if require('nvim-treesitter.query').get_query(lang, 'highlights') == nil then
+                    return false
+                end
+                return true
+            end
         },
-        settings = {
-            python = {
-                analysis = {
-                    autoSearchPaths = true,
-                    diagnosticMode = "workspace",
-                    useLibraryCodeForTypes = true,
-                    autoImportCompletions = false,
-                },
-            },
+        fixspellstring = {
+            enable = true,
+            attach = function(bufnr, lang)
+                local s = '\\\'\\\"'
+                vim.cmd(
+                    'syntax match spellString "\\\"\\_.\\{-}\\\"" contains=@Spell'
+                )
+            end,
+            detach = function(bufnr)
+            end,
+            is_supported = function(lang)
+                if require('nvim-treesitter.query').get_query(lang, 'highlights') == nil then
+                    return false
+                end
+                return true
+            end
         },
     })
-    -- Julia: `julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'`
-    lsp.julials.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
+
+    treesitter_config.setup({
+        ensure_installed = {
+            "python",
+            "bash",
+            "lua",
+            "regex",
+            "julia",
+            "r",
+        },
+        sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+        -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+        highlight = {
+          enable = true
+        },
+        indent = {
+          enable = true
+        },
+        -- requiress 'nvim-treesitter/playground'
+        playground = {
+            enable = true,
+            disable = {},
+            updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+            persist_queries = false, -- Whether the query persists across vim sessions
+            keybindings = {
+                toggle_query_editor = 'o',
+                toggle_hl_groups = 'i',
+                toggle_injected_languages = 't',
+                toggle_anonymous_nodes = 'a',
+                toggle_language_display = 'I',
+                focus_language = 'f',
+                unfocus_language = 'F',
+                update = 'R',
+                goto_node = '<cr>',
+                show_help = '?',
+            },
+        },
     })
 end
 
