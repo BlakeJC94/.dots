@@ -11,19 +11,23 @@ local function map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--- PLUGINS ---------------------------------------------------------
-require('plugins')
+-- -- PLUGINS ---------------------------------------------------------
+-- Download plugins with ~/.config/nvim/lua/plugins.lua
+-- Configure plugins with ~/.config/nvim/lua/plugin_configs.lua
+require('plugins').setup_packer()
+require('plugins').disable_built_ins()
+require('plugins').load_plugins()
 
--- LOAD CUSTOM FUNCTIONS ----------------------------------------------
+-- -- LOAD CUSTOM FUNCTIONS ----------------------------------------------
 cmd [[source ~/.config/nvim/vimscript/functions.vim]]
 cmd [[source ~/.config/nvim/vimscript/autocmds.vim]]
 
--- LOAD MAPPINGS ------------------------------------------------------
+-- -- LOAD MAPPINGS ------------------------------------------------------
 cmd [[source ~/.config/nvim/vimscript/mappings.vim]]
 cmd [[source ~/.config/nvim/vimscript/mappings-leader.vim]]
 cmd [[source ~/.config/nvim/vimscript/mappings-insert.vim]]
 
--- LOAD OPTIONS ----------------------------------------------
+-- -- LOAD OPTIONS ----------------------------------------------
 
 local behaviour_options = {
     -- MAIN INPUT/OUTPUT

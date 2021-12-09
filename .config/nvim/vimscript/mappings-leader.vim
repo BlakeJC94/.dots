@@ -2,21 +2,26 @@ let mapleader = "\<Space>"
 
 " L-q to quit
 noremap <Leader>q :q<CR>
-
-" L-<BS> : Change directory of vim to current file
-noremap <Leader><BS> :cd %:p:h<CR>:pwd<CR>
+" L-d : Change directory of vim to current file
+noremap <Leader>d :cd %:p:h<CR>:pwd<CR>
+" L-h : toggle highlights on search
+noremap <Leader>h :set hls!<CR>
+" L-m : Mark file for harpoon
+noremap <Leader>m :lua require("harpoon.mark").add_file()<CR>
+"
+" L-<BS> : Fuzzy finder
+noremap <Leader><BS> :Telescope find_files<CR>
 " L-<CR> : File explorer
 noremap <Leader><CR> :lua require'lir.float'.toggle()<CR>
 " L-<Tab> : Switch between last opened files
 noremap <Leader><Tab> <C-^>
-" L-<Esc> : toggle highlights on search
-noremap <Leader><Esc> :set hls!<CR>
+" L-<Esc> : Toggle Harpoon
+noremap <Leader><Esc> :lua require("harpoon.ui").toggle_quick_menu()<CR>
 
-" L-h,l : open/close loclist
+" L-c : Toggle qflist
+nnoremap <Leader>c :call ToggleQuickFix()<CR>
+" L-l : Toggle loclist
 nnoremap <Leader>l :call ToggleLocation()<CR>
-" L-j,k : Navigate loclist
-nnoremap <Leader>j :lnext<CR>
-nnoremap <Leader>k :lprev<CR>
 
 " L-. Toggle spellcheck
 nnoremap <Leader>. :set spell!<CR>
