@@ -1,11 +1,12 @@
 let mapleader = "\<Space>"
-
+d  
+"
 " L-q to quit
 noremap <Leader>q :q<CR>
 " L-d : Change directory of vim to current file
 noremap <Leader>d :cd %:p:h<CR>:pwd<CR>
-" L-h : toggle highlights on search
-noremap <Leader>h :set hls!<CR>
+" L-s : toggle highlights on search
+noremap <Leader>s :set hls!<CR>
 " L-m : Mark file for harpoon
 noremap <Leader>m :lua require("harpoon.mark").add_file()<CR>
 "

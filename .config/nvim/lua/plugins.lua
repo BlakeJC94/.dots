@@ -41,6 +41,7 @@ PLUGINS = function()
         'nvim-treesitter/nvim-treesitter',
         requires = {
             'nvim-treesitter/playground',
+            'nvim-treesitter/nvim-treesitter-textobjects',
             'lewis6991/spellsitter.nvim',
         },
         run = ':TSUpdate',
@@ -49,10 +50,6 @@ PLUGINS = function()
     use {  -- Landing page
         'goolord/alpha-nvim',
         config = "require('plugin_configs').alpha()",
-    }
-    use {  -- Zen mode
-        "folke/zen-mode.nvim",
-        config = "require('plugin_configs').zenmode()",
     }
     use {  -- firefox injection
         'glacambre/firenvim',
@@ -66,7 +63,7 @@ PLUGINS = function()
     use {  -- Git changes indicators
         'lewis6991/gitsigns.nvim',
         requires = { 'nvim-lua/plenary.nvim' },
-        config = function() require('gitsigns').setup() end
+        config = "require('plugin_configs').gitsigns()",
     }
     use {  -- Colors Hex codes
         "norcalli/nvim-colorizer.lua",
@@ -102,7 +99,9 @@ PLUGINS = function()
         'wellle/targets.vim', -- More text objects
         'tpope/vim-surround', -- cs]} : Change surrounding brackets
         'michaeljsmith/vim-indent-object', -- select indent levels with <sel>i
+        'szw/vim-maximizer',
         'tommcdo/vim-lion', -- align with <sel>gl<obj><char>
+        'Vimjas/vim-python-pep8-indent',
     }
 end
 
@@ -138,6 +137,7 @@ M.setup_packer = function()
         augroup Packer
             autocmd!
             autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+            autocmd BufWritePost plugin_configs.lua source <afile> | PackerCompile
         augroup end
     ]], false)
 end

@@ -29,7 +29,7 @@ M.telescope = function()
 end
 
 M.lspconfig = function()
-    local lsp_config = require('lspconfig')
+    local lspconfig = require('lspconfig')
     local cmp = require('cmp')
 
     -- Specify actions to happen when lsp server starts on a buffer
@@ -39,23 +39,23 @@ M.lspconfig = function()
 
         -- Set mappings
         lsp_mappings = {
-            ['gd'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
-            ['gD'] = '<cmd>lua vim.lsp.buf.declaration()<CR>',
-            ['gI'] = '<cmd>lua vim.lsp.buf.implementation()<CR>',
-            ['gr'] = '<cmd>lua vim.lsp.buf.references()<CR>',
-            ['gs'] = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-            ['gh'] = '<cmd>lua vim.lsp.buf.hover()<CR>',
+            ['gd']   = '<cmd>lua vim.lsp.buf.definition()<CR>',
+            ['gD']   = '<cmd>lua vim.lsp.buf.declaration()<CR>',
+            ['gI']   = '<cmd>lua vim.lsp.buf.implementation()<CR>',
+            ['gr']   = '<cmd>lua vim.lsp.buf.references()<CR>',
+            ['gs']   = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
+            ['gh']   = '<cmd>lua vim.lsp.buf.hover()<CR>',
             ['\\wa'] = '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
             ['\\wr'] = '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
             ['\\wl'] = '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
-            ['\\d'] = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
-            ['\\r'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
-            ['\\f'] = '<cmd>lua vim.lsp.buf.code_action()<CR>',
-            ['<Leader>h'] = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
-            ['[d'] = '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',
-            [']d'] = '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',
-            ['\\l'] = '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>',
-            ['\\f'] = '<cmd>lua vim.lsp.buf.formatting()<CR>',
+            ['\\d']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
+            ['\\r']  = '<cmd>lua vim.lsp.buf.rename()<CR>',
+            ['\\f']  = '<cmd>lua vim.lsp.buf.code_action()<CR>',
+            ['\\e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
+            ['[e']   = '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',
+            [']e']   = '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',
+            ['\\l']  = '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>',
+            ['\\f']  = '<cmd>lua vim.lsp.buf.formatting()<CR>',
         }
         for lhs, rhs in pairs(lsp_mappings) do b_map('n', lhs, rhs) end
 
@@ -68,7 +68,23 @@ M.lspconfig = function()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-    -- Pass on_attach and capabilities to servers
+    -- Settings
+    local settings = {}
+    settings["pyright"] = {
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                useLibraryCodeForTypes = true,
+                typeCheckingMode = "basic",
+                diagnosticSeverityOverrides = {
+                    reportGeneralTypeIssues = "warning",
+                },
+            },
+        },
+    }
+
+    -- Pass on_attach, capabilities, and settings to servers
     local servers = {
         "pyright",  -- npm i -g pyright
         "julials",  -- julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
@@ -76,12 +92,13 @@ M.lspconfig = function()
         -- "sumneko_lua",
     }
     for _, lsp in ipairs(servers) do
-        lsp_config[lsp].setup({
+        lspconfig[lsp].setup({
             on_attach = on_attach,
             capabilities = capabilities,
             flags = {
                 debounce_text_changes = 150,
-            }
+            },
+            settings = settings[lsp],
         })
     end
 end
@@ -90,65 +107,9 @@ M.treesitter = function()
     local treesitter_config = require('nvim-treesitter.configs')
     local treesitter = require('nvim-treesitter.configs')
 
-
-    -- Fix for spelling in comments (and not in code)
-    -- require('spellsitter').setup()
-    local commentstrings = {
-        python  = '#',
-        json    = '#',
-        bash    = '#',
-        lua     = '--',
-        verilog = '//'
-    }
-    local stringstrings = {
-        python  = '\'\"',
-        json    = '#',
-        bash    = '#',
-        lua     = '--',
-        verilog = '//'
-    }
-    treesitter.define_modules({
-        fixspellcomments = {
-            enable = true,
-            attach = function(bufnr, lang)
-                local cs = commentstrings[lang]
-                vim.cmd(
-                    ('syntax match spellComment "%s.*" contains=@Spell'):format(cs)
-                )
-            end,
-            detach = function(bufnr)
-            end,
-            is_supported = function(lang)
-                if commentstrings[lang] == nil then
-                    return false
-                end
-                if require('nvim-treesitter.query').get_query(lang, 'highlights') == nil then
-                    return false
-                end
-                return true
-            end
-        },
-        fixspellstring = {
-            enable = true,
-            attach = function(bufnr, lang)
-                local s = '\\\'\\\"'
-                vim.cmd(
-                    'syntax match spellString "\\\"\\_.\\{-}\\\"" contains=@Spell'
-                )
-            end,
-            detach = function(bufnr)
-            end,
-            is_supported = function(lang)
-                if require('nvim-treesitter.query').get_query(lang, 'highlights') == nil then
-                    return false
-                end
-                return true
-            end
-        },
-    })
-
     treesitter_config.setup({
         ensure_installed = {
+            "comment",
             "python",
             "bash",
             "lua",
@@ -159,10 +120,11 @@ M.treesitter = function()
         sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
         -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
         highlight = {
-          enable = true
+            enable = true
         },
         indent = {
-          enable = true
+            enable = false,
+            -- disable = {"python", },
         },
         -- requiress 'nvim-treesitter/playground'
         playground = {
@@ -183,7 +145,14 @@ M.treesitter = function()
                 show_help = '?',
             },
         },
+        textobjects = {
+            select = {
+                enable = true,
+            }
+        }
     })
+
+    require('spellsitter').setup {}
 end
 
 M.cmp = function()
@@ -466,6 +435,37 @@ M.harpoon = function()
         ['<leader>6'] = '<cmd>lua require("harpoon.ui").nav_file(6)<cr>',
     }
     for lhs, rhs in pairs(harpoon_mappings) do map('n', lhs, rhs) end
+end
+
+M.gitsigns = function()
+    local gitsigns = require('gitsigns')
+    gitsigns.setup({
+        signcolumn = false,
+        numhl      = true,
+        linehl     = false,
+        keymaps = {
+            -- Default keymap options
+            noremap = true,
+
+            ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'"},
+            ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'"},
+
+            ['n <leader>hs'] = '<cmd>Gitsigns stage_hunk<CR>',
+            ['v <leader>hs'] = ':Gitsigns stage_hunk<CR>',
+            ['n <leader>hu'] = '<cmd>Gitsigns undo_stage_hunk<CR>',
+            ['n <leader>hr'] = '<cmd>Gitsigns reset_hunk<CR>',
+            ['v <leader>hr'] = ':Gitsigns reset_hunk<CR>',
+            ['n <leader>hR'] = '<cmd>Gitsigns reset_buffer<CR>',
+            ['n <leader>hp'] = '<cmd>Gitsigns preview_hunk<CR>',
+            ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
+            ['n <leader>hS'] = '<cmd>Gitsigns stage_buffer<CR>',
+            ['n <leader>hU'] = '<cmd>Gitsigns reset_buffer_index<CR>',
+
+            -- Text objects
+            ['o ih'] = ':<C-U>Gitsigns select_hunk<CR>',
+            ['x ih'] = ':<C-U>Gitsigns select_hunk<CR>'
+        },
+    })
 end
 
 return M

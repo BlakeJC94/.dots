@@ -1,6 +1,9 @@
 function TrimTrailingSpace()
-    %s/\s*$//
-    ''
+    " %s/\s*$//
+    " ''
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
 endfunction
 
 augroup default_cmds

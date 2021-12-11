@@ -1,3 +1,7 @@
+local cmd = vim.cmd
+local opt = vim.opt
+local g = vim.g
+
 -- -- PLUGINS ---------------------------------------------------------
 -- Download plugins with ~/.config/nvim/lua/plugins.lua
 -- Configure plugins with ~/.config/nvim/lua/plugin_configs.lua
@@ -6,13 +10,13 @@ require('plugins').disable_built_ins()
 require('plugins').load_plugins()
 
 -- -- LOAD CUSTOM FUNCTIONS ----------------------------------------------
-vim.cmd [[source ~/.config/nvim/vimscript/functions.vim]]
-vim.cmd [[source ~/.config/nvim/vimscript/autocmds.vim]]
+cmd [[source ~/.config/nvim/vimscript/functions.vim]]
+cmd [[source ~/.config/nvim/vimscript/autocmds.vim]]
 
 -- -- LOAD MAPPINGS ------------------------------------------------------
-vim.cmd [[source ~/.config/nvim/vimscript/mappings.vim]]
-vim.cmd [[source ~/.config/nvim/vimscript/mappings-leader.vim]]
-vim.cmd [[source ~/.config/nvim/vimscript/mappings-insert.vim]]
+cmd [[source ~/.config/nvim/vimscript/mappings.vim]]
+cmd [[source ~/.config/nvim/vimscript/mappings-leader.vim]]
+cmd [[source ~/.config/nvim/vimscript/mappings-insert.vim]]
 
 -- -- LOAD OPTIONS ----------------------------------------------
 
@@ -61,7 +65,7 @@ local layout_options = {
     -- LEFT MARGIN
     number         = true,     --
     relativenumber = true,     -- Show rel/abs line numbers
-    signcolumn     = 'yes:1',  -- Always show sign column beside numbers
+    signcolumn     = 'number',  -- Always show sign column beside numbers
     -- RIGHT MARGIN
     colorcolumn = {100},  -- Set vertical margin
     -- BOTTOM MARGIN
@@ -80,10 +84,10 @@ for _, options in pairs({behaviour_options, layout_options}) do
 end
 
 -- Set colorscheme
-vim.opt.termguicolors           = true
-vim.opt.background              = 'dark'
-vim.g.gruvbox_italic            = 1
-vim.g.gruvbox_italicize_strings = 1
-vim.g.gruvbox_contrast_dark     = 'hard'
-vim.cmd [[colorscheme gruvbox]]
+opt.termguicolors           = true
+opt.background              = 'dark'
+g.gruvbox_italic            = 1
+g.gruvbox_italicize_strings = 1
+g.gruvbox_contrast_dark     = 'hard'
+cmd [[colorscheme gruvbox]]
 
