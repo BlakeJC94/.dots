@@ -2,18 +2,22 @@ local cmd = vim.cmd
 local opt = vim.opt
 local g = vim.g
 
+plugins = require('plugins')
+mappings = require('mappings')
+
 -- -- PLUGINS ---------------------------------------------------------
 -- Download plugins with ~/.config/nvim/lua/plugins.lua
 -- Configure plugins with ~/.config/nvim/lua/plugin_configs.lua
-require('plugins').setup_packer()
-require('plugins').disable_built_ins()
-require('plugins').load_plugins()
+plugins.setup_packer()
+plugins.disable_built_ins()
+plugins.load_plugins()
 
 -- -- LOAD CUSTOM FUNCTIONS ----------------------------------------------
 cmd [[source ~/.config/nvim/vimscript/functions.vim]]
 cmd [[source ~/.config/nvim/vimscript/autocmds.vim]]
 
 -- -- LOAD MAPPINGS ------------------------------------------------------
+-- mappings.load_mappings()
 cmd [[source ~/.config/nvim/vimscript/mappings.vim]]
 cmd [[source ~/.config/nvim/vimscript/mappings-leader.vim]]
 cmd [[source ~/.config/nvim/vimscript/mappings-insert.vim]]
@@ -65,7 +69,7 @@ local layout_options = {
     -- LEFT MARGIN
     number         = true,     --
     relativenumber = true,     -- Show rel/abs line numbers
-    signcolumn     = 'number',  -- Always show sign column beside numbers
+    signcolumn     = 'no',  -- Always show sign column beside numbers
     -- RIGHT MARGIN
     colorcolumn = {100},  -- Set vertical margin
     -- BOTTOM MARGIN
