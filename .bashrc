@@ -144,11 +144,11 @@ eval "$(pyenv init -)"
 # export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # using vim as man pager
-if [[ "$(command -v vim)" ]]; then
-    export EDITOR='vim'
-    export MANPAGER='vim +Man!'
-    export MANWIDTH=999
-fi
+# if [[ "$(command -v vim)" ]]; then
+#     export EDITOR='vim'
+#     export MANPAGER='vim +Man!'
+#     export MANWIDTH=999
+# fi
 
 # algodeploy tab completion
 if [ -f ~/.bash_algodeploy ]; then

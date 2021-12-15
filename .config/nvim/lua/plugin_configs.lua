@@ -51,7 +51,7 @@ M.lspconfig = function()
             ['\\d']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
             ['\\r']  = '<cmd>lua vim.lsp.buf.rename()<CR>',
             ['\\f']  = '<cmd>lua vim.lsp.buf.code_action()<CR>',
-            ['\\e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
+            ['<Leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
             ['[e']   = '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',
             [']e']   = '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',
             ['\\l']  = '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>',
@@ -110,6 +110,7 @@ M.treesitter = function()
     treesitter_config.setup({
         ensure_installed = {
             "comment",
+            "markdown",
             "python",
             "bash",
             "lua",

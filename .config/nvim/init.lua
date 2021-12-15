@@ -69,7 +69,7 @@ local layout_options = {
     -- LEFT MARGIN
     number         = true,     --
     relativenumber = true,     -- Show rel/abs line numbers
-    signcolumn     = 'no',  -- Always show sign column beside numbers
+    -- signcolumn     = '',  -- Always show sign column beside numbers
     -- RIGHT MARGIN
     colorcolumn = {100},  -- Set vertical margin
     -- BOTTOM MARGIN
