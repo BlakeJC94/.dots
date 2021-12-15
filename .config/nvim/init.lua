@@ -18,7 +18,7 @@ cmd [[source ~/.config/nvim/vimscript/autocmds.vim]]
 
 -- -- LOAD MAPPINGS ------------------------------------------------------
 -- mappings.load_mappings()
-cmd [[source ~/.config/nvim/vimscript/mappings.vim]]
+ cmd [[source ~/.config/nvim/vimscript/mappings.vim]]
 cmd [[source ~/.config/nvim/vimscript/mappings-leader.vim]]
 cmd [[source ~/.config/nvim/vimscript/mappings-insert.vim]]
 
