@@ -41,7 +41,6 @@ M.load_mappings = function()
     -- Make Y behave like D and C
     map('n', 'Y', "y$")
 
-
     -- gp: Visually select last pasted block (like gv)
     map('n', 'gp', [['`[' . getregtype()[0] . '`]']], {expr = true})
 
@@ -57,12 +56,12 @@ M.load_mappings = function()
 
 
     -- " Make vertical wildmenu controls behave intuitively
-    -- if match(&wildmode, 'full') > -1
-    --     cnoremap <expr> <Down>  wildmenumode() ? "\<Right>" : "\<Down>"
-    --     cnoremap <expr> <Up>    wildmenumode() ? "\<Left>"  : "\<Up>"
-    --     cnoremap <expr> <Right> wildmenumode() ? "\<Down>"  : "\<Right>"
-    --     cnoremap <expr> <Left>  wildmenumode() ? "\<Up>"    : "\<Left>"
-    -- endif
+    if vim.o.wildmode == 'full' then
+        map('c', '<Down>',  [[wildmenumode() ? "\<Right>" : "\<Down>"]], {expr = true})
+        map('c', '<Up>',    [[wildmenumode() ? "\<Left>"  : "\<Up>"]], {expr = true})
+        map('c', '<Right>', [[wildmenumode() ? "\<Down>"  : "\<Right>"]], {expr = true})
+        map('c', '<Left>',  [[wildmenumode() ? "\<Up>"    : "\<Left>"]], {expr = true})
+    end
 
     -- " [Arrow] : disable for all
     -- map <Left>  <Nop>
