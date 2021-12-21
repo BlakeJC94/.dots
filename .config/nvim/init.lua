@@ -21,41 +21,41 @@ cmd [[source ~/.config/nvim/vimscript/autocmds.vim]]
 local maps = {
     n = {
         -- Better splitting
-        ['_'] = ':split<CR>',
-        ['|'] = ':vsplit<CR>',
+        ['_']  = ':split<CR>',
+        ['|']  = ':vsplit<CR>',
         -- Prevent x and s from overriding what's in the clipboard
-        ['x'] = '\"_x',
-        ['X'] = '\"_X',
-        ['s'] = '\"_s',
-        ['S'] = '\"_S',
+        ['x']  = '\"_x',
+        ['X']  = '\"_X',
+        ['s']  = '\"_s',
+        ['S']  = '\"_S',
         -- Center screen and open folds when flicking through search matches
-        ['n'] = 'nzzzv',
-        ['N'] = 'Nzzzv',
+        ['n']  = 'nzzzv',
+        ['N']  = 'Nzzzv',
         -- Make Y behave like D and C
-        ['Y'] = 'y$',
+        ['Y']  = 'y$',
         -- gp: Visually select last pasted block (like gv)
         ['gp'] = {map=[['`[' . getregtype()[0] . '`]']], opts={expr = true}},
         -- gF: create new file at filename over cursor
         ['gF'] = ':e <c-r><c-f><CR>',
         -- J doesn't move cursor
-        ['J'] = 'mzJ`z',
+        ['J']  = 'mzJ`z',
         -- Better jumplist for large line steps
-        ['j'] = {map=[[(v:count > 5 ? 'm`' . v:count : '') . 'j']], opts={expr = true}},
-        ['k'] = {map=[[(v:count > 5 ? 'm`' . v:count : '') . 'k']], opts={expr = true}},
+        ['j']  = {map=[[(v:count > 5 ? 'm`' . v:count : '') . 'j']], opts={expr = true}},
+        ['k']  = {map=[[(v:count > 5 ? 'm`' . v:count : '') . 'k']], opts={expr = true}},
         -- [Ctrl + Arrow] to navigate windows
-        ['<C-Left>'] = '<C-w>h',
-        ['<C-Down>'] = '<C-w>j',
-        ['<C-Up>'] = '<C-w>k',
+        ['<C-Left>']  = '<C-w>h',
+        ['<C-Down>']  = '<C-w>j',
+        ['<C-Up>']    = '<C-w>k',
         ['<C-Right>'] = '<C-w>l',
         -- [Shift + Arrow] Move splits (drop <C-\><C-n> if using vim)
-        ['<S-Left>'] = '<C-w>H',
-        ['<S-Down>'] = '<C-w>J',
-        ['<S-Up>'] = '<C-w>K',
+        ['<S-Left>']  = '<C-w>H',
+        ['<S-Down>']  = '<C-w>J',
+        ['<S-Up>']    = '<C-w>K',
         ['<S-Right>'] = '<C-w>L',
         -- [Alt + Arrow] : resize splits
-        ['<A-Left>'] = '<C-w>8<',
-        ['<A-Down>'] = '<C-w>8-',
-        ['<A-Up>'] = '<C-w>8+',
+        ['<A-Left>']  = '<C-w>8<',
+        ['<A-Down>']  = '<C-w>8-',
+        ['<A-Up>']    = '<C-w>8+',
         ['<A-Right>'] = '<C-w>8>',
     },
     v = {
@@ -78,19 +78,19 @@ local maps = {
         -- <Esc>: = (terminal) go to command mode
         ['<Esc>:'] = '<C-\\><C-n>:',
         -- [Ctrl + Arrow] to navigate windows
-        ['<C-Left>'] = '<C-\\><C-n><C-w>h',
-        ['<C-Down>'] = '<C-\\><C-n><C-w>j',
-        ['<C-Up>'] = '<C-\\><C-n><C-w>k',
+        ['<C-Left>']  = '<C-\\><C-n><C-w>h',
+        ['<C-Down>']  = '<C-\\><C-n><C-w>j',
+        ['<C-Up>']    = '<C-\\><C-n><C-w>k',
         ['<C-Right>'] = '<C-\\><C-n><C-w>l',
         -- [Shift + Arrow] Move splits
-        ['<S-Left>'] = '<C-\\><C-N><C-w>H',
-        ['<S-Down>'] = '<C-\\><C-N><C-w>J',
-        ['<S-Up>'] = '<C-\\><C-N><C-w>K',
+        ['<S-Left>']  = '<C-\\><C-N><C-w>H',
+        ['<S-Down>']  = '<C-\\><C-N><C-w>J',
+        ['<S-Up>']    = '<C-\\><C-N><C-w>K',
         ['<S-Right>'] = '<C-\\><C-N><C-w>L',
         -- [Alt + Arrow] : resize splits
-        ['<A-Left>'] = '<C-\\><C-N><C-w>8<',
-        ['<A-Down>'] = '<C-\\><C-N><C-w>8-',
-        ['<A-Up>'] = '<C-\\><C-N><C-w>8+',
+        ['<A-Left>']  = '<C-\\><C-N><C-w>8<',
+        ['<A-Down>']  = '<C-\\><C-N><C-w>8-',
+        ['<A-Up>']    = '<C-\\><C-N><C-w>8+',
         ['<A-Right>'] = '<C-\\><C-N><C-w>8>',
     },
     i = {
@@ -119,24 +119,24 @@ local maps = {
             map=[[wildmenumode() ? "\<Right>" : "\<Down>"]],
             opts={expr=true, noremap=true},
         },
-        ['<Up>'] = {
-            map=[[wildmenumode() ? "\<Left>" : "\<Up>"]],
-            opts={expr=true, noremap=true},
+        ['<Up>']    = {
+            map  = [[wildmenumode() ? "\<Left>" : "\<Up>"]],
+            opts = {expr=true, noremap=true},
         },
         ['<Right>'] = {
-            map=[[wildmenumode() ? "\<Down>" : "\<Right>"]],
-            opts={expr=true, noremap=true},
+            map  = [[wildmenumode() ? "\<Down>" : "\<Right>"]],
+            opts = {expr=true, noremap=true},
         },
-        ['<Left>'] = {
-            map=[[wildmenumode() ? "\<Up>" : "\<Left>"]],
-            opts={expr=true, noremap=true},
+        ['<Left>']  = {
+            map  = [[wildmenumode() ? "\<Up>" : "\<Left>"]],
+            opts = {expr=true, noremap=true},
         },
     },
     [''] = {
         -- Disable arrow keys
-        ['<Left>'] = '',
-        ['<Down>'] = '',
-        ['<Up>'] = '',
+        ['<Left>']  = '',
+        ['<Down>']  = '',
+        ['<Up>']    = '',
         ['<Right>'] = '',
     }
 }
@@ -144,26 +144,18 @@ local maps = {
 vim.g.mapleader = " "
 local leader_maps = {
     n = {
-        -- L-q to quit
-        ['<Leader>q'] = ":q<CR>",
-        -- L-d : Change directory of vim to current file
-        ['<Leader>d'] = ":cd %:p:h<CR>:pwd<CR>",
-        -- L-s : toggle highlights on search
-        ['<Leader>s'] = ":set hls!<CR>",
-        -- L-m : Mark file for harpoon
-        ['<Leader>m'] = ":lua require('harpoon.mark').add_file()<CR>",
-        -- L-<BS> : Fuzzy finder
-        ['<Leader><BS>'] = ":Telescope find_files<CR>",
-        -- L-<CR> : File explorer
-        ['<Leader><CR>'] = ":lua require'lir.float'.toggle()<CR>",
-        -- L-<Tab> : Switch between last opened files
-        ['<Leader><Tab>'] = "<C-^>",
-        -- L-<Esc> : Toggle Harpoon
-        ['<Leader><Esc>'] = ":lua require('harpoon.ui').toggle_quick_menu()<CR>",
-        -- L-c : Toggle qflist
-        ['<Leader>c'] = ":call ToggleQuickFix()<CR>",
-        -- L-l : Toggle loclist
-        ['<Leader>l'] = ":call ToggleLocation()<CR>",
+        -- META MAPS
+        ['<Leader><CR>']  = ":lua require'lir.float'.toggle()<CR>",              -- File explorer
+        ['<Leader><BS>']  = ":Telescope find_files<CR>",                         -- Fuzzy finder
+        ['<Leader><Tab>'] = "<C-^>",                                             -- Last file
+        ['<Leader><Esc>'] = ":lua require'harpoon.ui'.toggle_quick_menu()<CR>",  -- Show Harpoon
+        -- KEY MAPS
+        ['<Leader>q'] = ":q<CR>",                                       -- L-q to quit
+        ['<Leader>d'] = ":cd %:p:h<CR>:pwd<CR>",                        -- Change dir to current
+        ['<Leader>s'] = ":set hls!<CR>",                                -- Toggle highlights
+        ['<Leader>m'] = ":lua require('harpoon.mark').add_file()<CR>",  -- Mark for harpoon
+        ['<Leader>c'] = ":call ToggleQuickFix()<CR>",                   -- Toggle qflist
+        ['<Leader>l'] = ":call ToggleLocation()<CR>",                   -- Toggle loclist
     },
 }
 
@@ -187,7 +179,7 @@ local behaviour_options = {
     -- MAIN INPUT/OUTPUT
     clipboard   = "unnamedplus",
     ttimeoutlen = 10,   --
-    updatetime  = 500,  --
+    updatetime  = 300,  --
     -- TABS AND INDENTS
     smartindent = true,  -- Enable better indenting
     tabstop     = 4,     -- Number of space chars for each tab char
@@ -212,8 +204,8 @@ local layout_options = {
     splitbelow = true,  -- Open splits below
     splitright = true,  -- Open vsplits on right
     -- LINE DISPLAY
-    cursorline    = true,   -- Highlight current line
-    scrolloff     = 8,      -- N lines to keep visible above/below cursor
+    cursorline    = false,  -- Highlight current line
+    scrolloff     = 9999,   -- N lines to keep visible above/below cursor
     sidescrolloff = 8,      -- N columns to keep visible left/right of cursor
     textwidth     = 99,     -- Margin for text input
     wrap          = false,  --

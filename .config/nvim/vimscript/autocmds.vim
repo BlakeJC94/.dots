@@ -28,6 +28,11 @@ augroup set_prgs
     " autocmd FileType Markdown set makeprg=pandoc\ %:p\ -o\ %:p:h/out.pdf
 augroup END
 
+augroup toggle_cursorline
+    autocmd InsertEnter * set cursorline
+    autocmd InsertLeave * set nocursorline
+augroup END
+
 " augroup lang_tweaks
     " Autocomplete braces in C files
     " autocmd FileType c inoremap {<CR> {<CR><CR>}<C-o>k<Tab>
