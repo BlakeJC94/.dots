@@ -57,59 +57,56 @@ M.load_mappings = function()
 
     -- " Make vertical wildmenu controls behave intuitively
     if vim.o.wildmode == 'full' then
-        map('c', '<Down>',  [[wildmenumode() ? "\<Right>" : "\<Down>"]], {expr = true})
-        map('c', '<Up>',    [[wildmenumode() ? "\<Left>"  : "\<Up>"]], {expr = true})
-        map('c', '<Right>', [[wildmenumode() ? "\<Down>"  : "\<Right>"]], {expr = true})
-        map('c', '<Left>',  [[wildmenumode() ? "\<Up>"    : "\<Left>"]], {expr = true})
+        local opts = {expr = true, silent = false}
+        map('c', '<Down>',  [[wildmenumode() ? "\<Right>" : "\<Down>"]], opts)
+        map('c', '<Up>',    [[wildmenumode() ? "\<Left>"  : "\<Up>"]], opts)
+        map('c', '<Right>', [[wildmenumode() ? "\<Down>"  : "\<Right>"]], opts)
+        map('c', '<Left>',  [[wildmenumode() ? "\<Up>"    : "\<Left>"]], opts)
     end
 
     -- " [Arrow] : disable for all
-    -- map <Left>  <Nop>
-    -- map <Down>  <Nop>
-    -- map <Up>    <Nop>
-    -- map <Right> <Nop>
+    map('', '<Left>', '')
+    map('', '<Down>', '')
+    map('', '<Up>', '')
+    map('', '<Right>', '')
 
     -- " [Ctrl + Arrow] to navigate windows (drop <C-\><C-n> if using vim)
-    -- tnoremap <C-Left>  <C-\><C-n><C-w>h
-    -- tnoremap <C-Down>  <C-\><C-n><C-w>j
-    -- tnoremap <C-Up>    <C-\><C-n><C-w>k
-    -- tnoremap <C-Right> <C-\><C-n><C-w>l
-    -- nnoremap <C-Left>  <C-w>h
-    -- nnoremap <C-Down>  <C-w>j
-    -- nnoremap <C-Up>    <C-w>k
-    -- nnoremap <C-Right> <C-w>l
-    -- vnoremap <C-Left>  <C-w>h
-    -- vnoremap <C-Down>  <C-w>j
-    -- vnoremap <C-Up>    <C-w>k
-    -- vnoremap <C-Right> <C-w>l
+    map('n', '<C-Left>', [[<C-w>h]])
+    map('n', '<C-Down>', [[<C-w>j]])
+    map('n', '<C-Up>', [[<C-w>k]])
+    map('n', '<C-Right>', [[<C-w>l]])
+    map('t', '<C-Left>', [[<C-\><C-n><C-w>h]])
+    map('t', '<C-Down>', [[<C-\><C-n><C-w>j]])
+    map('t', '<C-Up>', [[<C-\><C-n><C-w>k]])
+    map('t', '<C-Right>', [[<C-\><C-n><C-w>l]])
 
     -- " [Alt + Arrow] : resize splits (drop <C-\><C-n> if using vim)
-    -- tnoremap <A-Left>  <C-\><C-N><C-w>8<
-    -- tnoremap <A-Down>  <C-\><C-N><C-w>8-
-    -- tnoremap <A-Up>    <C-\><C-N><C-w>8+
-    -- tnoremap <A-Right> <C-\><C-N><C-w>8>
-    -- nnoremap <A-Left>  <C-w>8<
-    -- nnoremap <A-Down>  <C-w>8-
-    -- nnoremap <A-Up>    <C-w>8+
-    -- nnoremap <A-Right> <C-w>8>
-    -- vnoremap <A-Left>  <C-w>8<
-    -- vnoremap <A-Down>  <C-w>8-
-    -- vnoremap <A-Up>    <C-w>8+
-    -- vnoremap <A-Right> <C-w>8>
+    map('t', '<A-Left>', [[<C-\><C-N><C-w>8<]])
+    map('t', '<A-Down>', [[<C-\><C-N><C-w>8-]])
+    map('t', '<A-Up>', [[<C-\><C-N><C-w>8+]])
+    map('t', '<A-Right>', [[<C-\><C-N><C-w>8>]])
+    map('n', '<A-Left>', [[<C-w>8<]])
+    map('n', '<A-Down>', [[<C-w>8-]])
+    map('n', '<A-Up>', [[<C-w>8+]])
+    map('n', '<A-Right>', [[<C-w>8>]])
+    map('v', '<A-Left>', [[<C-w>8<]])
+    map('v', '<A-Down>', [[<C-w>8-]])
+    map('v', '<A-Up>', [[<C-w>8+]])
+    map('v', '<A-Right>', [[<C-w>8>]])
 
     -- " [Shift + Arrow] Move splits (drop <C-\><C-n> if using vim)
-    -- tnoremap <S-Left>  <C-\><C-N><C-w>H
-    -- tnoremap <S-Down>  <C-\><C-N><C-w>J
-    -- tnoremap <S-Up>    <C-\><C-N><C-w>K
-    -- tnoremap <S-Right> <C-\><C-N><C-w>L
-    -- nnoremap <S-Left>  <C-w>H
-    -- nnoremap <S-Down>  <C-w>J
-    -- nnoremap <S-Up>    <C-w>K
-    -- nnoremap <S-Right> <C-w>L
-    -- vnoremap <S-Left>  <C-w>H
-    -- vnoremap <S-Down>  <C-w>J
-    -- vnoremap <S-Up>    <C-w>K
-    -- vnoremap <S-Right> <C-w>L
+    map('t', '<S-Left>', [[<C-\><C-N><C-w>H]])
+    map('t', '<S-Down>', [[<C-\><C-N><C-w>J]])
+    map('t', '<S-Up>', [[<C-\><C-N><C-w>K]])
+    map('t', '<S-Right>', [[<C-\><C-N><C-w>L]])
+    map('n', '<S-Left>', [[<C-w>H]])
+    map('n', '<S-Down>', [[<C-w>J]])
+    map('n', '<S-Up>', [[<C-w>K]])
+    map('n', '<S-Right>', [[<C-w>L]])
+    map('v', '<S-Left>', [[<C-w>H]])
+    map('v', '<S-Down>', [[<C-w>J]])
+    map('v', '<S-Up>', [[<C-w>K]])
+    map('v', '<S-Right>', [[<C-w>L]])
 
     -- " -----------------------------------------------------------------------------
     -- " " OLD MAPPINGS

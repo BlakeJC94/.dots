@@ -1,22 +1,24 @@
 M = {}
 
-map_opts = {noremap = true, silent = true}
-buffer = 0
 
-M.map = function(mode, lhs, rhs, opts)
-    if opts then map_opts = vim.tbl_extend('force', map_opts, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, map_opts)
+M.map = function(mode, lhs, rhs, diff_opts)
+    opts = {noremap = true, silent = true}
+    if diff_opts then opts = vim.tbl_extend('force', opts, diff_opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
 
-M.b_map = function(mode, lhs, rhs, opts, bufnr)
-    if opts then options = vim.tbl_extend('force', map_opts, opts) end
-    if bufnr then buffer = bufnr end
-    vim.api.nvim_buf_set_keymap(buffer, mode, lhs, rhs, map_opts)
+M.b_map = function(mode, lhs, rhs, diff_opts, diff_bufnr)
+    opts = {noremap = true, silent = true}
+    bufnr = 0
+    if diff_opts then opts = vim.tbl_extend('force', opts, diff_opts) end
+    if diff_bufnr then bufnr = diff_bufnr end
+    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
 end
 
-M.b_opt = function(lhs, rhs, opts, bufnr)
-    if bufnr then buffer = bufnr end
-    vim.api.nvim_buf_set_option(buffer, lhs, rhs)
+M.b_opt = function(lhs, rhs, opts, diff_bufnr)
+    bufnr = 0
+    if diff_bufnr then bufnr = diff_bufnr end
+    vim.api.nvim_buf_set_option(bufnr, lhs, rhs)
 end
 
 M.has_words_before = function()
