@@ -1,10 +1,3 @@
-function TrimTrailingSpace()
-    " %s/\s*$//
-    " ''
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfunction
 
 augroup default_cmds
     autocmd!
@@ -14,30 +7,20 @@ augroup default_cmds
     autocmd BufWritePre * retab
     " autoremove whitespace
     autocmd BufWritePre * call TrimTrailingSpace()
-    " help/cmd win/qf list: Press q to close and disable spellcheck
-    autocmd Filetype qf,help nnoremap <buffer> q :q<CR>
-    autocmd Filetype qf,help setl nospell
-    autocmd CmdwinEnter * nnoremap <buffer> q :q<CR>
-    " Autocomplete braces in C files
-    " autocmd FileType c inoremap {<CR> {<CR><CR>}<C-o>k<Tab>
-    " Autoindent python structures
-    autocmd FileType python setl
-        \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+    " Auto-highlight yanked text
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 700})
     " create nested directories if needed when creating files
     autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
 augroup END
 
-augroup auto_mkdir
-  autocmd!
-  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
-  function! s:auto_mkdir(dir, force)
-    if !isdirectory(a:dir)
-          \   && (a:force
-          \       || input("'" . a:dir . "' does not exist. Create? [y/N]") =~? '^y\%[es]$')
-      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-    endif
-  endfunction
+
+augroup extra_filetype_cmds
+    " help/cmd win/qf list: Press q to close and disable spellcheck
+    autocmd Filetype qf,help nnoremap <buffer> q :q<CR>
+    autocmd Filetype qf,help setl nospell
+    autocmd CmdwinEnter * nnoremap <buffer> q :q<CR>
 augroup END
+
 
 augroup set_prgs
     autocmd!
@@ -45,8 +28,30 @@ augroup set_prgs
     " autocmd FileType Markdown set makeprg=pandoc\ %:p\ -o\ %:p:h/out.pdf
 augroup END
 
+" augroup lang_tweaks
+    " Autocomplete braces in C files
+    " autocmd FileType c inoremap {<CR> {<CR><CR>}<C-o>k<Tab>
+    " Autoindent python structures
+    " autocmd FileType python setl
+    "     \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+" augroup END
 
-" replaced by focus plugin
+
+
+" (probably not needed?)
+" augroup auto_mkdir
+"   autocmd!
+"   autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+"   function! s:auto_mkdir(dir, force)
+"     if !isdirectory(a:dir)
+"           \   && (a:force
+"           \       || input("'" . a:dir . "' does not exist. Create? [y/N]") =~? '^y\%[es]$')
+"       call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+"     endif
+"   endfunction
+" augroup END
+
+" (replaced by focus plugin)
 " augroup cursorline_on_active_buffer
 "     autocmd!
 "     autocmd VimEnter,WinEnter,BufWinEnter,Focusgained * setlocal cursorline
