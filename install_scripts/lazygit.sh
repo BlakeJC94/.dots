@@ -14,6 +14,7 @@ echo "[${0##*/}] : INSTALLING >>>>>>>>>>>>>>>>"
     rm README.md LICENSE
     sudo mv lazygit /opt/
     sudo ln -sf /opt/lazygit /usr/bin/lazygit
+    ln -sf $HOME/.dots/.config/lazygit $HOME/.config/lazygit
 
     echo -e "${date} \n INSTALLED ${0##*/}"
 ) >> /tmp/install_${0##*/}.log 2>&1
