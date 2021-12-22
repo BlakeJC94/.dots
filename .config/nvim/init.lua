@@ -3,7 +3,6 @@ local opt = vim.opt
 local g = vim.g
 
 plugins = require('plugins')
-mappings = require('mappings')
 
 -- -- PLUGINS ---------------------------------------------------------
 -- Download plugins with ~/.config/nvim/lua/plugins.lua
@@ -19,10 +18,13 @@ cmd [[source ~/.config/nvim/vimscript/autocmds.vim]]
 -- -- LOAD MAPPINGS ------------------------------------------------------
 
 local maps = {
-    n = {
+    [''] = {
         -- Better splitting
         ['_']  = ':split<CR>',
         ['|']  = ':vsplit<CR>',
+        -- Move left and right faster
+        ['H'] = '^',
+        ['L'] = '$',
         -- Prevent x and s from overriding what's in the clipboard
         ['x']  = '\"_x',
         ['X']  = '\"_X',
@@ -31,17 +33,27 @@ local maps = {
         -- Center screen and open folds when flicking through search matches
         ['n']  = 'nzzzv',
         ['N']  = 'Nzzzv',
+        -- Better jumplist for large line steps (and step through visual lines with j/k)
+        ['j']  = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true, noremap=true}},
+        ['k']  = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true, noremap=true}},
+        -- Toggle terminal
+        ['<C-t>']  = {map=[[:exe v:count . "ToggleTerm direction=horizontal"<CR>]], opts={silent=true, noremap=true}},
+        ['<C-y>']  = {map=[[:exe v:count . "ToggleTerm direction=vertical"<CR>]], opts={silent=true, noremap=true}},
+        -- Disable arrow keys
+        ['<Left>']  = '',
+        ['<Down>']  = '',
+        ['<Up>']    = '',
+        ['<Right>'] = '',
+    },
+    n = {
         -- Make Y behave like D and C
         ['Y']  = 'y$',
         -- gp: Visually select last pasted block (like gv)
-        ['gp'] = {map=[['`[' . getregtype()[0] . '`]']], opts={expr = true}},
+        ['gp'] = {map=[['`[' . getregtype()[0] . '`]']], opts={expr=true}},
         -- gF: create new file at filename over cursor
         ['gF'] = ':e <c-r><c-f><CR>',
         -- J doesn't move cursor
         ['J']  = 'mzJ`z',
-        -- Better jumplist for large line steps
-        ['j']  = {map=[[(v:count > 5 ? 'm`' . v:count : '') . 'j']], opts={expr = true}},
-        ['k']  = {map=[[(v:count > 5 ? 'm`' . v:count : '') . 'k']], opts={expr = true}},
         -- [Ctrl + Arrow] to navigate windows
         ['<C-Left>']  = '<C-w>h',
         ['<C-Down>']  = '<C-w>j',
@@ -66,11 +78,6 @@ local maps = {
         -- Move visual block up or down
         ['J'] = ":m '>+1<CR>gv",
         ['K'] = ":m '<-2<CR>gv",
-        -- Prevent x and s from overriding what's in the clipboard
-        ['x'] = '\"_x',
-        ['X'] = '\"_X',
-        ['s'] = '\"_s',
-        ['S'] = '\"_S',
     },
     t = {
         -- <Esc><Esc> = (terminal) go to normal mode
@@ -132,30 +139,42 @@ local maps = {
             opts = {expr=true, noremap=true},
         },
     },
-    [''] = {
-        -- Disable arrow keys
-        ['<Left>']  = '',
-        ['<Down>']  = '',
-        ['<Up>']    = '',
-        ['<Right>'] = '',
-    }
+    o = {
+        -- Custom text object: "around document"
+        ['ad'] = '<Cmd>normal! ggVG<CR>',
+    },
+    x = {
+        -- Custom text object: "around document"
+        ['ad'] = 'gg0oG$',
+    },
 }
 
 vim.g.mapleader = " "
 local leader_maps = {
     n = {
         -- META MAPS
-        ['<Leader><CR>']  = ":lua require'lir.float'.toggle()<CR>",              -- File explorer
-        ['<Leader><BS>']  = ":Telescope find_files<CR>",                         -- Fuzzy finder
-        ['<Leader><Tab>'] = "<C-^>",                                             -- Last file
-        ['<Leader><Esc>'] = ":lua require'harpoon.ui'.toggle_quick_menu()<CR>",  -- Show Harpoon
+        ['<Leader><CR>']  = ":lua require'lir.float'.toggle()<CR>",  -- File explorer
+        ['<Leader><BS>']  = ":Telescope find_files<CR>",             -- Fuzzy finder
+        ['<Leader><Tab>'] = "<C-^>",                                 -- Last file
+        ['<Leader><Esc>'] = ":ToggleTerm direction=float<CR>",       -- Quick terminal
         -- KEY MAPS
-        ['<Leader>q'] = ":q<CR>",                                       -- L-q to quit
-        ['<Leader>d'] = ":cd %:p:h<CR>:pwd<CR>",                        -- Change dir to current
-        ['<Leader>s'] = ":set hls!<CR>",                                -- Toggle highlights
-        ['<Leader>m'] = ":lua require('harpoon.mark').add_file()<CR>",  -- Mark for harpoon
-        ['<Leader>c'] = ":call ToggleQuickFix()<CR>",                   -- Toggle qflist
-        ['<Leader>l'] = ":call ToggleLocation()<CR>",                   -- Toggle loclist
+        ['<Leader>q'] = ":q<CR>",                      -- L-q to quit
+        ['<Leader>d'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change dir to current
+        ['<Leader>s'] = ":set hls!<CR>",               -- Toggle highlights
+        ['<Leader>c'] = ":call ToggleQuickFix()<CR>",  -- Toggle qflist
+        ['<Leader>l'] = ":call ToggleLocation()<CR>",  -- Toggle loclist
+        -- TELESCOPE MAPS
+        ['<Leader>b'] = ":Telescope buffers<CR>",                    -- Switch between buffers
+        ['<Leader>r'] = ":Telescope oldfiles<CR>",                   -- Recently changed files
+        ['<Leader>f'] = ":Telescope current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
+        ['<Leader>g'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
+        -- HARPOON MAPS
+        ['<Leader>h'] = ":lua require('harpoon.ui').toggle_quick_menu()<CR>",  -- Show Harpoon
+        ['<Leader>j'] = ":lua require('harpoon.mark').add_file()<CR>",         -- Mark for harpoon
+        -- TOGGLETERM MAPS
+        ['<Leader>g'] = ":call v:lua.lazygit_toggle()<CR>",
+        ['<Leader>n'] = ":call v:lua.nvtop_toggle()<CR>",
+        ['<Leader>t'] = ":call v:lua.bashtop_toggle()<CR>",
     },
 }
 
@@ -171,7 +190,6 @@ for _, list in pairs({maps, leader_maps}) do
         end
     end
 end
-
 
 -- -- LOAD OPTIONS ----------------------------------------------
 
@@ -205,7 +223,7 @@ local layout_options = {
     splitright = true,  -- Open vsplits on right
     -- LINE DISPLAY
     cursorline    = false,  -- Highlight current line
-    scrolloff     = 9999,   -- N lines to keep visible above/below cursor
+    scrolloff     = 8,      -- N lines to keep visible above/below cursor
     sidescrolloff = 8,      -- N columns to keep visible left/right of cursor
     textwidth     = 99,     -- Margin for text input
     wrap          = false,  --

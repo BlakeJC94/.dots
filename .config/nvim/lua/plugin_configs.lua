@@ -8,15 +8,6 @@ M.telescope = function()
     local telescope = require('telescope')
     local actions = require('telescope.actions')
 
-    local telescope_mappings = {
-        ['<Leader>tf'] = '<cmd>Telescope find_files<CR>',
-        ['<Leader>tg'] = '<cmd>Telescope live_grep<CR>',
-        ['<Leader>tb'] = '<cmd>Telescope buffers<CR>',
-        ['<Leader>th'] = '<cmd>Telescope help_tags<CR>',
-    }
-
-    for lhs, rhs in pairs(telescope_mappings) do map('n', lhs, rhs) end
-
     telescope.setup({
         defaults = {
             mappings = {
@@ -414,6 +405,57 @@ M.gitsigns = function()
             ['x ih'] = ':<C-U>Gitsigns select_hunk<CR>'
         },
     })
+end
+
+M.toggleterm = function()
+    require('toggleterm').setup({
+        -- size can be a number or function which is passed the current terminal
+        size = function(term)
+            if term.direction == "horizontal" then
+                return 15
+            elseif term.direction == "vertical" then
+                return vim.o.columns * 0.4
+            end
+        end,
+        hide_numbers = true, -- hide the number column in toggleterm buffers
+        shade_filetypes = false,
+        shade_terminals = false,
+        start_in_insert = true,
+        persist_size = true,
+        close_on_exit = true, -- close the terminal window when the process exits
+    })
+
+    local Terminal = require('toggleterm.terminal').Terminal
+
+    local lazygit = Terminal:new({
+        cmd = "lazygit",
+        direction = "float",
+    })
+    _G.lazygit_toggle = function()
+        lazygit:toggle()
+    end
+
+    local nvtop = Terminal:new({
+        cmd = "nvtop",
+        direction = "float",
+    })
+    _G.nvtop_toggle = function()
+        nvtop:toggle()
+    end
+
+    local bashtop = Terminal:new({
+        cmd = "bashtop",
+        direction = "float",
+    })
+    _G.bashtop_toggle = function()
+        bashtop:toggle()
+    end
+
+    -- vim.cmd [[command Lazygit :call v:lua.lazygit_toggle()]]
+
+    vim.cmd [[cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=horizontal' : 'term')<CR>]]
+    vim.cmd [[cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=vertical' : 'vterm')<CR>]]
+    -- cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vsplit term://bash' : 'vterm')<CR>
 end
 
 return M

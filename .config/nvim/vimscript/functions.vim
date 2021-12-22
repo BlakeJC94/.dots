@@ -1,4 +1,3 @@
-" TODO put this in lua config
 if exists('g:started_by_firenvim')
     set wrap linebreak colorcolumn=0 breakindent
     "hi Normal guibg='#1d2021'

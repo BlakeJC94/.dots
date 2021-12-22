@@ -1,7 +1,6 @@
 -- Select plugins to load
 PLUGINS = function()
     use 'wbthomason/packer.nvim'
-
     use {   -- Fuzzy finder
         'nvim-telescope/telescope.nvim',
         requires = {'nvim-lua/plenary.nvim'},
@@ -90,18 +89,22 @@ PLUGINS = function()
         requires={'nvim-lua/plenary.nvim'},
         config = "require('plugin_configs').harpoon()",
     }
+    use { -- Better terminals
+        "akinsho/toggleterm.nvim",
+        config = "require('plugin_configs').toggleterm()"
+    }
 
     -- TODO comments
     use {
-        'tpope/vim-repeat',      -- Better .-repeat actions
-        'tpope/vim-commentary',  -- [gc<motion>] = Toggle comments
-        'danilamihailov/beacon.nvim',  -- Ping cursor location after jump
-        'wellle/targets.vim', -- More text objects
-        'tpope/vim-surround', -- cs]} : Change surrounding brackets
-        'michaeljsmith/vim-indent-object', -- select indent levels with <sel>i
-        'szw/vim-maximizer',
-        'tommcdo/vim-lion', -- align with <sel>gl<obj><char>
-        'Vimjas/vim-python-pep8-indent',
+        'tpope/vim-repeat',                 -- Better .-repeat actions
+        'tpope/vim-commentary',             -- [gc<motion>] = Toggle comments
+        'danilamihailov/beacon.nvim',       -- Ping cursor location after jump
+        'tpope/vim-surround',               -- cs]} : Change surrounding brackets
+        'wellle/targets.vim',               -- More text objects
+        'michaeljsmith/vim-indent-object',  -- select indent levels with <sel>i
+        'szw/vim-maximizer',                -- Toggle maximise buffer
+        'tommcdo/vim-lion',                 -- align with <sel>gl<obj><char>
+        'Vimjas/vim-python-pep8-indent',    -- Fix for auto-indent in treesitter
     }
 end
 

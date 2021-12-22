@@ -72,12 +72,13 @@ augroup highlight_yank
 augroup END
 
 
-augroup term_cmds
-    autocmd!
-    " Bypass normal mode when changing focus to terminal buffer
-    autocmd BufWinEnter,WinEnter term://* startinsert
-    " Disable numbers and spelling in terminals
-    autocmd TermOpen term://* setlocal nonu nornu nospell
-    " Immediately close terminal window when process finishes
-    autocmd TermClose term://* quit
-augroup END
+" replaced with toggleterm
+" augroup term_cmds
+"     autocmd!
+"     " Bypass normal mode when changing focus to terminal buffer
+"     autocmd BufWinEnter,WinEnter term://* startinsert
+"     " Disable numbers and spelling in terminals
+"     autocmd TermOpen term://* setlocal nonu nornu nospell
+"     " Immediately close terminal window when process finishes
+"     autocmd TermClose term://* quit
+" augroup END

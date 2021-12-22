@@ -154,3 +154,6 @@ eval "$(pyenv init -)"
 if [ -f ~/.bash_algodeploy ]; then
     . ~/.bash_algodeploy
 fi
+
+# disable <C-s> from pausing input to terminal
+stty -ixon
