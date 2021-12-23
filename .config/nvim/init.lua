@@ -244,9 +244,9 @@ local layout_options = {
     -- BOTTOM MARGIN
     showcmd    = true,  -- Show command in bottom right
     cmdheight  = 2,     --
-    laststatus = 2,     -- Status line (from Mastering Vim)
-    statusline = '%F%m%r%h%w%=(%{&ff}/%Y) (line %l/%L, col %c)',
     wildignore = {'*.pyc', '**/.git/*', '**/data/*'},
+    -- TOP MARGIN
+    showtabline = 0,
 }
 
 -- Apply options

@@ -89,9 +89,16 @@ PLUGINS = function()
         requires={'nvim-lua/plenary.nvim'},
         config = "require('plugin_configs').harpoon()",
     }
-    use { -- Better terminals
+    use {  -- Better terminals
         "akinsho/toggleterm.nvim",
         config = "require('plugin_configs').toggleterm()"
+    }
+    use {  -- Better statusline
+        'nvim-lualine/lualine.nvim',
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+        },
+        config = "require('plugin_configs').lualine()"
     }
 
     -- TODO comments
