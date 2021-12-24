@@ -238,7 +238,7 @@ local layout_options = {
     -- LEFT MARGIN
     number         = true,     --
     relativenumber = true,     -- Show rel/abs line numbers
-    -- signcolumn     = '',  -- Always show sign column beside numbers
+    signcolumn     = 'no',     -- Hide sign column
     -- RIGHT MARGIN
     colorcolumn = {100},  -- Set vertical margin
     -- BOTTOM MARGIN
