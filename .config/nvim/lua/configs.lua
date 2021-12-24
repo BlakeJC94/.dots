@@ -25,7 +25,7 @@ M.lspconfig = function()
 
     -- Configure diagnostics
     vim.diagnostic.config({
-        virtual_text = true,
+        virtual_text = false,
         signs = true,
         underline = true,
         update_in_insert = false,
@@ -41,28 +41,6 @@ M.lspconfig = function()
     local on_attach = function(client)
         -- Enable completion triggered by <c-x><c-o>
         b_opt('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-        -- Set mappings
-        lsp_mappings = {
-            ['gd']   = '<cmd>lua vim.lsp.buf.definition()<CR>',
-            ['gD']   = '<cmd>lua vim.lsp.buf.declaration()<CR>',
-            ['gI']   = '<cmd>lua vim.lsp.buf.implementation()<CR>',
-            ['gr']   = '<cmd>lua vim.lsp.buf.references()<CR>',
-            ['gs']   = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-            ['gh']   = '<cmd>lua vim.lsp.buf.hover()<CR>',
-            ['\\wa'] = '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
-            ['\\wr'] = '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
-            ['\\wl'] = '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
-            ['\\d']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
-            ['\\r']  = '<cmd>lua vim.lsp.buf.rename()<CR>',
-            ['\\f']  = '<cmd>lua vim.lsp.buf.code_action()<CR>',
-            ['<Leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
-            ['[e']   = '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',
-            [']e']   = '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',
-            ['\\l']  = '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>',
-            ['\\f']  = '<cmd>lua vim.lsp.buf.formatting()<CR>',
-        }
-        for lhs, rhs in pairs(lsp_mappings) do b_map('n', lhs, rhs) end
 
         -- Print message if loaded successfully
         local msg = string.format("Language server %s started!", client.name)
@@ -379,15 +357,6 @@ M.quickscope = function()
 end
 
 M.harpoon = function()
-    harpoon_mappings = {  -- TODO update mappings
-        ['<leader>1'] = '<cmd>lua require("harpoon.ui").nav_file(1)<cr>',
-        ['<leader>2'] = '<cmd>lua require("harpoon.ui").nav_file(2)<cr>',
-        ['<leader>3'] = '<cmd>lua require("harpoon.ui").nav_file(3)<cr>',
-        ['<leader>4'] = '<cmd>lua require("harpoon.ui").nav_file(4)<cr>',
-        ['<leader>5'] = '<cmd>lua require("harpoon.ui").nav_file(5)<cr>',
-        ['<leader>6'] = '<cmd>lua require("harpoon.ui").nav_file(6)<cr>',
-    }
-    for lhs, rhs in pairs(harpoon_mappings) do map('n', lhs, rhs) end
 end
 
 M.gitsigns = function()
@@ -396,28 +365,8 @@ M.gitsigns = function()
         signcolumn = false,
         numhl      = true,
         linehl     = false,
-        keymaps = {
-            -- Default keymap options
-            noremap = true,
-
-            ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'"},
-            ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'"},
-
-            ['n <leader>hs'] = '<cmd>Gitsigns stage_hunk<CR>',
-            ['v <leader>hs'] = ':Gitsigns stage_hunk<CR>',
-            ['n <leader>hu'] = '<cmd>Gitsigns undo_stage_hunk<CR>',
-            ['n <leader>hr'] = '<cmd>Gitsigns reset_hunk<CR>',
-            ['v <leader>hr'] = ':Gitsigns reset_hunk<CR>',
-            ['n <leader>hR'] = '<cmd>Gitsigns reset_buffer<CR>',
-            ['n <leader>hp'] = '<cmd>Gitsigns preview_hunk<CR>',
-            ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
-            ['n <leader>hS'] = '<cmd>Gitsigns stage_buffer<CR>',
-            ['n <leader>hU'] = '<cmd>Gitsigns reset_buffer_index<CR>',
-
-            -- Text objects
-            ['o ih'] = ':<C-U>Gitsigns select_hunk<CR>',
-            ['x ih'] = ':<C-U>Gitsigns select_hunk<CR>'
-        },
+        keymaps    = {}, -- Kepmaps set in init.lua
+        current_line_blame = true,
     })
 end
 

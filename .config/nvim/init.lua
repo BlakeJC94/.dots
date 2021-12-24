@@ -2,11 +2,10 @@ local cmd = vim.cmd
 local opt = vim.opt
 local g = vim.g
 
-plugins = require('plugins')
 
 -- -- PLUGINS ---------------------------------------------------------
--- Download plugins with ~/.config/nvim/lua/plugins.lua
--- Configure plugins with ~/.config/nvim/lua/plugin_configs.lua
+plugins = require('plugins')  -- ~/.config/nvim/lua/plugins.lua
+
 plugins.setup_packer()
 plugins.disable_built_ins()
 plugins.load_plugins()
@@ -34,8 +33,8 @@ local maps = {
         ['n']  = 'nzzzv',
         ['N']  = 'Nzzzv',
         -- Better jumplist for large line steps (and step through visual lines with j/k)
-        ['j']  = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true, noremap=true}},
-        ['k']  = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true, noremap=true}},
+        ['j']  = {map=[[(v:count > 5 ? 'm`' : 'g') . v:count . 'j']], opts={expr=true, noremap=true}},
+        ['k']  = {map=[[(v:count > 5 ? 'm`' : 'g') . v:count . 'k']], opts={expr=true, noremap=true}},
         -- Toggle terminal
         ['<C-t>']  = {map=[[:exe v:count . "ToggleTerm direction=horizontal"<CR>]], opts={silent=true, noremap=true}},
         ['<C-y>']  = {map=[[:exe v:count . "ToggleTerm direction=vertical"<CR>]], opts={silent=true, noremap=true}},
@@ -54,6 +53,18 @@ local maps = {
         ['gF'] = ':e <c-r><c-f><CR>',
         -- J doesn't move cursor
         ['J']  = 'mzJ`z',
+        -- Navigate git changes
+        [']c'] = {map=[[&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>']], opts={noremap=true, expr=true}},
+        ['[c'] = {map=[[&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>']], opts={noremap=true, expr=true}},
+        -- Navigate diagnostics
+        [']e'] = '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',
+        ['[e'] = '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',
+        -- LSP bindings
+        ['gd'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
+        ['gD'] = '<cmd>lua vim.lsp.buf.declaration()<CR>',
+        ['gI'] = '<cmd>lua vim.lsp.buf.implementation()<CR>',
+        ['gr'] = '<cmd>lua vim.lsp.buf.references()<CR>',
+        ['gy'] = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
         -- [Ctrl + Arrow] to navigate windows
         ['<C-Left>']  = '<C-w>h',
         ['<C-Down>']  = '<C-w>j',
@@ -163,18 +174,43 @@ local leader_maps = {
         ['<Leader>s'] = ":set hls!<CR>",               -- Toggle highlights
         ['<Leader>c'] = ":call ToggleQuickFix()<CR>",  -- Toggle qflist
         ['<Leader>l'] = ":call ToggleLocation()<CR>",  -- Toggle loclist
+        -- LSP MAPS
+        ['<Leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
+        ['<Leader>k']  = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
+        ['<Leader>K']  = '<cmd>lua vim.lsp.buf.hover()<CR>',
+        ['<Leader>r']  = '<cmd>lua vim.lsp.buf.rename()<CR>',
+        ['<Leader>a']  = '<cmd>lua vim.lsp.buf.code_action()<CR>',
+        ['<Leader>f']  = '<cmd>lua vim.lsp.buf.formatting()<CR>',
+        ['<Leader>wa'] = '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
+        ['<Leader>wr'] = '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
+        ['<Leader>wl'] = '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
         -- TELESCOPE MAPS
         ['<Leader>b'] = ":Telescope buffers<CR>",                    -- Switch between buffers
         ['<Leader>r'] = ":Telescope oldfiles<CR>",                   -- Recently changed files
         ['<Leader>f'] = ":Telescope current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
         ['<Leader>g'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
         -- HARPOON MAPS
-        ['<Leader>h'] = ":lua require('harpoon.ui').toggle_quick_menu()<CR>",  -- Show Harpoon
-        ['<Leader>j'] = ":lua require('harpoon.mark').add_file()<CR>",         -- Mark for harpoon
+        ['<Leader>p'] = ":lua require('harpoon.ui').toggle_quick_menu()<CR>",  -- Show Harpoon
+        ['<Leader>o'] = ":lua require('harpoon.mark').add_file()<CR>",         -- Mark for harpoon
+        ['<leader>1'] = '<cmd>lua require("harpoon.ui").nav_file(1)<cr>',
+        ['<leader>2'] = '<cmd>lua require("harpoon.ui").nav_file(2)<cr>',
+        ['<leader>3'] = '<cmd>lua require("harpoon.ui").nav_file(3)<cr>',
+        ['<leader>4'] = '<cmd>lua require("harpoon.ui").nav_file(4)<cr>',
+        ['<leader>5'] = '<cmd>lua require("harpoon.ui").nav_file(5)<cr>',
+        ['<leader>6'] = '<cmd>lua require("harpoon.ui").nav_file(6)<cr>',
         -- TOGGLETERM MAPS
         ['<Leader>g'] = ":call v:lua.lazygit_toggle()<CR>",
         ['<Leader>n'] = ":call v:lua.nvtop_toggle()<CR>",
         ['<Leader>t'] = ":call v:lua.bashtop_toggle()<CR>",
+        -- GITSIGNS MAPS
+        ['<Leader>hs'] = '<cmd>Gitsigns stage_hunk<CR>',
+        ['<Leader>hu'] = '<cmd>Gitsigns undo_stage_hunk<CR>',
+        ['<Leader>hr'] = '<cmd>Gitsigns reset_hunk<CR>',
+        ['<Leader>hR'] = '<cmd>Gitsigns reset_buffer<CR>',
+        ['<Leader>hp'] = '<cmd>Gitsigns preview_hunk<CR>',
+        ['<Leader>hb'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
+        ['<Leader>hS'] = '<cmd>Gitsigns stage_buffer<CR>',
+        ['<Leader>hU'] = '<cmd>Gitsigns reset_buffer_index<CR>',
     },
 }
 

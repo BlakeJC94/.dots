@@ -1,10 +1,11 @@
 -- Select plugins to load
+configs = require('configs')  -- ~/.config/nvim/lua/configs.lua
 PLUGINS = function()
     use 'wbthomason/packer.nvim'
     use {   -- Fuzzy finder
         'nvim-telescope/telescope.nvim',
         requires = {'nvim-lua/plenary.nvim'},
-        config = "require('plugin_configs').telescope()",
+        config = configs.telescope,
     }
     use {  -- LSP Engine
         'neovim/nvim-lspconfig',
@@ -12,7 +13,7 @@ PLUGINS = function()
             "hrsh7th/cmp-nvim-lsp",
             "williamboman/nvim-lsp-installer",
         },
-        config = "require('plugin_configs').lspconfig()",
+        config = configs.lspconfig,
     }
     use {  -- Completion
         "hrsh7th/nvim-cmp",
@@ -26,7 +27,7 @@ PLUGINS = function()
             "hrsh7th/cmp-path",
             "kdheepak/cmp-latex-symbols",
         },
-        config = "require('plugin_configs').cmp()",
+        config = configs.cmp,
     }
     use {  -- File explorer
         "tamago324/lir.nvim",
@@ -34,7 +35,7 @@ PLUGINS = function()
             'nvim-lua/plenary.nvim',
             'kyazdani42/nvim-web-devicons',
         },
-        config = "require('plugin_configs').lir()",
+        config = configs.lir,
     }
     use {  -- Treesitter
         'nvim-treesitter/nvim-treesitter',
@@ -44,25 +45,25 @@ PLUGINS = function()
             'lewis6991/spellsitter.nvim',
         },
         run = ':TSUpdate',
-        config = "require('plugin_configs').treesitter()",
+        config = configs.treesitter,
     }
     use {  -- Landing page
         'goolord/alpha-nvim',
-        config = "require('plugin_configs').alpha()",
+        config = configs.alpha,
     }
     use {  -- firefox injection
         'glacambre/firenvim',
         run = function() vim.fn['firenvim#install'](0) end,
-        config = "require('plugin_configs').firenvim()",
+        config = configs.firenvim,
     }
     use {  -- [<SEL><C-c><C-c>] = Send to neovim terminal
         'jpalardy/vim-slime',
-        config = "require('plugin_configs').slime()",
+        config = configs.slime,
     }
     use {  -- Git changes indicators
         'lewis6991/gitsigns.nvim',
         requires = { 'nvim-lua/plenary.nvim' },
-        config = "require('plugin_configs').gitsigns()",
+        config = configs.gitsigns,
     }
     use {  -- Colors Hex codes
         "norcalli/nvim-colorizer.lua",
@@ -78,30 +79,29 @@ PLUGINS = function()
     }
     use {  -- Indent guides
         "lukas-reineke/indent-blankline.nvim",
-        config = "require('plugin_configs').indent_blankline()"
+        config = configs.indent_blankline,
     }
     use {  -- Better f/t targets
         "unblevable/quick-scope",
-        config = "require('plugin_configs').quickscope()"
+        config = configs.quickscope,
     }
     use {  -- File switching
         "ThePrimeagen/harpoon",
         requires={'nvim-lua/plenary.nvim'},
-        config = "require('plugin_configs').harpoon()",
+        config = configs.harpoon,
     }
     use {  -- Better terminals
         "akinsho/toggleterm.nvim",
-        config = "require('plugin_configs').toggleterm()"
+        config = configs.toggleterm,
     }
     use {  -- Better statusline
         'nvim-lualine/lualine.nvim',
         requires = {
             'kyazdani42/nvim-web-devicons',
         },
-        config = "require('plugin_configs').lualine()"
+        config = configs.lualine,
     }
 
-    -- TODO comments
     use {
         'tpope/vim-repeat',                 -- Better .-repeat actions
         'tpope/vim-commentary',             -- [gc<motion>] = Toggle comments
@@ -147,7 +147,7 @@ M.setup_packer = function()
         augroup Packer
             autocmd!
             autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-            autocmd BufWritePost plugin_configs.lua source <afile> | PackerCompile
+            autocmd BufWritePost configs.lua source <afile> | PackerCompile
         augroup end
     ]], false)
 end
