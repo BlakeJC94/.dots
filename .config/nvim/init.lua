@@ -33,8 +33,8 @@ local maps = {
         ['n']  = 'nzzzv',
         ['N']  = 'Nzzzv',
         -- Better jumplist for large line steps (and step through visual lines with j/k)
-        ['j']  = {map=[[(v:count > 5 ? 'm`' : 'g') . v:count . 'j']], opts={expr=true, noremap=true}},
-        ['k']  = {map=[[(v:count > 5 ? 'm`' : 'g') . v:count . 'k']], opts={expr=true, noremap=true}},
+        ['j']  = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true, noremap=true}},
+        ['k']  = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true, noremap=true}},
         -- Toggle terminal
         ['<C-t>']  = {map=[[:exe v:count . "ToggleTerm direction=horizontal"<CR>]], opts={silent=true, noremap=true}},
         ['<C-y>']  = {map=[[:exe v:count . "ToggleTerm direction=vertical"<CR>]], opts={silent=true, noremap=true}},
@@ -167,7 +167,8 @@ local leader_maps = {
         ['<Leader><CR>']  = ":lua require'lir.float'.toggle()<CR>",  -- File explorer
         ['<Leader><BS>']  = ":Telescope find_files<CR>",             -- Fuzzy finder
         ['<Leader><Tab>'] = "<C-^>",                                 -- Last file
-        ['<Leader><Esc>'] = ":ToggleTerm direction=float<CR>",       -- Quick terminal
+        ['<Leader><Esc>'] = ":lua require('harpoon.ui').toggle_quick_menu()<CR>",  -- Show Harpoon
+        -- ['<Leader><Esc>'] = ":ToggleTerm direction=float<CR>",       -- Quick terminal
         -- KEY MAPS
         ['<Leader>q'] = ":q<CR>",                      -- L-q to quit
         ['<Leader>d'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change dir to current
@@ -185,13 +186,14 @@ local leader_maps = {
         ['<Leader>wr'] = '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
         ['<Leader>wl'] = '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
         -- TELESCOPE MAPS
-        ['<Leader>b'] = ":Telescope buffers<CR>",                    -- Switch between buffers
-        ['<Leader>r'] = ":Telescope oldfiles<CR>",                   -- Recently changed files
-        ['<Leader>f'] = ":Telescope current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
-        ['<Leader>g'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
+        ['<Leader>tb'] = ":Telescope buffers<CR>",                    -- Switch between buffers
+        ['<Leader>tr'] = ":Telescope oldfiles<CR>",                   -- Recently changed files
+        ['<Leader>tf'] = ":Telescope current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
+        ['<Leader>tg'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
+        ['<Leader>tt'] = ":Telescope treesitter<CR>",
+        ['<Leader>th'] = ":Telescope help_tags<CR>",
         -- HARPOON MAPS
-        ['<Leader>p'] = ":lua require('harpoon.ui').toggle_quick_menu()<CR>",  -- Show Harpoon
-        ['<Leader>o'] = ":lua require('harpoon.mark').add_file()<CR>",         -- Mark for harpoon
+        ['<Leader>p'] = ":lua require('harpoon.mark').add_file()<CR>",         -- Mark for harpoon
         ['<leader>1'] = '<cmd>lua require("harpoon.ui").nav_file(1)<cr>',
         ['<leader>2'] = '<cmd>lua require("harpoon.ui").nav_file(2)<cr>',
         ['<leader>3'] = '<cmd>lua require("harpoon.ui").nav_file(3)<cr>',

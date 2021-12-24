@@ -1,7 +1,3 @@
-map = require('utils').map
-b_map = require('utils').b_map
-b_opt = require('utils').b_opt
-
 M = {}
 
 M.telescope = function()
@@ -40,7 +36,7 @@ M.lspconfig = function()
     -- Specify actions to happen when lsp server starts on a buffer
     local on_attach = function(client)
         -- Enable completion triggered by <c-x><c-o>
-        b_opt('omnifunc', 'v:lua.vim.lsp.omnifunc')
+        vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
         -- Print message if loaded successfully
         local msg = string.format("Language server %s started!", client.name)
@@ -255,8 +251,6 @@ M.lir = function()
 
     -- use visual mode
     function _G.LirSettings()
-        -- b_map('x', 'J', ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>')
-
         -- echo cwd
         vim.api.nvim_echo({{vim.fn.expand('%:p'), 'Normal'}}, false, {})
     end
