@@ -82,15 +82,38 @@ function! ToggleLocation()
 endfunction
 
 " Trim trailing spaces without upsetting changelist
-function TrimTrailingSpace()
+function! TrimTrailingSpace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
     call winrestview(l:save)
 endfunction
 
+function! ShowDocumentation()
+    if (index(['vim','help'], &filetype) >=0)
+        execute 'h '.expand('<cword>')
+    else
+        lua vim.lsp.buf.hover()
+    endif
+endfunction
+
+" LSP Commands
+command! -nargs=? LspRename lua vim.lsp.buf.rename(<f-args>)
+command! LspReferences lua vim.lsp.buf.references()
+command! -nargs=? LspWorkspaceSymbol lua vim.lsp.buf.workspace_symbol(<f-args>)
+command! LspIncomingCalls lua vim.lsp.buf.incoming_calls()
+command! LspOutgoingCalls lua vim.lsp.buf.outgoing_calls()
+command! LspListWorkspaceFolders lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+command! -nargs=? -complete=dir LspAddWorkspaceFolder lua vim.lsp.buf.add_workspace_folder(<f-args>)
+command! -nargs=? -complete=dir LspRemoveWorkspaceFolder lua vim.lsp.buf.remove_workspace_folder(<f-args>)
+command! LspDocumentSymbol lua vim.lsp.buf.document_symbol()
+command! LspDefinition lua vim.lsp.buf.definition()
+command! LspTypeDefinition lua vim.lsp.buf.type_definition()
+command! LspDeclaration lua vim.lsp.buf.declaration()
+command! LspImplementation lua vim.lsp.buf.implementation()
+
 " terminal command shortcuts
-cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'split term://bash' : 'term')<CR>
-cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vsplit term://bash' : 'vterm')<CR>
+cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=horizontal' : 'term')<CR>
+cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=vertical' : 'vterm')<CR>
 
 " File directory
 cnoreabbrev fd %:p:h

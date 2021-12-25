@@ -105,10 +105,13 @@ PLUGINS = function()
     use {
         'tpope/vim-repeat',                 -- Better .-repeat actions
         'tpope/vim-commentary',             -- [gc<motion>] = Toggle comments
-        'danilamihailov/beacon.nvim',       -- Ping cursor location after jump
+        'tpope/vim-unimpaired',             -- More motions (see docs)
         'tpope/vim-surround',               -- cs]} : Change surrounding brackets
+        'tpope/vim-obsession',              -- Session management
+        'jiangmiao/auto-pairs',             -- Auto-close brackets
+        'danilamihailov/beacon.nvim',       -- Ping cursor location after jump
         'wellle/targets.vim',               -- More text objects
-        'michaeljsmith/vim-indent-object',  -- select indent levels with <sel>i
+        'michaeljsmith/vim-indent-object',  -- select indent levels with ii or ai
         'szw/vim-maximizer',                -- Toggle maximise buffer
         'tommcdo/vim-lion',                 -- align with <sel>gl<obj><char>
         'Vimjas/vim-python-pep8-indent',    -- Fix for auto-indent in treesitter
