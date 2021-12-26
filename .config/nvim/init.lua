@@ -1,25 +1,36 @@
-local cmd = vim.cmd
-local opt = vim.opt
-local g = vim.g
+-- -- BLAKEJC94S NEOVIM INIT.LUA ------------------------------------------------------------------
 
-
--- -- PLUGINS ---------------------------------------------------------
+-- -- PLUGINS -------------------------------------------------------------------------------------
 plugins = require('plugins')  -- ~/.config/nvim/lua/plugins.lua
 
 plugins.setup_packer()
 plugins.disable_built_ins()
 plugins.load_plugins()
 
--- -- LOAD CUSTOM FUNCTIONS ----------------------------------------------
-cmd [[source ~/.config/nvim/vimscript/functions.vim]]
+-- -- LOAD CUSTOM FUNCTIONS -----------------------------------------------------------------------
+vim.cmd([[source ~/.config/nvim/vimscript/functions.vim]])
+vim.cmd([[source ~/.config/nvim/vimscript/commands.vim]])
+vim.cmd([[source ~/.config/nvim/vimscript/abbrevs.vim]])
 
--- -- LOAD OPTIONS ----------------------------------------------
+my_test = function()
+    vim.cmd([[hi Alternate guibg='#282828' guifg=NONE]])
+    local n_lines = vim.api.nvim_buf_line_count(0)
+    for line = 1, n_lines, 2 do
+        vim.api.nvim_buf_add_highlight(0, -1, 'Alternate', line, 0, -1)
+        -- print(i)
+    end
+
+end
+
+-- -- LOAD OPTIONS --------------------------------------------------------------------------------
 
 local behaviour_options = {
     -- MAIN INPUT/OUTPUT
-    clipboard   = "unnamedplus",
-    ttimeoutlen = 10,   --
-    updatetime  = 300,  --
+    clipboard     = "unnamedplus",  -- Allows vim to use "+ for yanks
+    timeoutlen    = 600,      -- Time (ms) between key sequences
+    ttimeoutlen   = 10,       -- Time (ms) between key sequences in terminal
+    updatetime    = 300,      -- Time (ms) between swapfile writes
+    virtualedit   = "block",  -- Allow cursor to move anywhere ('all', 'block', 'insert')
     -- TABS AND INDENTS
     smartindent = true,  -- Enable better indenting
     tabstop     = 4,     -- Number of space chars for each tab char
@@ -27,47 +38,50 @@ local behaviour_options = {
     shiftwidth  = 4,     -- Number of space chars used when auto-indenting
     expandtab   = true,  -- Replace tabs with spaces when indenting with </>
     -- SEARCHING
-    incsearch  = true,   -- HL while typing, smartcase search
-    ignorecase = true,   --
-    smartcase  = true,   --
-    hlsearch   = false,  --
+    ignorecase = true,   -- Ignore cases in search patterns
+    smartcase  = true,   -- Use case-sensitve search when an uppercase letter is used
+    hlsearch   = true,   -- Highlight matches
+    incsearch  = true,   -- Highlight matches while typing
     -- BACKUPS AND SPELLING
-    swapfile = false,  --
-    backup   = false,  --
-    spell    = true,   --
-    undofile = true,   --
-    undodir  = os.getenv "HOME" .. '/.vim/undodir',
+    swapfile = false,  -- Allow swap files
+    backup   = false,  -- Allow creation of backup files
+    spell    = true,   -- Built-in spell-checker
+    undofile = true,   -- Create global undofile
+    undodir  = os.getenv("HOME") .. '/.vim/undodir',
 }
 
 local layout_options = {
     -- WINDOW DISPLAY
-    splitbelow = true,  -- Open splits below
-    splitright = true,  -- Open vsplits on right
+    splitbelow    = true,    -- Open splits below
+    splitright    = true,    -- Open vsplits on right
+    termguicolors = true,    -- Wider colorscheme support
+    background    = 'dark',  -- Background mode
     -- LINE DISPLAY
     scrolloff     = 8,      -- N lines to keep visible above/below cursor
     sidescrolloff = 8,      -- N columns to keep visible left/right of cursor
     textwidth     = 99,     -- Margin for text input
-    wrap          = false,  --
-    linebreak     = true,   --
-    breakindent   = true,   --
+    wrap          = false,  -- Soft-wrap long lines
+    linebreak     = true,   -- Only split/wrap long lines after words
+    breakindent   = true,   -- Indent soft-wrapped lines
     showmatch     = true,   -- Highlight matching brackets
     -- FOLDS
-    foldmethod = 'indent',        --
+    foldmethod = 'indent',        -- Auto-create folds by indent levels
     foldlevel  = 0,               -- Close all folds when opening file
-    foldtext   = 'MyFoldText()',  --
-    fillchars  = 'fold: ',        --
+    foldtext   = 'MyFoldText()',  -- Custom fold text
+    fillchars  = 'fold: ',        -- Replace dots with spaces in fold head
     -- LEFT MARGIN
-    number         = true,     --
-    relativenumber = true,     -- Show rel/abs line numbers
-    signcolumn     = 'no',     -- Hide sign column
+    number         = true,  -- Show line numbers
+    relativenumber = true,  -- Show rel/abs line numbers
+    signcolumn     = 'no',  -- Set sign column
     -- RIGHT MARGIN
-    colorcolumn = {100},  -- Set vertical margin
+    colorcolumn = {100},  -- Set visual vertical margin
     -- BOTTOM MARGIN
     showcmd    = true,  -- Show command in bottom right
-    cmdheight  = 2,     --
+    cmdheight  = 2,     -- Set height of command window
     wildignore = {'*.pyc', '**/.git/*', '**/data/*'},
     -- TOP MARGIN
-    showtabline = 0,
+    title = true,     -- Show doc name in terminal window title
+    showtabline = 0,  -- Display tab line
 }
 
 -- Apply options
@@ -77,41 +91,47 @@ for _, options in pairs({behaviour_options, layout_options}) do
     end
 end
 
--- Set colorscheme
-opt.termguicolors           = true
-opt.background              = 'dark'
-g.gruvbox_italic            = 1
-g.gruvbox_italicize_strings = 1
-g.gruvbox_contrast_dark     = 'hard'
-cmd [[colorscheme gruvbox]]
 
-
--- -- LOAD MAPPINGS ------------------------------------------------------
+-- -- LOAD MAPPINGS -------------------------------------------------------------------------------
 
 local maps = {
     [''] = {
         -- Better splitting
-        ['_']  = ':split<CR>',
-        ['|']  = ':vsplit<CR>',
+        ['_'] = ':split<CR>',
+        ['|'] = ':vsplit<CR>',
         -- Move left and right faster
-        ['H'] = '^',
+        ['H'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true, noremap=true}},
         ['L'] = '$',
         -- Prevent x and s from overriding what's in the clipboard
-        ['x']  = '\"_x',
-        ['X']  = '\"_X',
-        ['s']  = '\"_s',
-        ['S']  = '\"_S',
+        ['x'] = '\"_x',
+        ['X'] = '\"_X',
+        ['s'] = '\"_s',
+        ['S'] = '\"_S',
         -- Center screen and open folds when flicking through search matches
-        ['n']  = 'nzzzv',
-        ['N']  = 'Nzzzv',
+        ['n'] = 'nzzzv',
+        ['N'] = 'Nzzzv',
+        -- Easier redo command
+        ['U'] = '<C-r>',
+        -- Unmap Q
+        ['Q'] = '',
+        -- Redraw and remove highlights
+        ['<C-l>'] = ':set hls!<CR><C-l>',
+        -- gJ to split lines
+        ['gJ'] = 'm`i<CR><Esc>``',
         -- Better jumplist for large line steps (and step through visual lines with j/k)
-        ['j']  = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true, noremap=true}},
-        ['k']  = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true, noremap=true}},
+        ['j'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true, noremap=true}},
+        ['k'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true, noremap=true}},
+        -- Insert blank lines
+        ['go'] = ':<C-u>call append(line("."), repeat([""], v:count1))<CR>',
+        ['gO'] = ':<C-u>call append(line(".") - 1, repeat([""], v:count1))<CR>',
         -- Toggle terminal
-        ['<C-z>'] = '',  -- Prevent vim from going to background
+        ['<C-z>']      = '',  -- Prevent vim from going to background
         ['<C-z><C-z>'] = {map=[[:exe v:count . "ToggleTerm direction=float"<CR>]], opts={silent=true, noremap=true}},
         ['<C-z>_']     = {map=[[:exe v:count . "ToggleTerm direction=horizontal"<CR>]], opts={silent=true, noremap=true}},
         ['<C-z>|']     = {map=[[:exe v:count . "ToggleTerm direction=vertical"<CR>]], opts={silent=true, noremap=true}},
+        ['<C-z>n']     = ":call v:lua.nvtop_toggle()<CR>",
+        ['<C-z>t']     = ":call v:lua.bashtop_toggle()<CR>",
+        ['<C-z>g']     = ":call v:lua.lazygit_toggle()<CR>",
         -- Disable arrow keys
         ['<Left>']  = '',
         ['<Down>']  = '',
@@ -126,21 +146,27 @@ local maps = {
         -- gF: create new file at filename over cursor
         ['gF'] = ':e <c-r><c-f><CR>',
         -- J doesn't move cursor
-        ['J']  = 'mzJ`z',
+        ['J'] = 'mzJ`z',
         -- Make K use lsp.hover when not in a vim help page, call twice to jump to hoverdoc
-        ['K']  = '<cmd>call ShowDocumentation()<CR>',
+        ['K'] = '<cmd>call ShowDocumentation()<CR>',
+        -- Change selected word (forward/backwards), . to repeat
+        ['c*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``cgn",
+        ['c#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``cgN",
+        -- Delete selected word (forward/backwards), . to repeat
+        ['d*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgn",
+        ['d#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
         -- Navigate git changes
-        [']c'] = {map=[[&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>']], opts={noremap=true, expr=true}},
-        ['[c'] = {map=[[&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>']], opts={noremap=true, expr=true}},
+        [']g'] = {map=[[&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>']], opts={noremap=true, expr=true}},
+        ['[g'] = {map=[[&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>']], opts={noremap=true, expr=true}},
         -- Navigate diagnostics
-        [']e'] = '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',
-        ['[e'] = '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',
+        [']e'] = ':lua vim.lsp.diagnostic.goto_next()<CR>',
+        ['[e'] = ':lua vim.lsp.diagnostic.goto_prev()<CR>',
         -- LSP bindings
-        ['gd'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
-        ['gD'] = '<cmd>lua vim.lsp.buf.declaration()<CR>',
-        ['gI'] = '<cmd>lua vim.lsp.buf.implementation()<CR>',
-        ['gr'] = '<cmd>lua vim.lsp.buf.references()<CR>',
-        ['gy'] = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
+        ['gd'] = ':LspDefinition<CR>',
+        ['gD'] = ':LspDeclaration<CR>',
+        ['gI'] = ':LspImplementation<CR>',
+        ['gr'] = ':LspReferences<CR>',
+        ['gy'] = ':LspTypeDefinition<CR>',
         -- [Ctrl + Arrow] to navigate windows
         ['<C-Left>']  = '<C-w>h',
         ['<C-Down>']  = '<C-w>j',
@@ -244,10 +270,12 @@ local maps = {
     o = {
         -- Custom text object: "around document"
         ['ad'] = '<Cmd>normal! ggVG<CR>',
+        ['id'] = '<Cmd>normal! ggVG<CR>',
     },
     x = {
         -- Custom text object: "around document"
         ['ad'] = 'gg0oG$',
+        ['id'] = 'gg0oG$',
     },
 }
 
@@ -255,24 +283,46 @@ vim.g.mapleader = " "
 local leader_maps = {
     n = {
         -- META MAPS
-        ['<Leader><CR>']  = ":lua require'lir.float'.toggle()<CR>",  -- File explorer
-        ['<Leader><BS>']  = ":Telescope find_files<CR>",             -- Fuzzy finder
-        ['<Leader><Tab>'] = "<C-^>",                                 -- Last file
-        ['<Leader><Esc>'] = ":lua require('harpoon.ui').toggle_quick_menu()<CR>",  -- Show Harpoon
+        ['<Leader><CR>']  = ":Lir<CR>",                   -- File explorer
+        ['<Leader><BS>']  = ":Telescope find_files<CR>",  -- Fuzzy file finder
+        ['<Leader><Tab>'] = "<C-^>",                      -- Last file
+        ['<Leader><Esc>'] = ":MaximizerToggle<CR>",       -- Maximise buffer
         -- KEY MAPS
+        ['<Leader>f'] = {map=[[/]], opts={noremap=true, silent=false}},            -- Find
+        ['<Leader>F'] = {map=[[:%s///g<Left><Left><Left>]], opts={silent=false}},  -- Replace
         ['<Leader>q'] = ":q<CR>",                      -- L-q to quit
         ['<Leader>d'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change dir to current
+        ['<Leader>n'] = ":enew<CR>",                   -- New file
+        ['<Leader>N'] = ":bufdo bdel | enew<CR>",      -- New session
+        ['<Leader>t'] = ":tabedit<CR>",                -- New tab
         ['<Leader>c'] = ":call ToggleQuickFix()<CR>",  -- Toggle qflist
         ['<Leader>l'] = ":call ToggleLocation()<CR>",  -- Toggle loclist
-        ['<Leader>s'] = ":Obsess<CR>",                 -- Start recording session
-        ['<Leader>s'] = ":Obsess!<CR>",                -- Stop recording session
-        ['<Leader>h'] = ":set hls!<CR>",               -- Toggle highlights
-        -- LSP MAPS
-        ['<Leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
-        ['<Leader>k']  = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-        ['<Leader>r']  = '<cmd>lua vim.lsp.buf.rename()<CR>',
-        ['<Leader>a']  = '<cmd>lua vim.lsp.buf.code_action()<CR>',
-        ['<Leader>=']  = '<cmd>lua vim.lsp.buf.formatting()<CR>',
+        ['<Leader>s'] = ":Obsess<CR>",                 -- Start session
+        ['<Leader>S'] = ":Obsess!<CR>",                -- Stop session
+        ['<Leader>/'] = ":set hls!<CR>",               -- Toggle highlights
+        ['<Leader>e'] = ':LspLineDiagnostics<CR>',     -- Show line Diagnostics
+        ['<Leader>r'] = ':LspRename<CR>',              -- Rename current symbol
+        ['<Leader>k'] = ':LspSignature<CR>',           -- Show signature help
+        ['<Leader>a'] = ':LspCodeAction<CR>',          -- Do code action
+        ['<Leader>='] = ':LspFormat<CR>',              -- Format buffer
+        ['<Leader>i'] = ":Harpoon<CR>",                -- Show Harpoon
+        ['<Leader>I'] = ":HarpoonMark<CR>",            -- Mark for harpoon
+        -- HARPOON MAPS
+        ['<leader>1'] = ':HarpoonNav 1<CR>',
+        ['<leader>2'] = ':HarpoonNav 2<CR>',
+        ['<leader>3'] = ':HarpoonNav 3<CR>',
+        ['<leader>4'] = ':HarpoonNav 4<CR>',
+        ['<leader>5'] = ':HarpoonNav 5<CR>',
+        ['<leader>6'] = ':HarpoonNav 6<CR>',
+        ['<leader>7'] = ':HarpoonNav 7<CR>',
+        ['<leader>8'] = ':HarpoonNav 8<CR>',
+        ['<leader>9'] = ':HarpoonNav 9<CR>',
+        -- PACKER MAPS
+        ['<Leader>pp'] = ':PackerSync<CR>',
+        ['<Leader>pi'] = ':PackerInstall<CR>',
+        ['<Leader>pu'] = ':PackerUpdate<CR>',
+        ['<Leader>pc'] = ':PackerClean<CR>',
+        ['<Leader>ps'] = ':PackerStatus<CR>',
         -- TELESCOPE MAPS
         ['<Leader>tb'] = ":Telescope buffers<CR>",                    -- Switch between buffers
         ['<Leader>tr'] = ":Telescope oldfiles<CR>",                   -- Recently changed files
@@ -280,27 +330,16 @@ local leader_maps = {
         ['<Leader>tg'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
         ['<Leader>tt'] = ":Telescope treesitter<CR>",
         ['<Leader>th'] = ":Telescope help_tags<CR>",
-        -- HARPOON MAPS
-        ['<Leader>p'] = ":lua require('harpoon.mark').add_file()<CR>",         -- Mark for harpoon
-        ['<leader>1'] = '<cmd>lua require("harpoon.ui").nav_file(1)<cr>',
-        ['<leader>2'] = '<cmd>lua require("harpoon.ui").nav_file(2)<cr>',
-        ['<leader>3'] = '<cmd>lua require("harpoon.ui").nav_file(3)<cr>',
-        ['<leader>4'] = '<cmd>lua require("harpoon.ui").nav_file(4)<cr>',
-        ['<leader>5'] = '<cmd>lua require("harpoon.ui").nav_file(5)<cr>',
-        ['<leader>6'] = '<cmd>lua require("harpoon.ui").nav_file(6)<cr>',
-        -- TOGGLETERM MAPS
-        ['<Leader>n']  = ":call v:lua.nvtop_toggle()<CR>",
-        ['<Leader>t']  = ":call v:lua.bashtop_toggle()<CR>",
+        -- GIT MAPS
         ['<Leader>gg'] = ":call v:lua.lazygit_toggle()<CR>",
-        -- GITSIGNS MAPS
-        ['<Leader>gs'] = '<cmd>Gitsigns stage_hunk<CR>',
-        ['<Leader>gu'] = '<cmd>Gitsigns undo_stage_hunk<CR>',
-        ['<Leader>gr'] = '<cmd>Gitsigns reset_hunk<CR>',
-        ['<Leader>gR'] = '<cmd>Gitsigns reset_buffer<CR>',
-        ['<Leader>gp'] = '<cmd>Gitsigns preview_hunk<CR>',
-        ['<Leader>gb'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
-        ['<Leader>gS'] = '<cmd>Gitsigns stage_buffer<CR>',
-        ['<Leader>gU'] = '<cmd>Gitsigns reset_buffer_index<CR>',
+        ['<Leader>gs'] = ':Gitsigns stage_hunk<CR>',
+        ['<Leader>gu'] = ':Gitsigns undo_stage_hunk<CR>',
+        ['<Leader>gr'] = ':Gitsigns reset_hunk<CR>',
+        ['<Leader>gR'] = ':Gitsigns reset_buffer<CR>',
+        ['<Leader>gp'] = ':Gitsigns preview_hunk<CR>',
+        ['<Leader>gb'] = ':lua require("gitsigns").blame_line({full=true})<CR>',
+        ['<Leader>gS'] = ':Gitsigns stage_buffer<CR>',
+        ['<Leader>gU'] = ':Gitsigns reset_buffer_index<CR>',
     },
 }
 
@@ -317,14 +356,15 @@ for _, list in pairs({maps, leader_maps}) do
     end
 end
 
--- -- LOAD AUTOCOMMANDS -----------------------------------------
+-- -- LOAD AUTOCOMMANDS ---------------------------------------------------------------------------
 
-autocommands = {
+local autogroups = {
     ['default_cmds'] = {
         ['*'] = {
-            {events='VimResized', cmd="wincmd ="},                   -- Auto-resize windows
+            {events='VimResized',  cmd="wincmd ="},                  -- Auto-resize windows
             {events='BufWritePre', cmd="retab"},                     -- Replace tabs
             {events='BufWritePre', cmd="call TrimTrailingSpace()"},  -- Autoremove whitespace
+            {events='FileType',    cmd="set fo=crq2jp"},             -- Override format options
             {events='InsertEnter', cmd='set cursorline'},            -- Insertmode cursorline on
             {events='InsertLeave', cmd='set nocursorline'},          -- Insertmode cursorline off
             {   -- Auto-highlight yanked text
@@ -345,14 +385,19 @@ autocommands = {
     },
     ['extra_filetype_cmds'] = {
         -- help/cmd win/qf list: Press q to close and disable spellcheck
-        "CmdwinEnter * nnoremap <buffer> q :q<CR>",
-        "Filetype qf,help nnoremap <buffer> q :q<CR>",
-        "Filetype qf,help setl nospell",
+        ['*'] = {
+            {events='CmdwinEnter', cmd="nnoremap <buffer> q :q<CR>"},
+        },
+        ['qf,help'] = {
+            {events='FileType', cmd="nnoremap <buffer> q :q<CR>"},
+            {events='FileType', cmd="setlocal nospell"},
+        },
     },
-    -- ['set_prgs'] = {
-    --     "FileType c set formatprg=clang-format",
-    --     "FileType Markdown set makeprg=pandoc\\ %:p\\ -o\\ %:p:h/out.pdf"
-    -- },
+    ['set_prgs'] = {
+        "FileType c set formatprg=clang-format",
+        "FileType python set formatprg=yapf",
+        "FileType Markdown set makeprg=pandoc\\ %:p\\ -o\\ %:p:h/out.pdf"
+    },
     -- ['term_cmds'] = {
     --     ['term://*'] = {
     --         -- Bypass normal mode when changing focus to terminal buffer
@@ -374,8 +419,8 @@ autocommands = {
     -- }
 }
 
--- Set Autocommand
-for group_name, group in pairs(autocommands) do
+-- Set Autocommands
+for group_name, group in pairs(autogroups) do
     vim.cmd('augroup ' .. group_name)
     vim.cmd('autocmd!')
     for filetype, autocmd in pairs(group) do

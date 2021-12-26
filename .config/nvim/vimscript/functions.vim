@@ -1,30 +1,4 @@
-if exists('g:started_by_firenvim')
-    set wrap linebreak colorcolumn=0 breakindent
-    "hi Normal guibg='#1d2021'
-endif
 
-" Set formatting options
-function SetFormatOpts()
-    setl fo-=t  " Auto-hardwrap text at textwidth
-    setl fo+=c  " Auto-hardwrap comments at textwidth
-    setl fo+=r  " Insert comment leaders on `CR` during insert mode
-    setl fo-=o  " Insert comment leaders on `o` during normal mode
-    setl fo+=q  " Allow comments formatting with gq (Q)
-    setl fo-=w  " Lines that end without whitespace ends paragraph obj
-    setl fo-=a  " Automatic formatting of paragraphs (only comments if fo+=c)
-    setl fo-=n  " Recognise numbered lists (compat issue w fo+=2)
-    setl fo+=2  " Use second line for par auto-indent
-    setl fo-=v  " Vi-style wrap (auto-hardwrap at soft wrap level, buggy)
-    setl fo-=b  " Vi-style wrap without breaking words
-    setl fo-=l  " Don't break long lines during insert mode
-    setl fo-=m  " Break at multibyte chars as well
-    setl fo-=M  " Don't insert space before or after mutibyte char when joining
-    setl fo-=B  " Don't insert space between mutibyte char when joining
-    setl fo-=1  " Break lines before 1 letter words if possible
-    setl fo-=]  " Rigorously enforce textwidth
-    setl fo+=j  " Remove comment leaders when joining lines
-    setl fo+=p  " Don't break lines at space after .
-endfunction
 
 " Set options for editing text here
 function TextEditOpts()
@@ -39,7 +13,6 @@ function TextEditOpts()
     nnoremap <expr> k (v:count > 5 ? "m`" . v:count : "") . 'gk'
     nnoremap <expr> j (v:count > 5 ? "m`" . v:count : "") . 'gj'
 endfunction
-command TextEdit :call TextEdit()
 
 " Custom fold text
 function! MyFoldText()
@@ -96,41 +69,59 @@ function! ShowDocumentation()
     endif
 endfunction
 
-" LSP Commands
-command! -nargs=? LspRename lua vim.lsp.buf.rename(<f-args>)
-command! LspReferences lua vim.lsp.buf.references()
-command! -nargs=? LspWorkspaceSymbol lua vim.lsp.buf.workspace_symbol(<f-args>)
-command! LspIncomingCalls lua vim.lsp.buf.incoming_calls()
-command! LspOutgoingCalls lua vim.lsp.buf.outgoing_calls()
-command! LspListWorkspaceFolders lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-command! -nargs=? -complete=dir LspAddWorkspaceFolder lua vim.lsp.buf.add_workspace_folder(<f-args>)
-command! -nargs=? -complete=dir LspRemoveWorkspaceFolder lua vim.lsp.buf.remove_workspace_folder(<f-args>)
-command! LspDocumentSymbol lua vim.lsp.buf.document_symbol()
-command! LspDefinition lua vim.lsp.buf.definition()
-command! LspTypeDefinition lua vim.lsp.buf.type_definition()
-command! LspDeclaration lua vim.lsp.buf.declaration()
-command! LspImplementation lua vim.lsp.buf.implementation()
+" ---
+" hi EvenLbg guibg='#660066'
+" sign define EvenL linehl=EvenLbg
+" func! ColorAltLines()
+"     if exists('b:ALTLINES_disable') || exists('g:ALTLINES_disable')
+"         echo "IGNORED"
+"         return
+"     elseif &buftype=="" && (!exists('b:ALTLINES_changedtick') || b:ALTLINES_changedtick != b:changedtick) && line('$') > 1
+"         let l:range = (exists('b:ALTLINES_quick') ? max([line('.')-100+line('.')%2, 2]).','.min([line('.')+100,line('$')]) : '2,'.line('$'))
+"         let l:starttime = localtime()
+"         if exists('b:ALTLINES_changedtick') " don't unplace signs if they've never been placed
+"             for id in eval('range('.l:range.',2)')
+"                 exec 'sign unplace '.id.' buffer='.bufnr('%')
+"                 if localtime()-l:starttime >= 10
+"                     " force quick update next time and quit, it's taking way to long
+"                     let b:ALTLINES_quick = 1
+"                     return
+"                 endif
+"             endfor
+"         endif
+"         let l:pos_sav = getpos('.')
+"         keepjumps exec l:range.'g#^#if line(".")%2==0 && localtime() - l:starttime < 16 | exec "sign place ".line(".")." line=".line(".")." name=EvenL buffer=".bufnr("%") | endif'
+"         call setpos('.',l:pos_sav)
+"         nohls
+"         if localtime() - l:starttime > 4
+"             let b:ALTLINES_quick = 1
+"         endif
+"         let b:ALTLINES_changedtick = b:changedtick
+"     endif
+"     echo "PASS"
+" endfun
+" augroup ALT_LINES
+"     au!
+"     autocmd BufWinEnter,InsertLeave,CursorHold,CursorHoldI * call ColorAltLines()
+" augroup END
+" ---
+"
 
-" terminal command shortcuts
-cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=horizontal' : 'term')<CR>
-cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=vertical' : 'vterm')<CR>
+" hi odd guibg='#660066'
+" hi even guibg='#330033'
+" syn match odd "^.*$" contains=ALL nextgroup=even skipnl
+" syn match even "^.*$" contains=ALL nextgroup=odd skipnl
+" ---
+" hi Alternate guibg='#660066' guifg=NONE
+" execute 'match Alternate /\%(' . join(map(range(1,100), '"\\%" . v:val * 2 . "l"'), '\|') . '\)/'
 
-" File directory
-cnoreabbrev fd %:p:h
-
-" Force sudo save
-cnoreabbrev w!! <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'w sudo tee > /dev/null %<CR>' : 'w!!')
-
-" Typos
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
-
-
+" ---
+function! ColorAltLines()
+    hi Alternate guibg='#660066' guifg=NONE
+    for line in range(1, line('$'), 2)
+lua << EOF
+vim.api.nvim_buf_add_highlight(0, -1, 'Alternate', line, 0, -1)
+EOF
+    endfor
+    echo "PASS"
+endfunction

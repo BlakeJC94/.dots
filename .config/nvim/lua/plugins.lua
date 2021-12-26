@@ -4,7 +4,10 @@ PLUGINS = function()
     use 'wbthomason/packer.nvim'
     use {   -- Fuzzy finder
         'nvim-telescope/telescope.nvim',
-        requires = {'nvim-lua/plenary.nvim'},
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope-bibtex.nvim',
+        },
         config = configs.telescope,
     }
     use {  -- LSP Engine
@@ -18,8 +21,8 @@ PLUGINS = function()
     use {  -- Completion
         "hrsh7th/nvim-cmp",
         requires = {
-            'dcampos/nvim-snippy',
-            "rafamadriz/friendly-snippets",
+            "dcampos/nvim-snippy",
+            "honza/vim-snippets",
             "onsails/lspkind-nvim",
             "dcampos/cmp-snippy",
             "hrsh7th/cmp-nvim-lsp",
@@ -51,7 +54,7 @@ PLUGINS = function()
         'goolord/alpha-nvim',
         config = configs.alpha,
     }
-    use {  -- firefox injection
+    use {  -- Firefox injection
         'glacambre/firenvim',
         run = function() vim.fn['firenvim#install'](0) end,
         config = configs.firenvim,
@@ -75,7 +78,8 @@ PLUGINS = function()
     }
     use {  -- Colorscheme
         "ellisonleao/gruvbox.nvim",
-        requires = {"rktjmp/lush.nvim"}
+        requires = {"rktjmp/lush.nvim"},
+        config = configs.gruvbox,
     }
     use {  -- Indent guides
         "lukas-reineke/indent-blankline.nvim",
@@ -101,19 +105,23 @@ PLUGINS = function()
         },
         config = configs.lualine,
     }
-
+    -- use {
+    --     'chrisbra/DynamicSigns',
+    --     config = configs.dynamicsigns
+    -- }
     use {
         'tpope/vim-repeat',                 -- Better .-repeat actions
         'tpope/vim-commentary',             -- [gc<motion>] = Toggle comments
         'tpope/vim-unimpaired',             -- More motions (see docs)
         'tpope/vim-surround',               -- cs]} : Change surrounding brackets
         'tpope/vim-obsession',              -- Session management
+        'tpope/vim-rsi',                    -- Emacs-style binds during insert
         'jiangmiao/auto-pairs',             -- Auto-close brackets
         'danilamihailov/beacon.nvim',       -- Ping cursor location after jump
         'wellle/targets.vim',               -- More text objects
         'michaeljsmith/vim-indent-object',  -- select indent levels with ii or ai
         'szw/vim-maximizer',                -- Toggle maximise buffer
-        'tommcdo/vim-lion',                 -- align with <sel>gl<obj><char>
+        'tommcdo/vim-lion',                 -- align selection with gl<obj><char>
         'Vimjas/vim-python-pep8-indent',    -- Fix for auto-indent in treesitter
     }
 end

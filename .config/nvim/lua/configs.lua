@@ -80,6 +80,27 @@ M.lspconfig = function()
             settings = settings[lsp],
         })
     end
+
+    -- Set vim commands for ease of use
+    vim.cmd([[
+        command! LspReferences lua vim.lsp.buf.references()
+        command! LspSignature lua vim.lsp.buf.signature_help()
+        command! LspCodeAction lua vim.lsp.buf.code_action()
+        command! LspFormat lua vim.lsp.buf.formatting()
+        command! LspLineDiagnostics lua vim.lsp.diagnostic.show_line_diagnostics()
+        command! LspIncomingCalls lua vim.lsp.buf.incoming_calls()
+        command! LspOutgoingCalls lua vim.lsp.buf.outgoing_calls()
+        command! LspListWorkspaceFolders lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        command! LspDocumentSymbol lua vim.lsp.buf.document_symbol()
+        command! LspDefinition lua vim.lsp.buf.definition()
+        command! LspTypeDefinition lua vim.lsp.buf.type_definition()
+        command! LspDeclaration lua vim.lsp.buf.declaration()
+        command! LspImplementation lua vim.lsp.buf.implementation()
+        command! -nargs=? LspRename lua vim.lsp.buf.rename(<f-args>)
+        command! -nargs=? LspWorkspaceSymbol lua vim.lsp.buf.workspace_symbol(<f-args>)
+        command! -nargs=? -complete=dir LspAddWorkspaceFolder lua vim.lsp.buf.add_workspace_folder(<f-args>)
+        command! -nargs=? -complete=dir LspRemoveWorkspaceFolder lua vim.lsp.buf.remove_workspace_folder(<f-args>)
+    ]])
 end
 
 M.treesitter = function()
@@ -142,8 +163,7 @@ M.cmp = function()
 
     local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        local content = vim.api.nvim_buf_get_lines(0, line - 1, line, true)
-        return col ~= 0 and content[1]:sub(col, col):match("%s") == nil
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
     end
 
     vim.opt.completeopt = 'menu,menuone,noselect'
@@ -179,8 +199,8 @@ M.cmp = function()
                 else
                     fallback()
                 end
-            end, {"i","s"}),
-            ["<Tab>"] = cmp.mapping(function(fallback)
+            end, { "i", "s" }),
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
                 elseif snippy.can_jump(-1) then
@@ -188,7 +208,7 @@ M.cmp = function()
                 else
                     fallback()
                 end
-            end, {"i","s"}),
+            end, { "i", "s" }),
         },
         sources = cmp.config.sources({
             {name = 'nvim_lsp'},
@@ -262,6 +282,8 @@ M.lir = function()
             autocmd Filetype lir set nospell
         augroup END
     ]])
+
+    vim.cmd[[command! Lir lua require('lir.float').toggle()]]
 end
 
 M.alpha = function()
@@ -314,6 +336,12 @@ M.firenvim = function()
             }
         },
     }
+    vim.cmd [[
+        if exists('g:started_by_firenvim')
+            set wrap linebreak colorcolumn=0 breakindent
+            "hi Normal guibg='#1d2021'
+        endif
+    ]]
 end
 
 M.slime = function()
@@ -351,6 +379,9 @@ M.quickscope = function()
 end
 
 M.harpoon = function()
+    vim.cmd[[command! Harpoon lua require('harpoon.ui').toggle_quick_menu()]]
+    vim.cmd[[command! HarpoonMark lua require('harpoon.mark').add_file()]]
+    vim.cmd[[command! -nargs=1 HarpoonNav lua require('harpoon.ui').nav_file(<f-args>)]]
 end
 
 M.gitsigns = function()
@@ -444,6 +475,28 @@ M.lualine = function()
         tabline = {},
         extensions = {}
     }
+end
+
+M.gruvbox = function()
+    -- vim.opt.termguicolors           = true
+    -- vim.opt.background              = 'dark'
+    vim.g.gruvbox_italic            = 1
+    vim.g.gruvbox_contrast_dark     = 'hard'
+    vim.g.gruvbox_italicize_strings = 1
+    vim.cmd [[colorscheme gruvbox]]
+end
+
+M.dynamicsigns = function()
+    vim.g['Signs_Alternate'] = 1
+    -- vim.cmd [[Signs]]
+    vim.opt.signcolumn='no'
+    vim.cmd [[hi LineEven guibg='#660066']]
+    vim.cmd [[hi LineOdd guibg='#330033']]
+    vim.cmd [[
+        augroup signs_plugin
+            autocmd FileType * Signs | set signcolumn=no
+        augroup END
+    ]]
 end
 
 return M
