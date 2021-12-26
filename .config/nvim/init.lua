@@ -135,7 +135,7 @@ local maps = {
         -- Make Y behave like D and C
         ['Y']  = 'y$',
         -- gp: Visually select last pasted block (like gv)
-        ['gp'] = {map=[['`[' . getregtype()[0] . '`]']], opts={expr=true}},
+        ['gp'] = '`[v`]',
         -- gF: create new file at filename over cursor
         ['gF'] = ':e <c-r><c-f><CR>',
         -- J doesn't move cursor
@@ -184,6 +184,9 @@ local maps = {
         -- Move visual block up or down
         ['J'] = ":m '>+1<CR>gv",
         ['K'] = ":m '<-2<CR>gv",
+        -- Replace spaces in selection with underscores
+        ['_']  = ":s/\\%V /_/g<CR>",
+        ['g_'] = ":s/\\%V_/ /g<CR>",
         -- Wrap selection in quotes
         ['g"']  = 'm`<Esc>`>a"<Esc>`<i"<Esc>``',
         ['g\''] = "m`<Esc>`>a'<Esc>`<i'<Esc>``",
