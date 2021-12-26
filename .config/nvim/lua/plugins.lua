@@ -78,7 +78,7 @@ PLUGINS = function()
     }
     use {  -- Colorscheme
         "ellisonleao/gruvbox.nvim",
-        requires = {"rktjmp/lush.nvim"},
+        requires = { "rktjmp/lush.nvim", },
         config = configs.gruvbox,
     }
     use {  -- Indent guides
@@ -104,10 +104,6 @@ PLUGINS = function()
             'kyazdani42/nvim-web-devicons',
         },
         config = configs.lualine,
-    }
-    use {
-        'notomo/zebrazone.nvim',
-        config = configs.zebrazone,
     }
     use {
         'tpope/vim-repeat',                 -- Better .-repeat actions
