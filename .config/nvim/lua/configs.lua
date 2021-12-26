@@ -486,17 +486,14 @@ M.gruvbox = function()
     vim.cmd [[colorscheme gruvbox]]
 end
 
-M.dynamicsigns = function()
-    vim.g['Signs_Alternate'] = 1
-    -- vim.cmd [[Signs]]
-    vim.opt.signcolumn='no'
-    vim.cmd [[hi LineEven guibg='#660066']]
-    vim.cmd [[hi LineOdd guibg='#330033']]
-    vim.cmd [[
-        augroup signs_plugin
-            autocmd FileType * Signs | set signcolumn=no
-        augroup END
-    ]]
+M.zebrazone = function()
+    local colors = {"1d2021", "212324"}
+    local hl_groups = vim.tbl_map(function(color)
+        local name = "Zebrazone_" .. color
+        vim.cmd(("highlight! %s guibg=#%s"):format(name, color))
+        return name
+    end, colors)
+    require("zebrazone").start({hl_groups = hl_groups})
 end
 
 return M

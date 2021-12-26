@@ -105,10 +105,10 @@ PLUGINS = function()
         },
         config = configs.lualine,
     }
-    -- use {
-    --     'chrisbra/DynamicSigns',
-    --     config = configs.dynamicsigns
-    -- }
+    use {
+        'notomo/zebrazone.nvim',
+        config = configs.zebrazone,
+    }
     use {
         'tpope/vim-repeat',                 -- Better .-repeat actions
         'tpope/vim-commentary',             -- [gc<motion>] = Toggle comments

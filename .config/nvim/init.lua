@@ -1,26 +1,20 @@
 -- -- BLAKEJC94S NEOVIM INIT.LUA ------------------------------------------------------------------
 
 -- -- PLUGINS -------------------------------------------------------------------------------------
+
 plugins = require('plugins')  -- ~/.config/nvim/lua/plugins.lua
 
 plugins.setup_packer()
 plugins.disable_built_ins()
 plugins.load_plugins()
 
+
 -- -- LOAD CUSTOM FUNCTIONS -----------------------------------------------------------------------
+
 vim.cmd([[source ~/.config/nvim/vimscript/functions.vim]])
 vim.cmd([[source ~/.config/nvim/vimscript/commands.vim]])
 vim.cmd([[source ~/.config/nvim/vimscript/abbrevs.vim]])
 
-my_test = function()
-    vim.cmd([[hi Alternate guibg='#282828' guifg=NONE]])
-    local n_lines = vim.api.nvim_buf_line_count(0)
-    for line = 1, n_lines, 2 do
-        vim.api.nvim_buf_add_highlight(0, -1, 'Alternate', line, 0, -1)
-        -- print(i)
-    end
-
-end
 
 -- -- LOAD OPTIONS --------------------------------------------------------------------------------
 
@@ -84,7 +78,6 @@ local layout_options = {
     showtabline = 0,  -- Display tab line
 }
 
--- Apply options
 for _, options in pairs({behaviour_options, layout_options}) do
     for k, v in pairs(options) do
         vim.opt[k] = v
@@ -343,7 +336,6 @@ local leader_maps = {
     },
 }
 
--- Apply mappings
 for _, list in pairs({maps, leader_maps}) do
     for mode, mappings in pairs(list) do
         for keys, mapping in pairs(mappings) do
@@ -355,6 +347,7 @@ for _, list in pairs({maps, leader_maps}) do
         end
     end
 end
+
 
 -- -- LOAD AUTOCOMMANDS ---------------------------------------------------------------------------
 
@@ -419,7 +412,6 @@ local autogroups = {
     -- }
 }
 
--- Set Autocommands
 for group_name, group in pairs(autogroups) do
     vim.cmd('augroup ' .. group_name)
     vim.cmd('autocmd!')
