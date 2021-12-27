@@ -154,3 +154,13 @@ return M
 --     }
 -- }
 
+-- -- OTHER NOTES ---------------------------------------------------------------------------------
+-- Changing the cursor in regular vim?
+-- :let &t_EI = "\e[0 q"  " Block cursor in normal mode
+-- :let &t_SI = "\e[5 q"  " Bar cursor on insert mode
+-- " Set bar cursor on command-line mode
+-- :autocmd CmdLineEnter * exec 'silent !echo -ne "' . &t_SI . '"'
+-- :autocmd CmdLineLeave * exec 'silent !echo -ne "' . &t_EI . '"'
+-- " Set block curor on start or resume
+-- :autocmd VimEnter * exec 'silent !echo -ne "' . &t_EI . '"'
+-- :autocmd VimResume * exec 'silent !echo -ne "' . &t_EI . '"'

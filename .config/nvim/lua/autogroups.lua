@@ -8,6 +8,9 @@ DEFAULT_CMDS = {
             {events='BufEnter',    cmd="set fo=crq2jp"},             -- Override format options
             {events='InsertEnter', cmd='set cursorline'},            -- Insertmode cursorline on
             {events='InsertLeave', cmd='set nocursorline'},          -- Insertmode cursorline off
+            {   -- Clear jumplist
+                events='VimEnter',
+                cmd="exec 'tabdo windo clearjumps' | tabnext"},
             {   -- Auto-highlight yanked text
                 events='TextYankPost',
                 cmd="silent! lua require'vim.highlight'.on_yank({timeout = 700})"

@@ -1,5 +1,6 @@
 -- -- BLAKEJC94S NEOVIM INIT.LUA ------------------------------------------------------------------
 plugins    = require('plugins')     -- ~/.config/nvim/lua/plugins.lua
+utils      = require('utils')       -- ~/.config/nvim/lua/utils.lua
 commands   = require("commands")    -- ~/.config/nvim/lua/commands.lua
 mappings   = require("mappings")    -- ~/.config/nvim/lua/mappings.lua
 autogroups = require("autogroups")  -- ~/.config/nvim/lua/autogroups.lua
@@ -72,7 +73,7 @@ local layout_options = {
 }
 
 for _, options in ipairs({behaviour_options, layout_options}) do
-    require("utils").apply_options(options)
+    utils.apply_options(options)
 end
 
 -- -- LOAD CUSTOM COMMANDS ------------------------------------------------------------------------
