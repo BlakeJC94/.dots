@@ -43,6 +43,10 @@ EXTRA_FILETYPE_CMDS = {
         ['vim,help'] = {
             {events='FileType', cmd="nnoremap <buffer> K :h <C-r>=expand('<cword>')<CR><CR>"},
         },
+        -- Always open help in vertical split
+        ['help'] = {
+            {events='FileType', cmd="wincmd L"},
+        },
         -- Apply options for editing text files
         ['txt,md,tex'] = {
             {events='FileType', cmd="Prose"}
@@ -60,9 +64,30 @@ SET_PRGS = {
 
 M = {}
 
+M.apply_autogroup = function(autogroup)
+    group_name = autogroup.name
+    group = autogroup.cmds
+
+    vim.cmd('augroup ' .. group_name)
+    vim.cmd('autocmd!')
+    for filetype, autocmd in pairs(group) do
+        if (type(autocmd) == "table") then
+            for _, vals in pairs(autocmd) do
+                local command = vim.tbl_flatten({'autocmd', vals.events, filetype, vals.cmd})
+                local command = table.concat(command, ' ')
+                vim.cmd(command)
+            end
+        else
+            local command = table.concat(vim.tbl_flatten{'autocmd', autocmd}, ' ')
+            vim.cmd(command)
+        end
+    end
+    vim.cmd('augroup END')
+end
+
 M.load_autogroups = function()
     for _, autogroup in ipairs({DEFAULT_CMDS, EXTRA_FILETYPE_CMDS, SET_PRGS}) do
-        require("utils").apply_autogroup(autogroup)
+        require("mappings").apply_autogroup(autogroup)
     end
 end
 

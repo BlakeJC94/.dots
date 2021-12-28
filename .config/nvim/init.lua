@@ -1,9 +1,10 @@
 -- -- BLAKEJC94S NEOVIM INIT.LUA ------------------------------------------------------------------
 plugins    = require('plugins')     -- ~/.config/nvim/lua/plugins.lua
+configs    = require('configs')     -- ~/.config/nvim/lua/configs.lua
 utils      = require('utils')       -- ~/.config/nvim/lua/utils.lua
-commands   = require("commands")    -- ~/.config/nvim/lua/commands.lua
-mappings   = require("mappings")    -- ~/.config/nvim/lua/mappings.lua
-autogroups = require("autogroups")  -- ~/.config/nvim/lua/autogroups.lua
+commands   = require('commands')    -- ~/.config/nvim/lua/commands.lua
+mappings   = require('mappings')    -- ~/.config/nvim/lua/mappings.lua
+autogroups = require('autogroups')  -- ~/.config/nvim/lua/autogroups.lua
 
 -- -- CONFIGURE PLUGINS ---------------------------------------------------------------------------
 plugins.setup_packer()
@@ -14,7 +15,7 @@ plugins.load_plugins()
 local behaviour_options = {
     -- MAIN INPUT/OUTPUT
     clipboard     = "unnamedplus",  -- Allows vim to use "+ for yanks
-    timeoutlen    = 600,            -- Time (ms) between key sequences
+    timeoutlen    = 1000,           -- Time (ms) between key sequences
     ttimeoutlen   = 10,             -- Time (ms) between key sequences in terminal
     updatetime    = 300,            -- Time (ms) between swapfile writes
     virtualedit   = "block",        -- Allow cursor to move anywhere ('all', 'block', 'insert')
@@ -73,7 +74,9 @@ local layout_options = {
 }
 
 for _, options in ipairs({behaviour_options, layout_options}) do
-    utils.apply_options(options)
+    for k, v in pairs(options) do
+        vim.opt[k] = v
+    end
 end
 
 -- -- LOAD CUSTOM COMMANDS ------------------------------------------------------------------------

@@ -4,7 +4,7 @@ VIM_MAPS = {
         ['_'] = ':split<CR>',
         ['|'] = ':vsplit<CR>',
         -- Move left and right faster
-        ['H'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true, noremap=true}},
+        ['H'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
         ['L'] = '$',
         -- Prevent x and s from overriding what's in the clipboard
         ['x'] = '\"_x',
@@ -23,8 +23,8 @@ VIM_MAPS = {
         -- gJ to split lines
         ['gJ'] = 'm`i<CR><Esc>``',
         -- Better jumplist for large line steps (and step through visual lines with j/k)
-        ['j'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true, noremap=true}},
-        ['k'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true, noremap=true}},
+        ['j'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true}},
+        ['k'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true}},
         -- Insert blank lines
         ['go'] = ':<C-u>call append(line("."), repeat([""], v:count1))<CR>',
         ['gO'] = ':<C-u>call append(line(".") - 1, repeat([""], v:count1))<CR>',
@@ -54,8 +54,8 @@ VIM_MAPS = {
         ['J'] = ":m '>+1<CR>gv",
         ['K'] = ":m '<-2<CR>gv",
         -- Stop p from overriding unnamed register
-        ['p'] = "\"_dp",
-        ['P'] = "\"_dP",
+        ['p'] = "pgvy",
+        ['P'] = "Pgvy",
         -- Replace spaces in selection with underscores
         ['_']  = ":s/\\%V /_/g<CR>",
         ['g_'] = ":s/\\%V_/ /g<CR>",
@@ -110,7 +110,7 @@ LEADER_MAPS = {
         ['<Leader><BS>']  = ":Telescope find_files<CR>",  -- Fuzzy file finder
         ['<Leader><Tab>'] = "<C-^>",                      -- Last file
         ['<Leader><Esc>'] = ":MaximizerToggle<CR>",       -- Maximise buffer
-        ['<Leader>f'] = {map=[[/]], opts={noremap=true, silent=false}},            -- Find
+        ['<Leader>f'] = {map=[[/]], opts={silent=false}},            -- Find
         ['<Leader>F'] = {map=[[:%s///g<Left><Left><Left>]], opts={silent=false}},  -- Replace
         ['<Leader>q'] = ":q<CR>",                      -- L-q to quit
         ['<Leader>d'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change dir to current
@@ -119,17 +119,16 @@ LEADER_MAPS = {
         ['<Leader>T'] = ":tabedit<CR>",                -- New tab
         ['<Leader>c'] = ":ToggleCL<CR>",               -- Toggle qflist
         ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
-        ['<Leader>s'] = ":Obsess<CR>",                 -- Start session
-        ['<Leader>S'] = ":Obsess!<CR>",                -- Stop session
+        -- ['<Leader>s'] = ":lua require('persistence').load()<CR>",
     },
 }
 TERMINAL_MAPS = {
     [''] = {
         -- Toggle terminal
         ['<C-z>']      = '',  -- Prevent vim from going to background
-        ['<C-z><C-z>'] = {map=[[:exe v:count . "ToggleTerm direction=float"<CR>]], opts={silent=true, noremap=true}},
-        ['<C-z>_']     = {map=[[:exe v:count . "ToggleTerm direction=horizontal"<CR>]], opts={silent=true, noremap=true}},
-        ['<C-z>|']     = {map=[[:exe v:count . "ToggleTerm direction=vertical"<CR>]], opts={silent=true, noremap=true}},
+        ['<C-z><C-z>'] = ":exe v:count . 'ToggleTerm direction=float'<CR>",
+        ['<C-z>_']     = ":exe v:count . 'ToggleTerm direction=horizontal'<CR>",
+        ['<C-z>|']     = ":exe v:count . 'ToggleTerm direction=vertical'<CR>",
         ['<C-z>n']     = ":call v:lua.nvtop_toggle()<CR>",
         ['<C-z>t']     = ":call v:lua.bashtop_toggle()<CR>",
         ['<C-z>g']     = ":call v:lua.lazygit_toggle()<CR>",
@@ -151,62 +150,60 @@ ARROW_MAPS = {
         ['<Up>']    = '',
         ['<Right>'] = '',
         -- [Ctrl + Arrow] to navigate windows
-        ['<C-Left>']  = '<C-w>h',
-        ['<C-Down>']  = '<C-w>j',
-        ['<C-Up>']    = '<C-w>k',
-        ['<C-Right>'] = '<C-w>l',
+        ['<C-Left>']  = ':wincmd h<CR>',
+        ['<C-Down>']  = ':wincmd j<CR>',
+        ['<C-Up>']    = ':wincmd k<CR>',
+        ['<C-Right>'] = ':wincmd l<CR>',
         -- [Shift + Arrow] Move splits (drop <C-\><C-n> if using vim)
-        ['<S-Left>']  = '<C-w>H',
-        ['<S-Down>']  = '<C-w>J',
-        ['<S-Up>']    = '<C-w>K',
-        ['<S-Right>'] = '<C-w>L',
+        ['<S-Left>']  = ':wincmd H<CR>',
+        ['<S-Down>']  = ':wincmd J<CR>',
+        ['<S-Up>']    = ':wincmd K<CR>',
+        ['<S-Right>'] = ':wincmd L<CR>',
         -- [Alt + Arrow] : resize splits
-        ['<A-Left>']  = '<C-w>8<',
-        ['<A-Down>']  = '<C-w>8-',
-        ['<A-Up>']    = '<C-w>8+',
-        ['<A-Right>'] = '<C-w>8>',
+        ['<A-Left>']  = ':vertical resize -8<CR>',
+        ['<A-Down>']  = ':resize -8<CR>',
+        ['<A-Up>']    = ':resize +8<CR>',
+        ['<A-Right>'] = ':vertical resize +8<CR>',
     },
     t = {
         -- [Ctrl + Arrow] to navigate windows
-        ['<C-Left>']  = '<C-\\><C-n><C-w>h',
-        ['<C-Down>']  = '<C-\\><C-n><C-w>j',
-        ['<C-Up>']    = '<C-\\><C-n><C-w>k',
-        ['<C-Right>'] = '<C-\\><C-n><C-w>l',
+        ['<C-Left>']  = '<C-\\><C-n>:wincmd h<CR>',
+        ['<C-Down>']  = '<C-\\><C-n>:wincmd j<CR>',
+        ['<C-Up>']    = '<C-\\><C-n>:wincmd k<CR>',
+        ['<C-Right>'] = '<C-\\><C-n>:wincmd l<CR>',
         -- [Shift + Arrow] Move splits
-        ['<S-Left>']  = '<C-\\><C-n><C-w>H',
-        ['<S-Down>']  = '<C-\\><C-n><C-w>J',
-        ['<S-Up>']    = '<C-\\><C-n><C-w>K',
-        ['<S-Right>'] = '<C-\\><C-n><C-w>L',
+        ['<S-Left>']  = '<C-\\><C-n>:wincmd H<CR>',
+        ['<S-Down>']  = '<C-\\><C-n>:wincmd J<CR>',
+        ['<S-Up>']    = '<C-\\><C-n>:wincmd K<CR>',
+        ['<S-Right>'] = '<C-\\><C-n>:wincmd L<CR>',
         -- [Alt + Arrow] : resize splits
-        ['<A-Left>']  = '<C-\\><C-n><C-w>8<',
-        ['<A-Down>']  = '<C-\\><C-n><C-w>8-',
-        ['<A-Up>']    = '<C-\\><C-n><C-w>8+',
-        ['<A-Right>'] = '<C-\\><C-n><C-w>8>',
+        ['<A-Left>']  = '<C-\\><C-n>:vertical resize -8<CR>',
+        ['<A-Down>']  = '<C-\\><C-n>:resize -8<CR>',
+        ['<A-Up>']    = '<C-\\><C-n>:resize +8<CR>',
+        ['<A-Right>'] = '<C-\\><C-n>:vertical resize +8<CR>',
     },
     c = {
         -- Make vertical wildmenu controls behave intuitively
         ['<Down>']  = {
-            map=[[wildmenumode() ? "\<Right>" : "\<Down>"]],
-            opts={expr=true, noremap=true},
+            map  = [[wildmenumode() ? "\<Right>" : "\<Down>"]],
+            opts = {expr=true, silent=false},
         },
         ['<Up>']    = {
             map  = [[wildmenumode() ? "\<Left>" : "\<Up>"]],
-            opts = {expr=true, noremap=true},
+            opts = {expr=true, silent=false},
         },
         ['<Right>'] = {
             map  = [[wildmenumode() ? "\<Down>" : "\<Right>"]],
-            opts = {expr=true, noremap=true},
+            opts = {expr=true, silent=false},
         },
         ['<Left>']  = {
             map  = [[wildmenumode() ? "\<Up>" : "\<Left>"]],
-            opts = {expr=true, noremap=true},
+            opts = {expr=true, silent=false},
         },
     },
 }
 LSP_MAPS = {
     [''] = {
-        -- Make K use lsp.hover, call twice to jump to hoverdoc
-        ['K'] = ':lua vim.lsp.buf.hover()<CR>',
         -- Navigate diagnostics
         [']e'] = ':lua vim.lsp.diagnostic.goto_next()<CR>',
         ['[e'] = ':lua vim.lsp.diagnostic.goto_prev()<CR>',
@@ -223,12 +220,16 @@ LSP_MAPS = {
         ['<Leader>a'] = ':LspCodeAction<CR>',          -- Do code action
         ['<Leader>='] = ':LspFormat<CR>',              -- Format buffer
     },
+    n = {
+        -- Make K use lsp.hover, call twice to jump to hoverdoc
+        ['K'] = ':lua vim.lsp.buf.hover()<CR>',
+    }
 }
 GIT_MAPS = {
     [''] = {
         -- Navigate git changes
-        [']g'] = {map=[[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']], opts={noremap=true, expr=true}},
-        ['[g'] = {map=[[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']], opts={noremap=true, expr=true}},
+        [']g'] = {map=[[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']], opts={expr=true}},
+        ['[g'] = {map=[[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']], opts={expr=true}},
         -- Leader maps
         ['<Leader>gg'] = ":call v:lua.lazygit_toggle()<CR>",
         ['<Leader>gs'] = ':Gitsigns stage_hunk<CR>',
@@ -261,7 +262,8 @@ PACKER_MAPS = {
         ['<Leader>pp'] = ':PackerSync<CR>',
         ['<Leader>pi'] = ':PackerInstall<CR>',
         ['<Leader>pu'] = ':PackerUpdate<CR>',
-        ['<Leader>pc'] = ':PackerClean<CR>',
+        ['<Leader>pc'] = ':PackerCompile<CR>',
+        ['<Leader>pr'] = ':PackerClean<CR>',
         ['<Leader>ps'] = ':PackerStatus<CR>',
     }
 }
@@ -278,6 +280,22 @@ TELESCOPE_MAPS = {
 
 M = {}
 
+M.apply_maps = function(maps)
+    -- TODO docs
+    local default_opts = {noremap = true, silent = true}
+
+    for mode, mappings in pairs(maps) do
+        for keys, mapping in pairs(mappings) do
+            if (type(mapping) == "table") then
+                local opts = vim.tbl_extend('force', default_opts, mapping.opts)
+                vim.api.nvim_set_keymap(mode, keys, mapping.map, opts)
+            else
+                vim.api.nvim_set_keymap(mode, keys, mapping, default_opts)
+            end
+        end
+    end
+end
+
 M.load_mappings = function()
     vim.g.mapleader = " "
     local mappings = {
@@ -292,7 +310,7 @@ M.load_mappings = function()
         TELESCOPE_MAPS,
     }
     for _, maps in ipairs(mappings) do
-        require("utils").apply_maps(maps)
+        require("mappings").apply_maps(maps)
     end
 end
 

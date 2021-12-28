@@ -74,33 +74,13 @@ M.lspconfig = function()
         lspconfig[lsp].setup({
             on_attach = on_attach,
             capabilities = capabilities,
+            handlers = handlers,
             flags = {
                 debounce_text_changes = 150,
             },
             settings = settings[lsp],
         })
     end
-
-    -- Set vim commands for ease of use
-    vim.cmd([[
-        command! LspReferences lua vim.lsp.buf.references()
-        command! LspSignature lua vim.lsp.buf.signature_help()
-        command! LspCodeAction lua vim.lsp.buf.code_action()
-        command! LspFormat lua vim.lsp.buf.formatting()
-        command! LspLineDiagnostics lua vim.lsp.diagnostic.show_line_diagnostics()
-        command! LspIncomingCalls lua vim.lsp.buf.incoming_calls()
-        command! LspOutgoingCalls lua vim.lsp.buf.outgoing_calls()
-        command! LspListWorkspaceFolders lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        command! LspDocumentSymbol lua vim.lsp.buf.document_symbol()
-        command! LspDefinition lua vim.lsp.buf.definition()
-        command! LspTypeDefinition lua vim.lsp.buf.type_definition()
-        command! LspDeclaration lua vim.lsp.buf.declaration()
-        command! LspImplementation lua vim.lsp.buf.implementation()
-        command! -nargs=? LspRename lua vim.lsp.buf.rename(<f-args>)
-        command! -nargs=? LspWorkspaceSymbol lua vim.lsp.buf.workspace_symbol(<f-args>)
-        command! -nargs=? -complete=dir LspAddWorkspaceFolder lua vim.lsp.buf.add_workspace_folder(<f-args>)
-        command! -nargs=? -complete=dir LspRemoveWorkspaceFolder lua vim.lsp.buf.remove_workspace_folder(<f-args>)
-    ]])
 end
 
 M.treesitter = function()
@@ -150,10 +130,37 @@ M.treesitter = function()
             select = {
                 enable = true,
             }
-        }
+        },
     })
 
-    require('spellsitter').setup {}
+    require('spellsitter').setup({})
+
+    require('treesitter-context').setup({
+        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        throttle = true, -- Throttles plugin updates (may improve performance)
+        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+        patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+            -- For all filetypes
+            -- Note that setting an entry here replaces all other patterns for this entry.
+            -- By setting the 'default' entry below, you can control which nodes you want to
+            -- appear in the context window.
+            default = {
+                'class',
+                'function',
+                'method',
+                -- 'for', -- These won't appear in the context
+                -- 'while',
+                -- 'if',
+                -- 'switch',
+                -- 'case',
+            },
+            -- Example for a specific filetype.
+            -- If a pattern is missing, *open a PR* so everyone can benefit.
+            --   rust = {
+            --       'impl_item',
+            --   },
+        },
+    })
 end
 
 M.cmp = function()
@@ -484,6 +491,133 @@ M.gruvbox = function()
     vim.g.gruvbox_contrast_dark     = 'hard'
     vim.g.gruvbox_italicize_strings = 1
     vim.cmd [[colorscheme gruvbox]]
+end
+
+M.whichkey = function()
+    require("which-key").setup({
+        plugins = {
+            marks = true, -- shows a list of your marks on ' and `
+            registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+            spelling = {
+                enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+                suggestions = 20, -- how many suggestions should be shown in the list?
+            },
+            -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+            -- No actual key bindings are created
+            presets = {
+                operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+                motions = false, -- adds help for motions
+                text_objects = false, -- help for text objects triggered after entering an operator
+                windows = false, -- default bindings on <c-w>
+                nav = false, -- misc bindings to work with windows
+                z = true, -- bindings for folds, spelling and others prefixed with z
+                g = true, -- bindings for prefixed with g
+            },
+        },
+        -- add operators that will trigger motion and text object completion
+        -- to enable all native operators, set the preset / operators plugin above
+        popup_mappings = {
+            scroll_down = '<c-d>', -- binding to scroll down inside the popup
+            scroll_up = '<c-u>', -- binding to scroll up inside the popup
+        },
+        window = {
+            border = "none", -- none, single, double, shadow
+            position = "bottom", -- bottom, top
+            margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+            padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+            winblend = 0
+        },
+        layout = {
+            height = { min = 4, max = 25 }, -- min and max height of the columns
+            width = { min = 20, max = 50 }, -- min and max width of the columns
+            spacing = 3, -- spacing between columns
+            align = "left", -- align columns left, center or right
+        },
+        ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
+        hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
+        show_help = true, -- show help message on the command line when the popup is visible
+        triggers = "auto", -- automatically setup triggers
+        -- triggers = {"<leader>"} -- or specify a list manually
+        triggers_blacklist = {
+            -- list of mode / prefixes that should never be hooked by WhichKey
+            -- this is mostly relevant for key maps that start with a native binding
+            -- most people should not need to change this
+            i = { "j", "k" },
+            v = { "j", "k" },
+        },
+    })
+end
+
+M.telekasten = function()
+    local home = os.getenv("HOME") .. "/Dropbox/Journals/zk"
+    require('telekasten').setup({
+        home = home,
+        -- if true, telekasten will be enabled when opening a note within the configured home
+        take_over_my_home = true,
+        auto_set_filetype = false,
+        -- dailies   = home .. '/' .. 'daily',
+        -- weeklies  = home .. '/' .. 'weekly',
+        templates = home .. '/' .. 'templates',
+        -- image subdir for pasting
+        image_subdir = "img",
+        -- markdown file extension
+        extension    = ".md",
+        -- following a link to a non-existing note will create it
+        follow_creates_nonexisting = true,
+        dailies_create_nonexisting = true,
+        weeklies_create_nonexisting = true,
+        -- template for new notes (new_note, follow_link)
+        -- set to `nil` or do not specify if you do not want a template
+        template_new_note = home .. '/' .. 'templates/new_note.md',
+        -- image link style
+        -- wiki:     ![[image name]]
+        -- markdown: ![](image_subdir/xxxxx.png)
+        image_link_style = "markdown",
+        -- integrate with calendar-vim
+        plug_into_calendar = false,
+        -- telescope actions behavior
+        close_after_yanking = false,
+        insert_after_inserting = true,
+        -- tag notation: '#tag', ':tag:', 'yaml-bare'
+        tag_notation = ":tag:",
+        -- command palette theme: dropdown (window) or ivy (bottom panel)
+        command_palette_theme = "ivy",
+        -- tag list theme:
+        -- get_cursor: small tag list at cursor; ivy and dropdown like above
+        show_tags_theme = "ivy",
+        -- when linking to a note in subdir/, create a [[subdir/title]] link
+        -- instead of a [[title only]] link
+        subdirs_in_links = true,
+        -- template_handling
+        -- What to do when creating a new note via `new_note()` or `follow_link()`
+        -- to a non-existing note
+        -- - prefer_new_note: use `new_note` template
+        -- - smart: if day or week is detected in title, use daily / weekly templates (default)
+        -- - always_ask: always ask before creating a note
+        template_handling = "prefer_new_note",
+        -- path handling:
+        --   this applies to:
+        --     - new_note()
+        --     - new_templated_note()
+        --     - follow_link() to non-existing note
+        --
+        --   it does NOT apply to:
+        --     - goto_today()
+        --     - goto_thisweek()
+        --
+        --   Valid options:
+        --     - smart: put daily-looking notes in daily, weekly-looking ones in weekly,
+        --              all other ones in home, except for notes/with/subdirs/in/title.
+        --              (default)
+        --
+        --     - prefer_home: put all notes in home except for goto_today(), goto_thisweek()
+        --                    except for notes with subdirs/in/title.
+        --
+        --     - same_as_current: put all new notes in the dir of the current note if
+        --                        present or else in home
+        --                        except for notes/with/subdirs/in/title.
+        new_note_location = "prefer_home",
+    })
 end
 
 return M

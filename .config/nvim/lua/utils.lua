@@ -33,95 +33,52 @@ M.show_syntax_group = function()
 end
 
 M.debug_script = function(script)
-    -- TODO Use this to debug long outputs (e.g. :call Exec('scriptnames'))
-    -- function! Exec(cmd)
-    --     redir @a
-    --         exec printf('silent %s',a:cmd)
-    --     redir END
-    --     " tabnew
-    --     norm "ap
-    -- endfunction
+    -- Debug long outputs with :call v:lua.require("utils").debug_script(`vimscript_file`)
+    vim.cmd([[redir @a]])
+    vim.cmd([[    exec printf('silent %s',]] .. script .. [[)]])
+    vim.cmd([[redir END]])
+    vim.cmd([[tabnew]])
+    vim.cmd([[norm "ap]])
 end
 
+M.open_notes = function()
+    local notes_dir = os.getenv("HOME") .. '/Dropbox/Journals/project_notes'
+    os.execute("mkdir -p " .. notes_dir)
 
-M.apply_options = function(options)
-    -- TODO docs
-    for k, v in pairs(options) do
-        vim.opt[k] = v
+    local project_name = vim.fn.finddir('.git/..', vim.fn.expand('%:p:h') .. ';'):match('[^/]+$')
+    local branch_name = ""
+    local title = ""
+    local file_name = ""
+
+    -- Set title and file_name variables
+    if project_name ~= "" then
+        -- git project identified, find branch_name and sep
+        branch_name = io.popen('git branch --show-current'):read()
+
+        title = project_name .. ' (' .. branch_name .. ')'
+        file_name = project_name .. '__' .. branch_name
+    else
+        -- Couldn't find git project, keep empty branch_name and sep
+        project_name = vim.fn.expand('%:p:h:t')
+
+        title = project_name
+        file_name = project_name
     end
-end
+    file_name = string.lower(string.gsub(file_name, '[ -]', '_'))
 
-M.apply_maps = function(maps)
-    -- TODO docs
-    local default_opts = {noremap = true, silent = true}
-
-    for mode, mappings in pairs(maps) do
-        for keys, mapping in pairs(mappings) do
-            if (type(mapping) == "table") then
-                local opts = vim.tbl_extend('force', default_opts, mapping.opts)
-                vim.api.nvim_set_keymap(mode, keys, mapping.map, opts)
-            else
-                vim.api.nvim_set_keymap(mode, keys, mapping, default_opts)
-            end
-        end
-    end
-end
-
-M.apply_autogroup = function(autogroup)
-    -- TODO docs
-    group_name = autogroup.name
-    group = autogroup.cmds
-    vim.cmd('augroup ' .. group_name)
-    vim.cmd('autocmd!')
-    for filetype, autocmd in pairs(group) do
-        if (type(autocmd) == "table") then
-            for _, vals in pairs(autocmd) do
-                local command = vim.tbl_flatten({'autocmd', vals.events, filetype, vals.cmd})
-                local command = table.concat(command, ' ')
-                vim.cmd(command)
-            end
-        else
-            local command = table.concat(vim.tbl_flatten{'autocmd', autocmd}, ' ')
-            vim.cmd(command)
-        end
-    end
-    vim.cmd('augroup END')
-end
-
-M.apply_commands = function(commands)
-    -- TODO docs
-    for name, val in pairs(commands) do
-        if (type(val) == "table") then
-            local cmd_str = {'command!'}
-            if val.bang == true then
-                table.insert(cmd_str, '-bang')
-            end
-            if val.nargs then
-                table.insert(cmd_str, '-nargs=' .. val.nargs)
-            end
-            if val.complete then
-                table.insert(cmd_str, '-complete=' .. val.complete)
-            end
-            table.insert(cmd_str, name)
-            table.insert(cmd_str, val.cmd)
-            cmd_str = table.concat(cmd_str, ' ')
-            vim.cmd(cmd_str)
-        else
-            local cmd_str = table.concat({'command!', name, val}, ' ')
-            vim.cmd(cmd_str)
-        end
-    end
-end
-
-M.apply_abbrevs = function(abbrevs)
-    -- TODO docs
-    for mode, abbreviations in pairs(abbrevs) do
-        for lhs, rhs in pairs(abbreviations) do
-            local cmd_str = mode .. 'noreabbrev' .. ' ' .. lhs .. ' ' .. rhs
-            vim.cmd(cmd_str)
-        end
+    -- Create new file if needed
+    local note_path = notes_dir .. '/' .. file_name .. '.md'
+    local file = io.open(note_path, 'r')
+    if (file == nil) then
+        -- File doesn't exist, create new file with header
+        file = io.open(note_path, 'w')
+        file:write("# " .. title .. '\n\n\n')
+        file:close()
     end
 
+    -- Open in vertical split and move cursor to end of file
+    vim.cmd("vsplit | edit " .. note_path)
+    vim.cmd("normal! G$")
 end
 
 return M

@@ -46,6 +46,7 @@ PLUGINS = function()
             'nvim-treesitter/playground',
             'nvim-treesitter/nvim-treesitter-textobjects',
             'lewis6991/spellsitter.nvim',
+            'romgrk/nvim-treesitter-context',
         },
         run = ':TSUpdate',
         config = configs.treesitter,
@@ -106,11 +107,26 @@ PLUGINS = function()
         config = configs.lualine,
     }
     use {
+        'sindrets/diffview.nvim',
+        requires = 'nvim-lua/plenary.nvim'
+    }
+    use {
+        'folke/which-key.nvim',
+        config = configs.whichkey,
+    }
+    use {
+        'renerocksai/telekasten.nvim',
+        requires = {
+            'nvim-telescope/telescope.nvim',
+            'nvim-lua/plenary.nvim',
+        },
+        config = configs.telekasten,
+    }
+    use {
         'tpope/vim-repeat',                 -- Better .-repeat actions
         'tpope/vim-commentary',             -- [gc<motion>] = Toggle comments
         'tpope/vim-unimpaired',             -- More motions (see docs)
         'tpope/vim-surround',               -- cs]} : Change surrounding brackets
-        'tpope/vim-obsession',              -- Session management
         'tpope/vim-rsi',                    -- Emacs-style binds during insert
         'jiangmiao/auto-pairs',             -- Auto-close brackets
         'danilamihailov/beacon.nvim',       -- Ping cursor location after jump
@@ -170,3 +186,4 @@ M.load_plugins = function()
 end
 
 return M
+
