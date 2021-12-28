@@ -87,7 +87,7 @@ end
 
 M.load_autogroups = function()
     for _, autogroup in ipairs({DEFAULT_CMDS, EXTRA_FILETYPE_CMDS, SET_PRGS}) do
-        require("mappings").apply_autogroup(autogroup)
+        require("autogroups").apply_autogroup(autogroup)
     end
 end
 
