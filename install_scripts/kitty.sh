@@ -11,7 +11,6 @@ echo "[${0##*/}] : INSTALLING >>>>>>>>>>>>>>>>"
     sudo apt install -y kitty
 
     ln -sf $HOME/.dots/.fonts $HOME/.fonts
-    ln -sf $HOME/.dots/.config/kitty $HOME/.config/kitty
 
     echo -e "${date} \n INSTALLED ${0##*/}"
 ) >> /tmp/install_${0##*/}.log 2>&1

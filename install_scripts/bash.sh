@@ -2,7 +2,6 @@
 # SET TITLE OF SCRIPT TO PROGRAM TO INSTALL
 echo "[${0##*/}] : INSTALLING >>>>>>>>>>>>>>>>"
 
-DOTFILES=( .bashrc .bash_prompt .bash_aliases .xinitrc .gitconfig .gitignore )
 # try
 (
     set -e
@@ -10,13 +9,6 @@ DOTFILES=( .bashrc .bash_prompt .bash_aliases .xinitrc .gitconfig .gitignore )
 
     # PUT INSTALL COMMANDS HERE
     sudo apt install -y tldr tree exa bat qt5-style-plugins unclutter-xfixes
-
-    for i in "${DOTFILES[@]}"; do
-        if [ -f "$HOME/$i" ]; then
-            mv $HOME/$i $HOME/$i.dotsinstall.bak
-        fi
-        ln -sf $HOME/.dots/$i $HOME/$i
-    done
 
     echo -e "${date} \n INSTALLED ${0##*/}"
 ) >> /tmp/install_${0##*/}.log 2>&1

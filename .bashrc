@@ -157,3 +157,6 @@ fi
 
 # disable <C-s> from pausing input to terminal
 stty -ixon
+
+# Add ZK environment variable
+export ZK_NOTEBOOK_DIR="$HOME/Dropbox/Journals/zk/"

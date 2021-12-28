@@ -115,12 +115,13 @@ PLUGINS = function()
         config = configs.whichkey,
     }
     use {
-        'renerocksai/telekasten.nvim',
+        "mickael-menu/zk-nvim",
         requires = {
-            'nvim-telescope/telescope.nvim',
-            'nvim-lua/plenary.nvim',
+            "neovim/nvim-lspconfig",
+            "nvim-telescope/telescope.nvim",
+            "nvim-lua/plenary.nvim",
         },
-        config = configs.telekasten,
+        config = configs.zk,
     }
     use {
         'tpope/vim-repeat',                 -- Better .-repeat actions
