@@ -2,3 +2,4 @@ keybinding:
   universal:
     quit: 'q'
     return: 'q'
+    executeCustomCommand: '<F5>'
