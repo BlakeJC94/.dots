@@ -15,6 +15,7 @@ PLUGINS = function()
         requires = {
             "hrsh7th/cmp-nvim-lsp",
             "williamboman/nvim-lsp-installer",
+            'https://gitlab.com/yorickpeterse/nvim-pqf',
         },
         config = configs.lspconfig,
     }
@@ -24,6 +25,7 @@ PLUGINS = function()
             "dcampos/nvim-snippy",
             "honza/vim-snippets",
             "onsails/lspkind-nvim",
+            "windwp/nvim-autopairs",
             "dcampos/cmp-snippy",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -124,12 +126,12 @@ PLUGINS = function()
         config = configs.zk,
     }
     use {
+        'numToStr/Comment.nvim',
+        config = function() require('Comment').setup() end,
+    }
+    use {
         'tpope/vim-repeat',                 -- Better .-repeat actions
-        'tpope/vim-commentary',             -- [gc<motion>] = Toggle comments
-        'tpope/vim-unimpaired',             -- More motions (see docs)
         'tpope/vim-surround',               -- cs]} : Change surrounding brackets
-        'tpope/vim-rsi',                    -- Emacs-style binds during insert
-        'jiangmiao/auto-pairs',             -- Auto-close brackets
         'danilamihailov/beacon.nvim',       -- Ping cursor location after jump
         'wellle/targets.vim',               -- More text objects
         'michaeljsmith/vim-indent-object',  -- select indent levels with ii or ai
@@ -157,6 +159,7 @@ DISABLED_BUILT_INS = {
 }
 
 M = {}
+
 M.setup_packer = function()
     local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
     local packer_url = 'https://github.com/wbthomason/packer.nvim'

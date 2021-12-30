@@ -159,4 +159,4 @@ fi
 stty -ixon
 
 # Add ZK environment variable
-export ZK_NOTEBOOK_DIR="$HOME/Dropbox/Journals/zk/"
+export ZK_NOTEBOOK_DIR="$HOME/Dropbox/Journals/"

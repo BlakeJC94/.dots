@@ -28,6 +28,15 @@ VIM_MAPS = {
         -- Insert blank lines
         ['go'] = ':<C-u>call append(line("."), repeat([""], v:count1))<CR>',
         ['gO'] = ':<C-u>call append(line(".") - 1, repeat([""], v:count1))<CR>',
+        -- Navigate quickfix lists
+        ['[l'] = ':<C-U>lprevious<CR>zv',
+        [']l'] = ':<C-U>lnext<CR>zv',
+        ['[L'] = ':<C-U>lfirst<CR>zv',
+        [']L'] = ':<C-U>llast<CR>zv',
+        ['[q'] = ':<C-U>cprevious<CR>zv',
+        [']q'] = ':<C-U>cnext<CR>zv',
+        ['[Q'] = ':<C-U>cfirst<CR>zv',
+        [']Q'] = ':<C-U>clast<CR>zv',
     },
     n = {
         -- Make Y behave like D and C
@@ -59,6 +68,8 @@ VIM_MAPS = {
         -- Replace spaces in selection with underscores
         ['_']  = ":s/\\%V /_/g<CR>",
         ['g_'] = ":s/\\%V_/ /g<CR>",
+    },
+    x = {
         -- Wrap selection in quotes
         ['g"']  = 'm`<Esc>`>a"<Esc>`<i"<Esc>``',
         ['g\''] = "m`<Esc>`>a'<Esc>`<i'<Esc>``",
@@ -73,9 +84,35 @@ VIM_MAPS = {
         ['g>']  = "m`<Esc>`>a><Esc>`<i<<Esc>``",
         ['g<']  = "m`<Esc>`>a><Esc>`<i<<Esc>``",
     },
+    s = {
+        -- Wrap selection in quotes
+        ['g"']  = 'm`<Esc>`>A"<Esc>`<I"<Esc>``',
+        ['g\''] = "m`<Esc>`>A'<Esc>`<I'<Esc>``",
+        ['g`']  = "m`<Esc>`>A`<Esc>`<I`<Esc>``",
+        -- Wrap selection in brackets
+        ['g(']  = "m`<Esc>`>A)<Esc>`<I(<Esc>``",
+        ['g)']  = "m`<Esc>`>A)<Esc>`<I(<Esc>``",
+        ['g]']  = "m`<Esc>`>A]<Esc>`<I[<Esc>``",
+        ['g[']  = "m`<Esc>`>A]<Esc>`<I[<Esc>``",
+        ['g}']  = "m`<Esc>`>A}<Esc>`<I{<Esc>``",
+        ['g{']  = "m`<Esc>`>A}<Esc>`<I{<Esc>``",
+        ['g>']  = "m`<Esc>`>A><Esc>`<I<<Esc>``",
+        ['g<']  = "m`<Esc>`>A><Esc>`<I<<Esc>``",
+    },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
         ['<C-s>'] = '<C-g>u<Esc>[S1z=`]a<c-g>u',
+        -- Bash keyboard shortcut during insert mode
+        ['<C-a>'] = "<C-o>0",    -- Goto BEGINNING of command line
+        ['<C-e>'] = "<C-o>$",    -- Goto END of command line
+        ['<C-b>'] = "<C-o>h",    -- move back one character
+        ['<C-f>'] = "<C-o>l",    -- move forward one character
+        ['<A-f>'] = "<C-o>w",    -- move cursor FORWARD one word
+        ['<A-b>'] = "<C-o>b",    -- move cursor BACK one word
+        ['<A-d>'] = "<C-o>dw",   -- delete the word FROM the cursor
+        -- Put semicolon at end of line
+        [',,'] = "<Esc>m`A,<Esc>``a",
+        [';;'] = "<Esc>m`A;<Esc>``a",
         -- Insert undo breakpoints when typing punctuation
         [','] = ',<C-g>u',
         ['.'] = '.<C-g>u',

@@ -48,7 +48,7 @@ EXTRA_FILETYPE_CMDS = {
             {events='FileType', cmd="wincmd L"},
         },
         -- Apply options for editing text files
-        ['txt,md,tex'] = {
+        ['text,tex'] = {
             {events='FileType', cmd="Prose"}
         }
     }

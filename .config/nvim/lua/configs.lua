@@ -33,6 +33,16 @@ M.lspconfig = function()
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
     end
 
+    -- Configure pqf to use the same signs
+    require('pqf').setup({
+        signs = {
+            error = " ",
+            warning = " ",
+            info = " " ,
+            hint = " ",
+        }
+    })
+
     -- Specify actions to happen when lsp server starts on a buffer
     local on_attach = function(client)
         -- Enable completion triggered by <c-x><c-o>
@@ -167,6 +177,8 @@ M.cmp = function()
     local cmp = require('cmp')
     local snippy = require('snippy')
     local lspkind = require('lspkind')
+    local autopairs = require('nvim-autopairs')
+    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
     local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -226,6 +238,10 @@ M.cmp = function()
             {name = 'buffer'}
         })
     })
+
+    -- Set up autopairs
+    autopairs.setup({})
+    cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 end
 
 M.lir = function()
@@ -263,8 +279,10 @@ M.lir = function()
             ['R']     = actions.rename,
             ['@']     = actions.cd,
             ['P']     = actions.yank_path,
+            ['yy']    = actions.yank_path,
             ['.']     = actions.toggle_show_hidden,
             ['D']     = actions.delete,
+            ['dd']    = actions.delete,
             ['M']     = mark_actions.toggle_mark,
             ['Y']     = clipboard_actions.copy,
             ['C']     = clipboard_actions.cut,
