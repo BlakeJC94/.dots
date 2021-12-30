@@ -6,8 +6,8 @@ CUSTOM_COMMANDS = {
     -- Trim trailing spaces without upsetting changelist
     TrimSpaces=[[let g:tmp = winsaveview() | keeppatterns %s/\s\+$//e | call winrestview(g:tmp)]],
     -- Textedit toggle
-    Prose=[[setl wrap list colorcolumn=0 fo-=t]],
-    UnProse=[[setl nowrap nolist colorcolumn=80]],
+    Prose=[[setl wrap colorcolumn=0 fo-=t]],
+    UnProse=[[setl nowrap colorcolumn=100]],
     -- Open notes buffer
     Notes=[[call v:lua.require('utils').open_notes()]]
 }

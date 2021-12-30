@@ -33,10 +33,10 @@ VIM_MAPS = {
         [']l'] = ':<C-U>lnext<CR>zv',
         ['[L'] = ':<C-U>lfirst<CR>zv',
         [']L'] = ':<C-U>llast<CR>zv',
-        ['[q'] = ':<C-U>cprevious<CR>zv',
-        [']q'] = ':<C-U>cnext<CR>zv',
-        ['[Q'] = ':<C-U>cfirst<CR>zv',
-        [']Q'] = ':<C-U>clast<CR>zv',
+        ['[c'] = ':<C-U>cprevious<CR>zv',
+        [']c'] = ':<C-U>cnext<CR>zv',
+        ['[C'] = ':<C-U>cfirst<CR>zv',
+        [']C'] = ':<C-U>clast<CR>zv',
     },
     n = {
         -- Make Y behave like D and C
@@ -277,6 +277,7 @@ GIT_MAPS = {
         ['<Leader>gb'] = ':lua require("gitsigns").blame_line({full=true})<CR>',
         ['<Leader>gS'] = ':Gitsigns stage_buffer<CR>',
         ['<Leader>gU'] = ':Gitsigns reset_buffer_index<CR>',
+        ['<Leader>gd'] = ':DiffviewOpen<CR>',
     },
 }
 HARPOON_MAPS = {

@@ -108,15 +108,15 @@ PLUGINS = function()
         },
         config = configs.lualine,
     }
-    use {
+    use {  -- Better diffview
         'sindrets/diffview.nvim',
         requires = 'nvim-lua/plenary.nvim'
     }
-    use {
+    use {  -- Prompt for leader keys and registers
         'folke/which-key.nvim',
         config = configs.whichkey,
     }
-    use {
+    use {  -- Zk integration
         "mickael-menu/zk-nvim",
         requires = {
             "neovim/nvim-lspconfig",
@@ -125,7 +125,7 @@ PLUGINS = function()
         },
         config = configs.zk,
     }
-    use {
+    use {  -- Better comment actions with gc
         'numToStr/Comment.nvim',
         config = function() require('Comment').setup() end,
     }
@@ -138,6 +138,7 @@ PLUGINS = function()
         'szw/vim-maximizer',                -- Toggle maximise buffer
         'tommcdo/vim-lion',                 -- align selection with gl<obj><char>
         'Vimjas/vim-python-pep8-indent',    -- Fix for auto-indent in treesitter
+        'dkarter/bullets.vim',              -- Better autocomplete for lists
     }
 end
 
