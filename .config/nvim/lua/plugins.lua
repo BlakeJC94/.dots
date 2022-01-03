@@ -138,7 +138,6 @@ PLUGINS = function()
         'szw/vim-maximizer',                -- Toggle maximise buffer
         'tommcdo/vim-lion',                 -- align selection with gl<obj><char>
         'Vimjas/vim-python-pep8-indent',    -- Fix for auto-indent in treesitter
-        'dkarter/bullets.vim',              -- Better autocomplete for lists
     }
 end
 

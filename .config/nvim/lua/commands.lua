@@ -1,4 +1,3 @@
-
 CUSTOM_COMMANDS = {
     -- Toggle quickfix lists
     ToggleCL=[[exec empty(filter(getwininfo(), 'v:val.quickfix')) ? "copen" : "cclose"]],
@@ -7,7 +6,7 @@ CUSTOM_COMMANDS = {
     TrimSpaces=[[let g:tmp = winsaveview() | keeppatterns %s/\s\+$//e | call winrestview(g:tmp)]],
     -- Textedit toggle
     Prose=[[setl wrap colorcolumn=0 fo-=t]],
-    UnProse=[[setl nowrap colorcolumn=100]],
+    UnProse=[[setl nowrap colorcolumn=100,101]],
     -- Open notes buffer
     Notes=[[call v:lua.require('utils').open_notes()]]
 }

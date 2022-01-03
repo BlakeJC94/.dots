@@ -1,5 +1,6 @@
 VIM_MAPS = {
     [''] = {
+
         -- Better splitting
         ['_'] = ':split<CR>',
         ['|'] = ':vsplit<CR>',
@@ -68,8 +69,6 @@ VIM_MAPS = {
         -- Replace spaces in selection with underscores
         ['_']  = ":s/\\%V /_/g<CR>",
         ['g_'] = ":s/\\%V_/ /g<CR>",
-    },
-    x = {
         -- Wrap selection in quotes
         ['g"']  = 'm`<Esc>`>a"<Esc>`<i"<Esc>``',
         ['g\''] = "m`<Esc>`>a'<Esc>`<i'<Esc>``",
@@ -83,21 +82,6 @@ VIM_MAPS = {
         ['g{']  = "m`<Esc>`>a}<Esc>`<i{<Esc>``",
         ['g>']  = "m`<Esc>`>a><Esc>`<i<<Esc>``",
         ['g<']  = "m`<Esc>`>a><Esc>`<i<<Esc>``",
-    },
-    s = {
-        -- Wrap selection in quotes
-        ['g"']  = 'm`<Esc>`>A"<Esc>`<I"<Esc>``',
-        ['g\''] = "m`<Esc>`>A'<Esc>`<I'<Esc>``",
-        ['g`']  = "m`<Esc>`>A`<Esc>`<I`<Esc>``",
-        -- Wrap selection in brackets
-        ['g(']  = "m`<Esc>`>A)<Esc>`<I(<Esc>``",
-        ['g)']  = "m`<Esc>`>A)<Esc>`<I(<Esc>``",
-        ['g]']  = "m`<Esc>`>A]<Esc>`<I[<Esc>``",
-        ['g[']  = "m`<Esc>`>A]<Esc>`<I[<Esc>``",
-        ['g}']  = "m`<Esc>`>A}<Esc>`<I{<Esc>``",
-        ['g{']  = "m`<Esc>`>A}<Esc>`<I{<Esc>``",
-        ['g>']  = "m`<Esc>`>A><Esc>`<I<<Esc>``",
-        ['g<']  = "m`<Esc>`>A><Esc>`<I<<Esc>``",
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
