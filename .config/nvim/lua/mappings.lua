@@ -1,6 +1,5 @@
 VIM_MAPS = {
     [''] = {
-
         -- Better splitting
         ['_'] = ':split<CR>',
         ['|'] = ':vsplit<CR>',
@@ -94,8 +93,8 @@ VIM_MAPS = {
         ['<A-f>'] = "<C-o>w",    -- move cursor FORWARD one word
         ['<A-b>'] = "<C-o>b",    -- move cursor BACK one word
         ['<A-d>'] = "<C-o>dw",   -- delete the word FROM the cursor
-        -- Put semicolon at end of line
-        [',,'] = "<Esc>m`A,<Esc>``a",
+        -- Put semicolon/comma at end of line (; is a pseudo-leader)
+        [';,'] = "<Esc>m`A,<Esc>``a",
         [';;'] = "<Esc>m`A;<Esc>``a",
         -- Insert undo breakpoints when typing punctuation
         [','] = ',<C-g>u',
@@ -134,13 +133,13 @@ LEADER_MAPS = {
         ['<Leader>f'] = {map=[[/]], opts={silent=false}},            -- Find
         ['<Leader>F'] = {map=[[:%s///g<Left><Left><Left>]], opts={silent=false}},  -- Replace
         ['<Leader>q'] = ":q<CR>",                      -- L-q to quit
+        ['<Leader>Q'] = ":q!<CR>",                     -- L-Q to quit without saving
         ['<Leader>d'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change dir to current
         ['<Leader>n'] = ":enew<CR>",                   -- New file
         ['<Leader>N'] = ":bufdo bdel | enew<CR>",      -- New session
         ['<Leader>T'] = ":tabedit<CR>",                -- New tab
         ['<Leader>c'] = ":ToggleCL<CR>",               -- Toggle qflist
         ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
-        -- ['<Leader>s'] = ":lua require('persistence').load()<CR>",
     },
 }
 TERMINAL_MAPS = {
