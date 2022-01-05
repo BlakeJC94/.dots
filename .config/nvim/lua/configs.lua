@@ -367,9 +367,6 @@ M.firenvim = function()
     ]]
 end
 
-M.slime = function()
-end
-
 M.indent_blankline = function()
     require("indent_blankline").setup({
             filetype_exclude = {

@@ -8,7 +8,11 @@ CUSTOM_COMMANDS = {
     Prose=[[setl wrap colorcolumn=0 fo-=t]],
     UnProse=[[setl nowrap colorcolumn=100,101]],
     -- Open notes buffer
-    Notes=[[call v:lua.require('utils').open_notes()]]
+    Notes=[[split ~/Dropbox/Journals | silent lcd %:p:h]],
+    -- NewNote=[[call v:lua.require('utils').open_notes()]],
+    -- TODO
+    -- * Make `NewNote` ask for a title if no arg is given
+    -- * Make `ProjectNote` autogen a title based on git/dir name and call `NewNote`
 }
 LSP_COMMANDS = {
     LspReferences=[[lua vim.lsp.buf.references()]],

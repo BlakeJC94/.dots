@@ -48,7 +48,7 @@ M.open_notes = function()
     local project_name = vim.fn.finddir('.git/..', vim.fn.expand('%:p:h') .. ';'):match('[^/]+$')
     local branch_name = ""
     local title = ""
-    -- local file_name = ""
+    local file_name = ""
 
     -- Set title and file_name variables
     if project_name ~= "" then
@@ -56,31 +56,28 @@ M.open_notes = function()
         branch_name = io.popen('git branch --show-current'):read()
 
         title = project_name .. ' : ' .. branch_name
-        -- file_name = project_name .. '__' .. branch_name
+        file_name = project_name .. '__' .. branch_name
     else
         -- Couldn't find git project, keep empty branch_name and sep
         project_name = vim.fn.expand('%:p:h:t')
 
         title = project_name
-        -- file_name = project_name
+        file_name = project_name
     end
-    -- file_name = string.lower(string.gsub(file_name, '[ -]', '_'))
+    file_name = string.lower(string.gsub(file_name, '[ -]', '_'))
 
     -- Create new file if needed
-    -- local note_path = notes_dir .. '/' .. file_name .. '.md'
-    -- local file = io.open(note_path, 'r')
-    -- if (file == nil) then
-    --     -- File doesn't exist, create new file with header
-    --     file = io.open(note_path, 'w')
-    --     file:write("# " .. title .. '\n\n\n')
-    --     file:close()
-    -- end
+    local note_path = notes_dir .. '/' .. file_name .. '.md'
+    local file = io.open(note_path, 'r')
+    if (file == nil) then
+        -- File doesn't exist, create new file with header
+        file = io.open(note_path, 'w')
+        file:write("# " .. title .. '\n\n\n')
+        file:close()
+    end
 
     -- Open in vertical split and move cursor to end of file
-    -- vim.cmd("vsplit | edit " .. note_path)
-    local command = "ZkNew {title=\"" .. title .. "\"}"
-    print(command)
-    vim.cmd(command)
+    vim.cmd("vsplit | edit " .. note_path)
     vim.cmd("normal! G$")
 end
 

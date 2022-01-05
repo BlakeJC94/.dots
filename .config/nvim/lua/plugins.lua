@@ -66,10 +66,6 @@ PLUGINS = function()
         config = configs.toggleterm,
     }
 
-    use {  -- [<SEL><C-c><C-c>] = Send to neovim terminal
-        config = configs.slime,
-    }
-
     use {  -- Better git interactions
         'lewis6991/gitsigns.nvim',
         requires = {
@@ -90,9 +86,7 @@ PLUGINS = function()
 
     use {  -- Better statusline
         'nvim-lualine/lualine.nvim',
-        requires = {
-            'kyazdani42/nvim-web-devicons',
-        },
+        requires = {'kyazdani42/nvim-web-devicons'},
         config = configs.lualine,
     }
 
@@ -101,11 +95,11 @@ PLUGINS = function()
         config = configs.alpha,
     }
 
-    -- use {  -- Firefox injection
-    --     'glacambre/firenvim',
-    --     run = function() vim.fn['firenvim#install'](0) end,
-    --     config = configs.firenvim,
-    -- }
+    use {  -- Firefox injection
+        'glacambre/firenvim',
+        run = function() vim.fn['firenvim#install'](0) end,
+        config = configs.firenvim,
+    }
 
     use {  -- Colors Hex codes
         "norcalli/nvim-colorizer.lua",
@@ -133,8 +127,14 @@ PLUGINS = function()
         config = configs.mkdnflow,
     }
 
+    -- use {
+    --     'lervag/wiki.vim',
+    --     -- requires = {'jakewvincent/mkdnflow.nvim',}
+    --     config = configs.wiki,
+    -- }
+
     use {  -- TODO
-        'simrat39/symbols-outline.nvim'
+        'simrat39/symbols-outline.nvim'  -- aerial.nvim also looks cool
     }
 
     use {  -- Smaller plugins
