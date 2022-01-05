@@ -2,7 +2,8 @@
 configs = require('configs')  -- ~/.config/nvim/lua/configs.lua
 PLUGINS = function()
     use 'wbthomason/packer.nvim'
-    use {   -- Fuzzy finder
+
+    use {  -- Extensible Fuzzy finder
         'nvim-telescope/telescope.nvim',
         requires = {
             'nvim-lua/plenary.nvim',
@@ -10,7 +11,8 @@ PLUGINS = function()
         },
         config = configs.telescope,
     }
-    use {  -- LSP Engine
+
+    use {  -- LSP Engine configuration
         'neovim/nvim-lspconfig',
         requires = {
             "hrsh7th/cmp-nvim-lsp",
@@ -19,7 +21,8 @@ PLUGINS = function()
         },
         config = configs.lspconfig,
     }
-    use {  -- Completion
+
+    use {  -- Autocompletion menu
         "hrsh7th/nvim-cmp",
         requires = {
             "dcampos/nvim-snippy",
@@ -34,7 +37,19 @@ PLUGINS = function()
         },
         config = configs.cmp,
     }
-    use {  -- File explorer
+
+    use {  -- Treesitter
+        'nvim-treesitter/nvim-treesitter',
+        requires = {
+            'nvim-treesitter/playground',
+            'nvim-treesitter/nvim-treesitter-textobjects',
+            'romgrk/nvim-treesitter-context',
+        },
+        run = ':TSUpdate',
+        config = configs.treesitter,
+    }
+
+    use {  -- Better File explorer
         "tamago324/lir.nvim",
         requires = {
             'nvim-lua/plenary.nvim',
@@ -42,65 +57,37 @@ PLUGINS = function()
         },
         config = configs.lir,
     }
-    use {  -- Treesitter
-        'nvim-treesitter/nvim-treesitter',
+
+    use {  -- Better terminals
+        "akinsho/toggleterm.nvim",
         requires = {
-            'nvim-treesitter/playground',
-            'nvim-treesitter/nvim-treesitter-textobjects',
-            'lewis6991/spellsitter.nvim',
-            'romgrk/nvim-treesitter-context',
+            'jpalardy/vim-slime',
         },
-        run = ':TSUpdate',
-        config = configs.treesitter,
+        config = configs.toggleterm,
     }
-    use {  -- Landing page
-        'goolord/alpha-nvim',
-        config = configs.alpha,
-    }
-    use {  -- Firefox injection
-        'glacambre/firenvim',
-        run = function() vim.fn['firenvim#install'](0) end,
-        config = configs.firenvim,
-    }
+
     use {  -- [<SEL><C-c><C-c>] = Send to neovim terminal
-        'jpalardy/vim-slime',
         config = configs.slime,
     }
-    use {  -- Git changes indicators
+
+    use {  -- Better git interactions
         'lewis6991/gitsigns.nvim',
-        requires = { 'nvim-lua/plenary.nvim' },
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'tpope/vim-fugitive',
+            'tpope/vim-rhubarb',
+            'junegunn/gv.vim',
+        },
         config = configs.gitsigns,
     }
-    use {  -- Colors Hex codes
-        "norcalli/nvim-colorizer.lua",
-        config = function() require("colorizer").setup({'*'},{names=false}) end
-    }
-    use {  -- [:Cheat] = Integrate cheat.sh
-        'RishabhRD/nvim-cheat.sh',
-        requires = {'RishabhRD/popfix'},
-    }
-    use {  -- Colorscheme
-        "ellisonleao/gruvbox.nvim",
-        requires = { "rktjmp/lush.nvim", },
-        config = configs.gruvbox,
-    }
-    use {  -- Indent guides
-        "lukas-reineke/indent-blankline.nvim",
-        config = configs.indent_blankline,
-    }
-    use {  -- Better f/t targets
-        "unblevable/quick-scope",
-        config = configs.quickscope,
-    }
+
+
     use {  -- File switching
         "ThePrimeagen/harpoon",
         requires={'nvim-lua/plenary.nvim'},
         config = configs.harpoon,
     }
-    use {  -- Better terminals
-        "akinsho/toggleterm.nvim",
-        config = configs.toggleterm,
-    }
+
     use {  -- Better statusline
         'nvim-lualine/lualine.nvim',
         requires = {
@@ -108,30 +95,54 @@ PLUGINS = function()
         },
         config = configs.lualine,
     }
-    use {  -- Better diffview
-        'sindrets/diffview.nvim',
-        requires = 'nvim-lua/plenary.nvim'
+
+    use {  -- Landing page
+        'goolord/alpha-nvim',
+        config = configs.alpha,
     }
-    use {  -- Prompt for leader keys and registers
-        'folke/which-key.nvim',
-        config = configs.whichkey,
+
+    -- use {  -- Firefox injection
+    --     'glacambre/firenvim',
+    --     run = function() vim.fn['firenvim#install'](0) end,
+    --     config = configs.firenvim,
+    -- }
+
+    use {  -- Colors Hex codes
+        "norcalli/nvim-colorizer.lua",
+        config = function() require("colorizer").setup({'*'}, {names=false}) end
     }
-    use {  -- Zk integration
-        "mickael-menu/zk-nvim",
-        requires = {
-            "neovim/nvim-lspconfig",
-            "nvim-telescope/telescope.nvim",
-            "nvim-lua/plenary.nvim",
-        },
-        config = configs.zk,
+
+    use {  -- Colorscheme
+        "ellisonleao/gruvbox.nvim",
+        requires = { "rktjmp/lush.nvim", },
+        config = configs.gruvbox,
     }
-    use {  -- Better comment actions with gc
-        'numToStr/Comment.nvim',
-        config = function() require('Comment').setup() end,
+
+    use {  -- Indent guides
+        "lukas-reineke/indent-blankline.nvim",
+        config = configs.indent_blankline,
     }
-    use {
+
+    use {  -- Better f/t targets
+        "unblevable/quick-scope",
+        config = configs.quickscope,
+    }
+
+    use {  -- Notes plugin
+        'jakewvincent/mkdnflow.nvim',
+        config = configs.mkdnflow,
+    }
+
+    use {  -- TODO
+        'simrat39/symbols-outline.nvim'
+    }
+
+    use {  -- Smaller plugins
         'tpope/vim-repeat',                 -- Better .-repeat actions
         'tpope/vim-surround',               -- cs]} : Change surrounding brackets
+        'tpope/vim-commentary',             -- gc<motion> : toggle comments
+        'vim-utils/vim-man',
+        'sbdchd/neoformat',
         'danilamihailov/beacon.nvim',       -- Ping cursor location after jump
         'wellle/targets.vim',               -- More text objects
         'michaeljsmith/vim-indent-object',  -- select indent levels with ii or ai

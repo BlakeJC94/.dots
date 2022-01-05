@@ -5,7 +5,7 @@ DEFAULT_CMDS = {
             {events='VimResized',  cmd="wincmd ="},                  -- Auto-resize windows
             {events='BufWritePre', cmd="retab"},                     -- Replace tabs
             {events='BufWritePre', cmd="TrimSpaces"},                -- Autoremove whitespace
-            {events='BufEnter',    cmd="set fo=crq2jp"},             -- Override format options
+            {events='BufEnter',    cmd="set fo=crq2jpt"},             -- Override format options
             {events='InsertEnter', cmd='set cursorline'},            -- Insertmode cursorline on
             {events='InsertLeave', cmd='set nocursorline'},          -- Insertmode cursorline off
             {   -- Clear jumplist

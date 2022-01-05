@@ -111,13 +111,13 @@ M.treesitter = function()
         sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
         -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
         highlight = {
-            enable = true
+            enable = true,
+            additional_vim_regex_highlighting = true,
         },
         indent = {
             enable = false,
             -- disable = {"python", },
         },
-        -- requiress 'nvim-treesitter/playground'
         playground = {
             enable = true,
             disable = {},
@@ -142,8 +142,6 @@ M.treesitter = function()
             }
         },
     })
-
-    require('spellsitter').setup({})
 
     require('treesitter-context').setup({
         enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -370,8 +368,6 @@ M.firenvim = function()
 end
 
 M.slime = function()
-    vim.g.slime_target = "neovim"
-    vim.g.slime_python_ipython = 1
 end
 
 M.indent_blankline = function()
@@ -415,7 +411,7 @@ M.gitsigns = function()
         signcolumn = false,
         numhl      = true,
         linehl     = false,
-        keymaps    = {}, -- Kepmaps set in init.lua
+        keymaps    = {}, -- Keymaps set in init.lua
         current_line_blame = true,
     })
 end
@@ -468,7 +464,10 @@ M.toggleterm = function()
 
     vim.cmd [[cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=horizontal' : 'term')<CR>]]
     vim.cmd [[cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=vertical' : 'vterm')<CR>]]
-    -- cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vsplit term://bash' : 'vterm')<CR>
+
+    -- vim slime configuration
+    vim.g.slime_target = "neovim"
+    vim.g.slime_python_ipython = 1
 end
 
 M.lualine = function()
@@ -555,7 +554,7 @@ M.whichkey = function()
         hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
         show_help = true, -- show help message on the command line when the popup is visible
         -- triggers = "auto", -- automatically setup triggers
-        triggers = {"<leader>"}, -- or specify a list manually
+        triggers = {"<leader>", 'z'}, -- or specify a list manually
         triggers_blacklist = {
             -- list of mode / prefixes that should never be hooked by WhichKey
             -- this is mostly relevant for key maps that start with a native binding
@@ -587,6 +586,12 @@ M.zk = function()
         },
     })
     require("telescope").load_extension("zk")
+end
+
+M.mkdnflow = function()
+    require('mkdnflow').setup({
+        -- Config goes here; leave blank for defaults
+    })
 end
 
 return M

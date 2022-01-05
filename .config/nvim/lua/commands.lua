@@ -40,6 +40,7 @@ TYPO_COMMANDS = {
     Qa = {bang=true, cmd=[[qa<bang>]]},
     QA = {bang=true, cmd=[[qa<bang>]]},
 }
+
 ABBREVS = {
     ['c'] = {
         -- Terminal command shortcuts
@@ -80,7 +81,7 @@ M.apply_commands = function(commands)
 end
 
 M.load_commands = function()
-    for _, commands in ipairs({CUSTOM_COMMANDS, TYPO_COMMANDS}) do
+    for _, commands in ipairs({CUSTOM_COMMANDS, TYPO_COMMANDS, LSP_COMMANDS}) do
         require("commands").apply_commands(commands)
     end
 end

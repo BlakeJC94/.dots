@@ -14,11 +14,9 @@ VIM_MAPS = {
         -- Center screen and open folds when flicking through search matches
         ['n'] = 'nzzzv',
         ['N'] = 'Nzzzv',
-        -- Easier redo command
-        ['U'] = '<C-r>',
         -- Unmap Q
         ['Q'] = '',
-        -- Redraw and remove highlights
+        -- Redraw and toggle highlights
         ['<C-l>'] = ':set hls!<CR><C-l>',
         -- gJ to split lines
         ['gJ'] = 'm`i<CR><Esc>``',
@@ -251,7 +249,7 @@ GIT_MAPS = {
         [']g'] = {map=[[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']], opts={expr=true}},
         ['[g'] = {map=[[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']], opts={expr=true}},
         -- Leader maps
-        ['<Leader>gg'] = ":call v:lua.lazygit_toggle()<CR>",
+        ['<Leader>gg'] = ':Gitsigns setqflist<CR>',
         ['<Leader>gs'] = ':Gitsigns stage_hunk<CR>',
         ['<Leader>gu'] = ':Gitsigns undo_stage_hunk<CR>',
         ['<Leader>gr'] = ':Gitsigns reset_hunk<CR>',
@@ -260,7 +258,8 @@ GIT_MAPS = {
         ['<Leader>gb'] = ':lua require("gitsigns").blame_line({full=true})<CR>',
         ['<Leader>gS'] = ':Gitsigns stage_buffer<CR>',
         ['<Leader>gU'] = ':Gitsigns reset_buffer_index<CR>',
-        ['<Leader>gd'] = ':DiffviewOpen<CR>',
+        ['<Leader>gd'] = ':Gdiffsplit<CR>',
+        ['<Leader>gc'] = ':GV<CR>',
     },
 }
 HARPOON_MAPS = {
