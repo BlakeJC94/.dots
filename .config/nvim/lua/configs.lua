@@ -327,7 +327,7 @@ M.alpha = function()
     dashboard.section.buttons.val = {
         dashboard.button("f", "  > Find file", ":cd $HOME/Workspace | Telescope find_files<CR>"),
         dashboard.button("d", "  > Explore directory" , ":lua require'lir.float'.toggle()<CR>"),
-        dashboard.button("e", "  > New file" , ":enew <CR>"),
+        dashboard.button("n", "  > New file" , ":enew <CR>"),
         dashboard.button("r", "  > Recent"   , ":Telescope oldfiles<CR>"),
         dashboard.button("s", "  > Settings" , ":e $MYVIMRC | :cd %:p:h<CR>"),
         dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
