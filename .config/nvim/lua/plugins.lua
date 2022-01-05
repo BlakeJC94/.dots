@@ -44,6 +44,7 @@ PLUGINS = function()
             'nvim-treesitter/playground',
             'nvim-treesitter/nvim-treesitter-textobjects',
             'romgrk/nvim-treesitter-context',
+            'lewis6991/spellsitter.nvim',
         },
         run = ':TSUpdate',
         config = configs.treesitter,
@@ -122,10 +123,11 @@ PLUGINS = function()
         config = configs.quickscope,
     }
 
-    use {  -- Notes plugin
-        'jakewvincent/mkdnflow.nvim',
-        config = configs.mkdnflow,
-    }
+
+    -- use {  -- Notes plugin
+    --     'jakewvincent/mkdnflow.nvim',
+    --     config = configs.mkdnflow,
+    -- }
 
     -- use {
     --     'lervag/wiki.vim',

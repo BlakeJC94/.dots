@@ -112,7 +112,7 @@ M.treesitter = function()
         -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
         highlight = {
             enable = true,
-            additional_vim_regex_highlighting = true,
+            -- additional_vim_regex_highlighting = true,
         },
         indent = {
             enable = false,
@@ -142,6 +142,8 @@ M.treesitter = function()
             }
         },
     })
+
+    require('spellsitter').setup()
 
     require('treesitter-context').setup({
         enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -589,6 +591,12 @@ M.mkdnflow = function()
     require('mkdnflow').setup({
         -- Config goes here; leave blank for defaults
     })
+end
+
+M.wiki = function()
+    vim.g.wiki_root = '~/wiki'
+    vim.g.wiki_filetypes = {'md'}
+    vim.g.wiki_link_extension = '.md'
 end
 
 return M
