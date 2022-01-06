@@ -5,12 +5,13 @@ DEFAULT_CMDS = {
             {events='VimResized',  cmd="wincmd ="},                  -- Auto-resize windows
             {events='BufWritePre', cmd="retab"},                     -- Replace tabs
             {events='BufWritePre', cmd="TrimSpaces"},                -- Autoremove whitespace
-            {events='BufEnter',    cmd="set fo=crq2jpt"},             -- Override format options
-            {events='InsertEnter', cmd='set cursorline'},            -- Insertmode cursorline on
-            {events='InsertLeave', cmd='set nocursorline'},          -- Insertmode cursorline off
-            {   -- Clear jumplist
-                events='VimEnter',
-                cmd="exec 'tabdo windo clearjumps' | tabnext"},
+            -- {events='BufEnter',    cmd="set fo=crq2jpt"},             -- Override format options
+            {events='InsertEnter', cmd='set cursorline nornu'},      -- Insertmode cursorline on
+            {events='InsertLeave', cmd='set nocursorline rnu'},      -- Insertmode cursorline off
+            -- {   -- Clear jumplist
+            --     events='VimEnter',
+            --     cmd="exec 'tabdo windo clearjumps' | tabnext"
+            -- },
             {   -- Auto-highlight yanked text
                 events='TextYankPost',
                 cmd="silent! lua require'vim.highlight'.on_yank({timeout = 700})"

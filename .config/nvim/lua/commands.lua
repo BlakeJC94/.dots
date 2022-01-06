@@ -50,6 +50,10 @@ ABBREVS = {
         -- Terminal command shortcuts
         ['term']  = [[<C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=horizontal' : 'term')<CR>]],
         ['vterm'] = [[<C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=vertical' : 'vterm')<CR>]],
+        -- Terminal app shotcuts
+        ['bashtop'] = [[<C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'call v:lua.bashtop_toggle()' : 'bashtop')<CR>]],
+        ['nvtop']   = [[<C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'call v:lua.nvtop_toggle()' : 'nvtop')<CR>]],
+        ['lazygit'] = [[<C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'call v:lua.lazygit_toggle()' : 'lazygit')<CR>]],
         -- File directory
         ['fd'] = [[%:p:h]],
         -- Force sudo save

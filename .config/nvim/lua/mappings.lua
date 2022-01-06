@@ -26,6 +26,8 @@ VIM_MAPS = {
         -- Insert blank lines
         ['go'] = ':<C-u>call append(line("."), repeat([""], v:count1))<CR>',
         ['gO'] = ':<C-u>call append(line(".") - 1, repeat([""], v:count1))<CR>',
+        -- Insert spaces
+        ['g<Space>'] = 'i ',
         -- Navigate quickfix lists
         ['[l'] = ':<C-U>lprevious<CR>zv',
         [']l'] = ':<C-U>lnext<CR>zv',
@@ -138,18 +140,18 @@ LEADER_MAPS = {
         ['<Leader>T'] = ":tabedit<CR>",                -- New tab
         ['<Leader>c'] = ":ToggleCL<CR>",               -- Toggle qflist
         ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
+        ['<Leader>s'] = ":setl spell!<CR>",               -- Toggle spelling
     },
 }
 TERMINAL_MAPS = {
     [''] = {
         -- Toggle terminal
-        ['<C-z>']      = '',  -- Prevent vim from going to background
-        ['<C-z><C-z>'] = ":exe v:count . 'ToggleTerm direction=float'<CR>",
-        ['<C-z>_']     = ":exe v:count . 'ToggleTerm direction=horizontal'<CR>",
-        ['<C-z>|']     = ":exe v:count . 'ToggleTerm direction=vertical'<CR>",
-        ['<C-z>n']     = ":call v:lua.nvtop_toggle()<CR>",
-        ['<C-z>t']     = ":call v:lua.bashtop_toggle()<CR>",
-        ['<C-z>g']     = ":call v:lua.lazygit_toggle()<CR>",
+        ['<C-z>'] = ":exe v:count . 'ToggleTerm direction=float'<CR>",
+        -- ['<C-z>_']     = ":exe v:count . 'ToggleTerm direction=horizontal'<CR>",
+        -- ['<C-z>|']     = ":exe v:count . 'ToggleTerm direction=vertical'<CR>",
+        -- ['<C-z>n']     = ":call v:lua.nvtop_toggle()<CR>",
+        -- ['<C-z>t']     = ":call v:lua.bashtop_toggle()<CR>",
+        -- ['<C-z>g']     = ":call v:lua.lazygit_toggle()<CR>",
     },
     t = {
         -- <Esc><Esc> = (terminal) go to normal mode

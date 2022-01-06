@@ -95,7 +95,36 @@ end
 
 M.treesitter = function()
     local treesitter_config = require('nvim-treesitter.configs')
-    local treesitter = require('nvim-treesitter.configs')
+
+    local commentstrings = {
+        python  = '#',
+        json    = '#',
+        bash    = '#',
+        lua     = '--',
+        verilog = '//'
+    }
+    require('nvim-treesitter').define_modules {
+        fixspell = {
+            enable = true,
+            attach = function(bufnr, lang)
+                local cs = commentstrings[lang]
+                vim.cmd(
+                ('syntax match spellComment "%s.*" contains=@Spell'):format(cs)
+                )
+            end,
+            detach = function(bufnr)
+            end,
+            is_supported = function(lang)
+                if commentstrings[lang] == nil then
+                    return false
+                end
+                if require('nvim-treesitter.query').get_query(lang, 'highlights') == nil then
+                    return false
+                end
+                return true
+            end
+        }
+    }
 
     treesitter_config.setup({
         ensure_installed = {
@@ -143,7 +172,7 @@ M.treesitter = function()
         },
     })
 
-    require('spellsitter').setup()
+    -- require('spellsitter').setup()
 
     require('treesitter-context').setup({
         enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -327,10 +356,11 @@ M.alpha = function()
         "                                                     ",
     }
     dashboard.section.buttons.val = {
-        dashboard.button("f", "  > Find file", ":cd $HOME/Workspace | Telescope find_files<CR>"),
+        dashboard.button("f", "  > Find file", ":cd $HOME/Workspace | Telescope find_files<CR>"),
+        dashboard.button("j", "龎 > Notes"    , ":e ~/Dropbox/Journals | silent cd %:p:h<CR>"),
         dashboard.button("d", "  > Explore directory" , ":lua require'lir.float'.toggle()<CR>"),
-        dashboard.button("n", "  > New file" , ":enew <CR>"),
         dashboard.button("r", "  > Recent"   , ":Telescope oldfiles<CR>"),
+        dashboard.button("n", "  > New file" , ":enew <CR>"),
         dashboard.button("s", "  > Settings" , ":e $MYVIMRC | :cd %:p:h<CR>"),
         dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
     }
