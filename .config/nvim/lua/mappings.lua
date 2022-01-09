@@ -20,6 +20,9 @@ VIM_MAPS = {
         ['<C-l>'] = ':set hls!<CR><C-l>',
         -- gJ to split lines
         ['gJ'] = 'm`i<CR><Esc>``',
+        -- Make {/} don't change the the jumplist
+        ['{'] = ':keepjumps norm! {<CR>',
+        ['}'] = ':keepjumps norm! }<CR>',
         -- Better jumplist for large line steps (and step through visual lines with j/k)
         ['j'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true}},
         ['k'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true}},
