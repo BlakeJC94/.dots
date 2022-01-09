@@ -36,7 +36,7 @@ EXTRA_FILETYPE_CMDS = {
         ['*'] = {
             {events='CmdwinEnter', cmd="nnoremap <buffer> q :q<CR>"},
         },
-        ['qf,help'] = {
+        ['qf,help,fugitive'] = {
             {events='FileType', cmd="nnoremap <buffer> q :q<CR>"},
             {events='FileType', cmd="setlocal nospell"},
         },

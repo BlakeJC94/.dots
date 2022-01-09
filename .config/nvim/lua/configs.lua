@@ -136,6 +136,7 @@ M.treesitter = function()
             "regex",
             "julia",
             "r",
+            "rst",
         },
         sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
         -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
@@ -401,15 +402,19 @@ end
 
 M.indent_blankline = function()
     require("indent_blankline").setup({
-            filetype_exclude = {
-                "help",
-                "alpha",
-                "lir",
-                "packer",
-                "man",
-            },
-            buftype_exclude = {"terminal",},
-        })
+        show_current_context = true,
+        show_current_context_start = false,
+        filetype_exclude = {
+            "help",
+            "alpha",
+            "lir",
+            "packer",
+            "man",
+        },
+        buftype_exclude = {"terminal",},
+    })
+
+    vim.cmd("highlight IndentBlanklineContextChar guifg=#a89984 gui=nocombine")
 end
 
 M.quickscope = function()

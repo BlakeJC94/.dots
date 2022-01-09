@@ -7,10 +7,10 @@ VIM_MAPS = {
         ['H'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
         ['L'] = '$',
         -- Prevent x and s from overriding what's in the clipboard
-        ['x'] = '\"_x',
-        ['X'] = '\"_X',
-        ['s'] = '\"_s',
-        ['S'] = '\"_S',
+        ['x'] = '"_x',
+        ['X'] = '"_X',
+        ['s'] = '"_s',
+        ['S'] = '"_S',
         -- Center screen and open folds when flicking through search matches
         ['n'] = 'nzzzv',
         ['N'] = 'Nzzzv',
@@ -21,16 +21,8 @@ VIM_MAPS = {
         -- gJ to split lines
         ['gJ'] = 'm`i<CR><Esc>``',
         -- Make {/} don't change the the jumplist
-        ['{'] = ':keepjumps norm! {<CR>',
-        ['}'] = ':keepjumps norm! }<CR>',
-        -- Better jumplist for large line steps (and step through visual lines with j/k)
-        ['j'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true}},
-        ['k'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true}},
-        -- Insert blank lines
-        ['go'] = ':<C-u>call append(line("."), repeat([""], v:count1))<CR>',
-        ['gO'] = ':<C-u>call append(line(".") - 1, repeat([""], v:count1))<CR>',
-        -- Insert spaces
-        ['g<Space>'] = 'i ',
+        ['{'] = ':<C-u>keepjumps norm! {<CR>',
+        ['}'] = ':<C-u>keepjumps norm! }<CR>',
         -- Navigate quickfix lists
         ['[l'] = ':<C-U>lprevious<CR>zv',
         [']l'] = ':<C-U>lnext<CR>zv',
@@ -44,10 +36,18 @@ VIM_MAPS = {
     n = {
         -- Make Y behave like D and C
         ['Y']  = 'y$',
+        -- Better jumplist for large line steps (and step through visual lines with j/k)
+        ['j'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true}},
+        ['k'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true}},
         -- gp: Visually select last pasted block (like gv)
         ['gp'] = '`[v`]',
         -- gF: create new file at filename over cursor
         ['gF'] = ':e <c-r><c-f><CR>',
+        -- Insert blank lines
+        ['go'] = ':<C-u>call append(line("."), repeat([""], v:count1))<CR>',
+        ['gO'] = ':<C-u>call append(line(".") - 1, repeat([""], v:count1))<CR>',
+        -- Insert spaces
+        ['g<Space>'] = 'i ',
         -- J doesn't move cursor
         ['J'] = 'mzJ`z',
         -- Change selected word (forward/backwards), . to repeat

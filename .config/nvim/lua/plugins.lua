@@ -67,6 +67,13 @@ PLUGINS = function()
         config = configs.toggleterm,
     }
 
+    use {  -- iv/av: Text objects for substrings in snake/camel/kebab case
+        'Julian/vim-textobj-variable-segment',
+        requires = {
+            'kana/vim-textobj-user'
+        }
+    }
+
     use {  -- Better git interactions
         'lewis6991/gitsigns.nvim',
         requires = {
@@ -77,7 +84,6 @@ PLUGINS = function()
         },
         config = configs.gitsigns,
     }
-
 
     use {  -- File switching
         "ThePrimeagen/harpoon",
@@ -115,14 +121,13 @@ PLUGINS = function()
 
     use {  -- Indent guides
         "lukas-reineke/indent-blankline.nvim",
-        config = configs.indent_blankline,
-    }
+            config = configs.indent_blankline,
+        }
 
     use {  -- Better f/t targets
         "unblevable/quick-scope",
         config = configs.quickscope,
     }
-
 
     -- use {  -- Notes plugin
     --     'jakewvincent/mkdnflow.nvim',
@@ -143,8 +148,10 @@ PLUGINS = function()
         'tpope/vim-repeat',                 -- Better .-repeat actions
         'tpope/vim-surround',               -- cs]} : Change surrounding brackets
         'tpope/vim-commentary',             -- gc<motion> : toggle comments
+        'tpope/vim-abolish',                -- <sel>crs : coerce to snake_case
         'vim-utils/vim-man',
         'sbdchd/neoformat',
+        'alec-gibson/nvim-tetris',
         'danilamihailov/beacon.nvim',       -- Ping cursor location after jump
         'wellle/targets.vim',               -- More text objects
         'michaeljsmith/vim-indent-object',  -- select indent levels with ii or ai
