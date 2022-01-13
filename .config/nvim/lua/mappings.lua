@@ -132,9 +132,7 @@ LEADER_MAPS = {
         ['<Leader><CR>']  = ":Lir<CR>",                   -- File explorer
         ['<Leader><BS>']  = ":Telescope find_files<CR>",  -- Fuzzy file finder
         ['<Leader><Tab>'] = "<C-^>",                      -- Last file
-        ['<Leader><Esc>'] = ":MaximizerToggle<CR>",       -- Maximise buffer
-        ['<Leader>f'] = {map=[[/]], opts={silent=false}},            -- Find
-        ['<Leader>F'] = {map=[[:%s///g<Left><Left><Left>]], opts={silent=false}},  -- Replace
+        ['<Leader><Esc>'] = ":Telescope buffers<CR>",     -- Buffers
         ['<Leader>q'] = ":q<CR>",                      -- L-q to quit
         ['<Leader>Q'] = ":q!<CR>",                     -- L-Q to quit without saving
         ['<Leader>d'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change dir to current
@@ -143,7 +141,8 @@ LEADER_MAPS = {
         ['<Leader>T'] = ":tabedit<CR>",                -- New tab
         ['<Leader>c'] = ":ToggleCL<CR>",               -- Toggle qflist
         ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
-        ['<Leader>s'] = ":setl spell!<CR>",               -- Toggle spelling
+        ['<Leader>s'] = ":setl spell!<CR>",            -- Toggle spelling
+        ['<Leader>z'] = ":ZenMode<CR>",                -- Toggle ZenMode
     },
 }
 TERMINAL_MAPS = {
@@ -267,21 +266,6 @@ GIT_MAPS = {
         ['<Leader>gc'] = ':GV<CR>',
     },
 }
-HARPOON_MAPS = {
-    [''] = {
-        ['<Leader>i'] = ":Harpoon<CR>",                -- Show Harpoon
-        ['<Leader>I'] = ":HarpoonMark<CR>",            -- Mark for harpoon
-        ['<leader>1'] = ':HarpoonNav 1<CR>',
-        ['<leader>2'] = ':HarpoonNav 2<CR>',
-        ['<leader>3'] = ':HarpoonNav 3<CR>',
-        ['<leader>4'] = ':HarpoonNav 4<CR>',
-        ['<leader>5'] = ':HarpoonNav 5<CR>',
-        ['<leader>6'] = ':HarpoonNav 6<CR>',
-        ['<leader>7'] = ':HarpoonNav 7<CR>',
-        ['<leader>8'] = ':HarpoonNav 8<CR>',
-        ['<leader>9'] = ':HarpoonNav 9<CR>',
-    }
-}
 PACKER_MAPS = {
     [''] = {
         ['<Leader>pp'] = ':PackerSync<CR>',
@@ -295,7 +279,7 @@ PACKER_MAPS = {
 TELESCOPE_MAPS = {
     [''] = {
         ['<Leader>tb'] = ":Telescope buffers<CR>",                    -- Switch between buffers
-        ['<Leader>tr'] = ":Telescope oldfiles<CR>",                   -- Recently changed files
+        ['<Leader>to'] = ":Telescope oldfiles<CR>",                   -- Recently changed files
         ['<Leader>tf'] = ":Telescope current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
         ['<Leader>tg'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
         ['<Leader>tt'] = ":Telescope treesitter<CR>",
@@ -330,7 +314,6 @@ M.load_mappings = function()
         ARROW_MAPS,
         LSP_MAPS,
         GIT_MAPS,
-        HARPOON_MAPS,
         PACKER_MAPS,
         TELESCOPE_MAPS,
     }

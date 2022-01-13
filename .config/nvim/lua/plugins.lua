@@ -17,7 +17,6 @@ PLUGINS = function()
         requires = {
             "hrsh7th/cmp-nvim-lsp",
             "williamboman/nvim-lsp-installer",
-            'https://gitlab.com/yorickpeterse/nvim-pqf',
         },
         config = configs.lspconfig,
     }
@@ -62,17 +61,8 @@ PLUGINS = function()
 
     use {  -- Better terminals
         "akinsho/toggleterm.nvim",
-        requires = {
-            'jpalardy/vim-slime',
-        },
+        requires = {'jpalardy/vim-slime'},
         config = configs.toggleterm,
-    }
-
-    use {  -- iv/av: Text objects for substrings in snake/camel/kebab case
-        'Julian/vim-textobj-variable-segment',
-        requires = {
-            'kana/vim-textobj-user'
-        }
     }
 
     use {  -- Better git interactions
@@ -86,12 +76,6 @@ PLUGINS = function()
         config = configs.gitsigns,
     }
 
-    use {  -- File switching
-        "ThePrimeagen/harpoon",
-        requires={'nvim-lua/plenary.nvim'},
-        config = configs.harpoon,
-    }
-
     use {  -- Better statusline
         'nvim-lualine/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons'},
@@ -103,12 +87,6 @@ PLUGINS = function()
         config = configs.alpha,
     }
 
-    use {  -- Firefox injection
-        'glacambre/firenvim',
-        run = function() vim.fn['firenvim#install'](0) end,
-        config = configs.firenvim,
-    }
-
     use {  -- Colors Hex codes
         "norcalli/nvim-colorizer.lua",
         config = function() require("colorizer").setup({'*'}, {names=false}) end
@@ -116,18 +94,24 @@ PLUGINS = function()
 
     use {  -- Colorscheme
         "ellisonleao/gruvbox.nvim",
-        requires = { "rktjmp/lush.nvim", },
+        requires = {"rktjmp/lush.nvim"},
         config = configs.gruvbox,
     }
 
     use {  -- Indent guides
         "lukas-reineke/indent-blankline.nvim",
-            config = configs.indent_blankline,
-        }
+        config = configs.indent_blankline,
+    }
 
     use {  -- Better f/t targets
         "unblevable/quick-scope",
         config = configs.quickscope,
+    }
+
+    use {  -- Firefox injection
+        'glacambre/firenvim',
+        run = function() vim.fn['firenvim#install'](0) end,
+        config = configs.firenvim,
     }
 
     -- use {  -- Notes plugin
@@ -140,25 +124,30 @@ PLUGINS = function()
     --     -- requires = {'jakewvincent/mkdnflow.nvim',}
     --     config = configs.wiki,
     -- }
-
-    use {  -- TODO
-        'simrat39/symbols-outline.nvim'  -- aerial.nvim also looks cool
+    use {
+        "folke/zen-mode.nvim",
+        requires = {"folke/twilight.nvim"},
+        config = function() require("zen-mode").setup({}) end
     }
 
+    use {  -- iv/av: Text objects for substrings in snake/camel/kebab case
+        'Julian/vim-textobj-variable-segment',
+        requires = {'kana/vim-textobj-user'}
+    }
+
+    -- TODO Replace Neoformat with 'jose-elias-alvarez/null-ls.nvim' or 'mhartington/formatter.nvim'
     use {  -- Smaller plugins
-        'tpope/vim-repeat',                 -- Better .-repeat actions
-        'tpope/vim-surround',               -- cs]} : Change surrounding brackets
-        'tpope/vim-commentary',             -- gc<motion> : toggle comments
-        'tpope/vim-abolish',                -- <sel>crs : coerce to snake_case
-        'vim-utils/vim-man',
-        'sbdchd/neoformat',
-        'alec-gibson/nvim-tetris',
-        'danilamihailov/beacon.nvim',       -- Ping cursor location after jump
-        'wellle/targets.vim',               -- More text objects
-        'michaeljsmith/vim-indent-object',  -- select indent levels with ii or ai
-        'szw/vim-maximizer',                -- Toggle maximise buffer
-        'tommcdo/vim-lion',                 -- align selection with gl<obj><char>
-        'Vimjas/vim-python-pep8-indent',    -- Fix for auto-indent in treesitter
+        'tpope/vim-repeat',                           -- Better .-repeat actions
+        'tpope/vim-surround',                         -- cs]} : Change surrounding brackets
+        'tpope/vim-commentary',                       -- gc<motion> : toggle comments
+        'tpope/vim-abolish',                          -- <sel>crs : coerce to snake_case
+        'sbdchd/neoformat',                           -- :Neoformat yapf
+        'alec-gibson/nvim-tetris',                    -- :Tetris
+        'danilamihailov/beacon.nvim',                 -- Ping cursor location after jump
+        'wellle/targets.vim',                         -- More text objects
+        'tommcdo/vim-lion',                           -- align selection with gl<obj><char>
+        'Vimjas/vim-python-pep8-indent',              -- Fix for auto-indent in treesitter
+        'https://gitlab.com/yorickpeterse/nvim-pqf',  -- nicer qf list
     }
 end
 

@@ -10,6 +10,9 @@ M.telescope = function()
                 n = {
                     ["q"] = actions.close  -- Make q close telescope window
                 },
+                i = {
+                    ["<esc>"] = actions.close
+                },
             },
         }
     })
@@ -153,7 +156,7 @@ M.treesitter = function()
         -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
         highlight = {
             enable = true,
-            disable = {"markdown", },
+            -- disable = {"markdown", },
             -- additional_vim_regex_highlighting = true,
         },
         indent = {
@@ -354,6 +357,7 @@ M.lir = function()
     vim.cmd[[command! Lir lua require('lir.float').toggle()]]
 end
 
+-- Might get rid of this soon, once I figure out how to get these fortunes on MOTD
 M.alpha = function()
     local alpha = require('alpha')
     local dashboard = require("alpha.themes.dashboard")
@@ -370,13 +374,12 @@ M.alpha = function()
         "                                                     ",
     }
     dashboard.section.buttons.val = {
-        dashboard.button("f", "  > Find file", ":cd $HOME/Workspace | Telescope find_files<CR>"),
-        dashboard.button("j", "龎 > Notes"    , ":e ~/Dropbox/Journals | silent cd %:p:h<CR>"),
-        dashboard.button("d", "  > Explore directory" , ":lua require'lir.float'.toggle()<CR>"),
-        dashboard.button("r", "  > Recent"   , ":Telescope oldfiles<CR>"),
-        dashboard.button("n", "  > New file" , ":enew <CR>"),
-        dashboard.button("s", "  > Settings" , ":e $MYVIMRC | :cd %:p:h<CR>"),
-        dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
+        dashboard.button("n", "  > Notes", ":e ~/Dropbox/Journals | silent cd %:p:h<CR>"),
+        dashboard.button("d", "  > Explore directory", ":lua require'lir.float'.toggle()<CR>"),
+        dashboard.button("f", "  > New file", ":enew <CR>"),
+        dashboard.button("r", "  > Find recent", ":Telescope oldfiles<CR>"),
+        dashboard.button("s", "  > Settings", ":e $MYVIMRC | :cd %:p:h<CR>"),
+        dashboard.button("q", "  > Quit NVIM", ":q<CR>"),
     }
     dashboard.section.footer.val = fortune()
 
@@ -518,16 +521,8 @@ M.toggleterm = function()
 end
 
 M.lualine = function()
-    -- local gps = require("nvim-gps")
-    -- require("lualine").setup({
-    --     sections = {
-    --             lualine_c = {
-    --                 { gps.get_location, cond = gps.is_available },
-    --             }
-    --     }
-    -- })
-
-    require'lualine'.setup {
+    local gps = require("nvim-gps")
+    require('lualine').setup {
         options = {
             icons_enabled = true,
             theme = 'gruvbox',
@@ -538,9 +533,9 @@ M.lualine = function()
         },
         sections = {
             lualine_a = {'mode'},
-            lualine_b = {'branch', 'diff', 'diagnostics'},
-            lualine_c = {'filename',},
-            lualine_x = {'encoding', 'fileformat', 'filetype'},
+            lualine_b = {'branch', 'diff'},
+            lualine_c = {'filename', {gps.get_location, cond = gps.is_available}},
+            lualine_x = {'filetype'},
             lualine_y = {'location', 'progress'},
             lualine_z = {'tabs'},
         },
