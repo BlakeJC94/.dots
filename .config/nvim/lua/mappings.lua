@@ -20,9 +20,6 @@ VIM_MAPS = {
         ['<C-l>'] = ':set hls!<CR><C-l>',
         -- gJ to split lines
         ['gJ'] = 'm`i<CR><Esc>``',
-        -- Make {/} don't change the the jumplist
-        ['{'] = ':<C-u>keepjumps norm! {<CR>',
-        ['}'] = ':<C-u>keepjumps norm! }<CR>',
         -- Navigate quickfix lists
         ['[l'] = ':<C-U>lprevious<CR>zv',
         [']l'] = ':<C-U>lnext<CR>zv',
@@ -50,6 +47,9 @@ VIM_MAPS = {
         ['g<Space>'] = 'i ',
         -- J doesn't move cursor
         ['J'] = 'mzJ`z',
+        -- Make {/} don't change the the jumplist
+        ['{'] = ':<C-u>keepjumps norm! {<CR>',
+        ['}'] = ':<C-u>keepjumps norm! }<CR>',
         -- Change selected word (forward/backwards), . to repeat
         ['c*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``cgn",
         ['c#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``cgN",
@@ -228,8 +228,8 @@ ARROW_MAPS = {
 LSP_MAPS = {
     [''] = {
         -- Navigate diagnostics
-        [']e'] = ':lua vim.lsp.diagnostic.goto_next()<CR>',
-        ['[e'] = ':lua vim.lsp.diagnostic.goto_prev()<CR>',
+        [']e'] = ':lua vim.diagnostic.goto_next()<CR>',
+        ['[e'] = ':lua vim.diagnostic.goto_prev()<CR>',
         -- LSP bindings
         ['gd'] = ':LspDefinition<CR>',
         ['gD'] = ':LspDeclaration<CR>',

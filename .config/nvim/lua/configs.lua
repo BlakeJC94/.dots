@@ -94,6 +94,17 @@ M.lspconfig = function()
 end
 
 M.treesitter = function()
+    -- MINIMAL CONFIG
+    -- require'nvim-treesitter.configs'.setup {
+    --     ensure_installed = {"markdown"},
+    --     highlight = {
+    --         enable = true,
+    --         custom_captures = {
+    --               ["Spell"] = "SpellBad",
+    --         },
+    --     },
+    -- }
+
     local treesitter_config = require('nvim-treesitter.configs')
 
     local commentstrings = {
@@ -142,6 +153,7 @@ M.treesitter = function()
         -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
         highlight = {
             enable = true,
+            disable = {"markdown", },
             -- additional_vim_regex_highlighting = true,
         },
         indent = {
@@ -173,8 +185,6 @@ M.treesitter = function()
         },
     })
 
-    -- require('spellsitter').setup()
-
     require('treesitter-context').setup({
         enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
         throttle = true, -- Throttles plugin updates (may improve performance)
@@ -201,6 +211,9 @@ M.treesitter = function()
             --   },
         },
     })
+
+    require('spellsitter').setup()
+    require("nvim-gps").setup()
 end
 
 M.cmp = function()
@@ -505,6 +518,15 @@ M.toggleterm = function()
 end
 
 M.lualine = function()
+    -- local gps = require("nvim-gps")
+    -- require("lualine").setup({
+    --     sections = {
+    --             lualine_c = {
+    --                 { gps.get_location, cond = gps.is_available },
+    --             }
+    --     }
+    -- })
+
     require'lualine'.setup {
         options = {
             icons_enabled = true,

@@ -19,7 +19,7 @@ LSP_COMMANDS = {
     LspSignature=[[lua vim.lsp.buf.signature_help()]],
     LspCodeAction=[[lua vim.lsp.buf.code_action()]],
     LspFormat=[[lua vim.lsp.buf.formatting()]],
-    LspLineDiagnostics=[[lua vim.lsp.diagnostic.show_line_diagnostics()]],
+    LspLineDiagnostics=[[lua vim.diagnostic.open_float()]],
     LspIncomingCalls=[[lua vim.lsp.buf.incoming_calls()]],
     LspOutgoingCalls=[[lua vim.lsp.buf.outgoing_calls()]],
     LspListWorkspaceFolders=[[lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))]],
@@ -48,8 +48,8 @@ TYPO_COMMANDS = {
 ABBREVS = {
     ['c'] = {
         -- Terminal command shortcuts
-        ['term']  = [[<C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=horizontal' : 'term')<CR>]],
-        ['vterm'] = [[<C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=vertical' : 'vterm')<CR>]],
+        ['term']  = [[<C-r>=(getcmdtype()==':' ? 'ToggleTerm direction=horizontal' : 'term')<CR>]],
+        ['vterm'] = [[<C-r>=(getcmdtype()==':' ? 'ToggleTerm direction=vertical' : 'vterm')<CR>]],
         -- Terminal app shotcuts
         ['bashtop'] = [[<C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'call v:lua.bashtop_toggle()' : 'bashtop')<CR>]],
         ['nvtop']   = [[<C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'call v:lua.nvtop_toggle()' : 'nvtop')<CR>]],

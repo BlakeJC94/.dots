@@ -45,6 +45,7 @@ PLUGINS = function()
             'nvim-treesitter/nvim-treesitter-textobjects',
             'romgrk/nvim-treesitter-context',
             'lewis6991/spellsitter.nvim',
+            "SmiteshP/nvim-gps",
         },
         run = ':TSUpdate',
         config = configs.treesitter,
