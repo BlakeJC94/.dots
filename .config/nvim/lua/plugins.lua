@@ -82,6 +82,11 @@ PLUGINS = function()
         config = configs.lualine,
     }
 
+    use {  -- Sidebar for more info
+        'sidebar-nvim/sidebar.nvim',
+        config = configs.sidebar,
+    }
+
     use {  -- Landing page
         'goolord/alpha-nvim',
         config = configs.alpha,
@@ -160,6 +165,7 @@ PLUGINS = function()
         'tommcdo/vim-lion',                           -- align selection with gl<obj><char>
         'Vimjas/vim-python-pep8-indent',              -- Fix for auto-indent in treesitter
         'https://gitlab.com/yorickpeterse/nvim-pqf',  -- nicer qf list
+        'sheerun/vim-polyglot',                       -- Language pack to use if TS not present
     }
 end
 

@@ -46,7 +46,7 @@ EXTRA_FILETYPE_CMDS = {
         },
         -- Always open help in vertical split
         ['help'] = {
-            {events='FileType', cmd="wincmd L"},
+            {events='FileType', cmd="wincmd L | vert resize 90"},
         },
         -- Apply options for editing text files
         ['text,tex'] = {

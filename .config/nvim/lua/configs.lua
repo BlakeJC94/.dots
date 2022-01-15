@@ -377,7 +377,7 @@ M.alpha = function()
         dashboard.button("n", "  > Notes", ":Notes<CR>"),
         dashboard.button("d", "  > Explore directory", ":Dir<CR>"),
         dashboard.button("f", "  > New file", ":enew <CR>"),
-        dashboard.button("r", "  > Find recent", ":Telescope oldfiles<CR>"),
+        dashboard.button("o", "  > Find recent", ":Telescope oldfiles<CR>"),
         dashboard.button("s", "  > Settings", ":Settings<CR>"),
         dashboard.button("q", "  > Quit NVIM", ":q<CR>"),
     }
@@ -550,6 +550,26 @@ M.lualine = function()
         tabline = {},
         extensions = {}
     }
+end
+
+M.sidebar = function()
+    require("sidebar-nvim").setup({
+        disable_default_keybindings = 1,
+        bindings = { ["q"] = function() require("sidebar-nvim").close() end },
+        open = false,
+        side = "left",
+        initial_width = 35,
+        hide_statusline = true,
+        update_interval = 1000,
+        sections = { "datetime", "git", "diagnostics", "symbols"},
+        section_separator = "-----",
+        containers = {
+            attach_shell = "/bin/sh", show_all = true, interval = 5000,
+        },
+        datetime = { format = "%a %b %d, %H:%M", clocks = { { name = "local" } } },
+        todos = { ignored_paths = { "~" } },
+        disable_closing_prompt = false
+    })
 end
 
 M.gruvbox = function()

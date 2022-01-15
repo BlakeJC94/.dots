@@ -69,6 +69,11 @@ M.new_note = function(in_str)
         title = in_str
     end
 
+    if title == "" then
+        print("Empty title recieved, aborting")
+        return
+    end
+
     -- Flatten title for file_name matching/creation
     flat_title = string.lower(title)
     flat_title = string.gsub(flat_title, '([ %[%]()%{%}%\\%/-.,=%\'%\":;><]+)', '_')

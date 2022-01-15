@@ -19,7 +19,7 @@ VIM_MAPS = {
         -- Redraw and toggle highlights
         ['<C-l>'] = ':set hls!<CR><C-l>',
         -- gJ to split lines
-        ['gJ'] = 'm`i<CR><Esc>``',
+        ['gK'] = 'm`i<CR><Esc>``',
         -- Navigate quickfix lists
         ['[l'] = ':<C-U>lprevious<CR>zv',
         [']l'] = ':<C-U>lnext<CR>zv',
@@ -143,6 +143,8 @@ LEADER_MAPS = {
         ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
         ['<Leader>s'] = ":setl spell!<CR>",            -- Toggle spelling
         ['<Leader>z'] = ":ZenMode<CR>",                -- Toggle ZenMode
+        ['<Leader>b'] = ":SidebarNvimToggle<CR>",      -- Toggle sidebar
+        ['<Leader>f'] = ":Neoformat<CR>",              -- Format buffer
     },
 }
 TERMINAL_MAPS = {
@@ -250,7 +252,7 @@ LSP_MAPS = {
 }
 GIT_MAPS = {
     [''] = {
-        -- Navigate git changes
+        -- Navigate git changes in file
         [']g'] = {map=[[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']], opts={expr=true}},
         ['[g'] = {map=[[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']], opts={expr=true}},
         -- Leader maps
@@ -263,7 +265,7 @@ GIT_MAPS = {
         ['<Leader>gb'] = ':lua require("gitsigns").blame_line({full=true})<CR>',
         ['<Leader>gS'] = ':Gitsigns stage_buffer<CR>',
         ['<Leader>gU'] = ':Gitsigns reset_buffer_index<CR>',
-        ['<Leader>gd'] = ':Gdiffsplit<CR>',
+        ['<Leader>gd'] = ':vert Gdiffsplit<CR>',
         ['<Leader>gc'] = ':GV<CR>',
     },
 }
@@ -289,7 +291,8 @@ TELESCOPE_MAPS = {
         ['<Leader>th'] = ":Telescope help_tags<CR>",
         ['<Leader>tg'] = ":Telescope git_status<CR>",
         ['<Leader>tc'] = ":Telescope quickfix<CR>",
-        ['<Leader>tc'] = ":Telescope loclist<CR>",
+        ['<Leader>tl'] = ":Telescope loclist<CR>",
+        ['<Leader>ts'] = ":Telescope spell_suggest<CR>",
     }
 }
 
