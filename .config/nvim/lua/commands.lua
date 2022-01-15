@@ -4,12 +4,16 @@ CUSTOM_COMMANDS = {
     ToggleLL=[[exec empty(filter(getwininfo(), 'v:val.loclist')) ? "lopen" : "lclose"]],
     -- Trim trailing spaces without upsetting changelist
     TrimSpaces=[[let g:tmp = winsaveview() | keeppatterns %s/\s\+$//e | call winrestview(g:tmp)]],
+    -- Edit settings
+    Settings=[[edit $MYVIMRC | cd %:p:h]],
+    -- Explore current directory
+    Dir=[[lua require('lir.float').toggle()]],
     -- Textedit toggle
     Prose=[[setl wrap colorcolumn=0 fo-=t]],
     UnProse=[[setl nowrap colorcolumn=100,101]],
     -- Open notes buffer
     Notes=[[split ~/Dropbox/Journals | silent lcd %:p:h]],
-    ProjNote={nargs='?', cmd="call v:lua.require('utils').new_note(<f-args>)"},
+    Note={nargs='?', cmd="call v:lua.require('utils').new_note(<f-args>)"},
 }
 LSP_COMMANDS = {
     LspReferences=[[lua vim.lsp.buf.references()]],

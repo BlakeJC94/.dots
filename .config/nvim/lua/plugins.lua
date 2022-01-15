@@ -137,6 +137,11 @@ PLUGINS = function()
 
     }
 
+    use {  -- Dim inactive splits
+        'sunjon/shade.nvim',
+        config = function() require('shade').setup({overlay_opacity = 50, opacity_step = 1}) end,
+    }
+
     use {  -- iv/av: Text objects for substrings in snake/camel/kebab case
         'Julian/vim-textobj-variable-segment',
         requires = {'kana/vim-textobj-user'}

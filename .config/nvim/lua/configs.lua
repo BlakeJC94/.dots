@@ -374,11 +374,11 @@ M.alpha = function()
         "                                                     ",
     }
     dashboard.section.buttons.val = {
-        dashboard.button("n", "  > Notes", ":e ~/Dropbox/Journals | silent cd %:p:h<CR>"),
-        dashboard.button("d", "  > Explore directory", ":lua require'lir.float'.toggle()<CR>"),
+        dashboard.button("n", "  > Notes", ":Notes<CR>"),
+        dashboard.button("d", "  > Explore directory", ":Dir<CR>"),
         dashboard.button("f", "  > New file", ":enew <CR>"),
         dashboard.button("r", "  > Find recent", ":Telescope oldfiles<CR>"),
-        dashboard.button("s", "  > Settings", ":e $MYVIMRC | :cd %:p:h<CR>"),
+        dashboard.button("s", "  > Settings", ":Settings<CR>"),
         dashboard.button("q", "  > Quit NVIM", ":q<CR>"),
     }
     dashboard.section.footer.val = fortune()
