@@ -9,10 +9,7 @@ CUSTOM_COMMANDS = {
     UnProse=[[setl nowrap colorcolumn=100,101]],
     -- Open notes buffer
     Notes=[[split ~/Dropbox/Journals | silent lcd %:p:h]],
-    -- NewNote=[[call v:lua.require('utils').open_notes()]],
-    -- TODO
-    -- * Make `NewNote` ask for a title if no arg is given
-    -- * Make `ProjectNote` autogen a title based on git/dir name and call `NewNote`
+    ProjNote={nargs='?', cmd="call v:lua.require('utils').new_note(<f-args>)"},
 }
 LSP_COMMANDS = {
     LspReferences=[[lua vim.lsp.buf.references()]],
@@ -70,6 +67,9 @@ M.apply_commands = function(commands)
             local cmd_str = {'command!'}
             if val.bang == true then
                 table.insert(cmd_str, '-bang')
+            end
+            if val.count then
+                table.insert(cmd_str, '-count=' .. val.count)
             end
             if val.nargs then
                 table.insert(cmd_str, '-nargs=' .. val.nargs)

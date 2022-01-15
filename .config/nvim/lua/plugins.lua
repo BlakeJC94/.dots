@@ -124,10 +124,17 @@ PLUGINS = function()
     --     -- requires = {'jakewvincent/mkdnflow.nvim',}
     --     config = configs.wiki,
     -- }
+
     use {
         "folke/zen-mode.nvim",
         requires = {"folke/twilight.nvim"},
         config = function() require("zen-mode").setup({}) end
+    }
+
+    use {
+        'mhartington/formatter.nvim',
+        config = function() require('formatter').setup({}) end
+
     }
 
     use {  -- iv/av: Text objects for substrings in snake/camel/kebab case
@@ -135,7 +142,7 @@ PLUGINS = function()
         requires = {'kana/vim-textobj-user'}
     }
 
-    -- TODO Replace Neoformat with 'jose-elias-alvarez/null-ls.nvim' or 'mhartington/formatter.nvim'
+    -- TODO Replace Neoformat with 'mhartington/formatter.nvim'
     use {  -- Smaller plugins
         'tpope/vim-repeat',                           -- Better .-repeat actions
         'tpope/vim-surround',                         -- cs]} : Change surrounding brackets

@@ -148,9 +148,10 @@ LEADER_MAPS = {
 TERMINAL_MAPS = {
     [''] = {
         -- Toggle terminal
-        ['<C-z>'] = ":exe v:count . 'ToggleTerm direction=float'<CR>",
-        -- ['<C-z>_']     = ":exe v:count . 'ToggleTerm direction=horizontal'<CR>",
-        -- ['<C-z>|']     = ":exe v:count . 'ToggleTerm direction=vertical'<CR>",
+        -- ['<C-z>'] = "<cmd>exe (v:count > 0 ? v:count : '' ) . 'ToggleTerm direction=float'<CR>",
+        ['<C-z>'] = "<cmd>exe v:count . 'ToggleTerm direction=float'<CR>",
+        -- ['<C-z>_']     = ":exe v:count1 . 'ToggleTerm direction=horizontal'<CR>",
+        -- ['<C-z>|']     = ":exe v:count1 . 'ToggleTerm direction=vertical'<CR>",
         -- ['<C-z>n']     = ":call v:lua.nvtop_toggle()<CR>",
         -- ['<C-z>t']     = ":call v:lua.bashtop_toggle()<CR>",
         -- ['<C-z>g']     = ":call v:lua.lazygit_toggle()<CR>",
@@ -278,12 +279,17 @@ PACKER_MAPS = {
 }
 TELESCOPE_MAPS = {
     [''] = {
+        ['<Leader>tt'] = ":Telescope<CR>",                            -- Find Telescopes
         ['<Leader>tb'] = ":Telescope buffers<CR>",                    -- Switch between buffers
+        ['<Leader>tr'] = ":Telescope registers<CR>",                  -- Switch between buffers
         ['<Leader>to'] = ":Telescope oldfiles<CR>",                   -- Recently changed files
         ['<Leader>tf'] = ":Telescope current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
-        ['<Leader>tg'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
-        ['<Leader>tt'] = ":Telescope treesitter<CR>",
+        ['<Leader>tF'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
+        ['<Leader>tv'] = ":Telescope treesitter<CR>",
         ['<Leader>th'] = ":Telescope help_tags<CR>",
+        ['<Leader>tg'] = ":Telescope git_status<CR>",
+        ['<Leader>tc'] = ":Telescope quickfix<CR>",
+        ['<Leader>tc'] = ":Telescope loclist<CR>",
     }
 }
 
