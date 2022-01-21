@@ -5,15 +5,19 @@ CUSTOM_COMMANDS = {
     -- Trim trailing spaces without upsetting changelist
     TrimSpaces=[[let g:tmp = winsaveview() | keeppatterns %s/\s\+$//e | call winrestview(g:tmp)]],
     -- Edit settings
-    Settings=[[edit $MYVIMRC | cd %:p:h]],
+    Settings=[[edit $MYVIMRC | lcd %:p:h]],
     -- Explore current directory
     Dir=[[lua require('lir.float').toggle()]],
+    -- Debug syntax highlights
+    Syn=[[call v:lua.require("utils").show_syntax_group()]],
     -- Textedit toggle
     Prose=[[setl wrap colorcolumn=0 fo-=t]],
     UnProse=[[setl nowrap colorcolumn=100,101]],
     -- Open notes buffer
     Notes=[[split ~/Dropbox/Journals | silent lcd %:p:h]],
     Note={nargs='?', cmd="call v:lua.require('utils').new_note(<f-args>)"},
+    -- args test
+    -- TestFunc={count='0', cmd="call v:lua.require('utils').edit_func_arg(<count>)"},
 }
 LSP_COMMANDS = {
     LspReferences=[[lua vim.lsp.buf.references()]],

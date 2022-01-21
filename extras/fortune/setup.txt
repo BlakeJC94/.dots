@@ -1,0 +1,32 @@
+
+To add a new database to `fortune`, create a file `quotes` with the following:
+
+```
+Limits exist only in your mind!
+%
+"Maybe this world is another planet’s hell."
+— Aldous Huxley
+%
+"Choices are the hinges of destiny." —Edwin Markham
+%
+“Sometimes it’s the smallest decisions that can
+change your life forever." —Keri Russell
+%
+“We are the creative force of our life, and through our
+own decisions rather than our conditions, if we carefully
+learn to do certain things, we can accomplish
+those goals.” —Stephen Covey
+```
+
+Generate headers datfile using `strfile`:
+
+```bash
+$ strfile -c % quotes quotes.dat
+```
+
+Access new fortunes:
+```bash
+$ fortune quotes
+```
+
+Source: https://askubuntu.com/questions/36523/creating-a-fortunes-file

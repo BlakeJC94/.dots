@@ -82,15 +82,10 @@ PLUGINS = function()
         config = configs.lualine,
     }
 
-    use {  -- Sidebar for more info
-        'sidebar-nvim/sidebar.nvim',
-        config = configs.sidebar,
-    }
-
-    use {  -- Landing page
-        'goolord/alpha-nvim',
-        config = configs.alpha,
-    }
+    -- use {  -- Landing page
+    --     'goolord/alpha-nvim',
+    --     config = configs.alpha,
+    -- }
 
     use {  -- Colors Hex codes
         "norcalli/nvim-colorizer.lua",
@@ -105,6 +100,7 @@ PLUGINS = function()
 
     use {  -- Indent guides
         "lukas-reineke/indent-blankline.nvim",
+        requires = {"lukas-reineke/virt-column.nvim"},
         config = configs.indent_blankline,
     }
 
@@ -139,12 +135,6 @@ PLUGINS = function()
     use {
         'mhartington/formatter.nvim',
         config = function() require('formatter').setup({}) end
-
-    }
-
-    use {  -- Dim inactive splits
-        'sunjon/shade.nvim',
-        config = function() require('shade').setup({overlay_opacity = 50, opacity_step = 1}) end,
     }
 
     use {  -- iv/av: Text objects for substrings in snake/camel/kebab case
@@ -157,8 +147,9 @@ PLUGINS = function()
         'tpope/vim-repeat',                           -- Better .-repeat actions
         'tpope/vim-surround',                         -- cs]} : Change surrounding brackets
         'tpope/vim-commentary',                       -- gc<motion> : toggle comments
-        'tpope/vim-abolish',                          -- <sel>crs : coerce to snake_case
-        'sbdchd/neoformat',                           -- :Neoformat yapf
+        'tpope/vim-abolish',                          -- crs : coerce cursor work to snake_case
+        'tpope/vim-obsession',
+        -- 'sbdchd/neoformat',                           -- :Neoformat yapf
         'alec-gibson/nvim-tetris',                    -- :Tetris
         'danilamihailov/beacon.nvim',                 -- Ping cursor location after jump
         'wellle/targets.vim',                         -- More text objects

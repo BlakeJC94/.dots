@@ -25,7 +25,7 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -139,9 +139,11 @@ export NODE\_OPTIONS=--experimental-worker
 # pyenv setup
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+if [[ "$(command -v pyenv)" ]]; then
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+    # export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+fi
 
 # using vim as man pager
 # if [[ "$(command -v vim)" ]]; then
@@ -160,3 +162,12 @@ stty -ixon
 
 # Add ZK environment variable
 export ZK_NOTEBOOK_DIR="$HOME/Dropbox/Journals/"
+
+# print a fortune when starting up a bash session
+if [[ "$(command -v fortune)" ]] && [[ -f ~/.dots/extras/fortune/programming-tips ]]; then
+    if [[ "$(command -v colorize)" ]]; then
+        fortune $HOME/.dots/extras/fortune/programming-tips | colorize magenta
+    else
+        fortune $HOME/.dots/extras/fortune/programming-tips
+    fi
+fi

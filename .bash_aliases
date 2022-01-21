@@ -3,8 +3,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# lazygit alias
-alias g='lazygit'
+# git status alias
+alias g='git status'
 
 # More aliases
 alias aptup="sudo apt update && sudo apt upgrade -y"
@@ -13,6 +13,7 @@ alias lsl="ls -lhFA | less"
 alias :q="exit"
 alias bat="batcat"
 alias gitup="git commit -a && git push"
+alias less="less -R"
 
 # Simple custom functions
 function mann() {

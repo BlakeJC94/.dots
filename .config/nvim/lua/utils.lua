@@ -111,8 +111,18 @@ M.new_note = function(in_str)
     -- Open in vertical split and move cursor to end of file
     vim.cmd("vsplit | edit " .. note_path)
     vim.cmd("normal! G$")
-
 end
+
+-- M.edit_func_arg = function(count)
+--     print(count)
+--     local match = false
+--     if count == 0 then
+--         print('count 0 : go to next ')
+--     else if count > 0 then
+--         print('count = N > 0 : go to Nth arg')
+--     end
+--     return
+-- end
 
 return M
 

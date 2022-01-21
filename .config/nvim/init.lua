@@ -40,10 +40,11 @@ local behaviour_options = {
 }
 local layout_options = {
     -- WINDOW DISPLAY
-    splitbelow    = true,    -- Open splits below
-    splitright    = true,    -- Open vsplits on right
-    termguicolors = true,    -- Wider colorscheme support
-    background    = 'dark',  -- Background mode
+    splitbelow    = true,              -- Open splits below
+    splitright    = true,              -- Open vsplits on right
+    shortmess     = vim.o.shm .. "I",  -- Disable into message
+    termguicolors = true,              -- Wider colorscheme support
+    background    = 'dark',            -- Background mode
     -- LINE DISPLAY
     scrolloff      = 8,          -- N lines to keep visible above/below cursor
     sidescrolloff  = 8,          -- N columns to keep visible left/right of cursor
@@ -70,7 +71,7 @@ local layout_options = {
     cmdheight  = 2,     -- Set height of command window
     wildignore = {'*.pyc', '**/.git/*', '**/data/*'},
     -- TOP MARGIN
-    title = true,     -- Show doc name in terminal window title
+    -- title = true,     -- Show doc name in terminal window title
     showtabline = 0,  -- Display tab line
 }
 

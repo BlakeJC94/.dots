@@ -2,6 +2,7 @@ DEFAULT_CMDS = {
     name='default_cmds',
     cmds={
         ['*'] = {
+            -- {events='VimEnter', cmd="startinsert"},
             {events='VimResized',  cmd="wincmd ="},                  -- Auto-resize windows
             {events='BufWritePre', cmd="retab"},                     -- Replace tabs
             {events='BufWritePre', cmd="TrimSpaces"},                -- Autoremove whitespace
@@ -44,14 +45,14 @@ EXTRA_FILETYPE_CMDS = {
         ['vim,help'] = {
             {events='FileType', cmd="nnoremap <buffer> K :h <C-r>=expand('<cword>')<CR><CR>"},
         },
-        -- Always open help in vertical split
-        ['help'] = {
+        -- Always open help and fugitive in vertical split
+        ['help,fugitive'] = {
             {events='FileType', cmd="wincmd L | vert resize 90"},
         },
         -- Apply options for editing text files
-        ['text,tex'] = {
-            {events='FileType', cmd="Prose"}
-        }
+        -- ['text,tex'] = {
+        --     {events='FileType', cmd="Prose"}
+        -- }
     }
 }
 SET_PRGS = {

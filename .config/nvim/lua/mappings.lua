@@ -17,7 +17,7 @@ VIM_MAPS = {
         -- Unmap Q
         ['Q'] = '',
         -- Redraw and toggle highlights
-        ['<C-l>'] = ':set hls!<CR><C-l>',
+        -- ['<C-l>'] = ':set hls!<CR><C-l>',
         -- gJ to split lines
         ['gK'] = 'm`i<CR><Esc>``',
         -- Navigate quickfix lists
@@ -135,15 +135,18 @@ LEADER_MAPS = {
         ['<Leader><Esc>'] = ":Telescope buffers<CR>",     -- Buffers
         ['<Leader>q'] = ":q<CR>",                      -- L-q to quit
         ['<Leader>Q'] = ":q!<CR>",                     -- L-Q to quit without saving
-        ['<Leader>d'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change dir to current
+        ['<Leader>d'] = ":lcd %:p:h<CR>:pwd<CR>",       -- Change dir to current
+        ['<Leader>D'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change dir to current
         ['<Leader>n'] = ":enew<CR>",                   -- New file
         ['<Leader>N'] = ":bufdo bdel | enew<CR>",      -- New session
         ['<Leader>T'] = ":tabedit<CR>",                -- New tab
+        ['<Leader>h'] = ":set hls!<CR>",               -- Toggle highlights
         ['<Leader>c'] = ":ToggleCL<CR>",               -- Toggle qflist
         ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
         ['<Leader>s'] = ":setl spell!<CR>",            -- Toggle spelling
+        ['<Leader>;'] = ":Settings<CR>",               -- Edit settings
+        ['<Leader>:'] = ":luafile $MYVIMRC<CR>",       -- Reload settings
         ['<Leader>z'] = ":ZenMode<CR>",                -- Toggle ZenMode
-        ['<Leader>b'] = ":SidebarNvimToggle<CR>",      -- Toggle sidebar
         ['<Leader>f'] = ":Neoformat<CR>",              -- Format buffer
     },
 }
@@ -256,6 +259,7 @@ GIT_MAPS = {
         [']g'] = {map=[[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']], opts={expr=true}},
         ['[g'] = {map=[[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']], opts={expr=true}},
         -- Leader maps
+        ['<Leader>G']  = ':Git<CR>',
         ['<Leader>gg'] = ':Gitsigns setqflist<CR>',
         ['<Leader>gs'] = ':Gitsigns stage_hunk<CR>',
         ['<Leader>gu'] = ':Gitsigns undo_stage_hunk<CR>',

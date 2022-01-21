@@ -25,7 +25,7 @@ M.lspconfig = function()
     -- Configure diagnostics
     vim.diagnostic.config({
         virtual_text = false,
-        signs = true,
+        signs = false,
         underline = true,
         update_in_insert = false,
         severity_sort = false,
@@ -429,8 +429,10 @@ M.indent_blankline = function()
         },
         buftype_exclude = {"terminal",},
     })
-
     vim.cmd("highlight IndentBlanklineContextChar guifg=#a89984 gui=nocombine")
+
+    require("virt-column").setup({virtcolumn = "║"})
+    vim.cmd("highlight VirtColumn guifg=#a89984")
 end
 
 M.quickscope = function()
