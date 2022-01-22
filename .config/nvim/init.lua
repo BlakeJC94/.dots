@@ -1,34 +1,25 @@
-local cmd = vim.cmd
-local opt = vim.opt
-local g = vim.g
+-- -- BLAKEJC94S NEOVIM INIT.LUA ------------------------------------------------------------------
+plugins    = require('plugins')     -- ~/.config/nvim/lua/plugins.lua
+configs    = require('configs')     -- ~/.config/nvim/lua/configs.lua
+utils      = require('utils')       -- ~/.config/nvim/lua/utils.lua
+commands   = require('commands')    -- ~/.config/nvim/lua/commands.lua
+mappings   = require('mappings')    -- ~/.config/nvim/lua/mappings.lua
+autogroups = require('autogroups')  -- ~/.config/nvim/lua/autogroups.lua
 
-plugins = require('plugins')
-mappings = require('mappings')
 
--- -- PLUGINS ---------------------------------------------------------
--- Download plugins with ~/.config/nvim/lua/plugins.lua
--- Configure plugins with ~/.config/nvim/lua/plugin_configs.lua
+-- -- CONFIGURE PLUGINS ---------------------------------------------------------------------------
 plugins.setup_packer()
 plugins.disable_built_ins()
 plugins.load_plugins()
 
--- -- LOAD CUSTOM FUNCTIONS ----------------------------------------------
-cmd [[source ~/.config/nvim/vimscript/functions.vim]]
-cmd [[source ~/.config/nvim/vimscript/autocmds.vim]]
-
--- -- LOAD MAPPINGS ------------------------------------------------------
-mappings.load_mappings()
--- cmd [[source ~/.config/nvim/vimscript/mappings.vim]]
-cmd [[source ~/.config/nvim/vimscript/mappings-leader.vim]]
-cmd [[source ~/.config/nvim/vimscript/mappings-insert.vim]]
-
--- -- LOAD OPTIONS ----------------------------------------------
-
+-- -- SET OPTIONS ---------------------------------------------------------------------------------
 local behaviour_options = {
     -- MAIN INPUT/OUTPUT
-    clipboard   = "unnamedplus",
-    ttimeoutlen = 10,   --
-    updatetime  = 500,  --
+    clipboard     = "unnamedplus",  -- Allows vim to use "+ for yanks
+    timeoutlen    = 1000,           -- Time (ms) between key sequences
+    ttimeoutlen   = 10,             -- Time (ms) between key sequences in terminal
+    updatetime    = 300,            -- Time (ms) between swapfile writes
+    virtualedit   = "block",        -- Allow cursor to move anywhere ('all', 'block', 'insert')
     -- TABS AND INDENTS
     smartindent = true,  -- Enable better indenting
     tabstop     = 4,     -- Number of space chars for each tab char
@@ -36,62 +27,67 @@ local behaviour_options = {
     shiftwidth  = 4,     -- Number of space chars used when auto-indenting
     expandtab   = true,  -- Replace tabs with spaces when indenting with </>
     -- SEARCHING
-    incsearch  = true,   -- HL while typing, smartcase search
-    ignorecase = true,   --
-    smartcase  = true,   --
-    hlsearch   = false,  --
+    ignorecase = true,   -- Ignore cases in search patterns
+    smartcase  = true,   -- Use case-sensitve search when an uppercase letter is used
+    hlsearch   = true,   -- Highlight matches
+    incsearch  = true,   -- Highlight matches while typing
     -- BACKUPS AND SPELLING
-    swapfile = false,  --
-    backup   = false,  --
-    spell    = true,   --
-    undofile = true,   --
-    undodir  = os.getenv "HOME" .. '/.vim/undodir',
+    swapfile = false,  -- Allow swap files
+    backup   = false,  -- Allow creation of backup files
+    spell    = true,   -- Built-in spell-checker
+    undofile = true,   -- Create global undofile
+    undodir  = os.getenv("HOME") .. '/.vim/undodir',
 }
-
 local layout_options = {
     -- WINDOW DISPLAY
-    splitbelow = true,  -- Open splits below
-    splitright = true,  -- Open vsplits on right
+    splitbelow    = true,              -- Open splits below
+    splitright    = true,              -- Open vsplits on right
+    shortmess     = vim.o.shm .. "I",  -- Disable into message
+    termguicolors = true,              -- Wider colorscheme support
+    background    = 'dark',            -- Background mode
     -- LINE DISPLAY
-    cursorline    = true,   -- Highlight current line
-    scrolloff     = 8,      -- N lines to keep visible above/below cursor
-    sidescrolloff = 8,      -- N columns to keep visible left/right of cursor
-    textwidth     = 99,     -- Margin for text input
-    wrap          = false,  --
-    linebreak     = true,   --
-    breakindent   = true,   --
-    showmatch     = true,   -- Highlight matching brackets
+    scrolloff      = 8,          -- N lines to keep visible above/below cursor
+    sidescrolloff  = 8,          -- N columns to keep visible left/right of cursor
+    textwidth      = 99,         -- Margin for text input
+    wrap           = false,      -- Soft-wrap long lines and use breakindent opts
+    linebreak      = true,       -- Only split/wrap long lines after words
+    breakindent    = true,       -- Indent soft-wrapped lines
+    breakindentopt = 'list:-1',  -- Options for breakindent
+    showbreak      = '  | ',     -- Text to print at breakindent
+    showmatch      = true,       -- Highlight matching brackets
     -- FOLDS
-    foldmethod = 'indent',        --
+    foldmethod = 'indent',        -- Auto-create folds by indent levels
     foldlevel  = 0,               -- Close all folds when opening file
-    foldtext   = 'MyFoldText()',  --
-    fillchars  = 'fold: ',        --
+    fillchars  = 'fold: ,eob: ',  -- Replace dots with spaces in fold head
+    foldtext   = 'v:lua.require("utils").my_fold_text()',  -- Custom fold text
     -- LEFT MARGIN
-    number         = true,     --
-    relativenumber = true,     -- Show rel/abs line numbers
-    -- signcolumn     = '',  -- Always show sign column beside numbers
+    number         = true,  -- Show line numbers
+    relativenumber = true,  -- Show rel/abs line numbers
+    signcolumn     = 'no',  -- Set sign column
     -- RIGHT MARGIN
-    colorcolumn = {100},  -- Set vertical margin
+    colorcolumn = {100,101},  -- Set visual vertical margin
     -- BOTTOM MARGIN
     showcmd    = true,  -- Show command in bottom right
-    cmdheight  = 2,     --
-    laststatus = 2,     -- Status line (from Mastering Vim)
-    statusline = '%F%m%r%h%w%=(%{&ff}/%Y) (line %l/%L, col %c)',
+    cmdheight  = 2,     -- Set height of command window
     wildignore = {'*.pyc', '**/.git/*', '**/data/*'},
+    -- TOP MARGIN
+    -- title = true,     -- Show doc name in terminal window title
+    showtabline = 0,  -- Display tab line
 }
 
--- Apply options
-for _, options in pairs({behaviour_options, layout_options}) do
+for _, options in ipairs({behaviour_options, layout_options}) do
     for k, v in pairs(options) do
         vim.opt[k] = v
     end
 end
 
--- Set colorscheme
-opt.termguicolors           = true
-opt.background              = 'dark'
-g.gruvbox_italic            = 1
-g.gruvbox_italicize_strings = 1
-g.gruvbox_contrast_dark     = 'hard'
-cmd [[colorscheme gruvbox]]
+-- -- LOAD CUSTOM COMMANDS ------------------------------------------------------------------------
+commands.load_commands()
+commands.load_abbrevs()
+
+-- -- LOAD MAPPINGS -------------------------------------------------------------------------------
+mappings.load_mappings()
+
+-- -- LOAD AUTOCOMMANDS ---------------------------------------------------------------------------
+autogroups.load_autogroups()
 

@@ -25,7 +25,7 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -155,4 +155,19 @@ fi
 # algodeploy tab completion
 if [ -f ~/.bash_algodeploy ]; then
     . ~/.bash_algodeploy
+fi
+
+# disable <C-s> from pausing input to terminal
+stty -ixon
+
+# Add ZK environment variable
+export ZK_NOTEBOOK_DIR="$HOME/Dropbox/Journals/"
+
+# print a fortune when starting up a bash session
+if [[ "$(command -v fortune)" ]] && [[ -f ~/.dots/extras/fortune/programming-tips ]]; then
+    if [[ "$(command -v colorize)" ]]; then
+        fortune $HOME/.dots/extras/fortune/programming-tips | colorize magenta
+    else
+        fortune $HOME/.dots/extras/fortune/programming-tips
+    fi
 fi
