@@ -24,11 +24,11 @@ PLUGINS = function()
     use {  -- Autocompletion menu
         "hrsh7th/nvim-cmp",
         requires = {
-            "dcampos/nvim-snippy",
-            "honza/vim-snippets",
+            -- "dcampos/nvim-snippy",
+            -- "honza/vim-snippets",
             "onsails/lspkind-nvim",
             "windwp/nvim-autopairs",
-            "dcampos/cmp-snippy",
+            -- "dcampos/cmp-snippy",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",

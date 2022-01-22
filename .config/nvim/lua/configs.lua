@@ -221,7 +221,7 @@ end
 
 M.cmp = function()
     local cmp = require('cmp')
-    local snippy = require('snippy')
+    -- local snippy = require('snippy')
     local lspkind = require('lspkind')
     local autopairs = require('nvim-autopairs')
     local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -234,11 +234,11 @@ M.cmp = function()
     vim.opt.completeopt = 'menu,menuone,noselect'
 
     cmp.setup({
-        snippet = {
-            expand = function(args)
-                snippy.expand_snippet(args.body)
-            end,
-        },
+        -- snippet = {
+        --     expand = function(args)
+        --         snippy.expand_snippet(args.body)
+        --     end,
+        -- },
         formatting = {format = lspkind.cmp_format({with_text = true, maxwidth = 50})},
         mapping = {
             ['<Up>'] = cmp.mapping.select_prev_item(),
@@ -257,8 +257,8 @@ M.cmp = function()
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
-                elseif snippy.can_expand_or_advance() then
-                    snippy.expand_or_advance()
+                -- elseif snippy.can_expand_or_advance() then
+                --     snippy.expand_or_advance()
                 elseif has_words_before() then
                     cmp.complete()
                 else
@@ -268,8 +268,8 @@ M.cmp = function()
             ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
-                elseif snippy.can_jump(-1) then
-                    snippy.previous()
+                -- elseif snippy.can_jump(-1) then
+                --     snippy.previous()
                 else
                     fallback()
                 end
@@ -277,7 +277,7 @@ M.cmp = function()
         },
         sources = cmp.config.sources({
             {name = 'nvim_lsp'},
-            {name = 'snippy'},
+            -- {name = 'snippy'},
             {name = 'path'},
             {name = 'latex_symbols'},
         }, {
@@ -357,7 +357,6 @@ M.lir = function()
     vim.cmd[[command! Lir lua require('lir.float').toggle()]]
 end
 
--- Might get rid of this soon, once I figure out how to get these fortunes on MOTD
 M.alpha = function()
     local alpha = require('alpha')
     local dashboard = require("alpha.themes.dashboard")
@@ -374,11 +373,11 @@ M.alpha = function()
         "                                                     ",
     }
     dashboard.section.buttons.val = {
-        dashboard.button("n", "  > Notes", ":Notes<CR>"),
-        dashboard.button("d", "  > Explore directory", ":Dir<CR>"),
-        dashboard.button("f", "  > New file", ":enew <CR>"),
-        dashboard.button("o", "  > Find recent", ":Telescope oldfiles<CR>"),
-        dashboard.button("s", "  > Settings", ":Settings<CR>"),
+        -- dashboard.button("n", "  > Notes", ":Notes<CR>"),
+        -- dashboard.button("<Leader><CR>", "  > Explore directory", ":Dir<CR>"),
+        dashboard.button("n", "  > New file", ":enew <CR>"),
+        -- dashboard.button("<Leater>to", "  > Find recent", ":Telescope oldfiles<CR>"),
+        dashboard.button(";", "  > Settings", ":Settings<CR>"),
         dashboard.button("q", "  > Quit NVIM", ":q<CR>"),
     }
     dashboard.section.footer.val = fortune()
@@ -431,8 +430,6 @@ M.indent_blankline = function()
     })
     vim.cmd("highlight IndentBlanklineContextChar guifg=#a89984 gui=nocombine")
 
-    require("virt-column").setup({virtcolumn = "║"})
-    vim.cmd("highlight VirtColumn guifg=#a89984")
 end
 
 M.quickscope = function()
@@ -465,6 +462,11 @@ M.gitsigns = function()
         linehl     = false,
         keymaps    = {}, -- Keymaps set in init.lua
         current_line_blame = true,
+        preview_config = {
+            border = 'none',
+            style = 'minimal',
+            relative = 'cursor',
+        }
     })
 end
 

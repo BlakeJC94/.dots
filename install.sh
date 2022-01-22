@@ -117,6 +117,8 @@ install_packages() {
         nvtop \
         bashtop \
         neofetch \
+        colorize \
+        fortune \
         r-base
 
     echo -e "$(yellow "\nInstalling extra python packages\n")"

@@ -2,7 +2,7 @@ DEFAULT_CMDS = {
     name='default_cmds',
     cmds={
         ['*'] = {
-            -- {events='VimEnter', cmd="startinsert"},
+            {events='VimEnter,BufNewFile', cmd="if @% == '' | exec 'Telescope find_files' | endif"},
             {events='VimResized',  cmd="wincmd ="},                  -- Auto-resize windows
             {events='BufWritePre', cmd="retab"},                     -- Replace tabs
             {events='BufWritePre', cmd="TrimSpaces"},                -- Autoremove whitespace
@@ -46,9 +46,9 @@ EXTRA_FILETYPE_CMDS = {
             {events='FileType', cmd="nnoremap <buffer> K :h <C-r>=expand('<cword>')<CR><CR>"},
         },
         -- Always open help and fugitive in vertical split
-        ['help,fugitive'] = {
-            {events='FileType', cmd="wincmd L | vert resize 90"},
-        },
+        -- ['help,fugitive'] = {
+        --     {events='FileType', cmd="wincmd L | vert resize 90"},
+        -- },
         -- Apply options for editing text files
         -- ['text,tex'] = {
         --     {events='FileType', cmd="Prose"}

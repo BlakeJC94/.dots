@@ -169,6 +169,9 @@ TERMINAL_MAPS = {
         -- ToggleTerm Hide
         ['<C-z>'] = '<C-\\><C-n>:ToggleTerm<CR>',
     },
+    i = {
+        ['<C-z>'] = "<Esc><cmd>exe v:count . 'ToggleTerm direction=float'<CR>",
+    }
 }
 ARROW_MAPS = {
     [''] = {
