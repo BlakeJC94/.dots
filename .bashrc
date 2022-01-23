@@ -137,9 +137,9 @@ alias luamake=/opt/lua-language-server/3rd/luamake/luamake
 export NODE\_OPTIONS=--experimental-worker
 
 # pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 if [[ "$(command -v pyenv)" ]]; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init --path)"
     eval "$(pyenv init -)"
     # export PYENV_VIRTUALENV_DISABLE_PROMPT=1
