@@ -2,7 +2,7 @@ DEFAULT_CMDS = {
     name='default_cmds',
     cmds={
         ['*'] = {
-            {events='VimEnter,BufNewFile', cmd="if @% == '' | exec 'Telescope find_files' | endif"},
+            -- {events='VimEnter,BufNewFile', cmd="if @% == '' | exec 'Telescope find_files' | endif"},
             {events='VimResized',  cmd="wincmd ="},                  -- Auto-resize windows
             {events='BufWritePre', cmd="retab"},                     -- Replace tabs
             {events='BufWritePre', cmd="TrimSpaces"},                -- Autoremove whitespace

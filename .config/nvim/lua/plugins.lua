@@ -132,14 +132,67 @@ PLUGINS = function()
         config = function() require("zen-mode").setup({}) end
     }
 
-    use {
-        'mhartington/formatter.nvim',
-        config = function() require('formatter').setup({}) end
-    }
-
     use {  -- iv/av: Text objects for substrings in snake/camel/kebab case
         'Julian/vim-textobj-variable-segment',
         requires = {'kana/vim-textobj-user'}
+    }
+
+    use {
+        "winston0410/range-highlight.nvim",
+        config = function() require('range-highlight').setup({}) end,
+        requires = {'winston0410/cmd-parser.nvim'}
+    }
+
+    use {
+        "jbyuki/venn.nvim",
+        config = configs.venn,
+    }
+
+    use {
+        'jose-elias-alvarez/null-ls.nvim',
+        config = function()
+            require("null-ls").setup({
+                sources = {
+                    require("null-ls").builtins.formatting.yapf,
+                },
+            })
+        end,
+    }
+
+    use {
+        'rmagatti/auto-session',
+        config = function()
+            require('auto-session').setup {
+                log_level = 'info',
+                auto_session_suppress_dirs = {'~/', '~/Projects'}
+            }
+        end
+    }
+
+    use {
+        'abecodes/tabout.nvim',
+        config = function()
+            require('tabout').setup {
+                tabkey = '<Tab>', -- key to trigger tabout, set to an empty string to disable
+                backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
+                act_as_tab = true, -- shift content if tab out is not possible
+                act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+                enable_backwards = true, -- well ...
+                completion = true, -- if the tabkey is used in a completion pum
+                tabouts = {
+                    {open = "'", close = "'"},
+                    {open = '"', close = '"'},
+                    {open = '`', close = '`'},
+                    {open = '(', close = ')'},
+                    {open = '[', close = ']'},
+                    {open = '{', close = '}'}
+                },
+                ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+                exclude = {} -- tabout will ignore these filetypes
+            }
+        end,
+        wants = {'nvim-treesitter'}, -- or require if not used so far
+        after = {'nvim-cmp'} -- if a completion plugin is using tabs load it before
     }
 
     -- TODO Replace Neoformat with 'mhartington/formatter.nvim'
@@ -156,6 +209,7 @@ PLUGINS = function()
         'tommcdo/vim-lion',                           -- align selection with gl<obj><char>
         'Vimjas/vim-python-pep8-indent',              -- Fix for auto-indent in treesitter
         'https://gitlab.com/yorickpeterse/nvim-pqf',  -- nicer qf list
+        'jbyuki/nabla.nvim',
         'sheerun/vim-polyglot',                       -- Language pack to use if TS not present
     }
 end

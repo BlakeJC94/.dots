@@ -147,7 +147,10 @@ LEADER_MAPS = {
         ['<Leader>;'] = ":Settings<CR>",               -- Edit settings
         ['<Leader>:'] = ":luafile $MYVIMRC<CR>",       -- Reload settings
         ['<Leader>z'] = ":ZenMode<CR>",                -- Toggle ZenMode
-        ['<Leader>f'] = ":Neoformat<CR>",              -- Format buffer
+        ['<Leader>f'] = ":LspFormat<CR>",              -- Format buffer
+        ['<Leader>v'] = ":lua Toggle_venn()<CR>",      -- Draw diagrams with <sel> and HJKL
+        ['<Leader>x'] = ':lua require("nabla").action()<CR>',
+        ['<Leader>X'] = ':lua require("nabla").popup()<CR>',
     },
 }
 TERMINAL_MAPS = {
