@@ -22,12 +22,12 @@ DEFAULT_CMDS = {
                 cmd="silent! call mkdir(expand('<afile>:p:h'), 'p')"
             },
         },
-        ['term://*'] = {
-            {   -- Quit vim if terminal is the only window left
-                events='BufEnter,WinEnter',
-                cmd="if tabpagenr('$') == 1 && winnr('$') == 1 | quit | endif"
-            },
-        },
+        -- ['term://*'] = {
+        --     {   -- Quit vim if terminal is the only window left
+        --         events='BufEnter,WinEnter',
+        --         cmd="if tabpagenr('$') == 1 && winnr('$') == 1 | quit | endif"
+        --     },
+        -- },
     }
 }
 EXTRA_FILETYPE_CMDS = {
@@ -36,6 +36,7 @@ EXTRA_FILETYPE_CMDS = {
         -- help/cmd win/qf list: Press q to close and disable spellcheck
         ['*'] = {
             {events='CmdwinEnter', cmd="nnoremap <buffer> q :q<CR>"},
+            {events='CmdwinEnter', cmd="lua require('cmp').setup.buffer({enabled = false})"},
         },
         ['qf,help,fugitive'] = {
             {events='FileType', cmd="nnoremap <buffer> q :q<CR>"},
@@ -59,7 +60,7 @@ SET_PRGS = {
     name='set_prgs',
     cmds={
         "FileType c set formatprg=clang-format",
-        "FileType python set formatprg=yapf",
+        -- "FileType python set formatprg=yapf",
         "FileType Markdown set makeprg=pandoc\\ %:p\\ -o\\ %:p:h/out.pdf"
     }
 }

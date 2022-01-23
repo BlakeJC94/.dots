@@ -96,49 +96,19 @@ M.lspconfig = function()
     end
 end
 
-M.treesitter = function()
-    -- MINIMAL CONFIG
-    -- require'nvim-treesitter.configs'.setup {
-    --     ensure_installed = {"markdown"},
-    --     highlight = {
-    --         enable = true,
-    --         custom_captures = {
-    --               ["Spell"] = "SpellBad",
-    --         },
-    --     },
-    -- }
-
-    local treesitter_config = require('nvim-treesitter.configs')
-
-    local commentstrings = {
-        python  = '#',
-        json    = '#',
-        bash    = '#',
-        lua     = '--',
-        verilog = '//'
-    }
-    require('nvim-treesitter').define_modules {
-        fixspell = {
+M.treesitter_minimal = function()
+    require'nvim-treesitter.configs'.setup {
+        highlight = {
             enable = true,
-            attach = function(bufnr, lang)
-                local cs = commentstrings[lang]
-                vim.cmd(
-                ('syntax match spellComment "%s.*" contains=@Spell'):format(cs)
-                )
-            end,
-            detach = function(bufnr)
-            end,
-            is_supported = function(lang)
-                if commentstrings[lang] == nil then
-                    return false
-                end
-                if require('nvim-treesitter.query').get_query(lang, 'highlights') == nil then
-                    return false
-                end
-                return true
-            end
-        }
+        },
     }
+end
+
+M.treesitter = function()
+    local treesitter_config = require('nvim-treesitter.configs')
+    local context = require('treesitter-context')
+    local gps = require("nvim-gps")
+    local spellsitter = require('spellsitter')
 
     treesitter_config.setup({
         ensure_installed = {
@@ -156,11 +126,11 @@ M.treesitter = function()
         -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
         highlight = {
             enable = true,
-            disable = {"markdown", },  -- TODO re-enable after updating work computer
+            -- disable = {"markdown", },  -- TODO re-enable after updating work computer
             -- additional_vim_regex_highlighting = true,
         },
         indent = {
-            enable = false,
+            enable = true,
             -- disable = {"python", },
         },
         playground = {
@@ -188,7 +158,7 @@ M.treesitter = function()
         },
     })
 
-    require('treesitter-context').setup({
+    context.setup({
         enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
         throttle = true, -- Throttles plugin updates (may improve performance)
         max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
@@ -215,8 +185,120 @@ M.treesitter = function()
         },
     })
 
+    spellsitter.setup()
+    gps.setup()
+end
+
+M.treesitter_old = function()
+    -- local treesitter_config = require('nvim-treesitter.configs')
+
+    -- local commentstrings = {
+    --     python  = '#',
+    --     json    = '#',
+    --     bash    = '#',
+    --     lua     = '--',
+    --     verilog = '//'
+    -- }
+    -- require('nvim-treesitter').define_modules {
+    --     fixspell = {
+    --         enable = true,
+    --         attach = function(bufnr, lang)
+    --             local cs = commentstrings[lang]
+    --             vim.cmd(
+    --             ('syntax match spellComment "%s.*" contains=@Spell'):format(cs)
+    --             )
+    --         end,
+    --         detach = function(bufnr)
+    --         end,
+    --         is_supported = function(lang)
+    --             if commentstrings[lang] == nil then
+    --                 return false
+    --             end
+    --             if require('nvim-treesitter.query').get_query(lang, 'highlights') == nil then
+    --                 return false
+    --             end
+    --             return true
+    --         end
+    --     }
+    -- }
+
+    -- treesitter_config.setup({
+    --     ensure_installed = {
+    --         "comment",
+    --         "markdown",
+    --         "python",
+    --         "bash",
+    --         "lua",
+    --         "regex",
+    --         "julia",
+    --         "r",
+    --         "rst",
+    --     },
+    --     sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+    --     -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+    --     highlight = {
+    --         enable = true,
+    --         disable = {"markdown", },  -- TODO re-enable after updating work computer
+    --         -- additional_vim_regex_highlighting = true,
+    --     },
+    --     indent = {
+    --         enable = false,
+    --         -- disable = {"python", },
+    --     },
+    --     playground = {
+    --         enable = true,
+    --         disable = {},
+    --         updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    --         persist_queries = false, -- Whether the query persists across vim sessions
+    --         keybindings = {
+    --             toggle_query_editor = 'o',
+    --             toggle_hl_groups = 'i',
+    --             toggle_injected_languages = 't',
+    --             toggle_anonymous_nodes = 'a',
+    --             toggle_language_display = 'I',
+    --             focus_language = 'f',
+    --             unfocus_language = 'F',
+    --             update = 'R',
+    --             goto_node = '<cr>',
+    --             show_help = '?',
+    --         },
+    --     },
+    --     textobjects = {
+    --         select = {
+    --             enable = true,
+    --         }
+    --     },
+    -- })
+
+    -- require('treesitter-context').setup({
+    --     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+    --     throttle = true, -- Throttles plugin updates (may improve performance)
+    --     max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+    --     patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+    --         -- For all filetypes
+    --         -- Note that setting an entry here replaces all other patterns for this entry.
+    --         -- By setting the 'default' entry below, you can control which nodes you want to
+    --         -- appear in the context window.
+    --         default = {
+    --             'class',
+    --             'function',
+    --             'method',
+    --             -- 'for', -- These won't appear in the context
+    --             -- 'while',
+    --             -- 'if',
+    --             -- 'switch',
+    --             -- 'case',
+    --         },
+    --         -- Example for a specific filetype.
+    --         -- If a pattern is missing, *open a PR* so everyone can benefit.
+    --         --   rust = {
+    --         --       'impl_item',
+    --         --   },
+    --     },
+    -- })
+
     require('spellsitter').setup()
-    require("nvim-gps").setup()
+    -- require("nvim-gps").setup()
 end
 
 M.cmp = function()

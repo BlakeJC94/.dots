@@ -3,6 +3,12 @@ configs = require('configs')  -- ~/.config/nvim/lua/configs.lua
 PLUGINS = function()
     use 'wbthomason/packer.nvim'
 
+    use {  -- Colorscheme
+        "ellisonleao/gruvbox.nvim",
+        requires = {"rktjmp/lush.nvim"},
+        config = configs.gruvbox,
+    }
+
     use {  -- Extensible Fuzzy finder
         'nvim-telescope/telescope.nvim',
         requires = {
@@ -17,6 +23,7 @@ PLUGINS = function()
         requires = {
             "hrsh7th/cmp-nvim-lsp",
             "williamboman/nvim-lsp-installer",
+            'https://gitlab.com/yorickpeterse/nvim-pqf',
         },
         config = configs.lspconfig,
     }
@@ -90,12 +97,6 @@ PLUGINS = function()
     use {  -- Colors Hex codes
         "norcalli/nvim-colorizer.lua",
         config = function() require("colorizer").setup({'*'}, {names=false}) end
-    }
-
-    use {  -- Colorscheme
-        "ellisonleao/gruvbox.nvim",
-        requires = {"rktjmp/lush.nvim"},
-        config = configs.gruvbox,
     }
 
     use {  -- Indent guides
@@ -195,20 +196,16 @@ PLUGINS = function()
         after = {'nvim-cmp'} -- if a completion plugin is using tabs load it before
     }
 
-    -- TODO Replace Neoformat with 'mhartington/formatter.nvim'
     use {  -- Smaller plugins
         'tpope/vim-repeat',                           -- Better .-repeat actions
         'tpope/vim-surround',                         -- cs]} : Change surrounding brackets
         'tpope/vim-commentary',                       -- gc<motion> : toggle comments
         'tpope/vim-abolish',                          -- crs : coerce cursor work to snake_case
-        'tpope/vim-obsession',
-        -- 'sbdchd/neoformat',                           -- :Neoformat yapf
         'alec-gibson/nvim-tetris',                    -- :Tetris
         'danilamihailov/beacon.nvim',                 -- Ping cursor location after jump
         'wellle/targets.vim',                         -- More text objects
         'tommcdo/vim-lion',                           -- align selection with gl<obj><char>
         'Vimjas/vim-python-pep8-indent',              -- Fix for auto-indent in treesitter
-        'https://gitlab.com/yorickpeterse/nvim-pqf',  -- nicer qf list
         'jbyuki/nabla.nvim',
         'sheerun/vim-polyglot',                       -- Language pack to use if TS not present
     }
