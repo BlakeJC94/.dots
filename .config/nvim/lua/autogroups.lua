@@ -41,6 +41,7 @@ EXTRA_FILETYPE_CMDS = {
         ['qf,help,fugitive'] = {
             {events='FileType', cmd="nnoremap <buffer> q :q<CR>"},
             {events='FileType', cmd="setlocal nospell"},
+            {events='FileType', cmd="setlocal colorcolumn="},
         },
         -- Restore default K action on help pages
         ['vim,help'] = {
