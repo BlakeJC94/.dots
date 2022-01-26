@@ -130,13 +130,13 @@ VIM_MAPS = {
 LEADER_MAPS = {
     [''] = {
         ['<Leader><CR>']  = ":Lir<CR>",                   -- File explorer
-        ['<Leader><BS>']  = ":Telescope find_files<CR>",  -- Fuzzy file finder
+        ['<Leader><BS>']  = ":Telescope find_files<CR>",  -- File finder
         ['<Leader><Tab>'] = "<C-^>",                      -- Last file
         ['<Leader><Esc>'] = ":Telescope buffers<CR>",     -- Buffers
-        ['<Leader>q'] = ":q<CR>",                      -- L-q to quit
-        ['<Leader>Q'] = ":q!<CR>",                     -- L-Q to quit without saving
-        ['<Leader>d'] = ":lcd %:p:h<CR>:pwd<CR>",       -- Change dir to current
-        ['<Leader>D'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change dir to current
+        ['<Leader>q'] = ":q<CR>",                      -- Quit
+        ['<Leader>Q'] = ":q!<CR>",                     -- Quit without saving
+        ['<Leader>d'] = ":lcd %:p:h<CR>:pwd<CR>",      -- Change dir to current
+        ['<Leader>D'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change buffer dir to current
         ['<Leader>n'] = ":enew<CR>",                   -- New file
         ['<Leader>N'] = ":bufdo bdel | enew<CR>",      -- New session
         ['<Leader>T'] = ":tabedit<CR>",                -- New tab
@@ -147,10 +147,11 @@ LEADER_MAPS = {
         ['<Leader>;'] = ":Settings<CR>",               -- Edit settings
         ['<Leader>:'] = ":luafile $MYVIMRC<CR>",       -- Reload settings
         ['<Leader>z'] = ":ZenMode<CR>",                -- Toggle ZenMode
-        ['<Leader>f'] = ":LspFormat<CR>",              -- Format buffer
         ['<Leader>v'] = ":lua Toggle_venn()<CR>",      -- Draw diagrams with <sel> and HJKL
         ['<Leader>x'] = ':lua require("nabla").action()<CR>',
         ['<Leader>X'] = ':lua require("nabla").popup()<CR>',
+        ['<Leader>f'] = ':HopChar1AC<CR>',
+        ['<Leader>F'] = ':HopChar1BC<CR>',
     },
 }
 TERMINAL_MAPS = {
@@ -297,12 +298,12 @@ TELESCOPE_MAPS = {
         ['<Leader>to'] = ":Telescope oldfiles<CR>",                   -- Recently changed files
         ['<Leader>tf'] = ":Telescope current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
         ['<Leader>tF'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
-        ['<Leader>tv'] = ":Telescope treesitter<CR>",
         ['<Leader>th'] = ":Telescope help_tags<CR>",
         ['<Leader>tg'] = ":Telescope git_status<CR>",
         ['<Leader>tc'] = ":Telescope quickfix<CR>",
         ['<Leader>tl'] = ":Telescope loclist<CR>",
         ['<Leader>ts'] = ":Telescope spell_suggest<CR>",
+        ['<Leader>ta'] = ":Telescope lsp_code_actions<CR>",
     }
 }
 

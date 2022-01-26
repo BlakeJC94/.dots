@@ -21,9 +21,11 @@ PLUGINS = function()
     use {  -- LSP Engine configuration
         'neovim/nvim-lspconfig',
         requires = {
+            "hrsh7th/nvim-cmp",
             "hrsh7th/cmp-nvim-lsp",
-            "williamboman/nvim-lsp-installer",
             'https://gitlab.com/yorickpeterse/nvim-pqf',
+            'j-hui/fidget.nvim',
+            "williamboman/nvim-lsp-installer",
         },
         config = configs.lspconfig,
     }
@@ -31,11 +33,8 @@ PLUGINS = function()
     use {  -- Autocompletion menu
         "hrsh7th/nvim-cmp",
         requires = {
-            -- "dcampos/nvim-snippy",
-            -- "honza/vim-snippets",
             "onsails/lspkind-nvim",
             "windwp/nvim-autopairs",
-            -- "dcampos/cmp-snippy",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
@@ -105,10 +104,16 @@ PLUGINS = function()
         config = configs.indent_blankline,
     }
 
-    use {  -- Better f/t targets
-        "unblevable/quick-scope",
-        config = configs.quickscope,
+    use {  -- Better jumps
+        "phaazon/hop.nvim",
+        requires = {"unblevable/quick-scope",},
+        config = configs.hop
     }
+
+    -- use {  -- Better f/t targets
+    --     "unblevable/quick-scope",
+    --     config = configs.quickscope,
+    -- }
 
     use {  -- Firefox injection
         'glacambre/firenvim',
@@ -151,13 +156,7 @@ PLUGINS = function()
 
     use {
         'jose-elias-alvarez/null-ls.nvim',
-        config = function()
-            require("null-ls").setup({
-                sources = {
-                    require("null-ls").builtins.formatting.yapf,
-                },
-            })
-        end,
+        config = configs.null_ls,
     }
 
     use {
@@ -165,35 +164,9 @@ PLUGINS = function()
         config = function()
             require('auto-session').setup {
                 log_level = 'info',
-                auto_session_suppress_dirs = {'~/', '~/Projects'}
+                auto_session_suppress_dirs = {'~/', '~/Workspace', '~/Workspace/repos'}
             }
         end
-    }
-
-    use {
-        'abecodes/tabout.nvim',
-        config = function()
-            require('tabout').setup {
-                tabkey = '<Tab>', -- key to trigger tabout, set to an empty string to disable
-                backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
-                act_as_tab = true, -- shift content if tab out is not possible
-                act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-                enable_backwards = true, -- well ...
-                completion = true, -- if the tabkey is used in a completion pum
-                tabouts = {
-                    {open = "'", close = "'"},
-                    {open = '"', close = '"'},
-                    {open = '`', close = '`'},
-                    {open = '(', close = ')'},
-                    {open = '[', close = ']'},
-                    {open = '{', close = '}'}
-                },
-                ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-                exclude = {} -- tabout will ignore these filetypes
-            }
-        end,
-        wants = {'nvim-treesitter'}, -- or require if not used so far
-        after = {'nvim-cmp'} -- if a completion plugin is using tabs load it before
     }
 
     use {  -- Smaller plugins

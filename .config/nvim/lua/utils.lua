@@ -32,6 +32,10 @@ M.show_syntax_group = function()
     -- endfun
 end
 
+M.replace_keycodes = function()
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 M.debug_script = function(script)
     -- Debug long outputs with :call v:lua.require("utils").debug_script(`vimscript_file`)
     vim.cmd([[redir @a]])

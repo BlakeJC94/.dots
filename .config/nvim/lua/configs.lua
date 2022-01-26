@@ -21,6 +21,9 @@ end
 M.lspconfig = function()
     local lspconfig = require('lspconfig')
     local cmp = require('cmp')
+    local cmp_nvim_lsp = require('cmp_nvim_lsp')
+    local pqf = require('pqf')
+    local fidget = require('fidget')
 
     -- Configure diagnostics
     vim.diagnostic.config({
@@ -37,7 +40,7 @@ M.lspconfig = function()
     end
 
     -- Configure pqf to use the same signs
-    require('pqf').setup({
+    pqf.setup({
         signs = {
             error = " ",
             warning = " ",
@@ -52,13 +55,13 @@ M.lspconfig = function()
         vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
         -- Print message if loaded successfully
-        local msg = string.format("Language server %s started!", client.name)
-        vim.api.nvim_echo({ { msg, "MoreMsg" } }, false, {})
+        -- local msg = string.format("Language server %s started!", client.name)
+        -- vim.api.nvim_echo({ { msg, "MoreMsg" } }, false, {})
     end
 
     -- Get additional capabilities supported by nvim-cmp
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+    capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
     -- Settings
     local settings = {}
@@ -94,14 +97,9 @@ M.lspconfig = function()
             settings = settings[lsp],
         })
     end
-end
 
-M.treesitter_minimal = function()
-    require'nvim-treesitter.configs'.setup {
-        highlight = {
-            enable = true,
-        },
-    }
+    -- setup progress bar
+    fidget.setup({})
 end
 
 M.treesitter = function()
@@ -110,23 +108,23 @@ M.treesitter = function()
     local gps = require("nvim-gps")
     local spellsitter = require('spellsitter')
 
+    default_parsers = {
+        "comment",
+        "markdown",
+        "python",
+        "bash",
+        "lua",
+        "regex",
+        "julia",
+        "r",
+        "rst",
+    }
+
     treesitter_config.setup({
-        ensure_installed = {
-            "comment",
-            "markdown",
-            "python",
-            "bash",
-            "lua",
-            "regex",
-            "julia",
-            "r",
-            "rst",
-        },
-        sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-        -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+        ensure_installed = default_parsers,
+        sync_install = false,
         highlight = {
             enable = true,
-            -- disable = {"markdown", },  -- TODO re-enable after updating work computer
             -- additional_vim_regex_highlighting = true,
         },
         indent = {
@@ -189,121 +187,8 @@ M.treesitter = function()
     gps.setup()
 end
 
-M.treesitter_old = function()
-    -- local treesitter_config = require('nvim-treesitter.configs')
-
-    -- local commentstrings = {
-    --     python  = '#',
-    --     json    = '#',
-    --     bash    = '#',
-    --     lua     = '--',
-    --     verilog = '//'
-    -- }
-    -- require('nvim-treesitter').define_modules {
-    --     fixspell = {
-    --         enable = true,
-    --         attach = function(bufnr, lang)
-    --             local cs = commentstrings[lang]
-    --             vim.cmd(
-    --             ('syntax match spellComment "%s.*" contains=@Spell'):format(cs)
-    --             )
-    --         end,
-    --         detach = function(bufnr)
-    --         end,
-    --         is_supported = function(lang)
-    --             if commentstrings[lang] == nil then
-    --                 return false
-    --             end
-    --             if require('nvim-treesitter.query').get_query(lang, 'highlights') == nil then
-    --                 return false
-    --             end
-    --             return true
-    --         end
-    --     }
-    -- }
-
-    -- treesitter_config.setup({
-    --     ensure_installed = {
-    --         "comment",
-    --         "markdown",
-    --         "python",
-    --         "bash",
-    --         "lua",
-    --         "regex",
-    --         "julia",
-    --         "r",
-    --         "rst",
-    --     },
-    --     sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-    --     -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
-    --     highlight = {
-    --         enable = true,
-    --         disable = {"markdown", },  -- TODO re-enable after updating work computer
-    --         -- additional_vim_regex_highlighting = true,
-    --     },
-    --     indent = {
-    --         enable = false,
-    --         -- disable = {"python", },
-    --     },
-    --     playground = {
-    --         enable = true,
-    --         disable = {},
-    --         updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    --         persist_queries = false, -- Whether the query persists across vim sessions
-    --         keybindings = {
-    --             toggle_query_editor = 'o',
-    --             toggle_hl_groups = 'i',
-    --             toggle_injected_languages = 't',
-    --             toggle_anonymous_nodes = 'a',
-    --             toggle_language_display = 'I',
-    --             focus_language = 'f',
-    --             unfocus_language = 'F',
-    --             update = 'R',
-    --             goto_node = '<cr>',
-    --             show_help = '?',
-    --         },
-    --     },
-    --     textobjects = {
-    --         select = {
-    --             enable = true,
-    --         }
-    --     },
-    -- })
-
-    -- require('treesitter-context').setup({
-    --     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-    --     throttle = true, -- Throttles plugin updates (may improve performance)
-    --     max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-    --     patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
-    --         -- For all filetypes
-    --         -- Note that setting an entry here replaces all other patterns for this entry.
-    --         -- By setting the 'default' entry below, you can control which nodes you want to
-    --         -- appear in the context window.
-    --         default = {
-    --             'class',
-    --             'function',
-    --             'method',
-    --             -- 'for', -- These won't appear in the context
-    --             -- 'while',
-    --             -- 'if',
-    --             -- 'switch',
-    --             -- 'case',
-    --         },
-    --         -- Example for a specific filetype.
-    --         -- If a pattern is missing, *open a PR* so everyone can benefit.
-    --         --   rust = {
-    --         --       'impl_item',
-    --         --   },
-    --     },
-    -- })
-
-    require('spellsitter').setup()
-    -- require("nvim-gps").setup()
-end
-
 M.cmp = function()
     local cmp = require('cmp')
-    -- local snippy = require('snippy')
     local lspkind = require('lspkind')
     local autopairs = require('nvim-autopairs')
     local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -510,8 +395,30 @@ M.indent_blankline = function()
         },
         buftype_exclude = {"terminal",},
     })
-    vim.cmd("highlight IndentBlanklineContextChar guifg=#a89984 gui=nocombine")
 
+    vim.cmd("highlight IndentBlanklineContextChar guifg=#a89984 gui=nocombine")
+end
+
+M.hop = function()
+    hop = require("hop")
+    hop.setup({
+        keys = 'asdfjkl;'
+    })
+
+    -- configure quickscope
+    vim.g.qs_max_chars=800
+    vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
+    vim.cmd [[
+        function! QSColors()
+            highlight QuickScopePrimary guifg='#ff007c' gui=bold ctermfg=198 cterm=bold
+            highlight QuickScopeSecondary guifg='#00dfff' gui=bold ctermfg=45 cterm=bold
+        endfunction
+        call QSColors()
+        augroup qs_colors
+            autocmd!
+            autocmd ColorScheme * call QSColors()
+        augroup END
+    ]]
 end
 
 M.quickscope = function()
@@ -528,12 +435,6 @@ M.quickscope = function()
             autocmd ColorScheme * call QSColors()
         augroup END
     ]]
-end
-
-M.harpoon = function()
-    vim.cmd[[command! Harpoon lua require('harpoon.ui').toggle_quick_menu()]]
-    vim.cmd[[command! HarpoonMark lua require('harpoon.mark').add_file()]]
-    vim.cmd[[command! -nargs=1 HarpoonNav lua require('harpoon.ui').nav_file(<f-args>)]]
 end
 
 M.gitsigns = function()
@@ -570,37 +471,6 @@ M.toggleterm = function()
         close_on_exit = true, -- close the terminal window when the process exits
     })
 
-    local Terminal = require('toggleterm.terminal').Terminal
-
-    local lazygit = Terminal:new({
-        cmd = "lazygit",
-        direction = "float",
-    })
-    _G.lazygit_toggle = function()
-        lazygit:toggle()
-    end
-
-    local nvtop = Terminal:new({
-        cmd = "nvtop",
-        direction = "float",
-    })
-    _G.nvtop_toggle = function()
-        nvtop:toggle()
-    end
-
-    local bashtop = Terminal:new({
-        cmd = "bashtop",
-        direction = "float",
-    })
-    _G.bashtop_toggle = function()
-        bashtop:toggle()
-    end
-
-    -- vim.cmd [[command Lazygit :call v:lua.lazygit_toggle()]]
-
-    vim.cmd [[cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=horizontal' : 'term')<CR>]]
-    vim.cmd [[cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'ToggleTerm direction=vertical' : 'vterm')<CR>]]
-
     -- vim slime configuration
     vim.g.slime_target = "neovim"
     vim.g.slime_python_ipython = 1
@@ -608,7 +478,8 @@ end
 
 M.lualine = function()
     local gps = require("nvim-gps")
-    require('lualine').setup {
+    local lualine = require("lualine")
+    lualine.setup({
         options = {
             icons_enabled = true,
             theme = 'gruvbox',
@@ -635,26 +506,6 @@ M.lualine = function()
         },
         tabline = {},
         extensions = {}
-    }
-end
-
-M.sidebar = function()
-    require("sidebar-nvim").setup({
-        disable_default_keybindings = 1,
-        bindings = { ["q"] = function() require("sidebar-nvim").close() end },
-        open = false,
-        side = "left",
-        initial_width = 35,
-        hide_statusline = true,
-        update_interval = 1000,
-        sections = { "datetime", "git", "diagnostics", "symbols"},
-        section_separator = "-----",
-        containers = {
-            attach_shell = "/bin/sh", show_all = true, interval = 5000,
-        },
-        datetime = { format = "%a %b %d, %H:%M", clocks = { { name = "local" } } },
-        todos = { ignored_paths = { "~" } },
-        disable_closing_prompt = false
     })
 end
 
@@ -776,6 +627,16 @@ M.venn = function()
             vim.b.venn_enabled = nil
         end
     end
+end
+
+M.null_ls = function()
+    local null_ls = require("null-ls")
+
+    null_ls.setup({
+        sources = {
+            null_ls.builtins.formatting.yapf,
+        },
+    })
 end
 
 return M
