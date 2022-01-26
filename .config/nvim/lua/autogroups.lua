@@ -47,10 +47,11 @@ EXTRA_FILETYPE_CMDS = {
         ['vim,help'] = {
             {events='FileType', cmd="nnoremap <buffer> K :h <C-r>=expand('<cword>')<CR><CR>"},
         },
-        -- Always open help and fugitive in vertical split
-        -- ['help,fugitive'] = {
-        --     {events='FileType', cmd="wincmd L | vert resize 90"},
-        -- },
+        -- Always open help in vertical split
+        ['help,fugitive,gitcommit'] = {
+            {events='FileType', cmd="wincmd L | vert resize 90"},
+            {events='FileType', cmd="setl fo-=t"},
+        },
         -- Apply options for editing text files
         -- ['text,tex'] = {
         --     {events='FileType', cmd="Prose"}

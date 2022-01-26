@@ -45,6 +45,76 @@ M.debug_script = function(script)
     vim.cmd([[norm "ap]])
 end
 
+M.tabout = function()
+    local closers = {")", "]", "}", ">", "'", '"', "`", ","}
+    local line = vim.api.nvim_get_current_line()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local after = line:sub(col + 1, -1)
+
+    local closer_col = #after + 1
+    local closer_i = nil
+
+    for i, closer in ipairs(closers) do
+        local cur_index, _ = after:find(closer)
+        if cur_index and (cur_index < closer_col) then
+            closer_col = cur_index
+            closer_i = i
+        end
+    end
+
+    if closer_i then
+        vim.api.nvim_win_set_cursor(0, {row, col + closer_col})
+    else
+        vim.api.nvim_win_set_cursor(0, {row, col + 1})
+    end
+end
+
+M.tabout_new = function()
+    -- Expected behaviour:
+    -- * pressing TAB in normal/insert mode moves the cursor to the next bracket or comma
+    local closers = {")", "]", "}", "'", '"', "`", ","}
+    local line = vim.api.nvim_get_current_line()
+
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local contents = vim.api.nvim_buf_get_lines(0, row, -1, false)
+
+    for cur_row, line in ipairs(contents) do
+        if (cur_row == 0) then
+
+        else
+
+        end
+
+        local closer_col = #after + 1
+        local closer_row = 0
+        local closer_i = nil
+
+    for i, closer in ipairs(closers) do
+
+            if (cur_row == row) then
+                local cur_col, _ = line:find(closer)
+            else
+                local cur_col, _ = line:sub(col + 1, -1):find(closer)
+            end
+
+            local closer_row = 0
+
+            if cur_col and (cur_col < closer_col) and (cur_row < closer_row) then
+                closer_col = cur_col
+                closer_row = cur_row
+                closer_i = i
+            end
+
+        end
+    end
+
+    if closer_i then
+        vim.api.nvim_win_set_cursor(0, {row + closer_row, col + closer_col})
+    else
+        vim.api.nvim_win_set_cursor(0, {row, col + 1})
+    end
+end
+
 M.new_note = function(in_str)
     -- Call with ":call v:lua.require("utils").new_note()"
     local title = ""
