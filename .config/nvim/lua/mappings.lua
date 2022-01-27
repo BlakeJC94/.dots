@@ -19,7 +19,7 @@ VIM_MAPS = {
         -- Redraw and toggle highlights
         -- ['<C-l>'] = ':set hls!<CR><C-l>',
         -- tab out
-        -- ['<Tab>'] = ':lua require("utils").tabout_new()<CR>',  -- TODO
+        ['<Tab>'] = ':lua require("utils").tabout_new()<CR>',  -- TODO
         -- gJ to split lines
         ['gK'] = 'm`i<CR><Esc>``',
         -- Navigate quickfix lists

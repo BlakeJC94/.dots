@@ -7,8 +7,8 @@ DEFAULT_CMDS = {
             {events='BufWritePre', cmd="retab"},                     -- Replace tabs
             {events='BufWritePre', cmd="TrimSpaces"},                -- Autoremove whitespace
             -- {events='BufEnter',    cmd="set fo=crq2jpt"},             -- Override format options
-            {events='InsertEnter', cmd='set cursorline nornu'},      -- Insertmode cursorline on
-            {events='InsertLeave', cmd='set nocursorline rnu'},      -- Insertmode cursorline off
+            {events='InsertEnter', cmd='set cursorline nornu cc=100,101'}, -- Insertmode cursorline on
+            {events='InsertLeave', cmd='set nocursorline rnu cc='},      -- Insertmode cursorline off
             -- {   -- Clear jumplist
             --     events='VimEnter',
             --     cmd="exec 'tabdo windo clearjumps' | tabnext"

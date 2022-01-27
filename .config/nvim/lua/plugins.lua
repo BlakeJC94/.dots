@@ -159,15 +159,15 @@ PLUGINS = function()
         config = configs.null_ls,
     }
 
-    use {
-        'rmagatti/auto-session',
-        config = function()
-            require('auto-session').setup {
-                log_level = 'info',
-                auto_session_suppress_dirs = {'~/', '~/Workspace', '~/Workspace/repos'}
-            }
-        end
-    }
+    -- use {
+    --     'rmagatti/auto-session',
+    --     config = function()
+    --         require('auto-session').setup {
+    --             log_level = 'info',
+    --             auto_session_suppress_dirs = {'~/', '~/Workspace', '~/Workspace/repos'}
+    --         }
+    --     end
+    -- }
 
     use {  -- Smaller plugins
         'tpope/vim-repeat',                           -- Better .-repeat actions

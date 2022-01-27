@@ -510,12 +510,19 @@ M.lualine = function()
 end
 
 M.gruvbox = function()
+    vim.cmd [[
+        augroup colorscheme_overrides
+            autocmd!
+            autocmd ColorScheme * hi Folded guibg='#282828'
+        augroup END
+    ]]
     -- vim.opt.termguicolors           = true
     -- vim.opt.background              = 'dark'
     vim.g.gruvbox_italic            = 1
     vim.g.gruvbox_contrast_dark     = 'hard'
     vim.g.gruvbox_italicize_strings = 1
     vim.cmd [[colorscheme gruvbox]]
+    -- vim.cmd [[ ]]
 end
 
 M.whichkey = function()
