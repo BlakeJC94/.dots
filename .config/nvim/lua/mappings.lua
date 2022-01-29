@@ -3,6 +3,7 @@ VIM_MAPS = {
         -- Better splitting
         ['_'] = ':split<CR>',
         ['|'] = ':vsplit<CR>',
+        ['\\'] = ':tabedit %<CR>',
         -- Move left and right faster
         ['H'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
         ['L'] = '$',
@@ -11,15 +12,16 @@ VIM_MAPS = {
         ['X'] = '"_X',
         ['s'] = '"_s',
         ['S'] = '"_S',
-        -- Center screen and open folds when flicking through search matches
-        ['n'] = 'nzzzv',
-        ['N'] = 'Nzzzv',
-        -- Unmap Q
-        ['Q'] = '',
+        -- Open folds when flicking through search matches
+        ['n'] = 'nzv',
+        ['N'] = 'Nzv',
+        -- Unmap q (and map Q to q to stop polluting registers accidentally!)
+        ['q'] = '',
+        ['Q'] = 'q',
         -- Redraw and toggle highlights
         -- ['<C-l>'] = ':set hls!<CR><C-l>',
         -- tab out
-        ['<Tab>'] = ':lua require("utils").tabout_new()<CR>',  -- TODO
+        -- ['<Tab>'] = ':lua require("utils").tabout_new()<CR>',  -- TODO
         -- gJ to split lines
         ['gK'] = 'm`i<CR><Esc>``',
         -- Navigate quickfix lists
@@ -73,19 +75,19 @@ VIM_MAPS = {
         -- Replace spaces in selection with underscores
         ['_']  = ":s/\\%V /_/g<CR>",
         ['g_'] = ":s/\\%V_/ /g<CR>",
-        -- Wrap selection in quotes
-        ['g"']  = 'm`<Esc>`>a"<Esc>`<i"<Esc>``',
-        ['g\''] = "m`<Esc>`>a'<Esc>`<i'<Esc>``",
-        ['g`']  = "m`<Esc>`>a`<Esc>`<i`<Esc>``",
-        -- Wrap selection in brackets
-        ['g(']  = "m`<Esc>`>a)<Esc>`<i(<Esc>``",
-        ['g)']  = "m`<Esc>`>a)<Esc>`<i(<Esc>``",
-        ['g]']  = "m`<Esc>`>a]<Esc>`<i[<Esc>``",
-        ['g[']  = "m`<Esc>`>a]<Esc>`<i[<Esc>``",
-        ['g}']  = "m`<Esc>`>a}<Esc>`<i{<Esc>``",
-        ['g{']  = "m`<Esc>`>a}<Esc>`<i{<Esc>``",
-        ['g>']  = "m`<Esc>`>a><Esc>`<i<<Esc>``",
-        ['g<']  = "m`<Esc>`>a><Esc>`<i<<Esc>``",
+        -- Wrap selection in quotes  USE v<sel>S<char> or ys<motion><char>
+        -- ['g"']  = 'm`<Esc>`>a"<Esc>`<i"<Esc>``',
+        -- ['g\''] = "m`<Esc>`>a'<Esc>`<i'<Esc>``",
+        -- ['g`']  = "m`<Esc>`>a`<Esc>`<i`<Esc>``",
+        -- -- Wrap selection in brackets
+        -- ['g(']  = "m`<Esc>`>a)<Esc>`<i(<Esc>``",
+        -- ['g)']  = "m`<Esc>`>a)<Esc>`<i(<Esc>``",
+        -- ['g]']  = "m`<Esc>`>a]<Esc>`<i[<Esc>``",
+        -- ['g[']  = "m`<Esc>`>a]<Esc>`<i[<Esc>``",
+        -- ['g}']  = "m`<Esc>`>a}<Esc>`<i{<Esc>``",
+        -- ['g{']  = "m`<Esc>`>a}<Esc>`<i{<Esc>``",
+        -- ['g>']  = "m`<Esc>`>a><Esc>`<i<<Esc>``",
+        -- ['g<']  = "m`<Esc>`>a><Esc>`<i<<Esc>``",
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)

@@ -104,16 +104,10 @@ PLUGINS = function()
         config = configs.indent_blankline,
     }
 
-    use {  -- Better jumps
-        "phaazon/hop.nvim",
-        requires = {"unblevable/quick-scope",},
-        config = configs.hop
+    use {  -- Better f/t targets
+        "unblevable/quick-scope",
+        config = configs.quickscope,
     }
-
-    -- use {  -- Better f/t targets
-    --     "unblevable/quick-scope",
-    --     config = configs.quickscope,
-    -- }
 
     use {  -- Firefox injection
         'glacambre/firenvim',
@@ -158,16 +152,6 @@ PLUGINS = function()
         'jose-elias-alvarez/null-ls.nvim',
         config = configs.null_ls,
     }
-
-    -- use {
-    --     'rmagatti/auto-session',
-    --     config = function()
-    --         require('auto-session').setup {
-    --             log_level = 'info',
-    --             auto_session_suppress_dirs = {'~/', '~/Workspace', '~/Workspace/repos'}
-    --         }
-    --     end
-    -- }
 
     use {  -- Smaller plugins
         'tpope/vim-repeat',                           -- Better .-repeat actions
