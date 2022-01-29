@@ -426,6 +426,7 @@ M.quickscope = function()
     vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
     vim.cmd [[
         function! QSColors()
+
             highlight QuickScopePrimary guifg='#ff007c' gui=bold ctermfg=198 cterm=bold
             highlight QuickScopeSecondary guifg='#00dfff' gui=bold ctermfg=45 cterm=bold
         endfunction
@@ -560,7 +561,7 @@ M.whichkey = function()
             winblend = 0
         },
         layout = {
-            height = { min = 4, max = 25 }, -- min and max height of the columns
+            height = { min = 4, max = 16 }, -- min and max height of the columns
             width = { min = 20, max = 50 }, -- min and max width of the columns
             spacing = 3, -- spacing between columns
             align = "left", -- align columns left, center or right
@@ -578,6 +579,22 @@ M.whichkey = function()
             v = { "j", "k" },
         },
     })
+end
+
+M.revj = function()
+    require("revj").setup{
+        brackets = {first = '([{<', last = ')]}>'}, -- brackets to consider surrounding arguments
+        new_line_before_last_bracket = true, -- add new line between last argument and last bracket (only if no last seperator)
+        add_seperator_for_last_parameter = true, -- if a seperator should be added if not present after last parameter
+        enable_default_keymaps = false, -- enables default keymaps without having to set them below
+        keymaps = {
+            operator = 'gJ', -- for operator (+motion)
+            line = 'gj', -- for formatting current line
+            visual = 'gj', -- for formatting visual selection
+        },
+        parameter_mapping = ',', -- specifies what text object selects an arguments (ie a, and i, by default)
+        -- if you're using `vim-textobj-parameter` you can also set this to `vim.g.vim_textobj_parameter_mapping`
+    }
 end
 
 M.zk = function()

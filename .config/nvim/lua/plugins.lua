@@ -93,6 +93,16 @@ PLUGINS = function()
     --     config = configs.alpha,
     -- }
 
+    use {
+        "folke/which-key.nvim",
+        config = configs.whichkey,
+    }
+
+    use {  -- Stabilise split creation
+        "luukvbaal/stabilize.nvim",
+        config = function() require("stabilize").setup() end
+    }
+
     use {  -- Colors Hex codes
         "norcalli/nvim-colorizer.lua",
         config = function() require("colorizer").setup({'*'}, {names=false}) end
@@ -153,17 +163,40 @@ PLUGINS = function()
         config = configs.null_ls,
     }
 
+    use {
+        'AckslD/nvim-revJ.lua',
+        requires = {'wellle/targets.vim'},
+        config = configs.revj,
+    }
+
+    use {  -- :Neogen => Generate annotations for function
+        "danymat/neogen",
+        config = function() require('neogen').setup { enabled = true } end,
+        requires = "nvim-treesitter/nvim-treesitter"
+    }
+
+    use {
+        'nacro90/numb.nvim',
+        config = function() require('numb').setup() end,
+    }
+
+    use {
+        'ethanholz/nvim-lastplace',
+        config = function() require'nvim-lastplace'.setup{} end,
+    }
+
     use {  -- Smaller plugins
         'tpope/vim-repeat',                           -- Better .-repeat actions
         'tpope/vim-surround',                         -- cs]} : Change surrounding brackets
         'tpope/vim-commentary',                       -- gc<motion> : toggle comments
-        'tpope/vim-abolish',                          -- crs : coerce cursor work to snake_case
+        'tpope/vim-abolish',                          -- crs : coerce cursor word to snake_case
         'alec-gibson/nvim-tetris',                    -- :Tetris
         'danilamihailov/beacon.nvim',                 -- Ping cursor location after jump
         'wellle/targets.vim',                         -- More text objects
         'tommcdo/vim-lion',                           -- align selection with gl<obj><char>
         'Vimjas/vim-python-pep8-indent',              -- Fix for auto-indent in treesitter
         'jbyuki/nabla.nvim',
+        'ekickx/clipboard-image.nvim',                -- :PasteImg => Link to imafe in clipboard
         'sheerun/vim-polyglot',                       -- Language pack to use if TS not present
     }
 end

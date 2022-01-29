@@ -65,7 +65,7 @@ local layout_options = {
     relativenumber = true,  -- Show rel/abs line numbers
     signcolumn     = 'no',  -- Set sign column
     -- RIGHT MARGIN
-    colorcolumn = {100,101},  -- Set visual vertical margin
+    -- colorcolumn = {100,101},  -- Set visual vertical margin
     -- BOTTOM MARGIN
     showcmd    = true,  -- Show command in bottom right
     cmdheight  = 2,     -- Set height of command window

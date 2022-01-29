@@ -6,7 +6,7 @@ VIM_MAPS = {
         ['\\'] = ':tabedit %<CR>',
         -- Move left and right faster
         ['H'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
-        ['L'] = '$',
+        ['L'] = 'g_',
         -- Prevent x and s from overriding what's in the clipboard
         ['x'] = '"_x',
         ['X'] = '"_X',
@@ -21,7 +21,7 @@ VIM_MAPS = {
         -- Redraw and toggle highlights
         -- ['<C-l>'] = ':set hls!<CR><C-l>',
         -- tab out
-        -- ['<Tab>'] = ':lua require("utils").tabout_new()<CR>',  -- TODO
+        ['<Tab>'] = ':lua require("utils").jabarg()<CR>',  -- TODO
         -- gJ to split lines
         ['gK'] = 'm`i<CR><Esc>``',
         -- Navigate quickfix lists
@@ -154,8 +154,7 @@ LEADER_MAPS = {
         ['<Leader>v'] = ":lua Toggle_venn()<CR>",      -- Draw diagrams with <sel> and HJKL
         ['<Leader>x'] = ':lua require("nabla").action()<CR>',
         ['<Leader>X'] = ':lua require("nabla").popup()<CR>',
-        ['<Leader>f'] = ':HopChar1AC<CR>',
-        ['<Leader>F'] = ':HopChar1BC<CR>',
+        ['<Leader>A'] = ":Neogen<CR>",
     },
 }
 TERMINAL_MAPS = {
