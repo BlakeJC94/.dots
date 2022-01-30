@@ -21,7 +21,7 @@ VIM_MAPS = {
         -- Redraw and toggle highlights
         -- ['<C-l>'] = ':set hls!<CR><C-l>',
         -- tab out
-        ['<Tab>'] = ':lua require("utils").jabarg()<CR>',  -- TODO
+        ['<S-Tab>'] = ':lua require("utils").jabarg()<CR>',  -- TODO
         -- gJ to split lines
         ['gK'] = 'm`i<CR><Esc>``',
         -- Navigate quickfix lists
@@ -91,7 +91,7 @@ VIM_MAPS = {
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
-        ['<C-s>'] = '<C-g>u<Esc>[S1z=`]a<c-g>u',
+        ['<C-s>'] = '<C-g>u<Esc>[s1z=`]a<c-g>u',
         -- Bash keyboard shortcut during insert mode
         ['<C-a>'] = "<C-o>0",    -- Goto BEGINNING of command line
         ['<C-e>'] = "<C-o>$",    -- Goto END of command line

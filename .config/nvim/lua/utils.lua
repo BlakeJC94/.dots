@@ -71,24 +71,50 @@ end
 
 M.jabarg_improve_target = function(cur_index, target_col, col, line_idx)
     local flag = false
-    if cur_index and (cur_index < target_col) then
-        -- If in current line, make sure jumping goes forward!
-        if ((line_idx == 1) and (col < cur_index)) or (line_idx > 1) then
-            flag = true
-        end
+    if not cur_index then
+        print("    TRACE : cur_index ist FALSCH D:")
+        return flag
     end
+
+    print(string.format('    TRACE : CHECK [cur_index, target_col = %d, %d]', cur_index, target_col))
+    if cur_index and (cur_index < target_col) then
+        flag = true
+        -- -- If in current line, make sure jumping goes forward!
+        -- if ((line_idx == 1) and (cur_index > col + 1)) or (line_idx > 1) then
+        --     print(string.format('    TRACE : line_idx is 1, [col = %d]', col))
+        -- end
+    end
+
+    if flag then
+        print("    TRACE : FOUND TARGET :)")
+    else
+        print("    TRACE : TARGET NOT FOUND :(")
+    end
+
+
     return flag
 end
 
 M.jabarg_get_target_col = function(line_idx, line, col, targets)
-    target_col = #line + 1
 
     -- Loop over each target and find closest match
+    local target_i   = nil  -- int: index of target to jump to
+    local target_col = #line + 1
     for i, target in ipairs(targets) do
-        local cur_index, _ = line:find(target)  -- This is the thing to tweak
+        local a, b = line:find(target)
+        print("  TRACE : target ", i,"  [start, end = ", a, b, "]")
 
+        local cur_index = nil
+        if a then
+            cur_index = a + 1
+        end
+
+
+        print("  TRACE : [cur_index = ", cur_index, "]")
         if require('utils').jabarg_improve_target(cur_index, target_col, col, line_idx) then
-            target_col = cur_index - col - 1
+            print("  TRACE : IMPROVE TARGET")
+            print(string.format("  TRACE : target %d found at %d", i, cur_index))
+            target_col = cur_index - 1
             target_i = i
         end
     end
@@ -97,31 +123,46 @@ M.jabarg_get_target_col = function(line_idx, line, col, targets)
 end
 
 M.jabarg = function()
-    -- Init
-    local targets    = {'%('}    -- table[str]: list of targets to to search for
-    local target_i   = nil       -- int: index of target to jump to
-    local target_row = nil       -- int: relative row index to jump to
-    local target_col = nil       -- int: relative col index to jump to
+    -- local targets = {
+    --     '%S+%(',  -- function name
+    --     '%S+%.',  -- module name
+    --     '%S+,',  -- arg name
+    --     '%S+%)',  -- last arg name
+    --     '%S+%:',  -- condition name
+    --     -- ',%s[%w%d]+'  -- middle arg name
+    -- }    -- table[str]: list of targets to find
+    local targets = {
+        '[%s%.][%w%d]+%.',  -- module name (follows a space or a dot, ends with dot)
+        '[%s%.][%w%d]+%(',  -- function name (follows a space or a dot, ends with open bracket)
+        '[%(][%w%d]+[,%)]',  -- first arg name (follows space or open bracket ends with a comma or closed bracket)
+        -- '[%s][%w%d]+[,%)]',  -- middle arg name (follows space or open bracket ends with a comma or closed bracket)
+    }    -- table[str]: list of targets to find
 
     -- Get current position and buffer contents
     -- TODO : generalise to allow reverse jabs
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    print(string.format("TRACE : starting cursor [row, col = %d, %d]", row, col))
     local contents = vim.api.nvim_buf_get_lines(0, row - 1, -1, false)
+    contents[1] = contents[1]:sub(col + 1, -1)  -- Trim first line
 
     -- Find first row with at least 1 target
+    local target_row = nil  -- int: relative row index to jump to
     for line_idx, line in ipairs(contents) do
+        print(string.format("TRACE : searching line +%d [line_idx = %d]", line_idx - 1, line_idx))
         -- Find the closest column with a target in selected target_row
         target_i, target_col = require('utils').jabarg_get_target_col(line_idx, line, col, targets)
         -- Stop buffer iteration as soon as a match is found
         if target_i then
-            target_row = line_idx - 1
+            target_row = row + line_idx - 1
+            print(string.format("TRACE : found target, [target_row, target_col = %d, %d]", target_row, target_col))
             break
         end
     end
 
     -- Send cursor to target
     if target_i then
-        vim.api.nvim_win_set_cursor(0, {row + target_row, col + target_col})
+        vim.api.nvim_win_set_cursor(0, {target_row, target_col})
+        print(string.format("TRACE : end cursor [row, col = %d, %d]", target_row, target_col))
     end
 end
 
