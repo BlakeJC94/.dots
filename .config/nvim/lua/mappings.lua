@@ -21,7 +21,7 @@ VIM_MAPS = {
         -- Redraw and toggle highlights
         -- ['<C-l>'] = ':set hls!<CR><C-l>',
         -- tab out
-        ['<S-Tab>'] = ':lua require("utils").jabarg()<CR>',  -- TODO
+        -- ['<S-Tab>'] = ':lua require("utils").jabarg()<CR>',  -- TODO
         -- gJ to split lines
         ['gK'] = 'm`i<CR><Esc>``',
         -- Navigate quickfix lists
@@ -37,6 +37,8 @@ VIM_MAPS = {
     n = {
         -- Make Y behave like D and C
         ['Y']  = 'y$',
+        -- Clear last search hl with <ESC> before <ESC> action
+        ['<ESC>'] = ':noh<CR><ESC>',
         -- Better jumplist for large line steps (and step through visual lines with j/k)
         ['j'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true}},
         ['k'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true}},
@@ -143,14 +145,14 @@ LEADER_MAPS = {
         ['<Leader>D'] = ":cd %:p:h<CR>:pwd<CR>",       -- Change buffer dir to current
         ['<Leader>n'] = ":enew<CR>",                   -- New file
         ['<Leader>N'] = ":bufdo bdel | enew<CR>",      -- New session
-        ['<Leader>T'] = ":tabedit<CR>",                -- New tab
         ['<Leader>h'] = ":set hls!<CR>",               -- Toggle highlights
         ['<Leader>c'] = ":ToggleCL<CR>",               -- Toggle qflist
         ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
         ['<Leader>s'] = ":setl spell!<CR>",            -- Toggle spelling
         ['<Leader>;'] = ":Settings<CR>",               -- Edit settings
         ['<Leader>:'] = ":luafile $MYVIMRC<CR>",       -- Reload settings
-        ['<Leader>z'] = ":ZenMode<CR>",                -- Toggle ZenMode
+        ['<Leader>z'] = ":Twighlight<CR>",             -- Toggle FocusMode
+        ['<Leader>Z'] = ":ZenMode<CR>",                -- Toggle ZenMode
         ['<Leader>v'] = ":lua Toggle_venn()<CR>",      -- Draw diagrams with <sel> and HJKL
         ['<Leader>x'] = ':lua require("nabla").action()<CR>',
         ['<Leader>X'] = ':lua require("nabla").popup()<CR>',
@@ -252,7 +254,8 @@ LSP_MAPS = {
         ['gr'] = ':LspReferences<CR>',
         ['gy'] = ':LspTypeDefinition<CR>',
         -- LSP Leader bindings
-        ['<Leader>e'] = ':LspLineDiagnostics<CR>',     -- Show line Diagnostics
+        ['<Leader>e'] = ':LspLineDiagnostics<CR>',     -- Show line diagnostics
+        ['<Leader>E'] = ':lua vim.diagnostic.setloclist()<CR>',  -- Show buffer diagnostics
         ['<Leader>r'] = ':LspRename<CR>',              -- Rename current symbol
         ['<Leader>k'] = ':LspSignature<CR>',           -- Show signature help
         ['<Leader>a'] = ':LspCodeAction<CR>',          -- Do code action

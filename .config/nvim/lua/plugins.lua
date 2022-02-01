@@ -190,6 +190,7 @@ PLUGINS = function()
         'tpope/vim-surround',                         -- cs]} : Change surrounding brackets
         'tpope/vim-commentary',                       -- gc<motion> : toggle comments
         'tpope/vim-abolish',                          -- crs : coerce cursor word to snake_case
+        -- 'github/copilot.vim',
         'alec-gibson/nvim-tetris',                    -- :Tetris
         'danilamihailov/beacon.nvim',                 -- Ping cursor location after jump
         'wellle/targets.vim',                         -- More text objects
