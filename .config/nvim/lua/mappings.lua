@@ -17,7 +17,7 @@ VIM_MAPS = {
         ['N'] = 'Nzv',
         -- Unmap q (and map Q to q to stop polluting registers accidentally!)
         ['q'] = '',
-        ['Q'] = 'q',
+        ['Q'] = 'gq',
         -- Redraw and toggle highlights
         -- ['<C-l>'] = ':set hls!<CR><C-l>',
         -- tab out
