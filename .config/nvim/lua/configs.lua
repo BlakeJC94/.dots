@@ -23,7 +23,6 @@ M.lspconfig = function()
     local cmp = require('cmp')
     local cmp_nvim_lsp = require('cmp_nvim_lsp')
     local pqf = require('pqf')
-    local fidget = require('fidget')
 
     -- Configure diagnostics
     vim.diagnostic.config({
@@ -98,14 +97,12 @@ M.lspconfig = function()
         })
     end
 
-    -- setup progress bar
-    fidget.setup({})
 end
 
 M.treesitter = function()
     local treesitter_config = require('nvim-treesitter.configs')
     local context = require('treesitter-context')
-    local gps = require("nvim-gps")
+    -- local gps = require("nvim-gps")
     local spellsitter = require('spellsitter')
 
     default_parsers = {
@@ -184,7 +181,7 @@ M.treesitter = function()
     })
 
     spellsitter.setup()
-    gps.setup()
+    -- gps.setup()
 end
 
 M.cmp = function()
@@ -229,7 +226,12 @@ M.cmp = function()
                 elseif has_words_before() then
                     cmp.complete()
                 else
-                    fallback()
+                    local copilot_keys = vim.fn["copilot#Accept"]()
+                    if copilot_keys ~= "" then
+                        vim.api.nvim_feedkeys(copilot_keys, "i", true)
+                    else
+                        fallback()
+                    end
                 end
             end, { "i", "s" }),
             ["<S-Tab>"] = cmp.mapping(function(fallback)
@@ -244,9 +246,9 @@ M.cmp = function()
         },
         sources = cmp.config.sources({
             {name = 'nvim_lsp'},
-            -- {name = 'snippy'},
             {name = 'path'},
             {name = 'latex_symbols'},
+            {name = 'copilot'},
         }, {
             {name = 'buffer'}
         })
@@ -426,7 +428,6 @@ M.quickscope = function()
     vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
     vim.cmd [[
         function! QSColors()
-
             highlight QuickScopePrimary guifg='#ff007c' gui=bold ctermfg=198 cterm=bold
             highlight QuickScopeSecondary guifg='#00dfff' gui=bold ctermfg=45 cterm=bold
         endfunction
@@ -478,7 +479,7 @@ M.toggleterm = function()
 end
 
 M.lualine = function()
-    local gps = require("nvim-gps")
+    -- local gps = require("nvim-gps")  -- TODO remove this? not used as much as I thought
     local lualine = require("lualine")
     lualine.setup({
         options = {
@@ -492,7 +493,8 @@ M.lualine = function()
         sections = {
             lualine_a = {'mode'},
             lualine_b = {'branch', 'diff'},
-            lualine_c = {'filename', {gps.get_location, cond = gps.is_available}},
+            -- lualine_c = {'filename', {gps.get_location, cond = gps.is_available}},
+            lualine_c = {'filename', 'lsp_progress'},
             lualine_x = {'filetype'},
             lualine_y = {'location', 'progress'},
             lualine_z = {'tabs'},

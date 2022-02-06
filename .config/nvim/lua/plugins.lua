@@ -24,11 +24,15 @@ PLUGINS = function()
             "hrsh7th/nvim-cmp",
             "hrsh7th/cmp-nvim-lsp",
             'https://gitlab.com/yorickpeterse/nvim-pqf',
-            'j-hui/fidget.nvim',
             "williamboman/nvim-lsp-installer",
         },
         config = configs.lspconfig,
     }
+
+    -- use {
+    --     'j-hui/fidget.nvim',
+    --     config = function() require('fidget').setup({}) end,
+    -- }
 
     use {  -- Autocompletion menu
         "hrsh7th/nvim-cmp",
@@ -39,6 +43,7 @@ PLUGINS = function()
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "kdheepak/cmp-latex-symbols",
+            "hrsh7th/cmp-copilot",
         },
         config = configs.cmp,
     }
@@ -50,7 +55,7 @@ PLUGINS = function()
             'nvim-treesitter/nvim-treesitter-textobjects',
             'romgrk/nvim-treesitter-context',
             'lewis6991/spellsitter.nvim',
-            "SmiteshP/nvim-gps",
+            -- "SmiteshP/nvim-gps",
         },
         run = ':TSUpdate',
         config = configs.treesitter,
@@ -84,7 +89,10 @@ PLUGINS = function()
 
     use {  -- Better statusline
         'nvim-lualine/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons'},
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+            'arkav/lualine-lsp-progress',
+        },
         config = configs.lualine,
     }
 
@@ -185,12 +193,20 @@ PLUGINS = function()
         config = function() require'nvim-lastplace'.setup{} end,
     }
 
+    use {
+        'github/copilot.vim',
+        config = function()
+            vim.g.copilot_no_tab_map = true
+            vim.g.copilot_assume_mapped = true
+            vim.g.copilot_tab_fallback = ""
+        end,
+    }
+
     use {  -- Smaller plugins
         'tpope/vim-repeat',                           -- Better .-repeat actions
         'tpope/vim-surround',                         -- cs]} : Change surrounding brackets
         'tpope/vim-commentary',                       -- gc<motion> : toggle comments
         'tpope/vim-abolish',                          -- crs : coerce cursor word to snake_case
-        -- 'github/copilot.vim',
         'alec-gibson/nvim-tetris',                    -- :Tetris
         'danilamihailov/beacon.nvim',                 -- Ping cursor location after jump
         'wellle/targets.vim',                         -- More text objects
