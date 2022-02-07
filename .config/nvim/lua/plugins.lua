@@ -29,10 +29,10 @@ PLUGINS = function()
         config = configs.lspconfig,
     }
 
-    -- use {
-    --     'j-hui/fidget.nvim',
-    --     config = function() require('fidget').setup({}) end,
-    -- }
+    use {
+        'j-hui/fidget.nvim',
+        config = function() require('fidget').setup({}) end,
+    }
 
     use {  -- Autocompletion menu
         "hrsh7th/nvim-cmp",
