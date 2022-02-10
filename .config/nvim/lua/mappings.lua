@@ -151,7 +151,7 @@ LEADER_MAPS = {
         ['<Leader>s'] = ":setl spell!<CR>",            -- Toggle spelling
         ['<Leader>;'] = ":Settings<CR>",               -- Edit settings
         ['<Leader>:'] = ":luafile $MYVIMRC<CR>",       -- Reload settings
-        ['<Leader>z'] = ":Twighlight<CR>",             -- Toggle FocusMode
+        ['<Leader>z'] = ":Twilight<CR>",             -- Toggle FocusMode
         ['<Leader>Z'] = ":ZenMode<CR>",                -- Toggle ZenMode
         ['<Leader>v'] = ":lua Toggle_venn()<CR>",      -- Draw diagrams with <sel> and HJKL
         ['<Leader>x'] = ':lua require("nabla").action()<CR>',
@@ -264,6 +264,10 @@ LSP_MAPS = {
     n = {
         -- Make K use lsp.hover, call twice to jump to hoverdoc
         ['K'] = ':lua vim.lsp.buf.hover()<CR>',
+    },
+    i = {
+        -- Make <C-k> use lsp.hover, call twice to jump to hoverdoc
+        ['<C-k>'] = '<C-o>:lua vim.lsp.buf.hover()<CR>',
     }
 }
 GIT_MAPS = {

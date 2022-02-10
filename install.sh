@@ -128,7 +128,7 @@ install_packages() {
     install_npm_stuff
 
     echo -e "$(yellow "\nInstalling extra julia packages\n")"
-    install_npm_stuff
+    install_julia_stuff
 
     echo -e "$(green "\nFinished installing packages\n")"
 }
