@@ -1,6 +1,5 @@
 -- -- BLAKEJC94S NEOVIM INIT.LUA ------------------------------------------------------------------
 plugins    = require('plugins')     -- ~/.config/nvim/lua/plugins.lua
-configs    = require('configs')     -- ~/.config/nvim/lua/configs.lua
 utils      = require('utils')       -- ~/.config/nvim/lua/utils.lua
 commands   = require('commands')    -- ~/.config/nvim/lua/commands.lua
 mappings   = require('mappings')    -- ~/.config/nvim/lua/mappings.lua

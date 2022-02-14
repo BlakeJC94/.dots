@@ -19,25 +19,25 @@ CUSTOM_COMMANDS = {
     -- args test
     -- TestFunc={count='0', cmd="call v:lua.require('utils').edit_func_arg(<count>)"},
 }
-LSP_COMMANDS = {
-    LspReferences=[[lua vim.lsp.buf.references()]],
-    LspSignature=[[lua vim.lsp.buf.signature_help()]],
-    LspCodeAction=[[lua vim.lsp.buf.code_action()]],
-    LspFormat=[[lua vim.lsp.buf.formatting()]],
-    LspLineDiagnostics=[[lua vim.diagnostic.open_float()]],
-    LspIncomingCalls=[[lua vim.lsp.buf.incoming_calls()]],
-    LspOutgoingCalls=[[lua vim.lsp.buf.outgoing_calls()]],
-    LspListWorkspaceFolders=[[lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))]],
-    LspDocumentSymbol=[[lua vim.lsp.buf.document_symbol()]],
-    LspDefinition=[[lua vim.lsp.buf.definition()]],
-    LspTypeDefinition=[[lua vim.lsp.buf.type_definition()]],
-    LspDeclaration=[[lua vim.lsp.buf.declaration()]],
-    LspImplementation=[[lua vim.lsp.buf.implementation()]],
-    LspRename={nargs='?', cmd=[[lua vim.lsp.buf.rename(<f-args>)]]},
-    LspWorkspaceSymbol={nargs='?', cmd=[[lua vim.lsp.buf.workspace_symbol(<f-args>)]]},
-    LspAddWorkspaceFolder={nargs='?', complete='dir', cmd=[[lua vim.lsp.buf.add_workspace_folder(<f-args>)]]},
-    LspRemoveWorkspaceFolder={nargs='?', complete='dir', cmd=[[lua vim.lsp.buf.remove_workspace_folder(<f-args>)]]},
-}
+-- LSP_COMMANDS = {
+--     LspReferences=[[lua vim.lsp.buf.references()]],
+--     LspSignature=[[lua vim.lsp.buf.signature_help()]],
+--     LspCodeAction=[[lua vim.lsp.buf.code_action()]],
+--     LspFormat=[[lua vim.lsp.buf.formatting()]],
+--     LspLineDiagnostics=[[lua vim.diagnostic.open_float()]],
+--     LspIncomingCalls=[[lua vim.lsp.buf.incoming_calls()]],
+--     LspOutgoingCalls=[[lua vim.lsp.buf.outgoing_calls()]],
+--     LspListWorkspaceFolders=[[lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))]],
+--     LspDocumentSymbol=[[lua vim.lsp.buf.document_symbol()]],
+--     LspDefinition=[[lua vim.lsp.buf.definition()]],
+--     LspTypeDefinition=[[lua vim.lsp.buf.type_definition()]],
+--     LspDeclaration=[[lua vim.lsp.buf.declaration()]],
+--     LspImplementation=[[lua vim.lsp.buf.implementation()]],
+--     LspRename={nargs='?', cmd=[[lua vim.lsp.buf.rename(<f-args>)]]},
+--     LspWorkspaceSymbol={nargs='?', cmd=[[lua vim.lsp.buf.workspace_symbol(<f-args>)]]},
+--     LspAddWorkspaceFolder={nargs='?', complete='dir', cmd=[[lua vim.lsp.buf.add_workspace_folder(<f-args>)]]},
+--     LspRemoveWorkspaceFolder={nargs='?', complete='dir', cmd=[[lua vim.lsp.buf.remove_workspace_folder(<f-args>)]]},
+-- }
 TYPO_COMMANDS = {
     E = {bang=true, nargs='*', complete='file', cmd=[[e<bang> <args>]]},
     W = {bang=true, nargs='*', complete='file', cmd=[[w<bang> <args>]]},
@@ -97,7 +97,7 @@ M.apply_commands = function(commands)
 end
 
 M.load_commands = function()
-    for _, commands in ipairs({CUSTOM_COMMANDS, TYPO_COMMANDS, LSP_COMMANDS}) do
+    for _, commands in ipairs({CUSTOM_COMMANDS, TYPO_COMMANDS}) do
         require("commands").apply_commands(commands)
     end
 end

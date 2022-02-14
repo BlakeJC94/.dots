@@ -1,18 +1,14 @@
 -- TODO other plugins to add:
--- - vim-expand-region
 -- - gundo.vim
 -- - textobj-word-column.vim
 -- - vimtips-fortune
--- - visual-split
 -- - codi
 -- - nvim-lightbulb
 -- - lsp_signature
--- - nvim-lsp-basics (instead of my own commands)
 -- - mkdnflow
 -- - cheatsheet.nvim
 -- - vim-illuminate
 -- - indent-guides.nvim ??
--- - nnn.nvim ??
 
 
 DISABLED_BUILT_INS = {
@@ -67,11 +63,16 @@ M.load_plugins = function()
 
     local repos = {}
     local modules = {
-        require('modules.ui'),
-        require('modules.tools'),
-        require('modules.languages'),
-        require('modules.editor'),
+        require('modules.colours'),
         require('modules.completion'),
+        require('modules.editor'),
+        require('modules.files'),
+        require('modules.git'),
+        require('modules.languages'),
+        require('modules.lsp'),
+        require('modules.terminal'),
+        require('modules.ui'),
+        require('modules.window'),
     }
     for _, module in ipairs(modules) do
         for k, v in pairs(module) do

@@ -1,25 +1,5 @@
 M = {}
 
--- Colorscheme
-M["ellisonleao/gruvbox.nvim"] = {
-    requires = {"rktjmp/lush.nvim"},
-    config = function()
-        vim.cmd [[
-            augroup colorscheme_overrides
-                autocmd!
-                autocmd ColorScheme * hi Folded guibg='#282828'
-                autocmd ColorScheme * hi ColorColumn guibg='#282828'
-                autocmd ColorScheme * hi CursorLine guibg='#282828'
-                autocmd ColorScheme * hi CursorLineNr guibg='#282828'
-            augroup END
-        ]]
-        vim.g.gruvbox_italic            = 1
-        vim.g.gruvbox_contrast_dark     = 'hard'
-        vim.g.gruvbox_italicize_strings = 1
-        vim.cmd [[colorscheme gruvbox]]
-    end,
-}
-
 -- Better statusline
 M['nvim-lualine/lualine.nvim'] = {
     requires = {
@@ -58,13 +38,23 @@ M['nvim-lualine/lualine.nvim'] = {
     end
 }
 
--- Colors Hex codes
-M['norcalli/nvim-colorizer.lua'] = {
-    config = function() require("colorizer").setup({'*'}, {names=false}) end
+-- Better quickfix list format
+M['https://gitlab.com/yorickpeterse/nvim-pqf'] = {
+    config = function()
+        local pqf = require('pqf')
+        pqf.setup({
+            signs = {
+                error = " ",
+                warning = " ",
+                info = " " ,
+                hint = " ",
+            }
+        })
+    end
 }
 
 -- Indent guides
-M["lukas-reineke/indent-blankline.nvim"] = {  -- cs]} : Change surrounding brackets
+M["lukas-reineke/indent-blankline.nvim"] = {
     requires = {"lukas-reineke/virt-column.nvim"},
     config = function()
         require("indent_blankline").setup({
@@ -80,25 +70,6 @@ M["lukas-reineke/indent-blankline.nvim"] = {  -- cs]} : Change surrounding brack
             buftype_exclude = {"terminal",},
         })
         vim.cmd("highlight IndentBlanklineContextChar guifg=#a89984 gui=nocombine")
-    end
-}
-
--- Better f/t targets
-M["unblevable/quick-scope"] = {
-    config = function()
-        vim.g.qs_max_chars=800
-        vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
-        vim.cmd [[
-            function! QSColors()
-                highlight QuickScopePrimary guifg='#ff007c' gui=bold ctermfg=198 cterm=bold
-                highlight QuickScopeSecondary guifg='#00dfff' gui=bold ctermfg=45 cterm=bold
-            endfunction
-            call QSColors()
-            augroup qs_colors
-                autocmd!
-                autocmd ColorScheme * call QSColors()
-            augroup END
-        ]]
     end
 }
 
@@ -148,46 +119,30 @@ M["folke/which-key.nvim"] = {
     end
 }
 
--- :ZenMode
+-- :ZenMode => Toggle Focus Mode (:Twilight => Toggle Focus highlights)
 M["folke/zen-mode.nvim"] = {
     requires = {"folke/twilight.nvim"},
-    config = function() require("zen-mode").setup({}) end
+    config = function() require("zen-mode").setup({
+        window = {
+            options = {
+                number = false,
+                relativenumber = false,
+            }
+        }
+    }) end
 }
 
--- Highlight lines during selection in command mode
-M["winston0410/range-highlight.nvim"] = {
-    config = function() require('range-highlight').setup({}) end,
-    requires = {'winston0410/cmd-parser.nvim'}
-}
-
--- Peek buffer lines during selection in command mode
-M['nacro90/numb.nvim'] = {
-    config = function() require('numb').setup() end,
-}
-
--- Jump to last place when opening a file
-M['ethanholz/nvim-lastplace'] = {
-    config = function() require'nvim-lastplace'.setup{} end,
-}
-
--- Stabilise split creation
-M["luukvbaal/stabilize.nvim"] = {
-    config = function() require("stabilize").setup() end
-}
 
 -- :Tetris
 M['alec-gibson/nvim-tetris'] = {}
 
--- Ping cursor location after jump
-M['danilamihailov/beacon.nvim'] = {}
-
--- Landing page
+-- TODO implement vim tips fortunes?
+-- -- Landing page
 -- M['goolord/alpha-nvim'] = {
 --     config = function()
 --         local alpha = require('alpha')
 --         local dashboard = require("alpha.themes.dashboard")
---         local fortune = require("alpha.fortune")
---
+
 --         dashboard.section.header.val = {
 --             "                                                     ",
 --             "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
@@ -199,21 +154,24 @@ M['danilamihailov/beacon.nvim'] = {}
 --             "                                                     ",
 --         }
 --         dashboard.section.buttons.val = {
---             -- dashboard.button("n", "  > Notes", ":Notes<CR>"),
---             -- dashboard.button("<Leader><CR>", "  > Explore directory", ":Dir<CR>"),
+--             -- dashboard.button("", "  > Notes", ":Notes<CR>"),
+--             dashboard.button("d", "  > Explore directory", ":edit %:p:h<CR>"),
 --             dashboard.button("n", "  > New file", ":enew <CR>"),
---             -- dashboard.button("<Leater>to", "  > Find recent", ":Telescope oldfiles<CR>"),
+--             dashboard.button("o", "  > Search old files", ":Telescope oldfiles<CR>"),
 --             dashboard.button(";", "  > Settings", ":Settings<CR>"),
 --             dashboard.button("q", "  > Quit NVIM", ":q<CR>"),
 --         }
---         dashboard.section.footer.val = fortune()
---
+--         local handle = io.popen('fortune')
+--         local fortune = handle:read("*a")
+--         handle:close()
+--         dashboard.section.footer.val = fortune
+
 --         -- Send config to alpha
 --         alpha.setup(dashboard.opts)
---
+
 --         -- Disable folding on alpha buffer
 --         vim.cmd("autocmd FileType alpha setlocal nofoldenable")
 --     end
--- }
+--  }
 
 return M
