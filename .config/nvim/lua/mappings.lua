@@ -62,6 +62,8 @@ VIM_MAPS = {
         -- Delete selected word (forward/backwards), . to repeat
         ['d*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgn",
         ['d#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
+        -- Override spellchecker
+        ['z='] = ":lua require('telescope.builtin').spell_suggest(require'telescope.themes'.get_ivy()) ",
     },
     v = {
         -- Maintain Visual Mode after >/</= actions
