@@ -1,14 +1,11 @@
 -- TODO other plugins to add:
--- - gundo.vim
--- - textobj-word-column.vim
--- - vimtips-fortune
+-- TODO add vimtips-fortune to landing page?
 -- - codi
 -- - nvim-lightbulb
 -- - lsp_signature
--- - mkdnflow
--- - cheatsheet.nvim
 -- - vim-illuminate
--- - indent-guides.nvim ??
+-- TODO is there a better plugin for python cheatsheets?
+-- TODO install mkdnflow
 
 
 DISABLED_BUILT_INS = {

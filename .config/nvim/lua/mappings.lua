@@ -250,16 +250,16 @@ LSP_MAPS = {
         -- LSP bindings
         ['gd'] = ':LspDefinition<CR>',
         ['gD'] = ':LspDeclaration<CR>',
-        ['gI'] = ':LspImplementation<CR>',
+        ['gI'] = ':lua vim.lsp.buf.implementation()<CR>',
         ['gr'] = ':LspReferences<CR>',
         ['gy'] = ':LspTypeDefinition<CR>',
         -- LSP Leader bindings
-        ['<Leader>e'] = ':LspLineDiagnostics<CR>',     -- Show line diagnostics
+        ['<Leader>e'] = ':lua vim.diagnostic.open_float()<CR>',  -- Show line diagnostics
         ['<Leader>E'] = ':lua vim.diagnostic.setloclist()<CR>',  -- Show buffer diagnostics
-        ['<Leader>r'] = ':LspRename<CR>',              -- Rename current symbol
-        ['<Leader>k'] = ':LspSignature<CR>',           -- Show signature help
-        ['<Leader>a'] = ':LspCodeAction<CR>',          -- Do code action
-        ['<Leader>='] = ':LspFormat<CR>',              -- Format buffer
+        ['<Leader>='] = ':lua vim.lsp.buf.formatting()<CR>',     -- Format buffer
+        ['<Leader>r'] = ':LspRename<CR>',                        -- Rename current symbol
+        ['<Leader>k'] = ':LspSignatureHelp<CR>',                 -- Show signature help
+        ['<Leader>a'] = ':LspCodeAction<CR>',                    -- Do code action
     },
     n = {
         -- Make K use lsp.hover, call twice to jump to hoverdoc

@@ -101,6 +101,11 @@ M["danymat/neogen"] = {
     requires = "nvim-treesitter/nvim-treesitter"
 }
 
+-- :Cheatsheet => Show a cheatsheet
+M['RishabhRD/nvim-cheat.sh'] = {
+    requires = 'RishabhRD/popfix'
+}
+
 -- Fix for Python auto-indent in Treesitter
 M['Vimjas/vim-python-pep8-indent'] = {}
 
