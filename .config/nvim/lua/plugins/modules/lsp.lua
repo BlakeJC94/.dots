@@ -129,4 +129,11 @@ M['kosayoda/nvim-lightbulb'] = {
         vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
     end
 }
+
+M["ray-x/lsp_signature.nvim"] = {
+    config = function()
+        require "lsp_signature".setup({})
+    end,
+}
+
 return M

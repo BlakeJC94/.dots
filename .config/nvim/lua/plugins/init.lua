@@ -1,9 +1,6 @@
 -- TODO other plugins to add:
 -- TODO add vimtips-fortune to landing page?
 -- - codi
--- - nvim-lightbulb
--- - lsp_signature
--- - vim-illuminate
 -- TODO is there a better plugin for python cheatsheets?
 -- TODO install mkdnflow
 

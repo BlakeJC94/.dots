@@ -10,6 +10,7 @@ M["hrsh7th/nvim-cmp"] = {
         "hrsh7th/cmp-path",
         "kdheepak/cmp-latex-symbols",
         "hrsh7th/cmp-copilot",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     config = function()
         local cmp = require('cmp')
@@ -25,11 +26,6 @@ M["hrsh7th/nvim-cmp"] = {
         vim.opt.completeopt = 'menu,menuone,noselect'
 
         cmp.setup({
-            -- snippet = {
-            --     expand = function(args)
-            --         snippy.expand_snippet(args.body)
-            --     end,
-            -- },
             formatting = {format = lspkind.cmp_format({with_text = true, maxwidth = 50})},
             mapping = {
                 ['<Up>'] = cmp.mapping.select_prev_item(),
@@ -72,13 +68,18 @@ M["hrsh7th/nvim-cmp"] = {
                 end, { "i", "s" }),
             },
             sources = cmp.config.sources({
+                {name = 'copilot'},
+                {name = 'nvim_lsp_signature_help'},
                 {name = 'nvim_lsp'},
                 {name = 'path'},
                 {name = 'latex_symbols'},
-                {name = 'copilot'},
-            }, {
-                {name = 'buffer'}
-            })
+            },{
+                {name = 'path'},
+                {name = 'buffer'},
+            }),
+            experimental = {
+                ghost_text = false,
+            }
         })
 
         -- Set up autopairs
