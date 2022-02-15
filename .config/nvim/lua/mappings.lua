@@ -63,7 +63,7 @@ VIM_MAPS = {
         ['d*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgn",
         ['d#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
         -- Override spellchecker
-        ['z='] = ":lua require('telescope.builtin').spell_suggest(require'telescope.themes'.get_ivy()) ",
+        ['z='] = ":lua require('telescope.builtin').spell_suggest(require'telescope.themes'.get_ivy())<CR>",
     },
     v = {
         -- Maintain Visual Mode after >/</= actions
