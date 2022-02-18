@@ -1,6 +1,6 @@
 -- TODO other plugins to add:
+-- - sniprun? maybe mapping FTerm to C-c and map slime/sniprun to something else
 -- TODO add vimtips-fortune to landing page?
--- - codi
 -- TODO is there a better plugin for python cheatsheets?
 -- TODO install mkdnflow
 

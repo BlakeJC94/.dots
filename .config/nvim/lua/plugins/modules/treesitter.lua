@@ -97,8 +97,8 @@ M['romgrk/nvim-treesitter-context'] = {
 
 -- :Neogen => Generate annotations for function
 M["danymat/neogen"] = {
-    config = function() require('neogen').setup { enabled = true } end,
     requires = "nvim-treesitter/nvim-treesitter"
+    config = function() require('neogen').setup({enabled = true}) end,
 }
 
 -- :Cheatsheet => Show a cheatsheet

@@ -175,7 +175,7 @@ TERMINAL_MAPS = {
         ['<C-z>'] = "<C-\\><C-n>:lua require('FTerm').toggle()<CR>",
     },
     i = {
-        ['<C-z>'] = "<Esc>lua require('FTerm').toggle()<CR>",
+        ['<C-z>'] = "<Esc>:lua require('FTerm').toggle()<CR>",
     }
 }
 ARROW_MAPS = {
