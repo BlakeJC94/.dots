@@ -110,6 +110,6 @@ M['RishabhRD/nvim-cheat.sh'] = {
 M['Vimjas/vim-python-pep8-indent'] = {}
 
 -- Language pack to use if TS not present
-M['sheerun/vim-polyglot'] = {}
+-- M['sheerun/vim-polyglot'] = {}
 
 return M

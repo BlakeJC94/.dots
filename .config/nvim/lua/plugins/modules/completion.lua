@@ -9,7 +9,7 @@ M["hrsh7th/nvim-cmp"] = {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "kdheepak/cmp-latex-symbols",
-        -- "hrsh7th/cmp-copilot",
+        "hrsh7th/cmp-copilot",
         "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     config = function()
@@ -42,17 +42,19 @@ M["hrsh7th/nvim-cmp"] = {
                     select = true,
                 }),
                 ["<Tab>"] = cmp.mapping(function(fallback)
-                    -- local copilot_keys = vim.fn["copilot#Accept"]()
                     -- print(copilot_keys)
                     if cmp.visible() then
                         cmp.select_next_item()
                     elseif has_words_before() then
                         cmp.complete()
-                    -- elseif copilot_keys ~= "" then
-                    --     -- vim.api.nvim_feedkeys(copilot_keys, "i", true)
-                    --     vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
                     else
-                        fallback()
+                        local copilot_keys = vim.fn["copilot#Accept"]()
+                        if copilot_keys ~= "" then
+                            vim.api.nvim_feedkeys(copilot_keys, "i", true)
+                            -- vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
+                        else
+                            fallback()
+                        end
                     end
                 end, { "i", "s" }),
                 ["<S-Tab>"] = cmp.mapping(function(fallback)
@@ -68,14 +70,14 @@ M["hrsh7th/nvim-cmp"] = {
                 {name = 'nvim_lsp'},
                 {name = 'path'},
                 {name = 'latex_symbols'},
-                -- {name = 'copilot'},
+                {name = 'copilot'},
                 {name = 'path'},
             },{
                 {name = 'buffer'},
             }),
-            experimental = {
-                ghost_text = false,
-            }
+            -- experimental = {
+            --     ghost_text = false,
+            -- }
         })
 
         -- Set up autopairs
@@ -85,17 +87,17 @@ M["hrsh7th/nvim-cmp"] = {
 }
 
 -- Github copilot
--- M['github/copilot.vim'] = {
---     config = function()
---         vim.g.copilot_assume_mapped = true
---         vim.g.copilot_no_tab_map = true
---         vim.g.copilot_tab_fallback = ""
-
---         -- vim.cmd[[
---         --     let g:copilot_no_tab_map = v:true
---         --     imap <expr> <Plug>(vimrc:copilot-dummy-map) copilot#Accept("\<Tab>")
---         -- ]]
---     end,
--- }
+M['github/copilot.vim'] = {
+    commit = 'c013148',
+    config = function()
+        vim.g.copilot_assume_mapped = true
+        vim.g.copilot_no_tab_map = true
+        vim.g.copilot_tab_fallback = ""
+        -- vim.cmd[[
+        --     let g:copilot_no_tab_map = v:true
+        --     imap <expr> <Plug>(vimrc:copilot-dummy-map) copilot#Accept("\<Tab>")
+        -- ]]
+    end,
+}
 
 return M
