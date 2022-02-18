@@ -19,6 +19,7 @@ local behaviour_options = {
     ttimeoutlen   = 10,             -- Time (ms) between key sequences in terminal
     updatetime    = 300,            -- Time (ms) between swapfile writes
     virtualedit   = "block",        -- Allow cursor to move anywhere ('all', 'block', 'insert')
+    hidden        = false,
     -- TABS AND INDENTS
     smartindent = true,  -- Enable better indenting
     tabstop     = 4,     -- Number of space chars for each tab char

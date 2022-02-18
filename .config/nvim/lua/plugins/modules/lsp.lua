@@ -5,6 +5,7 @@ M['neovim/nvim-lspconfig'] = {  -- LSP Engine configuration
     requires = {
         "hrsh7th/cmp-nvim-lsp",
         "williamboman/nvim-lsp-installer",
+        "RRethy/vim-illuminate",
         'nanotee/nvim-lsp-basics',
     },
     config = function()
@@ -35,6 +36,11 @@ M['neovim/nvim-lspconfig'] = {  -- LSP Engine configuration
             basics.make_lsp_commands(client, bufnr)
             basics.make_lsp_mappings(client, bufnr)
 
+            -- Enable LSP-aware word highlighting
+            -- require 'illuminate'.on_attach(client)
+
+            -- TODO: Add LSP mappings here
+
             -- Print message if loaded successfully
             -- local msg = string.format("Language server %s started!", client.name)
             -- vim.api.nvim_echo({ { msg, "MoreMsg" } }, false, {})
@@ -55,6 +61,10 @@ M['neovim/nvim-lspconfig'] = {  -- LSP Engine configuration
                     typeCheckingMode = "basic",
                     diagnosticSeverityOverrides = {
                         reportGeneralTypeIssues = "warning",
+                        reportGeneralTypeIssues = "none",
+                        reportOptionalMemberAccess = "none",
+                        reportOptionalSubscript = "none",
+                        reportPrivateImportUsage = "none",
                     },
                 },
             },

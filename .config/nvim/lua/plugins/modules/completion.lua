@@ -9,7 +9,7 @@ M["hrsh7th/nvim-cmp"] = {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "kdheepak/cmp-latex-symbols",
-        "hrsh7th/cmp-copilot",
+        -- "hrsh7th/cmp-copilot",
         "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     config = function()
@@ -42,39 +42,35 @@ M["hrsh7th/nvim-cmp"] = {
                     select = true,
                 }),
                 ["<Tab>"] = cmp.mapping(function(fallback)
+                    -- local copilot_keys = vim.fn["copilot#Accept"]()
+                    -- print(copilot_keys)
                     if cmp.visible() then
                         cmp.select_next_item()
-                    -- elseif snippy.can_expand_or_advance() then
-                    --     snippy.expand_or_advance()
                     elseif has_words_before() then
                         cmp.complete()
+                    -- elseif copilot_keys ~= "" then
+                    --     -- vim.api.nvim_feedkeys(copilot_keys, "i", true)
+                    --     vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
                     else
-                        local copilot_keys = vim.fn["copilot#Accept"]()
-                        if copilot_keys ~= "" then
-                            vim.api.nvim_feedkeys(copilot_keys, "i", true)
-                        else
-                            fallback()
-                        end
+                        fallback()
                     end
                 end, { "i", "s" }),
                 ["<S-Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_prev_item()
-                    -- elseif snippy.can_jump(-1) then
-                    --     snippy.previous()
                     else
                         fallback()
                     end
                 end, { "i", "s" }),
             },
             sources = cmp.config.sources({
-                {name = 'copilot'},
                 {name = 'nvim_lsp_signature_help'},
                 {name = 'nvim_lsp'},
                 {name = 'path'},
                 {name = 'latex_symbols'},
-            },{
+                -- {name = 'copilot'},
                 {name = 'path'},
+            },{
                 {name = 'buffer'},
             }),
             experimental = {
@@ -84,17 +80,22 @@ M["hrsh7th/nvim-cmp"] = {
 
         -- Set up autopairs
         autopairs.setup({})
-        cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+        cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({map_char = {tex = ''}}))
     end
 }
 
 -- Github copilot
-M['github/copilot.vim'] = {
-    config = function()
-        vim.g.copilot_no_tab_map = true
-        vim.g.copilot_assume_mapped = true
-        vim.g.copilot_tab_fallback = ""
-    end,
-}
+-- M['github/copilot.vim'] = {
+--     config = function()
+--         vim.g.copilot_assume_mapped = true
+--         vim.g.copilot_no_tab_map = true
+--         vim.g.copilot_tab_fallback = ""
+
+--         -- vim.cmd[[
+--         --     let g:copilot_no_tab_map = v:true
+--         --     imap <expr> <Plug>(vimrc:copilot-dummy-map) copilot#Accept("\<Tab>")
+--         -- ]]
+--     end,
+-- }
 
 return M

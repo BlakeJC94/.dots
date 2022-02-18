@@ -62,7 +62,7 @@ VIM_MAPS = {
         -- Delete selected word (forward/backwards), . to repeat
         ['d*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgn",
         ['d#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
-        -- Override spellchecker
+        -- Override spellchecker TODO move to plugin config
         ['z='] = ":lua require('telescope.builtin').spell_suggest(require'telescope.themes'.get_ivy())<CR>",
     },
     v = {
@@ -96,6 +96,8 @@ VIM_MAPS = {
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
         ['<C-s>'] = '<C-g>u<Esc>[s1z=`]a<c-g>u',
+        -- C-r : See registers wityh telescope TODO move to plugin config
+        -- ['<C-r>'] = "<cmd>lua require('telescope.builtin').registers(require'telescope.themes'.get_ivy())<CR>",
         -- Bash keyboard shortcut during insert mode
         ['<C-a>'] = "<C-o>0",    -- Goto BEGINNING of command line
         ['<C-e>'] = "<C-o>$",    -- Goto END of command line
@@ -153,35 +155,27 @@ LEADER_MAPS = {
         ['<Leader>s'] = ":setl spell!<CR>",            -- Toggle spelling
         ['<Leader>;'] = ":Settings<CR>",               -- Edit settings
         ['<Leader>:'] = ":luafile $MYVIMRC<CR>",       -- Reload settings
-        ['<Leader>z'] = ":Twilight<CR>",             -- Toggle FocusMode
+        ['<Leader>z'] = ":Twilight<CR>",               -- Toggle FocusMode
         ['<Leader>Z'] = ":ZenMode<CR>",                -- Toggle ZenMode
         ['<Leader>v'] = ":lua Toggle_venn()<CR>",      -- Draw diagrams with <sel> and HJKL
-        ['<Leader>x'] = ':lua require("nabla").action()<CR>',
-        ['<Leader>X'] = ':lua require("nabla").popup()<CR>',
-        ['<Leader>A'] = ":Neogen<CR>",
+        ['<Leader>A'] = ":Neogen<CR>",                 -- Generate docs
     },
 }
 TERMINAL_MAPS = {
     [''] = {
-        -- Toggle terminal
-        -- ['<C-z>'] = "<cmd>exe (v:count > 0 ? v:count : '' ) . 'ToggleTerm direction=float'<CR>",
-        ['<C-z>'] = "<cmd>exe v:count . 'ToggleTerm direction=float'<CR>",
-        -- ['<C-z>_']     = ":exe v:count1 . 'ToggleTerm direction=horizontal'<CR>",
-        -- ['<C-z>|']     = ":exe v:count1 . 'ToggleTerm direction=vertical'<CR>",
-        -- ['<C-z>n']     = ":call v:lua.nvtop_toggle()<CR>",
-        -- ['<C-z>t']     = ":call v:lua.bashtop_toggle()<CR>",
-        -- ['<C-z>g']     = ":call v:lua.lazygit_toggle()<CR>",
+        -- <C-z> => Toggle terminal
+        ['<C-z>'] = "<cmd>lua require('FTerm').toggle()<CR>",
     },
     t = {
-        -- <Esc><Esc> = (terminal) go to normal mode
+        -- <Esc><Esc> => (terminal) go to normal mode
         ['<Esc><Esc>'] = '<C-\\><C-n>',
-        -- <Esc>: = (terminal) go to command mode
+        -- <Esc>: => (terminal) go to command mode
         ['<Esc>:'] = '<C-\\><C-n>:',
-        -- ToggleTerm Hide
-        ['<C-z>'] = '<C-\\><C-n>:ToggleTerm<CR>',
+        -- <C-z> => ToggleTerm Hide
+        ['<C-z>'] = "<C-\\><C-n>:lua require('FTerm').toggle()<CR>",
     },
     i = {
-        ['<C-z>'] = "<Esc><cmd>exe v:count . 'ToggleTerm direction=float'<CR>",
+        ['<C-z>'] = "<Esc>lua require('FTerm').toggle()<CR>",
     }
 }
 ARROW_MAPS = {

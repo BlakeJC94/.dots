@@ -6,13 +6,19 @@ alias l='ls -CF'
 # git status alias
 alias g='git status'
 
+# quick cd command
+alias c='cd "$(find . -type d | fzf)"'
+# quick see command
+alias s='see "$(fzf)"'
+
 # More aliases
 alias aptup="sudo apt update && sudo apt upgrade -y"
 alias matlabcli="matlab -nodisplay"
 alias lsl="ls -lhFA | less"
 alias :q="exit"
+alias :Q="exit"
 alias bat="batcat"
-alias gitup="git commit -a && git push"
+alias upgit="git commit -a -m 'sync' && git push"
 alias less="less -R"
 
 # Simple custom functions

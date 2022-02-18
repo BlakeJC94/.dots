@@ -119,6 +119,7 @@ install_packages() {
         neofetch \
         colorize \
         fortune \
+        fzf \
         r-base
 
     echo -e "$(yellow "\nInstalling extra python packages\n")"
@@ -249,7 +250,6 @@ install_apps() {
     install_zathura
     install_slack
     install_zoom
-
 }
 
 install_dropbox(){

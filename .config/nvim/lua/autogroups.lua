@@ -48,7 +48,7 @@ EXTRA_FILETYPE_CMDS = {
             {events='FileType', cmd="nnoremap <buffer> K :h <C-r>=expand('<cword>')<CR><CR>"},
         },
         -- Always open help in vertical split
-        ['help,fugitive'] = {
+        ['help'] = {
             {events='FileType', cmd="wincmd L | vert resize 90"},
             {events='FileType', cmd="setl fo-=t"},
         },
