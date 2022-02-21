@@ -166,91 +166,6 @@ M.jabarg = function()
     end
 end
 
--- M.jabarg = function()
---     require('utils').testfunc()
---     local closers = {'%(%S'}
---     local closers = {'%(%S', '%(.*,%s%S'}
-
---     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
---     local contents = vim.api.nvim_buf_get_lines(0, row - 1, -1, false)
---     -- contents[1] = contents[1]:sub(col + 1, -1)  -- Trim first line
-
---     -- Init
---     local closer_i = nil
---     local closer_row = nil
---     local closer_col = nil
-
---     -- Find first row with at least 1 closer
---     for line_idx, line in ipairs(contents) do
---         -- Find the closest column with a closer in selected closer_row
---         closer_col = #line + 1
---         for i, closer in ipairs(closers) do
---             local _, cur_index = line:find(closer)
---             -- local cur_index, _ = line:find(closer)
---             if cur_index and (cur_index < closer_col) then
---                 if ((line_idx == 1) and (col < cur_index)) or (line_idx > 1) then
---                     closer_col = cur_index - col - 1
---                     closer_i = i
---                 end
---             end
---         end
---         if closer_i then
---             closer_row = line_idx - 1
---             break
---         end
---     end
-
---     -- Send cursor to target
---     if closer_i then
---         vim.api.nvim_win_set_cursor(0, {row + closer_row, col + closer_col})
---     end
--- end
-
--- M.tabout_new_old = function()
---     local closers = {"(", " ", "{", "[", ":"}
---     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
---     local contents = vim.api.nvim_buf_get_lines(0, row, -1, false)
---     contents[1] = contents[1]:sub(col + 1, -1)  -- Trim first line
-
-
---     local closer_i = nil
---     local closer_row = nil
-
---     -- Find first row with at least 1 closer
---     for line_idx, line in ipairs(contents) do
---         for i, closer in ipairs(closers) do
---             local cur_index, _ = after:find(closer)
---             if cur_index then
---                 closer_i = i
---                 break
---             end
---         end
-
---         if closer_i then
---             closer_row = line_idx
---             break
---         end
---     end
-
---     -- Find the closest column with a closer in selected closer_row
---     local line = contents[closer_row]
---     local closer_col = #line + 1
---     local closer_i = nil
---     for i, closer in ipairs(closers) do
---         local cur_index, _ = line:find(closer)
---         if cur_index and (cur_index < closer_col) then
---             closer_col = cur_index
---             closer_i = i
---         end
---     end
-
---     -- Send cursor to target
---     if closer_i then
---         vim.api.nvim_win_set_cursor(0, {row + closer_row, col + closer_col + 1})
---     end
--- end
-
-
 M.new_note = function(in_str)
     -- Call with ":call v:lua.require("utils").new_note()"
     local title = ""
@@ -323,17 +238,6 @@ M.new_note = function(in_str)
     vim.cmd("normal! G$")
 end
 
--- M.edit_func_arg = function(count)
---     print(count)
---     local match = false
---     if count == 0 then
---         print('count 0 : go to next ')
---     else if count > 0 then
---         print('count = N > 0 : go to Nth arg')
---     end
---     return
--- end
-
 return M
 
 
@@ -374,3 +278,4 @@ return M
 -- " Set block curor on start or resume
 -- :autocmd VimEnter * exec 'silent !echo -ne "' . &t_EI . '"'
 -- :autocmd VimResume * exec 'silent !echo -ne "' . &t_EI . '"'
+

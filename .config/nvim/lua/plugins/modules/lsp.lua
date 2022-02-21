@@ -39,8 +39,6 @@ M['neovim/nvim-lspconfig'] = {  -- LSP Engine configuration
             -- Enable LSP-aware word highlighting
             -- require 'illuminate'.on_attach(client)
 
-            -- TODO: Add LSP mappings here
-
             -- Print message if loaded successfully
             -- local msg = string.format("Language server %s started!", client.name)
             -- vim.api.nvim_echo({ { msg, "MoreMsg" } }, false, {})
