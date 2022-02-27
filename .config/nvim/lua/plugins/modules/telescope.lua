@@ -47,7 +47,11 @@ M['nvim-telescope/telescope.nvim'] = {
                         unmerged = " ",
                         untracked = " ",
                     }
-                }
+                },
+                registers = {
+                    theme = "ivy",
+                    borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+                },
             }
         })
 

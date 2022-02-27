@@ -11,6 +11,7 @@ M["hrsh7th/nvim-cmp"] = {
         "kdheepak/cmp-latex-symbols",
         "hrsh7th/cmp-copilot",
         "hrsh7th/cmp-nvim-lsp-signature-help",
+        "hrsh7th/cmp-cmdline",
     },
     config = function()
         local cmp = require('cmp')
@@ -78,6 +79,17 @@ M["hrsh7th/nvim-cmp"] = {
             -- experimental = {
             --     ghost_text = false,
             -- }
+        })
+
+        require'cmp'.setup.cmdline(':', {
+            sources = {
+            { name = 'cmdline' }
+            }
+        })
+        require'cmp'.setup.cmdline('/', {
+            sources = {
+            { name = 'buffer' }
+            }
         })
 
         -- Set up autopairs
