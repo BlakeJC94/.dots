@@ -42,16 +42,16 @@ M["hrsh7th/nvim-cmp"] = {
                     select = true,
                 }),
                 ["<Tab>"] = cmp.mapping(function(fallback)
-                    -- print(copilot_keys)
                     if cmp.visible() then
                         cmp.select_next_item()
                     elseif has_words_before() then
                         cmp.complete()
                     else
-                        local copilot_keys = vim.fn["copilot#Accept"]()
-                        if copilot_keys ~= "" then
-                            vim.api.nvim_feedkeys(copilot_keys, "i", true)
-                            -- vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
+                        -- local copilot_keys = vim.fn["copilot#Accept"]()
+                        -- vim.cmd('echo '.. copilot_keys)
+                        if vim.fn["copilot#Accept"]() ~= "" then
+                            -- vim.api.nvim_feedkeys(copilot_keys, "i", true)
+                            vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
                         else
                             fallback()
                         end

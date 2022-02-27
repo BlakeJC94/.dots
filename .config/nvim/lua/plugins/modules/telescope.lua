@@ -8,7 +8,6 @@ M['nvim-telescope/telescope-fzf-native.nvim'] = {
 M['nvim-telescope/telescope.nvim'] = {
     requires = {
         'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope-bibtex.nvim',
         'nvim-telescope/telescope-fzf-native.nvim',
     },
     config = function()
@@ -31,14 +30,40 @@ M['nvim-telescope/telescope.nvim'] = {
                     override_generic_sorter = true,
                     override_file_sorter = true,
                     case_mode = "smart_case",
-                }
+                },
             },
             defaults = {
+                borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
                 mappings = telescope_mappings,
+            },
+            pickers = {
+                git_status = {
+                    git_icons = {
+                        added = " ",
+                        changed = " ",
+                        copied = " ",
+                        deleted = " ",
+                        renamed = " ",
+                        unmerged = " ",
+                        untracked = " ",
+                    }
+                }
             }
         })
 
         telescope.load_extension('fzf')
+
+        -- Load a couple of custom colours
+        vim.cmd [[
+            highlight TelescopePromptBorder guibg=#282828
+            highlight TelescopePromptNormal guibg=#282828
+
+            highlight TelescopeResultsBorder guibg=#3c3836
+            highlight TelescopeResultsNormal guibg=#3c3836
+
+            highlight TelescopePreviewBorder guibg=#282828
+            highlight TelescopePreviewNormal guibg=#282828
+        ]]
     end
 }
 

@@ -1,10 +1,10 @@
 BASE = {
     [''] = {
-        ['<F1>'] = ':silent setlocal relativenumber!<CR>',
-        ['<F2>'] = ':silent setlocal number!<CR>',
-        ['<F3>'] = ':silent setlocal wrap!<CR>',
-        ['<F4>'] = ':silent setlocal spell!<CR>',
-        ['<F4>'] = ':silent wincmd =<CR>',
+        ['<F1>'] = ':setlocal relativenumber!<CR>',
+        ['<F2>'] = ':setlocal number!<CR>',
+        ['<F3>'] = ':setlocal wrap!<CR>',
+        ['<F4>'] = ':setlocal spell!<CR>',
+        ['<F6>'] = ':wincmd =<CR>',
         -- Better splitting
         ['_'] = ':split<CR>',
         ['|'] = ':vsplit<CR>',
@@ -39,7 +39,7 @@ BASE = {
         -- Make Y behave like D and C
         ['Y']  = 'y$',
         -- Clear last search hl with <ESC> before <ESC> action
-        ['<ESC>'] = ':noh<CR><ESC>',
+        ['<ESC>'] = ':noh | redraw | echon ""<CR><ESC>',
         -- Better jumplist for large line steps (and step through visual lines with j/k)
         ['j'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true}},
         ['k'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true}},
