@@ -29,15 +29,12 @@ M["hrsh7th/nvim-cmp"] = {
         cmp.setup({
             formatting = {format = lspkind.cmp_format({with_text = true, maxwidth = 50})},
             mapping = {
-                ['<Up>'] = cmp.mapping.select_prev_item(),
-                ['<Down>'] = cmp.mapping.select_next_item(),
+                ['<Up>'] = cmp.mapping( cmp.mapping.select_prev_item(), {'i', 'c'}),
+                ['<Down>'] = cmp.mapping( cmp.mapping.select_next_item(), {'i', 'c'}),
                 ['<S-Up>'] = cmp.mapping.scroll_docs(-4),
                 ['<S-Down>'] = cmp.mapping.scroll_docs(4),
-                ['<Left>'] = cmp.mapping.close(),
-                ['<Right>'] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Insert,
-                    select = true,
-                }),
+                ['<Left>'] = cmp.mapping( cmp.mapping.close(), {'i', 'c'}),
+                ['<Right>'] = cmp.mapping( cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true}), {'i', 'c'}),
                 ["<CR>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
@@ -57,14 +54,14 @@ M["hrsh7th/nvim-cmp"] = {
                             fallback()
                         end
                     end
-                end, { "i", "s" }),
+                end, { "i", "s", "c" }),
                 ["<S-Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_prev_item()
                     else
                         fallback()
                     end
-                end, { "i", "s" }),
+                end, { "i", "s", "c" }),
             },
             sources = cmp.config.sources({
                 {name = 'nvim_lsp_signature_help'},

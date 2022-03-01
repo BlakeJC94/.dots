@@ -12,6 +12,9 @@ M['tpope/vim-commentary'] = {}
 -- crs => coerce cursor word to snake_case
 M['tpope/vim-abolish'] = {}
 
+-- Extra motions
+M['tpope/vim-unimpaired'] = {}
+
 -- iv/av => Text objects for substrings in snake/camel/kebab case
 M['Julian/vim-textobj-variable-segment'] = {
     requires = {'kana/vim-textobj-user'}
@@ -20,8 +23,7 @@ M['Julian/vim-textobj-variable-segment'] = {
 -- ic/ac => Text objects for columns of code
 M['coderifous/textobj-word-column.vim'] = {}
 
--- Inverse <S-j> operation
--- TODO revisit mapping for this
+-- gJ => Inverse <S-j> operation
 M['AckslD/nvim-revJ.lua'] = {
     requires = {'wellle/targets.vim'},
     config = function()
@@ -32,8 +34,8 @@ M['AckslD/nvim-revJ.lua'] = {
             enable_default_keymaps = false, -- enables default keymaps without having to set them below
             keymaps = {
                 operator = 'gJ', -- for operator (+motion)
-                line = 'gj', -- for formatting current line
-                visual = 'gj', -- for formatting visual selection
+                line = 'gJJ', -- for formatting current line
+                visual = 'gJ', -- for formatting visual selection
             },
             parameter_mapping = ',', -- specifies what text object selects an arguments (ie a, and i, by default)
             -- if you're using `vim-textobj-parameter` you can also set this to `vim.g.vim_textobj_parameter_mapping`
@@ -60,6 +62,7 @@ M['terryma/vim-expand-region'] = {
     end
 }
 
+-- Toggle undotree
 M['mbbill/undotree'] = {}
 
 return M

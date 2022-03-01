@@ -52,6 +52,10 @@ M['nvim-telescope/telescope.nvim'] = {
                     theme = "ivy",
                     borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
                 },
+                spell_suggest = {
+                    theme = "ivy",
+                    borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+                },
             }
         })
 

@@ -1,10 +1,10 @@
 BASE = {
     [''] = {
-        ['<F1>'] = ':setlocal relativenumber!<CR>',
-        ['<F2>'] = ':setlocal number!<CR>',
-        ['<F3>'] = ':setlocal wrap!<CR>',
-        ['<F4>'] = ':setlocal spell!<CR>',
-        ['<F6>'] = ':wincmd =<CR>',
+        ['<F1>'] = {map=':setlocal relativenumber!<CR>:setl relativenumber?<CR>', opts={silent=false}},
+        ['<F2>'] = {map=':setlocal number!<CR>:setl number?<CR>', opts={silent=false}},
+        ['<F3>'] = {map=':setlocal wrap!<CR>:setl wrap?<CR>', opts={silent=false}},
+        ['<F4>'] = {map=':setlocal spell!<CR>:setl spell?<CR>', opts={silent=false}},
+        ['<F6>'] = {map=':wincmd =<CR>', opts={silent=false}},
         -- Better splitting
         ['_'] = ':split<CR>',
         ['|'] = ':vsplit<CR>',
@@ -23,17 +23,6 @@ BASE = {
         -- Unmap q (and map Q to q to stop polluting registers accidentally!)
         ['q'] = '',
         ['Q'] = 'gq',
-        -- gJ to split lines
-        ['gK'] = 'm`i<CR><Esc>``',
-        -- Navigate quickfix lists
-        ['[l'] = ':<C-U>lprevious<CR>zv',
-        [']l'] = ':<C-U>lnext<CR>zv',
-        ['[L'] = ':<C-U>lfirst<CR>zv',
-        [']L'] = ':<C-U>llast<CR>zv',
-        ['[c'] = ':<C-U>cprevious<CR>zv',
-        [']c'] = ':<C-U>cnext<CR>zv',
-        ['[C'] = ':<C-U>cfirst<CR>zv',
-        [']C'] = ':<C-U>clast<CR>zv',
     },
     n = {
         -- Make Y behave like D and C
@@ -59,7 +48,7 @@ BASE = {
         ['d*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgn",
         ['d#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
         -- Override spellchecker TODO move to plugin config
-        ['z='] = {map=[[v:count ? v:count . 'z=' : ':lua require("telescope.builtin").spell_suggest(require"telescope.themes".get_ivy())<CR>']], opts={expr=true}},
+        ['z='] = {map=[[v:count ? v:count . 'z=' : ':Telescope spell_suggest<CR>']], opts={expr=true}},
     },
     v = {
         -- Maintain Visual Mode after >/</= actions
@@ -69,7 +58,7 @@ BASE = {
         -- Move visual block up or down
         ['J'] = ":m '>+1<CR>gv",
         ['K'] = ":m '<-2<CR>gv",
-        -- Stop p from overriding unnamed register
+        -- Stop p from overriding unnamed register in visual mode
         ['p'] = "pgvy",
         ['P'] = "Pgvy",
         -- Replace spaces in selection with underscores
@@ -79,8 +68,8 @@ BASE = {
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
         -- ['<C-s>'] = '<C-g>u<Esc>[s1z=`]a<c-g>u', -- Currently borked by spellsitter
-        -- C-r : See registers wityh telescope TODO move to plugin config
-        ['<C-r>'] = "<cmd>lua require('telescope.builtin').registers(require'telescope.themes'.get_ivy())<CR>",
+        -- C-r : See registers with telescope TODO move to plugin config
+        ['<C-r>'] = "<cmd>Telescope registers<CR>",
         -- Bash keyboard shortcut during insert mode
         ['<C-a>'] = "<C-o>0",    -- Goto BEGINNING of command line
         ['<C-e>'] = "<C-o>$",    -- Goto END of command line
