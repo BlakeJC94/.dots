@@ -102,6 +102,3 @@ require('utils.set').commands(COMMANDS)
 require('utils.set').mappings(MAPPINGS)
 require('utils.set').autogroups(AUTOGROUPS)
 
--- autogroups = require('autogroups')
--- autogroups.load_autogroups()
-

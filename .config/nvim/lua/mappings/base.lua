@@ -59,7 +59,7 @@ BASE = {
         ['d*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgn",
         ['d#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
         -- Override spellchecker TODO move to plugin config
-        ['z='] = ":lua require('telescope.builtin').spell_suggest(require'telescope.themes'.get_ivy())<CR>",
+        ['z='] = {map=[[v:count ? v:count . 'z=' : ':lua require("telescope.builtin").spell_suggest(require"telescope.themes".get_ivy())<CR>']], opts={expr=true}},
     },
     v = {
         -- Maintain Visual Mode after >/</= actions
@@ -78,7 +78,7 @@ BASE = {
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
-        ['<C-s>'] = '<C-g>u<Esc>[s1z=`]a<c-g>u',
+        -- ['<C-s>'] = '<C-g>u<Esc>[s1z=`]a<c-g>u', -- Currently borked by spellsitter
         -- C-r : See registers wityh telescope TODO move to plugin config
         ['<C-r>'] = "<cmd>lua require('telescope.builtin').registers(require'telescope.themes'.get_ivy())<CR>",
         -- Bash keyboard shortcut during insert mode
