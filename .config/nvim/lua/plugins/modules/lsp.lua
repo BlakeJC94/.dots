@@ -48,6 +48,10 @@ M['neovim/nvim-lspconfig'] = {  -- LSP Engine configuration
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
+        local runtime_path = vim.split(package.path, ';')
+        table.insert(runtime_path, "lua/?.lua")
+        table.insert(runtime_path, "lua/?/init.lua")
+
         -- Settings
         local settings = {}
         settings["pyright"] = {
@@ -64,6 +68,28 @@ M['neovim/nvim-lspconfig'] = {  -- LSP Engine configuration
                         reportOptionalSubscript = "none",
                         reportPrivateImportUsage = "none",
                     },
+                },
+            },
+        }
+        settings["sumneko_lua"] = {
+            Lua = {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                    version = 'LuaJIT',
+                    -- Setup your lua path
+                    path = runtime_path,
+                },
+                diagnostics = {
+                    -- Get the language server to recognize the `vim` global
+                    globals = {'vim'},
+                },
+                workspace = {
+                    -- Make the server aware of Neovim runtime files
+                    library = vim.api.nvim_get_runtime_file("", true),
+                },
+                -- Do not send telemetry data containing a randomized but unique identifier
+                telemetry = {
+                    enable = false,
                 },
             },
         }
@@ -101,6 +127,7 @@ M['jose-elias-alvarez/null-ls.nvim'] = {
         null_ls.setup({
             sources = {
                 null_ls.builtins.formatting.yapf,
+                null_ls.builtins.diagnostics.pylint,
             },
         })
     end,

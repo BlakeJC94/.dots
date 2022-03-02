@@ -6,7 +6,7 @@ BASE = {
             {events='VimResized',  cmd="wincmd ="},                  -- Auto-resize windows
             {events='BufWritePre', cmd="retab"},                     -- Replace tabs
             {events='BufWritePre', cmd="TrimSpaces"},                -- Autoremove whitespace
-            {events='VimEnter', cmd="echo system('fortune ~/.dots/extras/fortune/vim-tips') "},
+            {events='VimEnter', cmd="echo system('fortune ~/.dots/extras/fortune/vim-tips')"},
             {events='InsertEnter', cmd='set cursorline nornu cc=100,101'}, -- Insertmode cursorline on
             {events='InsertLeave', cmd='set nocursorline rnu cc='},      -- Insertmode cursorline off
             -- {   -- Clear jumplist
