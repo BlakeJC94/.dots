@@ -59,7 +59,7 @@ OPTIONS = {
         foldmethod = 'indent',             -- Auto-create folds by indent levels
         foldlevel  = 0,                    -- Close all folds when opening file
         fillchars  = {fold=' ', eob=' '},  -- Replace dots with spaces in fold head
-        foldtext   = 'v:lua.require("core").my_fold_text()',  -- Custom fold text
+        foldtext   = 'v:lua.require("utils").my_fold_text()',  -- Custom fold text
         -- LEFT MARGIN
         number         = true,  -- Show line numbers
         relativenumber = true,  -- Show rel/abs line numbers
@@ -84,8 +84,8 @@ MAPPINGS = {
 }
 
 -- LOAD SELECTED PLUGIN MODULES
-require('core').disable_built_ins()
-require('core').setup_packer()
+require('utils').disable_built_ins()
+require('utils').setup_packer()
 local status_ok, packer = pcall(require, "packer")
 if status_ok then
     packer.init()
@@ -109,24 +109,15 @@ end
 -- DEFINE COMMANDS (VIMSCRIPT AND LUA)
 vim.cmd [[
     luafile ~/.config/nvim/utils/functions.lua
-    source ~/.config/nvim/utils/commands.vim
+    source  ~/.config/nvim/utils/commands.vim
+    source  ~/.config/nvim/utils/autogroups.vim
 ]]
 
 -- DEFINE MAPPINGS FROM SELECTED MAPPING GROUPS
 vim.g.mapleader = " "
 for _, mapping_group_name in ipairs(MAPPINGS) do
-    group = require('core.mappings.' .. mapping_group_name)
-    require('core').set_mapping_group(group)
+    group = require('mappings.' .. mapping_group_name)
+    require('utils').set_mapping_group(group)
 end
 
--- SET AUTOGROUPS (TODO UPDATE TO OFFICIAL LUA API ONCE OFFICIALLY RELEASED)
-AUTOGROUPS = {
-    'base',
-    'filetype',
-    'prg',
-}
-for _, autogroup_group_name in ipairs(AUTOGROUPS) do
-    group = require('core.autogroups.' .. autogroup_group_name)
-    require("core").set_autogroup(group)
-end
 
