@@ -1,9 +1,9 @@
 BASE = {
     [''] = {
-        ['<F1>'] = {map=':setlocal relativenumber!<CR>:setl relativenumber?<CR>', opts={silent=false}},
-        ['<F2>'] = {map=':setlocal number!<CR>:setl number?<CR>', opts={silent=false}},
-        ['<F3>'] = {map=':setlocal wrap!<CR>:setl wrap?<CR>', opts={silent=false}},
-        ['<F4>'] = {map=':setlocal spell!<CR>:setl spell?<CR>', opts={silent=false}},
+        ['<F1>'] = {map=':setl relativenumber!<CR>:setl relativenumber?<CR>', opts={silent=false}},
+        ['<F2>'] = {map=':setl number!<CR>:setl number?<CR>', opts={silent=false}},
+        ['<F3>'] = {map=':setl wrap!<CR>:setl wrap?<CR>', opts={silent=false}},
+        ['<F4>'] = {map=':setl spell!<CR>:setl spell?<CR>', opts={silent=false}},
         ['<F6>'] = {map=':wincmd =<CR>', opts={silent=false}},
         -- Better splitting
         ['_'] = ':split<CR>',
@@ -70,14 +70,6 @@ BASE = {
         -- ['<C-s>'] = '<C-g>u<Esc>[s1z=`]a<c-g>u', -- Currently borked by spellsitter
         -- C-r : See registers with telescope TODO move to plugin config
         ['<C-r>'] = "<cmd>Telescope registers<CR>",
-        -- Bash keyboard shortcut during insert mode
-        ['<C-a>'] = "<C-o>0",    -- Goto BEGINNING of command line
-        ['<C-e>'] = "<C-o>$",    -- Goto END of command line
-        ['<C-b>'] = "<C-o>h",    -- move back one character
-        ['<C-f>'] = "<C-o>l",    -- move forward one character
-        ['<A-f>'] = "<C-o>w",    -- move cursor FORWARD one word
-        ['<A-b>'] = "<C-o>b",    -- move cursor BACK one word
-        ['<A-d>'] = "<C-o>dw",   -- delete the word FROM the cursor
         -- Put semicolon/comma at end of line (; is a pseudo-leader)
         [';,'] = "<Esc>m`A,<Esc>``a",
         [';;'] = "<Esc>m`A;<Esc>``a",

@@ -1,4 +1,4 @@
-DEFAULT_MAP_OPTS = {noremap = true, silent = true}
+M = {}
 
 DISABLED_BUILT_INS = {
     'netrw',
@@ -17,7 +17,7 @@ DISABLED_BUILT_INS = {
     '2html_plugin',
 }
 
-M = {}
+DEFAULT_MAP_OPTS = {noremap = true, silent = true}
 
 M.setup_packer = function()
     local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -60,34 +60,6 @@ M.set_mapping_group = function(mapping_group)
     end
 end
 
-M.set_command_group = function(command_group)
-    -- TODO docs
-    for name, val in pairs(command_group) do
-        if (type(val) == "table") then
-            local cmd_str = {'command!'}
-            if val.bang == true then
-                table.insert(cmd_str, '-bang')
-            end
-            if val.count then
-                table.insert(cmd_str, '-count=' .. val.count)
-            end
-            if val.nargs then
-                table.insert(cmd_str, '-nargs=' .. val.nargs)
-            end
-            if val.complete then
-                table.insert(cmd_str, '-complete=' .. val.complete)
-            end
-            table.insert(cmd_str, name)
-            table.insert(cmd_str, val.cmd)
-            cmd_str = table.concat(cmd_str, ' ')
-            vim.cmd(cmd_str)
-        else
-            local cmd_str = table.concat({'command!', name, val}, ' ')
-            vim.cmd(cmd_str)
-        end
-    end
-end
-
 M.set_autogroup = function(autogroup)
     group_name = autogroup.name
     group = autogroup.cmds
@@ -107,6 +79,22 @@ M.set_autogroup = function(autogroup)
         end
     end
     vim.cmd('augroup END')
+end
+
+M.my_fold_text = function()
+    local line = vim.fn.getline(vim.v.foldstart)
+
+    local indent_str = string.rep(" ", vim.fn.indent(vim.v.foldstart - 1))
+    local fold_str = indent_str .. line .. string.rep(" ", 100)
+
+    local fold_size = vim.v.foldend - vim.v.foldstart + 1
+    local fold_size_str = " (" .. fold_size .. ") "
+
+    return string.sub(fold_str, 0, 100 - #fold_size_str) .. fold_size_str
+end
+
+M.replace_keycodes = function()
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
 return M

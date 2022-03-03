@@ -1,20 +1,18 @@
--- -- BLAKEJC94S NEOVIM INIT.LUA ------------------------------------------------------------------
-
+----- BLAKEJC94S NEOVIM INIT.LUA ------------------------------------------------------------------
 
 MODULES = {
-    'plugins.modules.completion',
-    'plugins.modules.git',
-    'plugins.modules.lir',
-    'plugins.modules.lsp',
-    'plugins.modules.lualine',
-    'plugins.modules.telescope',
-    'plugins.modules.treesitter',
-    'plugins.editor',
-    'plugins.interface',
-    'plugins.window',
+    'modules.completion',
+    'modules.git',
+    'modules.lir',
+    'modules.lsp',
+    'modules.lualine',
+    'modules.telescope',
+    'modules.treesitter',
+    'editor',
+    'interface',
 }
 OPTIONS = {
-    behaviour_options = {
+    BEHAVIOUR_OPTIONS = {
         -- MAIN INPUT/OUTPUT
         clipboard     = "unnamedplus",  -- Allows vim to use "+ for yanks, puts, cuts, and deletes
         timeoutlen    = 1000,           -- Time (ms) between key sequences
@@ -40,7 +38,7 @@ OPTIONS = {
         undofile = true,   -- Create global undofile
         undodir  = os.getenv("HOME") .. '/.vim/undodir',
     },
-    layout_options = {
+    LAYOUT_OPTIONS = {
         -- WINDOW DISPLAY
         splitbelow    = true,              -- Open splits below
         splitright    = true,              -- Open vsplits on right
@@ -61,7 +59,7 @@ OPTIONS = {
         foldmethod = 'indent',             -- Auto-create folds by indent levels
         foldlevel  = 0,                    -- Close all folds when opening file
         fillchars  = {fold=' ', eob=' '},  -- Replace dots with spaces in fold head
-        foldtext   = 'v:lua.require("utils").my_fold_text()',  -- Custom fold text
+        foldtext   = 'v:lua.require("core").my_fold_text()',  -- Custom fold text
         -- LEFT MARGIN
         number         = true,  -- Show line numbers
         relativenumber = true,  -- Show rel/abs line numbers
@@ -72,11 +70,7 @@ OPTIONS = {
         wildignore = {'*.pyc', '**/.git/*', '**/data/*'},
         -- TOP MARGIN
         showtabline = 0,  -- Display tab line (0, never, 1 auto, 2 always)
-    }
-}
-COMMANDS = {
-    'base',
-    'typo'
+    },
 }
 MAPPINGS = {
     'base',
@@ -88,17 +82,51 @@ MAPPINGS = {
     'packer',
     'telescope',
 }
+
+-- LOAD SELECTED PLUGIN MODULES
+require('core').disable_built_ins()
+require('core').setup_packer()
+local status_ok, packer = pcall(require, "packer")
+if status_ok then
+    packer.init()
+    packer.reset()
+    packer.use({'wbthomason/packer.nvim'})
+    for _, module_name in ipairs(MODULES) do
+        module = require('plugins.' .. module_name)
+        for k, v in pairs(module) do
+            repo = vim.tbl_extend("force", {k}, v)
+            packer.use(repo)
+        end
+    end
+    packer.install()
+end
+
+-- SET OPTIONS
+for i, opts in pairs(OPTIONS) do
+    for k, v in pairs(opts) do vim.opt[k] = v end
+end
+
+-- DEFINE COMMANDS (VIMSCRIPT AND LUA)
+vim.cmd [[
+    luafile ~/.config/nvim/utils/functions.lua
+    source ~/.config/nvim/utils/commands.vim
+]]
+
+-- DEFINE MAPPINGS FROM SELECTED MAPPING GROUPS
+vim.g.mapleader = " "
+for _, mapping_group_name in ipairs(MAPPINGS) do
+    group = require('core.mappings.' .. mapping_group_name)
+    require('core').set_mapping_group(group)
+end
+
+-- SET AUTOGROUPS (TODO UPDATE TO OFFICIAL LUA API ONCE OFFICIALLY RELEASED)
 AUTOGROUPS = {
     'base',
     'filetype',
     'prg',
 }
-
-
-require('utils.set').modules(MODULES)
-require('utils.set').options(OPTIONS)
-
-require('utils.set').commands(COMMANDS)
-require('utils.set').mappings(MAPPINGS)
-require('utils.set').autogroups(AUTOGROUPS)
+for _, autogroup_group_name in ipairs(AUTOGROUPS) do
+    group = require('core.autogroups.' .. autogroup_group_name)
+    require("core").set_autogroup(group)
+end
 
