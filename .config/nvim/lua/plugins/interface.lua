@@ -5,7 +5,7 @@ M["ellisonleao/gruvbox.nvim"] = {
     requires = {"rktjmp/lush.nvim"},
     config = function()
         vim.cmd [[
-            augroup colorscheme_overrides
+            augroup gruvbox_overrides
                 autocmd!
                 autocmd ColorScheme * hi Folded guibg='#282828'
                 autocmd ColorScheme * hi ColorColumn guibg='#282828'
@@ -21,9 +21,7 @@ M["ellisonleao/gruvbox.nvim"] = {
 }
 
 M["numToStr/FTerm.nvim"] = {
-    config = function()
-        require'FTerm'.setup({})
-    end
+    config = function() require('FTerm').setup({}) end
 }
 
 -- <C-c><C-c> => Send code snippet to neovim terminal
@@ -115,7 +113,7 @@ M['nacro90/numb.nvim'] = {
 
 -- Jump to last place when opening a file
 M['ethanholz/nvim-lastplace'] = {
-    config = function() require'nvim-lastplace'.setup{} end,
+    config = function() require('nvim-lastplace').setup{} end,
 }
 
 -- Stabilise split creation

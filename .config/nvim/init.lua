@@ -119,5 +119,3 @@ for _, mapping_group_name in ipairs(MAPPINGS) do
     group = require('mappings.' .. mapping_group_name)
     require('utils').set_mapping_group(group)
 end
-
-

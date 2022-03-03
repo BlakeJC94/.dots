@@ -14,8 +14,11 @@ augroup END
 augroup style
     autocmd!
     " toggle cursorline and colorcolumn when entering/exiting insert mode
-    autocmd InsertEnter * set cursorline nornu cc=100,101
-    autocmd InsertLeave * set nocursorline rnu cc=
+    autocmd InsertEnter * setl cursorline nornu cc=100,101
+    autocmd InsertLeave * setl nocursorline rnu cc=
+    " toggle numbers when entering/exiting terminal mode
+    autocmd TermEnter * setl nornu nonu
+    autocmd TermLeave * setl rnu nu
     " echo a vimtip when opening vim
     autocmd VimEnter * echo system('fortune ~/.dots/extras/fortune/vim-tips')
     " highlight yanked regions
