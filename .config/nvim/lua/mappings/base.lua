@@ -8,7 +8,7 @@ BASE = {
         -- Better splitting
         ['_'] = ':split<CR>',
         ['|'] = ':vsplit<CR>',
-        ['\\'] = ':tabedit %<CR>',
+        ['\\'] = ':tabedit %<CR>',  -- '\' needs to be escaped
         -- Move left and right faster
         ['H'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
         ['L'] = 'g_',
@@ -23,6 +23,26 @@ BASE = {
         -- Unmap q (and map Q to q to stop polluting registers accidentally!)
         ['q'] = '',
         ['Q'] = 'gq',
+        -- <C-z> => Toggle terminal
+        ['<C-z>'] = "<cmd>lua require('FTerm').toggle()<CR>",
+        -- Leader maps
+        ['<Leader><CR>']     = ":Lir<CR>",                   -- File explorer TODO telescope?
+        ['<Leader><BS>']     = ":Telescope find_files<CR>",  -- File finder
+        ['<Leader><Tab>']    = "<C-^>",                      -- Last file
+        ['<Leader><Esc>']    = ":q<CR>",                     -- Quit
+        ['<Leader><Leader>'] = ":Telescope buffers<CR>",     -- Buffers
+        ['<Leader>n'] = ":enew | echo '[New file]'<CR>",
+        ['<Leader>N'] = ":bufdo bdel | enew | echo '[New session]'<CR>",
+        ['<Leader>d'] = ":lcd %:p:h | echo 'Changed local dir to ' . getcwd()<CR>",
+        ['<Leader>D'] = ":cd %:p:h | echo 'Changed dir to ' . getcwd()<CR>",
+        ['<Leader>q'] = ":ToggleQL<CR>",               -- Toggle qflist
+        ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
+        ['<Leader>;'] = ":Settings<CR>",               -- Edit settings
+        ['<Leader>:'] = ":luafile $MYVIMRC<CR>",       -- Reload settings
+        ['<Leader>z'] = ":Twilight<CR>",               -- Toggle FocusMode
+        ['<Leader>Z'] = ":ZenMode<CR>",                -- Toggle ZenMode
+        ['<Leader>A'] = ":Neogen<CR>",                 -- Generate docs
+        ['<Leader>u'] = ":UndotreeToggle<CR>",         -- Toggle undotree
     },
     n = {
         -- Make Y behave like D and C
@@ -47,8 +67,6 @@ BASE = {
         -- Delete selected word (forward/backwards), . to repeat
         ['d*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgn",
         ['d#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
-        -- Override spellchecker TODO move to plugin config
-        ['z='] = {map=[[v:count ? v:count . 'z=' : ':Telescope spell_suggest<CR>']], opts={expr=true}},
     },
     v = {
         -- Maintain Visual Mode after >/</= actions
@@ -66,29 +84,18 @@ BASE = {
         ['g_'] = ":s/\\%V_/ /g<CR>",
     },
     i = {
+        -- Toggle terminal
+        ['<C-z>'] = "<Esc>:lua require('FTerm').toggle()<CR>",
         -- C-s : Quickly guess correct spelling errors (undoable)
         -- ['<C-s>'] = '<C-g>u<Esc>[s1z=`]a<c-g>u', -- Currently borked by spellsitter
-        -- C-r : See registers with telescope TODO move to plugin config
-        ['<C-r>'] = "<cmd>Telescope registers<CR>",
-        -- Put semicolon/comma at end of line (; is a pseudo-leader)
-        [';,'] = "<Esc>m`A,<Esc>``a",
-        [';;'] = "<Esc>m`A;<Esc>``a",
-        -- Insert undo breakpoints when typing punctuation
-        [','] = ',<C-g>u',
-        ['.'] = '.<C-g>u',
-        ['!'] = '!<C-g>u',
-        ['?'] = '?<C-g>u',
-        ['('] = '(<C-g>u',
-        [')'] = ')<C-g>u',
-        ['['] = '[<C-g>u',
-        [']'] = ']<C-g>u',
-        ['{'] = '{<C-g>u',
-        ['}'] = '}<C-g>u',
-        ['<'] = '<<C-g>u',
-        ['>'] = '><C-g>u',
-        ["'"] = "'<C-g>u",
-        ['"'] = '"<C-g>u',
-        ['`'] = '`<C-g>u',
+    },
+    t = {
+        -- <Esc><Esc> => (terminal) go to normal mode
+        ['<Esc><Esc>'] = '<C-\\><C-n>',
+        -- <Esc>: => (terminal) go to command mode
+        ['<Esc>:'] = '<C-\\><C-n>:',
+        -- <C-z> => ToggleTerm Hide
+        ['<C-z>'] = "<C-\\><C-n>:lua require('FTerm').toggle()<CR>",
     },
     o = {
         -- Custom text object: "around document"
