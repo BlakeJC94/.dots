@@ -1,3 +1,4 @@
+-- INTERFACE.LUA : Changes and enhancements to UX and non-editor functions
 M = {}
 
 -- Colorscheme

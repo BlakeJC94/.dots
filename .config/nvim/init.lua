@@ -1,16 +1,19 @@
 ----- BLAKEJC94S NEOVIM INIT.LUA ------------------------------------------------------------------
 
-MODULES = {
-    'modules.completion',
-    'modules.git',
-    'modules.lir',
-    'modules.lsp',
-    'modules.lualine',
-    'modules.telescope',
-    'modules.treesitter',
-    'editor',
-    'interface',
+PLUGINS = {
+    -- BASE PLUGINS
+    __editor__    = true,
+    __interface__ = true,
+    -- EXTENSIONS
+    cmp        = true,
+    git        = true,
+    lir        = true,
+    lsp        = true,
+    lualine    = true,
+    telescope  = true,
+    treesitter = true,
 }
+
 OPTIONS = {
     BEHAVIOUR_OPTIONS = {
         -- MAIN INPUT/OUTPUT
@@ -72,18 +75,21 @@ OPTIONS = {
         showtabline = 0,  -- Display tab line (0, never, 1 auto, 2 always)
     },
 }
+
 MAPPINGS = {
-    'base',
-    'leader',
-    'terminal',
-    'arrow',
-    'lsp',
-    'git',
-    'packer',
-    'telescope',
+    -- BASE PLUGINS
+    base      = true,
+    leader    = true,
+    terminal  = true,
+    arrow     = true,
+    -- EXTENSIONS TODO combine with plugins?
+    lsp       = true,
+    git       = true,
+    packer    = true,
+    telescope = true,
 }
 
--- LOAD SELECTED PLUGIN MODULES
+-- LOAD SELECTED PLUGINS
 require('utils').disable_built_ins()
 require('utils').setup_packer()
 local status_ok, packer = pcall(require, "packer")
@@ -91,11 +97,13 @@ if status_ok then
     packer.init()
     packer.reset()
     packer.use({'wbthomason/packer.nvim'})
-    for _, module_name in ipairs(MODULES) do
-        module = require('plugins.' .. module_name)
-        for k, v in pairs(module) do
-            repo = vim.tbl_extend("force", {k}, v)
-            packer.use(repo)
+    for module_name, opt in pairs(PLUGINS) do
+        if opt == true then
+            module = require('plugins.' .. module_name)
+            for k, v in pairs(module) do
+                repo = vim.tbl_extend("force", {k}, v)
+                packer.use(repo)
+            end
         end
     end
     packer.install()
@@ -115,7 +123,9 @@ vim.cmd [[
 
 -- DEFINE MAPPINGS FROM SELECTED MAPPING GROUPS
 vim.g.mapleader = " "
-for _, mapping_group_name in ipairs(MAPPINGS) do
-    group = require('mappings.' .. mapping_group_name)
-    require('utils').set_mapping_group(group)
+for mapping_group_name, opt in pairs(MAPPINGS) do
+    if opt == true then
+        group = require('mappings.' .. mapping_group_name)
+        require('utils').set_mapping_group(group)
+    end
 end

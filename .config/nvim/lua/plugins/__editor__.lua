@@ -1,3 +1,4 @@
+-- EDITOR.LUA : Extra functions, commands, keybinds for editing functionality
 M = {}
 
 -- Better .-repeat actions
