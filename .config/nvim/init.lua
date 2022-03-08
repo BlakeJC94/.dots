@@ -196,7 +196,7 @@ local status_ok, packer = pcall(require, "packer")
 if status_ok then
     packer.init()
     packer.reset()
-    packer.use({'wbthomason/packer.nvim'})  -- TODO add packer maps here
+    packer.use({'wbthomason/packer.nvim'})
     for module_name, opt in pairs(PLUGINS) do
         if opt == true then
             module = require('plugins.' .. module_name)
@@ -225,10 +225,10 @@ vim.cmd [[
 vim.g.mapleader = " "
 local mapping_groups = {
     MAPS,
-    utils.arrow_maps,
     utils.packer_maps,
+    utils.arrow_maps,
     utils.insert_undo_maps,
 }
 for _, group in ipairs(mapping_groups) do
-    utils.set_mapping_group(MAPS)
+    utils.set_mapping_group(group)
 end

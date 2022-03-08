@@ -1,4 +1,4 @@
-require('utils').set_mapping_group({
+MAPPINGS = {
     [''] = {
         -- Navigate git changes in file
         [']g'] = {map=[[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']], opts={expr=true}},
@@ -17,7 +17,7 @@ require('utils').set_mapping_group({
         ['<Leader>gd'] = ':vert Gdiffsplit<CR>',
         ['<Leader>gc'] = ':GV<CR>',
     },
-})
+}
 
 M = {}
 
@@ -37,6 +37,7 @@ M['lewis6991/gitsigns.nvim'] = {
                 relative = 'cursor',
             }
         })
+        require('utils').set_mapping_group(MAPPINGS)
     end
 }
 

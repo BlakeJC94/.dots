@@ -1,4 +1,4 @@
-require('utils').set_mapping_group({
+MAPPINGS = {
     [''] = {
         -- Navigate diagnostics
         [']e'] = ':lua vim.diagnostic.goto_next()<CR>',
@@ -25,7 +25,7 @@ require('utils').set_mapping_group({
         -- Make <C-k> use lsp.hover, call twice to jump to hoverdoc
         ['<C-k>'] = '<C-o>:lua vim.lsp.buf.hover()<CR>',
     }
-})
+}
 
 M = {}
 
@@ -63,7 +63,7 @@ M['neovim/nvim-lspconfig'] = {  -- LSP Engine configuration
 
             -- Make basic LSP commands
             basics.make_lsp_commands(client, bufnr)
-            basics.make_lsp_mappings(client, bufnr)
+            -- basics.make_lsp_mappings(client, bufnr)
 
             -- Enable LSP-aware word highlighting
             -- require 'illuminate'.on_attach(client)
@@ -141,6 +141,8 @@ M['neovim/nvim-lspconfig'] = {  -- LSP Engine configuration
                 settings = settings[lsp],
             })
         end
+
+        require('utils').set_mapping_group(MAPPINGS)
     end
 }
 

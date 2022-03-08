@@ -1,4 +1,4 @@
-require('utils').set_mapping_group({
+MAPPINGS = {
     [''] = {
         ['<Leader>tt'] = ":Telescope<CR>",                            -- Find Telescopes
         ['<Leader>tb'] = ":Telescope buffers<CR>",                    -- Switch between buffers
@@ -21,7 +21,7 @@ require('utils').set_mapping_group({
         -- C-r : See registers with telescope
         ['<C-r>'] = "<cmd>Telescope registers<CR>",
     },
-})
+}
 
 M = {}
 
@@ -97,6 +97,8 @@ M['nvim-telescope/telescope.nvim'] = {
             highlight TelescopePreviewBorder guibg=#282828
             highlight TelescopePreviewNormal guibg=#282828
         ]]
+
+        require('utils').set_mapping_group(MAPPINGS)
     end
 }
 
