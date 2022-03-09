@@ -18,7 +18,7 @@ alias lsl="ls -lhFA | less"
 alias :q="exit"
 alias :Q="exit"
 alias bat="batcat"
-alias upgit="git commit -a -m 'sync' && git push"
+alias upgit="git add . && git commit -m 'sync' && git push"
 alias less="less -R"
 
 # Simple custom functions
