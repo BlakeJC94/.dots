@@ -109,6 +109,7 @@ install_packages() {
 
     echo -e "$(yellow "\nInstalling extra distro packages\n")"
     sudo apt install -y \
+        direnv \
         tldr \
         tree \
         bat \

@@ -18,6 +18,7 @@ alias lsl="ls -lhFA | less"
 alias :q="exit"
 alias :Q="exit"
 alias bat="batcat"
+alias icat="kitty +kitten icat"
 alias upgit="git add . && git commit -m 'sync' && git push"
 alias less="less -R"
 
