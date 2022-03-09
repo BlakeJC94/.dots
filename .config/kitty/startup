@@ -1,5 +1,6 @@
-new_tab spotify
-launch bash -c ncspot
+new_tab
+launch bash
+#launch bash -c ncspot
 
 new_tab
 #cd ~/Workspace
