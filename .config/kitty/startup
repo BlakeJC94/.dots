@@ -1,7 +1,9 @@
 new_tab
-launch bash
-#launch bash -c ncspot
+#launch bash
+launch bash -c ncspot
 
 new_tab
 #cd ~/Workspace
 launch bash
+focus
+#focus-tab
