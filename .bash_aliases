@@ -21,6 +21,7 @@ alias bat="batcat"
 alias icat="kitty +kitten icat"
 alias upgit="git add . && git commit -m 'sync' && git push"
 alias less="less -R"
+alias nv="nvim"
 
 # Simple custom functions
 function mann() {
