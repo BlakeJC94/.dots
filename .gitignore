@@ -39,4 +39,3 @@ Thumbs.db
 # Other
 ######################
 .config/ncspot/userstate.cbor
-.config/nvim/plugin/packer_compiled.lua
