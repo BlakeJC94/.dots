@@ -14,12 +14,27 @@ function get_latest_files_from_github {
     return 0
 }
 
+
+# deploy dotfiles
+echo "=================="
+echo "Deploying dotfiles"
+mkdir -p $HOME/.local/bin
+DOTFILES=( .bashrc .bash_prompt .bash_aliases .xinitrc .gitconfig .gitignore .config/zathura .config/kitty .config/ncspot )
+for i in "${DOTFILES[@]}"; do
+    if [ -f "$HOME/$i" ]; then
+        mv $HOME/$i $HOME/$i.dotsinstall.bak
+    fi
+    ln -sf $HOME/.dots/$i $HOME/$i
+done
+
 # Update apt
+echo "==================================="
 echo "Updating and upgrading APT packages"
 #sudo apt update
 #sudo apt upgrade -y
 
 # Install packages
+echo "============================="
 echo "Installing extra APT packages"
 sudo apt install -y \
     tldr \
@@ -27,18 +42,27 @@ sudo apt install -y \
     bat \
     qt5-style-plugins \
     unclutter-xfixes \
-    nvtop \
-    bashtop \
-    neofetch \
     colorize \
     fortune \
-    fzf \
+    fzf
+
+echo "==============================="
+echo "Installing monitor APT packages"
+sudo apt install -y \
+    nvtop \
+    bashtop \
+    neofetch 
+
+
+echo "==============================="
+echo "Installing Zathura APT packages"
+sudo apt install -y \    
     zathura \
     zathura-djvu \
     zathura-ps
 
-
 # Install Python packages
+echo "=============================="
 echo "Installing Python APT packages"
 sudo apt install -y \
     python3-pip \
@@ -51,6 +75,7 @@ sudo apt install -y \
 
 # if not installed, install pyenv
 if ! [[ "$(command -v pyenv)" ]]; then
+    echo "================"
     echo "Installing pyenv"
     curl https://pyenv.run | bash
 fi
@@ -58,6 +83,7 @@ fi
 
 # if not installed, install NVM
 if ! [[ "$(command -v nvm)" ]]; then
+    echo "================================"
     echo "Installing NVM and updating Node"
     wget --progress bar -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
     export NVM_DIR="$HOME/.nvm"
@@ -66,6 +92,7 @@ if ! [[ "$(command -v nvm)" ]]; then
     nvm install node --latest-npm
 fi
 
+echo "======================="
 echo "Installing NPM packages"
 npm install -g \
     pyright \
@@ -74,27 +101,29 @@ npm install -g \
     bash-language-server
 
 # if not installed, install JILL and julia
-if ! [[ "$(command -v jill)" ]]; then
-    echo "Installing JILL"
-    sudo bash -ci "$(curl -fsSL https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh)"
-fi
-sudo jill install stable --confirm
+#if ! [[ "$(command -v jill)" ]]; then
+#    echo "==============="
+#    echo "Installing JILL"
+#    sudo bash -ci "$(curl -fsSL https://raw.githubusercontent.com/abelsiqueira/jill/main/jill.sh)"
+#fi
+#sudo jill install stable --confirm
 
 # if not installed, install fonts
 if [[ $(find ~/.fonts/ -name 'JetBrains*' | wc -l) -eq 0 ]]; then
+    echo "=========================="
     echo "Installing JetBrains fonts"
-    mkdir -p ~/.fonts
+    mkdir -p $HOME/.fonts
     get_latest_files_from_github "ryanoasis" "nerd-fonts" "JetBrainsMono.zip"
-    unzip JetBrainsMono.zip -d ~/.fonts
+    unzip JetBrainsMono.zip -d $HOME/.fonts
     rm JetBrainsMono.zip
 fi
 
 # if not installed, install kitty and link config
 if ! [[ "$(command -v kitty)" ]]; then
+    echo "================"
     echo "Installing kitty"
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 fi
-ln -sf ~/.dots/.config/kitty ~/.config/kitty
 
 # if not installed, install neovim and clone/link config
 if ! [[ "$(command -v nvim)" ]]; then
@@ -104,19 +133,18 @@ if ! [[ "$(command -v nvim)" ]]; then
     get_latest_files_from_github "neovim" "neovim" "nvim-linux64.tar.gz"
     sudo tar -xzf nvim-linux64.tar.gz --directory=$HOME/.local --wildcards nvim-linux64/*
     rm nvim-linux64.tar.gz*
-    sudo ln -sf $HOME/.local/nvim-linux64/bin/nvim /usr/bin/nvim
-    sudo ln -sf /usr/bin/nvim /usr/bin/nv
-    sudo ln -sf /usr/bin/nvim /usr/bin/vim
+    sudo ln -sf $HOME/.local/nvim-linux64/bin/nvim $HOME/.local/bin/nvim
+    sudo ln -sf $HOME/.local/bin/nvim $HOME/.local/bin/nv
+    sudo ln -sf $HOME/.local/bin/nvim $HOME/.local/bin/vim
     git clone https://github.com/BlakeJC94/nvim.git $HOME/.config/nvim
 fi
 
 # if not installed, install ncspot and link config
 if ! [[ "$(command -v ncspot)" ]]; then
-    get_latest_files_from_github "hrkfdn" "ncspot" "ncpot-.*-linux.tar.gz"
-    tar -xzvf ncspot-v0.8.2-linux.tar.gz --wildcards ncspot --directory=$HOME/.local
-    sudo ln -s $HOME/.local/ncspot /usr/bin/ncspot
+    get_latest_files_from_github "hrkfdn" "ncspot" "ncspot-.*-linux-x86_64.tar.gz"
+    for filename in ./ncspot*.tar.gz; do tar -xzvf $filename --directory=$HOME/.local; done
+    sudo ln -s $HOME/.local/ncspot $HOME/.local/bin/ncspot
 fi
-ln -sf ~/.dots/.config/ncspot ~/.config/ncspot
 
 # if not installed, install spotify
 # echo -e "$(yellow "Installing spotify\n")"
@@ -141,16 +169,9 @@ then
     sudo wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf - --directory=~
     sudo curl "https://linux.dropbox.com/packages/dropbox.py" -o "$HOME/.local/dropbox.py"
     sudo chmod +x $HOME/.local/dropbox.py
-    sudo ln -s $HOME/.local/dropbox.py /usr/bin/dropbox
+    sudo ln -s $HOME/.local/dropbox.py $HOME/.local/bin/dropbox
 fi
 
-# deploy dotfiles
-DOTFILES=( .bashrc .bash_prompt .bash_aliases .xinitrc .gitconfig .gitignore .config/zathura)
-for i in "${DOTFILES[@]}"; do
-    if [ -f "$HOME/$i" ]; then
-        mv $HOME/$i $HOME/$i.dotsinstall.bak
-    fi
-    ln -sf $HOME/.dots/$i $HOME/$i
-done
+
 
 echo "PASS!"
