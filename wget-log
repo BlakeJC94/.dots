@@ -1,0 +1,16 @@
+--2022-05-17 16:30:49--  https://www.dropbox.com/download?plat=lnx.x86_64
+Resolving www.dropbox.com (www.dropbox.com)... 162.125.83.18, 2620:100:6033:18::a27d:5312
+Connecting to www.dropbox.com (www.dropbox.com)|162.125.83.18|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://edge.dropboxstatic.com/dbx-releng/client/dropbox-lnx.x86_64-148.4.4519.tar.gz [following]
+--2022-05-17 16:30:50--  https://edge.dropboxstatic.com/dbx-releng/client/dropbox-lnx.x86_64-148.4.4519.tar.gz
+Resolving edge.dropboxstatic.com (edge.dropboxstatic.com)... 162.125.81.22, 2620:100:6031:22::a27d:5116
+Connecting to edge.dropboxstatic.com (edge.dropboxstatic.com)|162.125.81.22|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 105252627 (100M) [application/gzip]
+Saving to: ‘STDOUT’
+
+-                              0%[                                             ]       0  --.-KB/s               -                              0%[                                             ]  39.59K   155KB/s               -                              0%[                                             ] 128.00K   281KB/s               -                              0%[                                             ] 272.00K   448KB/s    in 0.6s    
+
+
+Cannot write to ‘-’ (Success).
