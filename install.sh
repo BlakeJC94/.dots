@@ -51,12 +51,12 @@ echo "Installing monitor APT packages"
 sudo apt install -y \
     nvtop \
     bashtop \
-    neofetch 
+    neofetch
 
 
 echo "==============================="
 echo "Installing Zathura APT packages"
-sudo apt install -y \    
+sudo apt install -y \
     zathura \
     zathura-djvu \
     zathura-ps
@@ -123,6 +123,8 @@ if ! [[ "$(command -v kitty)" ]]; then
     echo "================"
     echo "Installing kitty"
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    sudo ln -sf $HOME/.local/kitty.app/bin/kitty $HOME/.local/bin/kitty
+    sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator $HOME/.local/bin/kitty 50
 fi
 
 # if not installed, install neovim and clone/link config
