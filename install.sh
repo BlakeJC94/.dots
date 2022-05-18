@@ -122,9 +122,11 @@ fi
 if ! [[ "$(command -v kitty)" ]]; then
     echo "================"
     echo "Installing kitty"
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \
+        launch=n
     sudo ln -sf $HOME/.local/kitty.app/bin/kitty $HOME/.local/bin/kitty
     sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator $HOME/.local/bin/kitty 50
+    sudo ln -sf $HOME/.local/kitty.app/share/applications/kitty.desktop $HOME/.local/share/applications/kitty.desktop
 fi
 
 # if not installed, install neovim and clone/link config
