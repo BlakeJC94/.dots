@@ -152,6 +152,7 @@ fi
 
 # if not installed, install neovim and clone/link config
 if ! [[ "$(command -v nvim)" ]]; then
+    echo "================="
     echo "Installing neovim"
     sudo apt install -y lua5.1 npm ripgrep python3-pip xclip
     sudo python3 -m pip install pynvim
@@ -166,6 +167,8 @@ fi
 
 # if not installed, install ncspot and link config
 if ! [[ "$(command -v ncspot)" ]]; then
+    echo "================="
+    echo "Installing ncspot"
     get_latest_files_from_github "hrkfdn" "ncspot" "ncspot-.*-linux-x86_64.tar.gz"
     for filename in ./ncspot*.tar.gz; do tar -xzvf $filename --directory=$HOME/.local; done
     sudo ln -s $HOME/.local/ncspot $HOME/.local/bin/ncspot
@@ -197,6 +200,12 @@ then
     sudo ln -s $HOME/.local/dropbox.py $HOME/.local/bin/dropbox
 fi
 
+if ! [[ "$(command -v tailscale)" ]]
+then
+    echo "===================="
+    echo "Installing tailscale"
+    curl -fsSL https://tailscale.com/install.sh | sh
+fi
 
-
+echo "====="
 echo "PASS!"
