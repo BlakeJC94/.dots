@@ -1,14 +1,13 @@
 #!/bin/bash
 echo "================"
 echo "Starting dropbox"
-dropbox start -i
-# $HOME/.dropbox-dist/dropboxd &
+$HOME/.dropbox-dist/dropboxd &
 
 echo "Login at browser, press any key to continue"
 read -n 1 k <&1
 
 echo "Waiting for sync to start"
-sleep 20
+sleep 6
 
 echo "Adding sync exclusions"
 dropbox exclude add Dropbox/Archived/
