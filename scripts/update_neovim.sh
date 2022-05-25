@@ -1,7 +1,7 @@
 #!/bin/bash
-source ./github_files.sh
+source $HOME/.dots/scripts/github_files.sh
 
-sudo apt install -y lua5.1 npm ripgrep python3-pip xclip
+sudo apt install -y lua5.1 npm ripgrep python3-pip python3-tk xclip
 sudo python3 -m pip install pynvim
 
 get_latest_files_from_github "neovim" "neovim" "nvim-linux64.tar.gz"

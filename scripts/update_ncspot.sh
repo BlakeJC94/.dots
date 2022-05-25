@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./github_files.sh
+source $HOME/.dots/scripts/github_files.sh
 
 get_latest_files_from_github "hrkfdn" "ncspot" "ncspot-.*-linux-x86_64.tar.gz"
 for filename in ./ncspot*.tar.gz; do tar -xzvf $filename --directory=$HOME/.local; done
