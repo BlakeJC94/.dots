@@ -177,7 +177,7 @@ fi
 
 # If there are multiple matches for completion, Tab should cycle through them
 bind 'TAB:menu-complete'
-bind '`:menu-complete-backward'
+bind '"\e[Z":menu-complete-backward'
 # Display a list of the matching files
 bind "set show-all-if-ambiguous on"
 # Perform partial (common) completion on the first Tab press, only start
