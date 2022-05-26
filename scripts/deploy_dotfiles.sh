@@ -1,6 +1,18 @@
 #!/bin/bash
 mkdir -p $HOME/.local/bin
-DOTFILES=( .bashrc .bash_prompt .bash_aliases .xinitrc .gitconfig .gitignore .config/zathura .config/kitty .config/ncspot )
+DOTFILES=( \
+    .bashrc \
+    .bash_prompt \
+    .bash_aliases \
+    .xinitrc \
+    .tmux.conf \
+    .tmux_gruvbox.sh \
+    .gitconfig \
+    .gitignore \
+    .config/zathura \
+    .config/kitty \
+    .config/ncspot \
+)
 for i in "${DOTFILES[@]}"; do
     if [ -f "$HOME/$i" ]; then
         mv $HOME/$i $HOME/$i.dotsinstall.bak

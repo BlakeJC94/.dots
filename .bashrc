@@ -186,9 +186,3 @@ bind "set menu-complete-display-prefix on"
 bind "set completion-ignore-case on"
 # set single column for completion options
 # bind 'set completion-display-width 1'
-
-
-# add support for direnv
-if [[ "$(command -v direnv)" ]]; then
-    eval "$(direnv hook bash)"
-fi
