@@ -3,9 +3,8 @@ sudo apt update
 sudo apt upgrade -y
 
 # Install packages
-echo "============================="
-echo "Installing extra APT packages"
 sudo apt install -y \
+    tmux \
     tldr \
     tree \
     bat \
@@ -20,3 +19,5 @@ sudo apt install -y \
     zathura \
     zathura-djvu \
     zathura-ps
+
+tldr update
