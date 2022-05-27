@@ -11,3 +11,5 @@ tempfile=$(mktemp) \
   && rm $tempfile
 
 sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /home/linuxbrew/.linuxbrew/bin/wezterm 50
+
+sudo ln -sf $HOME/.config/wezterm/wezterm.desktop $HOME/.local/share/applications/wezterm.desktop
