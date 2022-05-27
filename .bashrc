@@ -186,3 +186,8 @@ bind "set menu-complete-display-prefix on"
 bind "set completion-ignore-case on"
 # set single column for completion options
 # bind 'set completion-display-width 1'
+
+
+if [[ "$(command -v wezterm)" ]]; then
+    export TERM=wezterm
+fi

@@ -23,6 +23,14 @@ echo "====================="
 echo "Updating npm packages"
 source ./scripts/update_packages_npm.sh
 
+echo "=============="
+echo "Updating brew"
+source ./scripts/update_brew.sh
+
+echo "======================"
+echo "Updating brew packages"
+source ./scripts/update_packages_brew.sh
+
 echo "========================="
 echo "Updating flatpak packages"
 source ./scripts/update_packages_flatpak.sh
@@ -35,9 +43,9 @@ echo "================"
 echo "Installing fonts"
 source ./scripts/update_fonts.sh
 
-echo "================"
-echo "Installing kitty"
-source ./scripts/update_kitty.sh
+# echo "================"
+# echo "Installing kitty"
+# source ./scripts/update_kitty.sh
 
 echo "================="
 echo "Installing neovim"

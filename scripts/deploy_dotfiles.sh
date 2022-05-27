@@ -6,12 +6,12 @@ DOTFILES=( \
     .bash_aliases \
     .xinitrc \
     .tmux.conf \
-    .tmux_gruvbox.sh \
     .gitconfig \
     .gitignore \
     .config/zathura \
     .config/kitty \
     .config/ncspot \
+    .config/wezterm \
 )
 for i in "${DOTFILES[@]}"; do
     if [ -f "$HOME/$i" ]; then
