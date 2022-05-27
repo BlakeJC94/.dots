@@ -1,7 +1,18 @@
 #!/bin/bash
+
 echo "=================="
 echo "Deploying dotfiles"
 source ./scripts/deploy_dotfiles.sh
+
+# Check if sudo was used
+if [[ $(id -u) -ne 0 ]] ; then
+    echo "Please run as root to update packages." ;
+    exit 1
+fi
+
+# Use non-interactive sudo and patct $HOME env
+sudo -n true
+HOME=$(getent passwd $SUDO_USER | cut -d: -f6)
 
 echo "====================="
 echo "Updating APT packages"
@@ -27,9 +38,9 @@ echo "=============="
 echo "Updating brew"
 source ./scripts/update_brew.sh
 
-echo "======================"
-echo "Updating brew packages"
-source ./scripts/update_packages_brew.sh
+echo "================"
+echo "Updating wezterm"
+source ./scripts/update_wezterm.sh
 
 echo "========================="
 echo "Updating flatpak packages"
