@@ -187,7 +187,7 @@ bind "set completion-ignore-case on"
 # set single column for completion options
 # bind 'set completion-display-width 1'
 
-
-if [[ "$(command -v wezterm)" ]]; then
-    export TERM=wezterm
+# source bash_profile if present
+if [ -r $HOME/.bash_profile ]; then
+    . $HOME/.bash_profile
 fi

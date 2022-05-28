@@ -1,8 +1,43 @@
 #!/bin/bash
+DOTFILES=( \
+    .bashrc \
+    .bash_prompt \
+    .bash_aliases \
+    .xinitrc \
+    .tmux.conf \
+    .gitconfig \
+    .gitignore \
+    .config/zathura \
+    .config/kitty \
+    .config/ncspot \
+)
+SCRIPTS=( \
+    ghlatest \
+    worktree \
+    session \
+)
+
+mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.local/opt
 
 echo "=================="
 echo "Deploying dotfiles"
-source ./scripts/deploy_dotfiles.sh
+for i in "${DOTFILES[@]}"; do
+    if [ -f "$HOME/$i" ]; then
+        mv $HOME/$i $HOME/$i.dotsinstall.bak
+    fi
+    ln -sf $HOME/.dots/$i $HOME/$i
+done
+
+echo "================="
+echo "Deploying scripts"
+for i in "${SCRIPTS[@]}"; do
+    if [ -f "$HOME/.local/bin/$i" ]; then
+        mv $HOME/.local/bin/$i $HOME/.local/bin/.$i.dotsinstall.bak
+    fi
+    chmod +x $HOME/.local/bin/$i
+    ln -sf $HOME/.dots/bin/$i $HOME/.local/bin/$i
+done
 
 # Check if sudo was used
 if [[ $(id -u) -ne 0 ]] ; then
@@ -10,69 +45,57 @@ if [[ $(id -u) -ne 0 ]] ; then
     exit 1
 fi
 
-# Use non-interactive sudo and patct $HOME env
+# Use non-interactive sudo and patch `$HOME`
 sudo -n true
 HOME=$(getent passwd $SUDO_USER | cut -d: -f6)
 
-echo "====================="
-echo "Updating APT packages"
-source ./scripts/update_packages_apt.sh
-
-echo "==============="
-echo "Updating python"
-source ./scripts/update_python.sh
-
-echo "====================="
-echo "Updating pip packages"
-source ./scripts/update_packages_pip.sh
-
 echo "============"
-echo "Updating nvm"
-source ./scripts/update_nvm.sh
+echo "Updating apt"
+source ./scripts/apt.sh
 
-echo "====================="
-echo "Updating npm packages"
-source ./scripts/update_packages_npm.sh
+echo "================"
+echo "Updating flatpak"
+source ./scripts/flatpak.sh
 
 echo "=============="
+echo "Updating pyenv"
+source ./scripts/pyenv.sh
+
+echo "============"
+echo "Updating npm"
+source ./scripts/npm.sh
+
+echo "============="
 echo "Updating brew"
-source ./scripts/update_brew.sh
+source ./scripts/brew.sh
 
-echo "================"
-echo "Updating wezterm"
-source ./scripts/update_wezterm.sh
-
-echo "========================="
-echo "Updating flatpak packages"
-source ./scripts/update_packages_flatpak.sh
-
-# echo "=============="
-# echo "Updating Julia"
-# source ./scripts/update_julia.sh
-
-echo "================"
-echo "Installing fonts"
-source ./scripts/update_fonts.sh
-
-# echo "================"
-# echo "Installing kitty"
-# source ./scripts/update_kitty.sh
-
-echo "================="
-echo "Installing neovim"
-source ./scripts/update_neovim.sh
+echo "======================="
+echo "Updating work utilities"
+source ./update/work.sh
 
 echo "================="
 echo "Installing ncspot"
-source ./scripts/update_ncspot.sh
+source ./scripts/ncspot.sh
 
-echo "===================="
-echo "Installing tailscale"
-source ./scripts/update_tailscale.sh
+# echo "=============="
+# echo "Updating Julia"
+# source ./scripts/julia.sh
+
+echo "================"
+echo "Installing fonts"
+source ./scripts/fonts.sh
+
+echo "================"
+echo "Installing kitty"
+source ./scripts/kitty.sh
+
+echo "================="
+echo "Installing neovim"
+source ./scripts/neovim.sh
 
 echo "=================="
 echo "Installing dropbox"
-source ./scripts/update_dropbox.sh
+source ./scripts/dropbox.sh
 
 echo "====="
 echo "PASS!"
