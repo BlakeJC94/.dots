@@ -8,5 +8,4 @@ rm nvim-linux64.tar.gz
 
 if ! [[ "$(command -v nvim)" ]]; then
     sudo ln -sf $HOME/.local/opt/nvim-linux64/bin/nvim $HOME/.local/bin/nvim
-    git clone https://github.com/BlakeJC94/nvim.git $HOME/.config/nvim
 fi
