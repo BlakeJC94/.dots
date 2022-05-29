@@ -2,8 +2,8 @@
 alias g='git status'
 # quick cd command
 alias c='cd "$(find . -type d | fzf)"'
-# quick see command
-alias s='see "$(fzf)"'
+# quick project navigation command
+alias p='cd "$(find ~ ~/Workspace/repos -mindepth 1 -maxdepth 1 -type d | fzf)"'
 # muscle memory
 alias :q="exit"
 alias :Q="exit"
