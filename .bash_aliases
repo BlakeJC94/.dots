@@ -3,7 +3,9 @@ alias g='git status'
 # quick cd command
 alias c='cd "$(find . -type d | fzf)"'
 # quick project navigation command
-alias p='cd "$(find ~ ~/Workspace/repos -mindepth 1 -maxdepth 1 -type d | fzf)"'
+alias p='cd "$(find ~ ~/Workspace/repos -mindepth 1 -maxdepth 2 -type d | fzf)"'
+# quick settings navigation command
+alias s='cd "$(find ~/.config -mindepth 1 -maxdepth 1 -type d | fzf)"'
 # muscle memory
 alias :q="exit"
 alias :Q="exit"
@@ -52,5 +54,39 @@ function watt() {
         search_term="${*}"
         search_term="${search_term// /+}"
         firefox https://www.google.com.au/search?q=${search_term} &
+    fi
+}
+
+function clonetree() {
+    if [[ $# -eq 0 ]] ; then
+        echo 'Clone git worktrees and configure git fetch'
+        echo '  Usage: user@pc~/path/:$ clonetree [repo url] [dir name (optional)]'
+    else
+        url=$1
+        basename=${url##*/}
+        name=${2:-${basename%.*}}
+
+        mkdir $name
+        cd "$name"
+
+        # Moves all the administrative git files (a.k.a $GIT_DIR) under .bare directory.
+        #
+        # Plan is to create worktrees as siblings of this directory.
+        # Example targeted structure:
+        # .bare
+        # main
+        # new-awesome-feature
+        # hotfix-bug-12
+        # ...
+        git clone --bare "$url" .git
+        echo "gitdir: ./.git" > .git
+
+        # Explicitly sets the remote origin fetch so we can fetch remote branches
+        git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+
+        # Gets all branches from origin
+        git fetch origin
+
+        cd ..
     fi
 }

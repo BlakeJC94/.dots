@@ -13,8 +13,6 @@ DOTFILES=( \
 )
 SCRIPTS=( \
     ghlatest \
-    worktree \
-    session \
 )
 
 mkdir -p $HOME/.local/bin
