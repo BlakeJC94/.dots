@@ -4,26 +4,8 @@
     username = BlakeJC94
 
 [alias]
-    a = add .
-    co = checkout
-    cm = commit -m
-    st = status
-    br = branch
+    pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
     hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
-    type = cat-file -t
-    dump = cat-file -p
-
-[url "https://gitlab.com/"]
-    insteadOf = gl:
-
-[url "https://github.com/"]
-    insteadOf = gh:
-
-[url "https://gist.github.com/"]
-    insteadOf = gist:
-
-[url "https://bitbucket.org/"]
-    insteadOf = bb:
 
 [color]
     ui = true
@@ -43,6 +25,7 @@
     added = yellow
     changed = green
     untracked = red
+
 [core]
     excludesfile = /.gitignore
 [credential]
@@ -61,5 +44,3 @@
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
 [pull]
     rebase = true
-[branch]
-	autosetupmerge = always
