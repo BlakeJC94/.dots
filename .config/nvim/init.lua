@@ -140,6 +140,7 @@ MAPS = {
         ['<Leader><S-,>'] = ":-tabmove<CR>",
         ['<Leader>t'] = ':tabedit %<CR>',
         -- Leader maps
+        -- ['<Leader>r'] = "<Esc>:s/\\%V//gc"  -- TODO
         ['<Leader><CR>']  = ":Telescope file_browser<CR>",
         ['<Leader><BS>']  = ":Telescope find_files<CR>",               -- File finder
         ['<Leader><Tab>'] = "<C-^>",                                   -- Last file
