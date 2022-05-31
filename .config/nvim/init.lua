@@ -270,10 +270,10 @@ MAPS = {
         ['<C-z><Up>']    = '<C-\\><C-n>:wincmd K<CR>',
         ['<C-z><Right>'] = '<C-\\><C-n>:wincmd L<CR>',
         -- Tab navigation
-        ['<C-z>.'] = ":tabnext<CR>",
-        ['<C-z>,'] = ":tabprev<CR>",
-        ['<C-z><S-.>'] = ":+tabmove<CR>",
-        ['<C-z><S-,>'] = ":-tabmove<CR>",
+        ['<C-z>.'] = "<C-\\><C-n>:tabnext<CR>",
+        ['<C-z>,'] = "<C-\\><C-n>:tabprev<CR>",
+        ['<C-z><S-.>'] = "<C-\\><C-n>:+tabmove<CR>",
+        ['<C-z><S-,>'] = "<C-\\><C-n>:-tabmove<CR>",
         -- <Esc><Esc> => (terminal) go to normal mode
         ['<C-z><Esc>'] = '<C-\\><C-n>',
         -- <Esc>: => (terminal) go to command mode
