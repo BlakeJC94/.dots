@@ -5,7 +5,7 @@ alias c='cd "$(find . -type d | fzf)"'
 # quick project navigation command
 alias p='cd "$(find ~ ~/Workspace/repos -mindepth 1 -maxdepth 2 -type d | fzf)"'
 # quick settings navigation command
-alias s='cd "$(find ~/.config -mindepth 1 -maxdepth 1 -type d | fzf)"'
+alias s='cd "$(find ~/.config -mindepth 1 -maxdepth 1 -type d -or -type l| fzf)"'
 # muscle memory
 alias :q="exit"
 alias :Q="exit"
