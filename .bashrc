@@ -191,3 +191,25 @@ bind "set completion-ignore-case on"
 if [ -r $HOME/.bash_profile ]; then
     . $HOME/.bash_profile
 fi
+
+# init thefuck
+if [[ "$(command -v thefuck)" ]]; then
+    eval "$(thefuck --alias)"
+fi
+
+# init fzf
+if [[ "$(command -v fzf)" ]]; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+    # source /usr/share/doc/fzf/examples/completion.bash  # not needed according to docs
+fi
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/blake/google-cloud-sdk/path.bash.inc' ]; then . '/home/blake/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/blake/google-cloud-sdk/completion.bash.inc' ]; then . '/home/blake/google-cloud-sdk/completion.bash.inc'; fi
+
+# seer gcloud stuff
+export GOOGLE_APPLICATION_CREDENTIALS="/home/blake/.config/gcloud/legacy_credentials/blake@seermedical.com/adc.json"
+export GCLOUD_PROJECT="seer-prod-au"

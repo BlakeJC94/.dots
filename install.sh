@@ -60,6 +60,10 @@ echo "Updating pyenv"
 source ./scripts/pyenv.sh
 
 echo "============"
+echo "Updating pip"
+source ./scripts/pip.sh
+
+echo "============"
 echo "Updating npm"
 source ./scripts/npm.sh
 

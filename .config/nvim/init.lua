@@ -136,8 +136,8 @@ MAPS = {
         -- Tab controls
         ['<Leader>.'] = ":tabnext<CR>",
         ['<Leader>,'] = ":tabprev<CR>",
-        ['<Leader><S-.>'] = ":+tabmove<CR>",
-        ['<Leader><S-,>'] = ":-tabmove<CR>",
+        ['<Leader>>'] = ":+tabmove<CR>",
+        ['<Leader><'] = ":-tabmove<CR>",
         ['<Leader>t'] = ':tabedit %<CR>',
         -- Leader maps
         -- ['<Leader>r'] = "<Esc>:s/\\%V//gc"  -- TODO
