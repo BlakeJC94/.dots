@@ -1,5 +1,5 @@
 [user]
-    name = Blake
+	name = BlakeJC94
     email = blakejamescook@gmail.com
     username = BlakeJC94
 
@@ -44,3 +44,8 @@
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
 [pull]
     rebase = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
