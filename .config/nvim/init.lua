@@ -81,9 +81,6 @@ MAPS = {
         ['<F3>'] = {map=':setl wrap!<CR>:setl wrap?<CR>', opts={silent=false}},
         ['<F4>'] = {map=':setl spell!<CR>:setl spell?<CR>', opts={silent=false}},
         ['<F6>'] = {map=':wincmd =<CR>', opts={silent=false}},
-        -- Better splitting
-        ['_'] = ':split<CR>',
-        ['|'] = ':vsplit<CR>',
         -- Move left and right faster
         ['H'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
         ['L'] = 'g_',
@@ -120,6 +117,9 @@ MAPS = {
         ['<C-z><C-z>'] = ":lua require('FTerm').toggle()<CR>",
         ['<C-z>_'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd J')<CR>",
         ['<C-z>|'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd L')<CR>",
+        -- Pane controls
+        ['<Leader>_'] = ':split<CR>',
+        ['<Leader>|'] = ':vsplit<CR>',
         -- Window controls maps
         ['<C-Left>']  = ':lua require("tmux").move_left()<CR>',
         ['<C-Down>']  = ':lua require("tmux").move_bottom()<CR>',
@@ -140,12 +140,12 @@ MAPS = {
         ['<Leader><'] = ":-tabmove<CR>",
         ['<Leader>t'] = ':tabedit %<CR>',
         -- Leader maps
-        -- ['<Leader>r'] = "<Esc>:s/\\%V//gc"  -- TODO
         ['<Leader><CR>']  = ":Telescope file_browser<CR>",
         ['<Leader><BS>']  = ":Telescope find_files<CR>",               -- File finder
         ['<Leader><Tab>'] = "<C-^>",                                   -- Last file
         ['<Leader><Esc>'] = ":Telescope buffers<CR>",                     -- Buffers
         ['<Leader>q'] = ":q<CR>",                            -- Quit
+        ['<Leader>w'] = ":w<CR>",                            -- Save
         ['<Leader>n'] = ":enew | echo '[New file]'<CR>",
         ['<Leader>N'] = ":bufdo bdel | enew | echo '[New session]'<CR>",
         ['<Leader>d'] = ":lcd %:p:h | echo 'Changed local dir to ' . getcwd()<CR>",
