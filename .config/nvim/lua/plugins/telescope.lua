@@ -33,14 +33,17 @@ M['nvim-telescope/telescope.nvim'] = {
                     case_mode = "smart_case",
                 },
                 file_browser = {
-                    theme = "ivy",
-                    borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+                    -- theme = "cursor",
+                    -- borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+                    layout_config = {
+                        width = 60,
+                    },
                     previewer=false,
                     hijack_netrw = true,
                     path = "%:p:h",
                     grouped = true,
                     hidden = true,
-                    display_stat=false,
+                    display_stat = false,
                 },
             },
             defaults = {
