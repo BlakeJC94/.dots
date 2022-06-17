@@ -281,6 +281,16 @@ MAPS = {
         -- <C-z> => ToggleTerm Hide
         ['<C-z><C-z>'] = "<C-\\><C-n>:lua require('FTerm').toggle()<CR>",
     },
+    o = {
+        -- Custom text object: "around document"
+        ['ad'] = '<Cmd>normal! ggVG<CR>',
+        ['id'] = '<Cmd>normal! ggVG<CR>',
+    },
+    x = {
+        -- Custom text object: "around document"
+        ['ad'] = 'gg0oG$',
+        ['id'] = 'gg0oG$',
+    },
 }
 
 -- LOAD SELECTED PLUGINS

@@ -1,11 +1,12 @@
 # git status alias
 alias g='git status'
 # quick cd command
-alias c='cd "$(find . -type d | fzf)"'
+alias c='cd "$(find . -maxdepth 1 -type d | fzf)"'
+alias C='cd "$(find . -type d | fzf)"'
 # quick project navigation command
-alias p='cd "$(find ~ ~/Workspace/repos -mindepth 1 -maxdepth 2 -type d | fzf)"'
+alias p='cd "$(find ~/Workspace -mindepth 2 -maxdepth 3 -not -path */.git* -type d -or -type l | fzf)"'
 # quick settings navigation command
-alias s='cd "$(find ~/.config -mindepth 1 -maxdepth 1 -type d -or -type l| fzf)"'
+alias s='cd "$(find ~/.config -mindepth 1 -maxdepth 1 -type d -or -type l | fzf)"'
 # quick correct last failed command command
 alias f='fuck'
 # muscle memory
