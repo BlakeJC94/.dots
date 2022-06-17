@@ -99,6 +99,8 @@ M["folke/zen-mode.nvim"] = {
 --     end
 -- }
 
+M['5long/pytest-vim-compiler'] = {}
+
 -- Better quickfix list format
 M['https://gitlab.com/yorickpeterse/nvim-pqf'] = {
     config = function()
