@@ -49,10 +49,6 @@ set hlsearch   " Highlight matches
 
 set ignorecase smartcase  " Case-sensitive only with upper-case chars
 
-" Clear highlights with <Esc><Esc>
-" nnoremap <Esc><Esc> :noh<CR>
-" TODO move to mappings
-
 " Backups
 " -------
 
@@ -104,12 +100,19 @@ set foldlevel=1        " Level of folds to auto-open
 " Mappings
 " --------
 
-" Toggle relative line numbers
+" F-key maps:
+" `<F1>` ==> Toggle relative line numbers
+" `<F2>` ==> Toggle line numbers
+" `<F3>` ==> Toggle softwrap
 noremap <F1> :setl relativenumber!<CR>:setl relativenumber?<CR>
-" Toggle line numbers
 noremap <F2> :setl number!<CR>:setl number?<CR>
-" Toggle softwrap
 noremap <F3> :setl wrap!<CR>:setl wrap?<CR>
+
+" Disable arrow keys (get good at `h`/`j`/`k`/`l`!)
+noremap <Left>  <Nop>
+noremap <Down>  <Nop>
+noremap <Up>    <Nop>
+noremap <Right> <Nop>
 
 " Prevent `x`/`s` from overriding clipboard
 noremap x "_x
@@ -117,29 +120,29 @@ noremap X "_x
 noremap s "_s
 noremap S "_S
 
--- Open folds when flicking through search matches
-['n'] = 'nzv',
-['N'] = 'Nzv',
+" Open folds when flicking through search matches with `n`/`N`
+noremap n nzv
+noremap N Nzv
 
--- Make Y behave like D and C
-nnoremap ['Y']  = 'y$',
--- Clear last search hl with <ESC> before <ESC> action
-nnoremap ['<ESC>'] = ':noh | redraw | echon ""<CR><ESC>',
+" Make `Y` behave like `D` and `C`
+nnoremap Y y$
 
--- J doesn't move cursor
-['J'] = 'mzJ`z',
+" Clear search highlights and commands on `<ESC>`
+nnoremap <ESC> :noh | redraw | echon ""<CR><ESC>
 
--- Make {/} don't change the the jumplist
-['{'] = ':<C-u>keepjumps norm! {<CR>',
-['}'] = ':<C-u>keepjumps norm! }<CR>',
+" `J` doesn't move cursor
+nnoremap J mzJ`z
 
+" Make `{` and `}` not change the jumplist
+nnoremap { :<C-u>keepjumps norm! {<CR>
+nnoremap } :<C-u>keepjumps norm! }<CR>
 
--- Change selected word (forward/backwards), . to repeat
-['c*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``cgn",
-['c#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``cgN",
--- Delete selected word (forward/backwards), . to repeat
-['d*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgn",
-['d#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
+" Change selected word (forward/backwards), `.` to repeat
+nnoremap c* /\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``cgn
+nnoremap c# ?\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``cgN
+" Delete selected word (forward/backwards), `.` to repeat
+nnoremap d* /\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``dgn
+nnoremap d# ?\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``dgN
 
 " Visually select last pasted regions with `gp`
 nnoremap gp `[v`]
@@ -149,75 +152,95 @@ vmap < <gv
 vmap > >gv
 vmap = =gv
 
-" Move visual block
+" `J`/`K` ==> Move visual block up/down
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
--- Stop p from overriding unnamed register in visual mode
-['p'] = "pgvy",
-['P'] = "Pgvy",
+" Stop `p`/`P` from overriding unnamed register in visual mode
+vnoremap p pgvy
+vnoremap P Pgvy
 
 " Make `<C-w>`/`<C-u>` actions insert mode undoable with `u`
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
-" Leader mappings
+" Leader mappings TODO docs
 " ---------------
 
 let mapleader = "\<Space>"
 
-['<Leader><Tab>'] = "<C-^>",                                   -- Last file
-['<Leader>q'] = ":q<CR>",                            -- Quit
-['<Leader>w'] = ":w<CR>",                            -- Save
-['<Leader>n'] = ":enew | echo '[New file]'<CR>",
-['<Leader>N'] = ":bufdo bdel | enew | echo '[New session]'<CR>",
-['<Leader>d'] = ":lcd %:p:h | echo 'Changed local dir to ' . getcwd()<CR>",
-['<Leader>D'] = ":cd %:p:h | echo 'Changed dir to ' . getcwd()<CR>",
+" Last file
+noremap <Leader><Tab> <C-^>
+" Quit
+noremap <Leader>q :q<CR>
+" Save
+noremap <Leader>w :w<CR>
+noremap <Leader>n :enew | echo '[New file]'<CR>
+noremap <Leader>N :bufdo bdel | enew | echo '[New session]'<CR>
+noremap <Leader>d :lcd %:p:h | echo 'Changed local dir to ' . getcwd()<CR>
+noremap <Leader>D :cd %:p:h | echo 'Changed dir to ' . getcwd()<CR>
 
-        [']c'] = ':cnext<CR>',
-        ['[c'] = ':cprev<CR>',
-        [']l'] = ':lnext<CR>',
-        ['[l'] = ':lprev<CR>',
-        ['<Leader>c'] = ":ToggleQL<CR>",               -- Toggle qflist
-        ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
-command! ToggleQL exec empty(filter(getwininfo(), 'v:val.quickfix')) ? "copen" : "cclose"
-command! ToggleLL exec empty(filter(getwininfo(), 'v:val.loclist')) ? "lopen" : "lclose"
-
-        ['<C-z>_'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd J')<CR>",
-        ['<C-z>|'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd L')<CR>",
-
-" Split and window navigation maps
+" Split and window navigation maps TODO vim terminal maps
 " --------------------------------
 
--- Pane controls
-['<Leader>_'] = ':split<CR>',
-['<Leader>|'] = ':vsplit<CR>',
--- Window controls maps
-['<C-Left>']  = ':lua require("tmux").move_left()<CR>',
-['<C-Down>']  = ':lua require("tmux").move_bottom()<CR>',
-['<C-Up>']    = ':lua require("tmux").move_top()<CR>',
-['<C-Right>'] = ':lua require("tmux").move_right()<CR>',
-['<S-Left>']  = ':lua require("tmux").resize_left(8)<CR>',
-['<S-Down>']  = ':lua require("tmux").resize_bottom(8)<CR>',
-['<S-Up>']    = ':lua require("tmux").resize_top(8)<CR>',
-['<S-Right>'] = ':lua require("tmux").resize_right(8)<CR>',
-['<Leader><Left>']  = ':wincmd H<CR>',
-['<Leader><Down>']  = ':wincmd J<CR>',
-['<Leader><Up>']    = ':wincmd K<CR>',
-['<Leader><Right>'] = ':wincmd L<CR>',
--- Tab controls
-['<Leader>.'] = ":tabnext<CR>",
-['<Leader>,'] = ":tabprev<CR>",
-['<Leader>>'] = ":+tabmove<CR>",
-['<Leader><'] = ":-tabmove<CR>",
-['<Leader>t'] = ':tabedit %<CR>',
--- Leader maps
+" Split controls
+" <Space>_ ==> New horizontal split
+" <Space>| ==> New vertical split
+noremap <Leader>_ :split<CR>
+noremap <Leader>| :vsplit<CR>
 
+" Window controls maps
+" <C-Arrow> ==> Move cursor to window
+" <S-Arrow> ==> Resize window
+" <Leader><Arrow> ==> Move window
+noremap <C-Left>  :wincmd h<CR>
+noremap <C-Down>  :wincmd j<CR>
+noremap <C-Up>    :wincmd k<CR>
+noremap <C-Right> :wincmd l<CR>
+noremap <S-Left>  :vert resize -8<CR>
+noremap <S-Down>  :resize -8<CR>
+noremap <S-Up>    :resize 8<CR>
+noremap <S-Right> :vert resize 8<CR>
+noremap <Leader><Left>  :wincmd H<CR>
+noremap <Leader><Down>  :wincmd J<CR>
+noremap <Leader><Up>    :wincmd K<CR>
+noremap <Leader><Right> :wincmd L<CR>
 
-" -----
+" Tab controls
+" <Leader>t ==> open new tab
+" <Leader>. ==> go to next tab
+" <Leader>, ==> go to previous tab
+" <Leader>> ==> move tab right
+" <Leader>< ==> move tab left
+noremap <Leader>t :tabedit %<CR>
+noremap <Leader>. :tabnext<CR>
+noremap <Leader>, :tabprev<CR>
+noremap <Leader>> :+tabmove<CR>
+noremap <Leader>< :-tabmove<CR>
+
+" Terminal maps
+" -------------
+
+" TODO update for vim terminal
+['<C-z>_'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd J')<CR>",
+['<C-z>|'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd L')<CR>",
+
+" Quickfix list maps TODO docs
+" ------------------
+
+noremap ]c :cnext<CR>
+noremap [c :cprev<CR>
+noremap ]l :lnext<CR>
+noremap [l :lprev<CR>
+noremap <Leader>c :ToggleQL<CR>
+noremap <Leader>l :ToggleLL<CR>
+
+" Commands
+" --------
 
 command! TrimSpaces let g:tmp = winsaveview() | keeppatterns %s/\s\+$//e | call winrestview(g:tmp)
-
+command! ToggleQL exec empty(filter(getwininfo(), 'v:val.quickfix')) ? "copen" : "cclose"
+command! ToggleLL exec empty(filter(getwininfo(), 'v:val.loclist')) ? "lopen" : "lclose"
 
 augroup base
     autocmd!
@@ -242,7 +265,6 @@ augroup ft_extra
     autocmd!
     " Make cmdwindows close with q
     autocmd CmdwinEnter * nnoremap <buffer> q :q<CR>
-    autocmd CmdwinEnter * luaeval("require('cmp').setup.buffer({enabled = false})")
     " help/cmd win/qf list: Press q to close and disable spellcheck
     autocmd FileType qf,help,fugitive nnoremap <buffer> q :q<CR>
     autocmd FileType qf,help,fugitive setlocal nospell
