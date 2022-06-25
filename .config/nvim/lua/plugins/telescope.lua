@@ -51,7 +51,7 @@ M['nvim-telescope/telescope.nvim'] = {
             defaults = {
                 borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
                 mappings = telescope_mappings,
-                file_ignore_patterns = {"%/.git/", "%/__pycache__/", "%/data/"},
+                file_ignore_patterns = {"%.git/", "%/__pycache__/", "%/data/"},
             },
             pickers = {
                 find_files = {
