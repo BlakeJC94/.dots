@@ -213,3 +213,9 @@ if [ -f '/home/blake/google-cloud-sdk/completion.bash.inc' ]; then . '/home/blak
 # seer gcloud stuff
 export GOOGLE_APPLICATION_CREDENTIALS="/home/blake/.config/gcloud/legacy_credentials/blake@seermedical.com/adc.json"
 export GCLOUD_PROJECT="seer-prod-au"
+
+# Enable tab completion for seerflow
+# `seerflow -- --completion > ~/.seerflow.sh`
+if [ -f ~/.seerflow.sh ]; then
+    source ~/.seerflow.sh
+fi

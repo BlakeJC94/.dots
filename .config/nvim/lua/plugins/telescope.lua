@@ -45,6 +45,7 @@ M['nvim-telescope/telescope.nvim'] = {
                     grouped = true,
                     hidden = true,
                     display_stat = false,
+                    file_ignore_patterns = {"%/.git/", "%/__pycache__/"},
                 },
             },
             defaults = {
