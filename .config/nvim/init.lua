@@ -110,7 +110,7 @@ MAPS = {
         ['gd'] = ':Lsp definition<CR>',
         ['gD'] = ':Lsp declaration<CR>',
         ['gI'] = ':Lsp implementation<CR>',
-        ['gr'] = ':Lsp references<CR>',
+        ['gR'] = ':Lsp references<CR>',
         ['gy'] = ':Lsp typedefinition<CR>',
         -- <C-z> => Toggle terminal
         ['<C-z>'] = "",
@@ -239,8 +239,8 @@ MAPS = {
         ['J'] = ":m '>+1<CR>gv",
         ['K'] = ":m '<-2<CR>gv",
         -- Stop p from overriding unnamed register in visual mode
-        ['p'] = "pgvy",
-        ['P'] = "Pgvy",
+        -- ['p'] = "pgvy",
+        -- ['P'] = "Pgvy",
         -- Replace spaces in selection with underscores
         ['_']  = ":s/\\%V /_/g<CR>",
         ['g_'] = ":s/\\%V_/ /g<CR>",

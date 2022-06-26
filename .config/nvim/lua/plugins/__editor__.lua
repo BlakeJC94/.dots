@@ -13,6 +13,21 @@ M['tpope/vim-commentary'] = {}
 -- crs => coerce cursor word to snake_case. :Subvert => Case invariant substitution
 M['tpope/vim-abolish'] = {}
 
+-- gs<object> ==> Sort operator across object
+M['christoomey/vim-sort-motion'] = {}
+
+-- ["x]gr<motion> ==> Replace motion region with register x
+M['inkarkat/vim-ReplaceWithRegister'] = {}
+
+-- Autopairs (maybe this one will be alright?)
+M['kana/vim-smartinput'] = {}
+
+-- ae/ie ==> Text objects for around/in everything in file
+M['kana/vim-textobj-entire'] = {}
+
+-- I/A commands for regular visual mode
+M['kana/vim-niceblock'] = {}
+
 -- Extra motions (e.g. ]q [q to navigate quickfix list)
 -- M['tpope/vim-unimpaired'] = {}
 
