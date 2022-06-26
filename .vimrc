@@ -164,49 +164,73 @@ vnoremap P Pgvy
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 
-" Leader mappings TODO docs
+" Leader mappings
 " ---------------
 
+" <Leader> is <Space>
 let mapleader = "\<Space>"
 
-" Last file
+" <Leader><Tab> ==> Last file (like alt-tab for vim)
 noremap <Leader><Tab> <C-^>
-" Quit
-noremap <Leader>q :q<CR>
-" Save
+
+" <Leader>w ==> Save
+" <Leader>q ==> Quit
 noremap <Leader>w :w<CR>
+noremap <Leader>q :q<CR>
+
+" <Leader>n ==> Start new file
+" <Leader>N ==> Start new session (close all files)
 noremap <Leader>n :enew | echo '[New file]'<CR>
 noremap <Leader>N :bufdo bdel | enew | echo '[New session]'<CR>
+
+" <Leader>d ==> Change window directory to current file directory
+" <Leader>D ==> Change session directory to current file directory
 noremap <Leader>d :lcd %:p:h | echo 'Changed local dir to ' . getcwd()<CR>
 noremap <Leader>D :cd %:p:h | echo 'Changed dir to ' . getcwd()<CR>
 
-" Split and window navigation maps TODO vim terminal maps
+" Split and window navigation maps
 " --------------------------------
 
 " Split controls
-" <Space>_ ==> New horizontal split
-" <Space>| ==> New vertical split
+" <Leader>_ ==> New horizontal split
+" <Leader>| ==> New vertical split
+" <C-z>_ ==> New horizontal split terminal
+" <C-z>| ==> New vertical split terminal
 noremap <Leader>_ :split<CR>
 noremap <Leader>| :vsplit<CR>
+noremap <C-z>_ :term<CR>
+noremap <C-z>| :vert term<CR>
 
-" Window controls maps
+" Window controls maps (<Leader> = <C-z> if in term window)
 " <C-Arrow> ==> Move cursor to window
 " <S-Arrow> ==> Resize window
-" <Leader><Arrow> ==> Move window
+" <Leader><Arrow> ==> Move current window
 noremap <C-Left>  :wincmd h<CR>
 noremap <C-Down>  :wincmd j<CR>
 noremap <C-Up>    :wincmd k<CR>
 noremap <C-Right> :wincmd l<CR>
+tnoremap <C-Left>  <C-w>N:wincmd h<CR>
+tnoremap <C-Down>  <C-w>N:wincmd j<CR>
+tnoremap <C-Up>    <C-w>N:wincmd k<CR>
+tnoremap <C-Right> <C-w>N:wincmd l<CR>
 noremap <S-Left>  :vert resize -8<CR>
 noremap <S-Down>  :resize -8<CR>
 noremap <S-Up>    :resize 8<CR>
 noremap <S-Right> :vert resize 8<CR>
+tnoremap <S-Left>  <C-w>N:vert resize -8<CR>
+tnoremap <S-Down>  <C-w>N:resize -8<CR>
+tnoremap <S-Up>    <C-w>N:resize 8<CR>
+tnoremap <S-Right> <C-w>N:vert resize 8<CR>
 noremap <Leader><Left>  :wincmd H<CR>
 noremap <Leader><Down>  :wincmd J<CR>
 noremap <Leader><Up>    :wincmd K<CR>
 noremap <Leader><Right> :wincmd L<CR>
+tnoremap <C-z><Left>  <C-w>N:wincmd H<CR>
+tnoremap <C-z><Down>  <C-w>N:wincmd J<CR>
+tnoremap <C-z><Up>    <C-w>N:wincmd K<CR>
+tnoremap <C-z><Right> <C-w>N:wincmd L<CR>
 
-" Tab controls
+" Tab controls (<Leader> = <C-z> if in term window)
 " <Leader>t ==> open new tab
 " <Leader>. ==> go to next tab
 " <Leader>, ==> go to previous tab
@@ -217,23 +241,29 @@ noremap <Leader>. :tabnext<CR>
 noremap <Leader>, :tabprev<CR>
 noremap <Leader>> :+tabmove<CR>
 noremap <Leader>< :-tabmove<CR>
+noremap <C-z>t <C-w>N:tabedit %<CR>
+noremap <C-z>. <C-w>N:tabnext<CR>
+noremap <C-z>, <C-w>N:tabprev<CR>
+noremap <C-z>> <C-w>N:+tabmove<CR>
+noremap <C-z>< <C-w>N:-tabmove<CR>
 
-" Terminal maps
-" -------------
+" <C-z><C-z> ==> Escape to normal mode in terminal buffer
+tnoremap <C-z><Esc> <C-w>N
 
-" TODO update for vim terminal
-['<C-z>_'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd J')<CR>",
-['<C-z>|'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd L')<CR>",
+" <C-z><C-z> ==> Toggle terminal buffer
+tnoremap <C-z><C-z> <C-w>N:hide<CR>
+noremap <C-z><C-z> :unhide<CR>
 
-" Quickfix list maps TODO docs
-" ------------------
+" <Leader>c ==> Toggle quickfix menu
+" <Leader>l ==> Toggle local quickfix menu
+noremap <Leader>c :ToggleQL<CR>
+noremap <Leader>l :ToggleLL<CR>
 
+" Navigate quickfix entries
 noremap ]c :cnext<CR>
 noremap [c :cprev<CR>
 noremap ]l :lnext<CR>
 noremap [l :lprev<CR>
-noremap <Leader>c :ToggleQL<CR>
-noremap <Leader>l :ToggleLL<CR>
 
 " Commands
 " --------
