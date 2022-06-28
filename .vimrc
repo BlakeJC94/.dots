@@ -128,7 +128,7 @@ noremap N Nzv
 nnoremap Y y$
 
 " Clear search highlights and commands on `<ESC>`
-nnoremap <ESC> :noh | redraw | echon ""<CR><ESC>
+nnoremap <ESC> :noh \| redraw \| echon ""<CR><ESC>
 
 " `J` doesn't move cursor
 nnoremap J mzJ`z
@@ -174,32 +174,36 @@ let mapleader = "\<Space>"
 noremap <Leader><Tab> <C-^>
 
 " <Leader>w ==> Save
-" <Leader>q ==> Quit
-noremap <Leader>w :w<CR>
-noremap <Leader>q :q<CR>
 
 " <Leader>n ==> Start new file
 " <Leader>N ==> Start new session (close all files)
-noremap <Leader>n :enew | echo '[New file]'<CR>
-noremap <Leader>N :bufdo bdel | enew | echo '[New session]'<CR>
+noremap <Leader>n :enew \| echo '[New file]'<CR>
+noremap <Leader>N :bufdo bdel \| enew \| echo '[New session]'<CR>
 
 " <Leader>d ==> Change window directory to current file directory
 " <Leader>D ==> Change session directory to current file directory
-noremap <Leader>d :lcd %:p:h | echo 'Changed local dir to ' . getcwd()<CR>
-noremap <Leader>D :cd %:p:h | echo 'Changed dir to ' . getcwd()<CR>
+noremap <Leader>d :lcd %:p:h \| echo 'Changed local dir to ' . getcwd()<CR>
+noremap <Leader>D :cd %:p:h \| echo 'Changed dir to ' . getcwd()<CR>
 
 " Split and window navigation maps
 " --------------------------------
 
+" Make <C-z> a 'terminal leader' key (disable stopping key)
+noremap <C-z> <Nop>
+
 " Split controls
 " <Leader>_ ==> New horizontal split
 " <Leader>| ==> New vertical split
+" <Leader>q ==> Close split
 " <C-z>_ ==> New horizontal split terminal
 " <C-z>| ==> New vertical split terminal
+" <C-z>q ==> Close split terminal
 noremap <Leader>_ :split<CR>
-noremap <Leader>| :vsplit<CR>
+noremap <Leader>\| :vsplit<CR>
+noremap <Leader>q :q<CR>
 noremap <C-z>_ :term<CR>
-noremap <C-z>| :vert term<CR>
+noremap <C-z>\| :vert term<CR>
+tnoremap <C-z>q! <C-w>N:q<CR>
 
 " Window controls maps (<Leader> = <C-z> if in term window)
 " <C-Arrow> ==> Move cursor to window
