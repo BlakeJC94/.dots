@@ -22,9 +22,9 @@ M["ellisonleao/gruvbox.nvim"] = {
                 CursorLine = {bg = "#282828"},
                 CursorLineNr = {bg = "#282828"},
                 IndentBlanklineContextChar = {fg = "#a89984"},
-                Search = {bg = "#fabd2f", fg = "#282828"},
-                IncSearch = {bg = "#fabd2f", fg = "#282828"},
+                Search = {fg = "#fabd2f", bg = "#282828"},
                 CurSearch = {bg = "#fabd2f", fg = "#282828"},
+                IncSearch = {fg = "#fabd2f", bg = "#282828"},
             },
         })
         vim.cmd("colorscheme gruvbox")

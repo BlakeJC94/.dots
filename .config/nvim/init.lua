@@ -121,18 +121,19 @@ MAPS = {
         ['<Leader>_'] = ':split<CR>',
         ['<Leader>|'] = ':vsplit<CR>',
         -- Window controls maps
-        ['<C-Left>']  = ':lua require("tmux").move_left()<CR>',
-        ['<C-Down>']  = ':lua require("tmux").move_bottom()<CR>',
-        ['<C-Up>']    = ':lua require("tmux").move_top()<CR>',
-        ['<C-Right>'] = ':lua require("tmux").move_right()<CR>',
+        ['<Leader>w'] = {map="<C-w>", opts={noremap=false}},  -- This chord should be more comfortable!  TODO rectify tmux binds
+        ['<C-w><Left>']  = ':lua require("tmux").move_left()<CR>',
+        ['<C-w><Down>']  = ':lua require("tmux").move_bottom()<CR>',
+        ['<C-w><Up>']    = ':lua require("tmux").move_top()<CR>',
+        ['<C-w><Right>'] = ':lua require("tmux").move_right()<CR>',
+        ['<C-w>h'] = ':lua require("tmux").move_left()<CR>',
+        ['<C-w>j'] = ':lua require("tmux").move_bottom()<CR>',
+        ['<C-w>k'] = ':lua require("tmux").move_top()<CR>',
+        ['<C-w>l'] = ':lua require("tmux").move_right()<CR>',
         ['<S-Left>']  = ':lua require("tmux").resize_left(8)<CR>',
         ['<S-Down>']  = ':lua require("tmux").resize_bottom(8)<CR>',
         ['<S-Up>']    = ':lua require("tmux").resize_top(8)<CR>',
         ['<S-Right>'] = ':lua require("tmux").resize_right(8)<CR>',
-        ['<Leader><Left>']  = ':wincmd H<CR>',
-        ['<Leader><Down>']  = ':wincmd J<CR>',
-        ['<Leader><Up>']    = ':wincmd K<CR>',
-        ['<Leader><Right>'] = ':wincmd L<CR>',
         -- Tab controls
         ['<Leader>.'] = ":tabnext<CR>",
         ['<Leader>,'] = ":tabprev<CR>",
@@ -140,12 +141,11 @@ MAPS = {
         ['<Leader><'] = ":-tabmove<CR>",
         ['<Leader>t'] = ':tabedit %<CR>',
         -- Leader maps
-        ['<Leader><CR>']  = ":Telescope file_browser<CR>",
-        ['<Leader><BS>']  = ":Telescope find_files<CR>",               -- File finder
-        ['<Leader><Tab>'] = "<C-^>",                                   -- Last file
-        ['<Leader><Esc>'] = ":Telescope buffers<CR>",                     -- Buffers
-        ['<Leader>q'] = ":q<CR>",                            -- Quit
-        ['<Leader>w'] = ":w<CR>",                            -- Save
+        ['<Leader><CR>']  = ":Telescope file_browser<CR>",  -- File browser
+        ['<Leader><BS>']  = ":Telescope find_files<CR>",    -- File finder
+        ['<Leader><Tab>'] = "<C-^>",                        -- Last file
+        ['<Leader><Esc>'] = ":Telescope buffers<CR>",       -- Buffers
+        ['<Leader>q'] = ":q<CR>",                           -- Quit
         ['<Leader>n'] = ":enew | echo '[New file]'<CR>",
         ['<Leader>N'] = ":bufdo bdel | enew | echo '[New session]'<CR>",
         ['<Leader>d'] = ":lcd %:p:h | echo 'Changed local dir to ' . getcwd()<CR>",
@@ -255,20 +255,28 @@ MAPS = {
     },
     t = {
         -- [Ctrl + Arrow] to navigate windows
-        ['<C-Left>']  = '<C-\\><C-n>:lua require("tmux").move_left()<CR>',
-        ['<C-Down>']  = '<C-\\><C-n>:lua require("tmux").move_bottom()<CR>',
-        ['<C-Up>']    = '<C-\\><C-n>:lua require("tmux").move_top()<CR>',
-        ['<C-Right>'] = '<C-\\><C-n>:lua require("tmux").move_right()<CR>',
+        ['<C-w><Left>']  = '<C-\\><C-n>:lua require("tmux").move_left()<CR>',
+        ['<C-w><Down>']  = '<C-\\><C-n>:lua require("tmux").move_bottom()<CR>',
+        ['<C-w><Up>']    = '<C-\\><C-n>:lua require("tmux").move_top()<CR>',
+        ['<C-w><Right>'] = '<C-\\><C-n>:lua require("tmux").move_right()<CR>',
+        ['<C-w>h'] = '<C-\\><C-n>:lua require("tmux").move_left()<CR>',
+        ['<C-w>j'] = '<C-\\><C-n>:lua require("tmux").move_bottom()<CR>',
+        ['<C-w>k'] = '<C-\\><C-n>:lua require("tmux").move_top()<CR>',
+        ['<C-w>l'] = '<C-\\><C-n>:lua require("tmux").move_right()<CR>',
         -- [Shift + Arrow] : resize splits
         ['<S-Left>']  = '<C-\\><C-n>:lua require("tmux").resize_left(8)<CR>',
         ['<S-Down>']  = '<C-\\><C-n>:lua require("tmux").resize_bottom(8)<CR>',
         ['<S-Up>']    = '<C-\\><C-n>:lua require("tmux").resize_top(8)<CR>',
         ['<S-Right>'] = '<C-\\><C-n>:lua require("tmux").resize_right(8)<CR>',
         -- [Leader + Arrow] Move splits
-        ['<C-z><Left>']  = '<C-\\><C-n>:wincmd H<CR>',
-        ['<C-z><Down>']  = '<C-\\><C-n>:wincmd J<CR>',
-        ['<C-z><Up>']    = '<C-\\><C-n>:wincmd K<CR>',
-        ['<C-z><Right>'] = '<C-\\><C-n>:wincmd L<CR>',
+        ['<C-z>H'] = '<C-\\><C-n>:wincmd H<CR>',
+        ['<C-z>J'] = '<C-\\><C-n>:wincmd J<CR>',
+        ['<C-z>K'] = '<C-\\><C-n>:wincmd K<CR>',
+        ['<C-z>L'] = '<C-\\><C-n>:wincmd L<CR>',
+        ['<C-z><S-Left>']  = '<C-\\><C-n>:wincmd H<CR>',
+        ['<C-z><S-Down>']  = '<C-\\><C-n>:wincmd J<CR>',
+        ['<C-z><S-Up>']    = '<C-\\><C-n>:wincmd K<CR>',
+        ['<C-z><S-Right>'] = '<C-\\><C-n>:wincmd L<CR>',
         -- Tab navigation
         ['<C-z>.'] = "<C-\\><C-n>:tabnext<CR>",
         ['<C-z>,'] = "<C-\\><C-n>:tabprev<CR>",
