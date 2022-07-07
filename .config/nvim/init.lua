@@ -120,24 +120,15 @@ MAPS = {
         ['<C-Space>_'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd J')<CR>",
         ['<C-Space>|'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd L')<CR>",
         -- Pane controls
-        ['<M-x>_'] = ':split<CR>',
-        ['<M-x>|'] = ':vsplit<CR>',
-        -- Window controls maps
+        ['<Leader>_'] = ':split<CR>',
+        ['<Leader>|'] = ':vsplit<CR>',
+        -- Tmux window control passthrough
+        --   <S-Arrow> => Resize split
+        --   <M-x><Arrow> => Move to split
+        --   <M-x><S-Arrow> => Move split to direction
         ['<M-x>'] = {map="<C-w>", opts={noremap=false}},  -- This chord should be more comfortable!  TODO rectify tmux binds
+        -- Disable <C-z> from stopping vim for now
         ['<C-z>'] = "",
-        -- TODO put this in the plugin config func
-        ['<C-w><Left>']  = ':lua require("tmux").move_left()<CR>',
-        ['<C-w><Down>']  = ':lua require("tmux").move_bottom()<CR>',
-        ['<C-w><Up>']    = ':lua require("tmux").move_top()<CR>',
-        ['<C-w><Right>'] = ':lua require("tmux").move_right()<CR>',
-        ['<C-w>h'] = ':lua require("tmux").move_left()<CR>',
-        ['<C-w>j'] = ':lua require("tmux").move_bottom()<CR>',
-        ['<C-w>k'] = ':lua require("tmux").move_top()<CR>',
-        ['<C-w>l'] = ':lua require("tmux").move_right()<CR>',
-        ['<S-Left>']  = ':lua require("tmux").resize_left(8)<CR>',
-        ['<S-Down>']  = ':lua require("tmux").resize_bottom(4)<CR>',
-        ['<S-Up>']    = ':lua require("tmux").resize_top(4)<CR>',
-        ['<S-Right>'] = ':lua require("tmux").resize_right(8)<CR>',
         -- Tab controls
         ['<Leader>.'] = ":tabnext<CR>",
         ['<Leader>,'] = ":tabprev<CR>",
@@ -265,30 +256,7 @@ MAPS = {
         -- <Esc>: => (terminal) go to command mode
         ['<C-Space>:'] = '<C-\\><C-n>:',
         -- <M-x> => Tmux bindkey passthrough
-        ['<M-x>'] = {map="<C-\\><C-n><C-w>", opts={noremap=false}},  -- This chord should be more comfortable!  TODO rectify tmux binds
-        -- [Ctrl-z + Arrow] to navigate windows
-        ['<M-x><Left>']  = '<C-\\><C-n>:lua require("tmux").move_left()<CR>',
-        ['<M-x><Down>']  = '<C-\\><C-n>:lua require("tmux").move_bottom()<CR>',
-        ['<M-x><Up>']    = '<C-\\><C-n>:lua require("tmux").move_top()<CR>',
-        ['<M-x><Right>'] = '<C-\\><C-n>:lua require("tmux").move_right()<CR>',
-        ['<M-x>h'] = '<C-\\><C-n>:lua require("tmux").move_left()<CR>',
-        ['<M-x>j'] = '<C-\\><C-n>:lua require("tmux").move_bottom()<CR>',
-        ['<M-x>k'] = '<C-\\><C-n>:lua require("tmux").move_top()<CR>',
-        ['<M-x>l'] = '<C-\\><C-n>:lua require("tmux").move_right()<CR>',
-        -- [Ctrl+z + S-Arrow] Move splits
-        ['<M-x>H'] = '<C-\\><C-n>:wincmd H<CR>',
-        ['<M-x>J'] = '<C-\\><C-n>:wincmd J<CR>',
-        ['<M-x>K'] = '<C-\\><C-n>:wincmd K<CR>',
-        ['<M-x>L'] = '<C-\\><C-n>:wincmd L<CR>',
-        ['<M-x><S-Left>']  = '<C-\\><C-n>:wincmd H<CR>',
-        ['<M-x><S-Down>']  = '<C-\\><C-n>:wincmd J<CR>',
-        ['<M-x><S-Up>']    = '<C-\\><C-n>:wincmd K<CR>',
-        ['<M-x><S-Right>'] = '<C-\\><C-n>:wincmd L<CR>',
-        -- [Shift + Arrow] : resize splits
-        ['<S-Left>']  = '<C-\\><C-n>:lua require("tmux").resize_left(8)<CR>',
-        ['<S-Down>']  = '<C-\\><C-n>:lua require("tmux").resize_bottom(8)<CR>',
-        ['<S-Up>']    = '<C-\\><C-n>:lua require("tmux").resize_top(8)<CR>',
-        ['<S-Right>'] = '<C-\\><C-n>:lua require("tmux").resize_right(8)<CR>',
+        ['<M-x>'] = {map="<C-\\><C-n><C-w>", opts={noremap=false}},
     },
     o = {
         -- Custom text object: "around document"
