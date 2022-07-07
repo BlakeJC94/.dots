@@ -219,3 +219,8 @@ export GCLOUD_PROJECT="seer-prod-au"
 if [ -f ~/.seerflow.sh ]; then
     source ~/.seerflow.sh
 fi
+
+# Automatically launch Tmux in Kitty
+if ! [ -z "$KITTY_WINDOW_ID" ] && [ -z "$TMUX" ]; then
+    tmux attach || exec tmux new-session && exit;
+fi
