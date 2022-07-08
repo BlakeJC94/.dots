@@ -82,8 +82,8 @@ MAPS = {
         ['<F4>'] = {map=':setl spell!<CR>:setl spell?<CR>', opts={silent=false}},
         ['<F6>'] = {map=':wincmd =<CR>', opts={silent=false}},
         -- Move left and right faster with Enter and Backspace (C-h, C-m in vim)
-        ['<Enter>'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
-        ['<Backspace>'] = 'g_',
+        ['<Backspace>'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
+        ['<Enter>'] = 'g_',
         -- Prevent x and s from overriding what's in the clipboard
         ['x'] = '"_x',
         ['X'] = '"_X',
@@ -101,24 +101,25 @@ MAPS = {
         [']g'] = {map=[[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']], opts={expr=true}},
         ['[g'] = {map=[[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']], opts={expr=true}},
         -- Navigate diagnostics
-        [']e'] = ':lua vim.diagnostic.goto_next()<CR>',
-        ['[e'] = ':lua vim.diagnostic.goto_prev()<CR>',
+        [']e'] = function() vim.diagnostic.goto_next() end,
+        ['[e'] = function() vim.diagnostic.goto_prev() end,
         -- Navigate quickfix list
         [']c'] = ':cnext<CR>',
         ['[c'] = ':cprev<CR>',
         [']l'] = ':lnext<CR>',
         ['[l'] = ':lprev<CR>',
         -- LSP bindings
-        ['gd'] = ':Lsp definition<CR>',
-        ['gD'] = ':Lsp declaration<CR>',
-        ['gI'] = ':Lsp implementation<CR>',
-        ['gR'] = ':Lsp references<CR>',
-        ['gy'] = ':Lsp typedefinition<CR>',
+        ['gd'] = function() vim.lsp.buf.definition() end,
+        ['gD'] = function() vim.lsp.buf.declaration() end,
+        ['gI'] = function() vim.lsp.buf.implementation() end,
+        ['gR'] = function() vim.lsp.buf.references() end,
+        ['gy'] = function() vim.lsp.buf.type_definition() end,
+        ['gw'] = function() vim.lsp.buf.document_symbol() end,
         -- <C-Space> => Toggle terminal
         ['<C-Space>'] = "",
-        ['<C-Space><C-Space>'] = ":lua require('FTerm').toggle()<CR>",
-        ['<C-Space>_'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd J')<CR>",
-        ['<C-Space>|'] = ":lua require('FTerm').toggle(); vim.cmd('wincmd L')<CR>",
+        ['<C-Space><C-Space>'] = function() require('FTerm').toggle() end,
+        ['<C-Space>_'] = function() require('FTerm').toggle(); vim.cmd('wincmd J') end,
+        ['<C-Space>|'] = function() require('FTerm').toggle(); vim.cmd('wincmd L') end,
         -- Pane controls
         ['<Leader>_'] = ':split<CR>',
         ['<Leader>|'] = ':vsplit<CR>',
@@ -186,16 +187,16 @@ MAPS = {
         ['<Leader>gR'] = ':Gitsigns reset_buffer<CR>',
         ['<Leader>gd'] = ':Git difftool<CR>',
         ['<Leader>gm'] = ':Git mergetool<CR>',
-        ['<Leader>gb'] = ':lua require("gitsigns").blame_line({full=true})<CR>',
+        ['<Leader>gb'] = function() require("gitsigns").blame_line({full=true}) end,
         ['<Leader>g|'] = ':Gvdiffsplit<CR>',
         ['<Leader>g_'] = ':Gdiffsplit<CR>',
         -- LSP Leader bindings
-        ['<Leader>e'] = ':lua vim.diagnostic.open_float()<CR>',  -- Show line diagnostics
-        ['<Leader>E'] = ':lua vim.diagnostic.setloclist()<CR>',  -- Show buffer diagnostics
-        ['<Leader>='] = ':Lsp format<CR>',                       -- Format buffer
-        ['<Leader>r'] = ':Lsp rename<CR>',                       -- Rename current symbol
-        ['<Leader>k'] = ':Lsp signature<CR>',                    -- Show signature help
-        ['<Leader>a'] = ':Lsp codeaction<CR>',                   -- Do code action
+        ['<Leader>e'] = function() vim.diagnostic.open_float() end,        -- Show line diagnostics
+        ['<Leader>E'] = function() vim.diagnostic.setloclist() end,        -- Show buffer diagnostics
+        ['<Leader>='] = function() vim.lsp.buf.formatting_seq_sync() end,  -- Format buffer
+        ['<Leader>r'] = function() vim.lsp.buf.rename() end,               -- Rename current symbol
+        ['<Leader>k'] = function() vim.lsp.buf.signature_help() end,           -- Show signature help
+        ['<Leader>a'] = function() vim.lsp.buf.code_action() end,              -- Do code action
     },
     n = {
         -- Make Y behave like D and C
@@ -219,7 +220,7 @@ MAPS = {
         ['d*'] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgn",
         ['d#'] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
         -- Make K use lsp.hover, call twice to jump to hoverdoc
-        ['K'] = ':Lsp hover<CR>',
+        ['K'] = function() vim.lsp.buf.hover() end,
         -- Override spellchecker
         ['z='] = {map=[[v:count ? v:count . 'z=' : ':Telescope spell_suggest<CR>']], opts={expr=true}},
     },
@@ -239,18 +240,18 @@ MAPS = {
         -- C-s : Quickly guess correct spelling errors (undoable)
         ['<C-s>'] = '<C-g>u<Esc>[s1z=`]a<c-g>u', -- Currently borked by spellsitter?
         -- Make <C-k> use lsp.hover, call twice to jump to hoverdoc
-        ['<C-k>'] = '<C-o>:lua vim.lsp.buf.hover()<CR>',
+        ['<C-k>'] = function() vim.lsp.buf.hover() end,
         -- C-r C-r : See registers with telescope
         ['<C-r><C-r>'] = "<cmd>Telescope registers<CR>",
     },
     t = {
         -- <C-Space> => ToggleTerm Hide
-        ['<C-Space><C-Space>'] = "<C-\\><C-n>:lua require('FTerm').toggle()<CR>",
+        ['<C-Space><C-Space>'] = function() require('FTerm').toggle() end,
         -- Tab navigation
-        ['<C-Space>.'] = "<C-\\><C-n>:tabnext<CR>",
-        ['<C-Space>,'] = "<C-\\><C-n>:tabprev<CR>",
-        ['<C-Space><S-.>'] = "<C-\\><C-n>:+tabmove<CR>",
-        ['<C-Space><S-,>'] = "<C-\\><C-n>:-tabmove<CR>",
+        ['<C-Space>.'] = function() vim.cmd('tabnext') end,
+        ['<C-Space>,'] = function() vim.cmd('tabprev') end,
+        ['<C-Space><S-.>'] = function() vim.cmd('+tabmove') end,
+        ['<C-Space><S-,>'] = function() vim.cmd('-tabmove') end,
         -- <Esc><Esc> => (terminal) go to normal mode
         ['<C-Space><Esc>'] = '<C-\\><C-n>',
         -- <Esc>: => (terminal) go to command mode

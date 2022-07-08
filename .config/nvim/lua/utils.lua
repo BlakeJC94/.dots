@@ -125,9 +125,9 @@ M.set_mapping_group = function(mapping_group)
         for keys, mapping in pairs(mappings) do
             if (type(mapping) == "table") then
                 local opts = vim.tbl_extend('force', DEFAULT_MAP_OPTS, mapping.opts)
-                vim.api.nvim_set_keymap(mode, keys, mapping.map, opts)
+                vim.keymap.set(mode, keys, mapping.map, opts)
             else
-                vim.api.nvim_set_keymap(mode, keys, mapping, DEFAULT_MAP_OPTS)
+                vim.keymap.set(mode, keys, mapping, DEFAULT_MAP_OPTS)
             end
         end
     end
