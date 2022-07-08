@@ -152,6 +152,13 @@ fi
 #     export MANWIDTH=999
 # fi
 
+# Automatically launch Tmux in Kitty
+if ! [ -z "$KITTY_WINDOW_ID" ] && [ -z "$TMUX" ]; then
+    if [[ "$(command -v tmux)" ]]; then
+        tmux attach || exec tmux new-session && exit;
+    fi
+fi
+
 # algodeploy tab completion
 if [ -f ~/.bash_algodeploy ]; then
     . ~/.bash_algodeploy
@@ -220,7 +227,3 @@ if [ -f ~/.seerflow.sh ]; then
     source ~/.seerflow.sh
 fi
 
-# Automatically launch Tmux in Kitty
-if ! [ -z "$KITTY_WINDOW_ID" ] && [ -z "$TMUX" ]; then
-    tmux attach || exec tmux new-session && exit;
-fi

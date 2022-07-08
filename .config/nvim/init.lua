@@ -124,9 +124,9 @@ MAPS = {
         ['<Leader>|'] = ':vsplit<CR>',
         -- Tmux window control passthrough
         --   <S-Arrow> => Resize split
-        --   <M-x><Arrow> => Move to split
-        --   <M-x><S-Arrow> => Move split to direction
-        ['<M-x>'] = {map="<C-w>", opts={noremap=false}},  -- This chord should be more comfortable!  TODO rectify tmux binds
+        --   <M-z><Arrow> => Move to split
+        --   <M-z><S-Arrow> => Move split to direction
+        ['<M-z>'] = {map="<C-w>", opts={noremap=false}},  -- This chord should be more comfortable!  TODO rectify tmux binds
         -- Disable <C-z> from stopping vim for now
         ['<C-z>'] = "",
         -- Tab controls
@@ -255,8 +255,8 @@ MAPS = {
         ['<C-Space><Esc>'] = '<C-\\><C-n>',
         -- <Esc>: => (terminal) go to command mode
         ['<C-Space>:'] = '<C-\\><C-n>:',
-        -- <M-x> => Tmux bindkey passthrough
-        ['<M-x>'] = {map="<C-\\><C-n><C-w>", opts={noremap=false}},
+        -- <M-z> => Tmux bindkey passthrough
+        ['<M-z>'] = {map="<C-\\><C-n><C-w>", opts={noremap=false}},
     },
     o = {
         -- Custom text object: "around document"
