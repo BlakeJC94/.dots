@@ -90,17 +90,6 @@ function _G.CreateDirs(keys)
     end
 end
 
-function _G.InsertToggles()
-    vim.opt_local.cursorline = not vim.opt_local.cursorline:get()
-    vim.opt_local.relativenumber = not vim.opt_local.relativenumber:get()
-
-    if #vim.opt_local.colorcolumn:get() == 0 then
-        vim.opt_local.colorcolumn = {100, 101}
-    else
-        vim.opt_local.colorcolumn = {}
-    end
-end
-
 function _G.ShellExec(command)
     local handle = io.popen(command)
     local result = handle:read("*a")

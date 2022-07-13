@@ -81,9 +81,8 @@ MAPS = {
         ['<F3>'] = {map=':setl wrap!<CR>:setl wrap?<CR>', opts={silent=false}},
         ['<F4>'] = {map=':setl spell!<CR>:setl spell?<CR>', opts={silent=false}},
         ['<F6>'] = {map=':wincmd =<CR>', opts={silent=false}},
-        -- Move left and right faster with Enter and Backspace (C-h, C-m in vim)
-        ['<Backspace>'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
-        ['<Enter>'] = 'g_',
+        -- Move left faster with `gh`
+        ['gh'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
         -- Prevent x and s from overriding what's in the clipboard
         ['x'] = '"_x',
         ['X'] = '"_X',
@@ -127,7 +126,7 @@ MAPS = {
         --   <S-Arrow> => Resize split
         --   <C-z><Arrow> => Move to split
         --   <C-z><S-Arrow> => Move split to direction
-        ['<C-z>'] = {map="<C-w>", opts={noremap=false}},
+        ['<C-z>'] = {map='<C-w>', opts={noremap=false}},
         -- Disable <C-z> from stopping vim for now
         -- ['<C-z>'] = "",
         -- Tab controls
@@ -195,8 +194,8 @@ MAPS = {
         ['<Leader>E'] = function() vim.diagnostic.setloclist() end,        -- Show buffer diagnostics
         ['<Leader>='] = function() vim.lsp.buf.formatting_seq_sync() end,  -- Format buffer
         ['<Leader>r'] = function() vim.lsp.buf.rename() end,               -- Rename current symbol
-        ['<Leader>k'] = function() vim.lsp.buf.signature_help() end,           -- Show signature help
-        ['<Leader>a'] = function() vim.lsp.buf.code_action() end,              -- Do code action
+        ['<Leader>k'] = function() vim.lsp.buf.signature_help() end,       -- Show signature help
+        ['<Leader>a'] = function() vim.lsp.buf.code_action() end,          -- Do code action
     },
     n = {
         -- Make Y behave like D and C
@@ -344,11 +343,27 @@ vim.api.nvim_create_autocmd(
 local id = vim.api.nvim_create_augroup("style", {clear = true})
 -- toggle cursorline and colorcolumn when entering/exiting insert mode
 vim.api.nvim_create_autocmd(
-    {"InsertEnter", "InsertLeave"},
+    {"InsertEnter"},
     {
         group = id,
         pattern = "*",
-        callback = _G.InsertToggles,
+        callback = function()
+            vim.opt_local.cursorline = true
+            vim.opt_local.relativenumber = false
+            vim.opt_local.colorcolumn = {100, 101}
+        end
+    }
+)
+vim.api.nvim_create_autocmd(
+    {"InsertLeave"},
+    {
+        group = id,
+        pattern = "*",
+        callback = function()
+            vim.opt_local.cursorline = false
+            vim.opt_local.relativenumber = true
+            vim.opt_local.colorcolumn = {}
+        end
     }
 )
 -- echo a vimtip when opening vim

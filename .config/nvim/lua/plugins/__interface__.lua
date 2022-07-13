@@ -234,14 +234,14 @@ M['aserowy/tmux.nvim'] = {
 
         local map = vim.keymap.set
         -- Set mappings to override `wincmd` commands
-        map('', '<C-w><Left>',  function() return require("tmux").move_left()   end)
-        map('', '<C-w>h',       function() return require("tmux").move_left()   end)
-        map('', '<C-w><Down>',  function() return require("tmux").move_bottom() end)
-        map('', '<C-w>j',       function() return require("tmux").move_bottom() end)
-        map('', '<C-w><Up>',    function() return require("tmux").move_top()    end)
-        map('', '<C-w>k',       function() return require("tmux").move_top()    end)
-        map('', '<C-w><Right>', function() return require("tmux").move_right()  end)
-        map('', '<C-w>l',       function() return require("tmux").move_right()  end)
+        map('', '<C-z><Left>',  function() return require("tmux").move_left()   end)
+        map('', '<C-z>h',       function() return require("tmux").move_left()   end)
+        map('', '<C-z><Down>',  function() return require("tmux").move_bottom() end)
+        map('', '<C-z>j',       function() return require("tmux").move_bottom() end)
+        map('', '<C-z><Up>',    function() return require("tmux").move_top()    end)
+        map('', '<C-z>k',       function() return require("tmux").move_top()    end)
+        map('', '<C-z><Right>', function() return require("tmux").move_right()  end)
+        map('', '<C-z>l',       function() return require("tmux").move_right()  end)
 
         -- Set mappings for resizing splits
         map('', '<S-Left>',  function() return require("tmux").resize_left(8)   end)
@@ -250,10 +250,10 @@ M['aserowy/tmux.nvim'] = {
         map('', '<S-Right>', function() return require("tmux").resize_right(8)  end)
 
         -- Link up `wincmd` <S-Arrow> actions
-        map('', '<C-w><S-Left>',  '<C-w>H')
-        map('', '<C-w><S-Down>',  '<C-w>J')
-        map('', '<C-w><S-Up>',    '<C-w>K')
-        map('', '<C-w><S-Right>', '<C-w>L')
+        map('', '<C-z><S-Left>',  '<C-w>H')
+        map('', '<C-z><S-Down>',  '<C-w>J')
+        map('', '<C-z><S-Up>',    '<C-w>K')
+        map('', '<C-z><S-Right>', '<C-w>L')
 
     end
 }
