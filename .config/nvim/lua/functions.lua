@@ -102,6 +102,7 @@ function _G.PrintLines(mutiline_string)
         print(line)
     end
 end
+
 function _G.PutLines(mutiline_string)
     lines = {}
     for line in string.gmatch(mutiline_string, "[^\n]+") do

@@ -140,10 +140,10 @@ MAPS = {
         ['<Leader><Tab>'] = "<C-^>",                        -- Last file
         ['<Leader><Esc>'] = ":Telescope buffers<CR>",       -- Buffers
         ['<Leader>q'] = ":q<CR>",                           -- Quit
-        ['<Leader>n'] = ":enew | echo '[New file]'<CR>",
-        ['<Leader>N'] = ":bufdo bdel | enew | echo '[New session]'<CR>",
-        ['<Leader>d'] = ":lcd %:p:h | echo 'Changed local dir to ' . getcwd()<CR>",
-        ['<Leader>D'] = ":cd %:p:h | echo 'Changed dir to ' . getcwd()<CR>",
+        ['<Leader>n'] = ":NewFile<CR>",
+        ['<Leader>N'] = ":NewSession<CR>",
+        ['<Leader>d'] = ":ChangeLocalDir<CR>",
+        ['<Leader>D'] = ":ChangeDir<CR>",
         ['<Leader>c'] = ":ToggleQL<CR>",               -- Toggle qflist
         ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
         ['<Leader>;'] = ":Settings<CR>",               -- Edit settings
@@ -269,6 +269,25 @@ MAPS = {
     },
 }
 
+-- TODO
+-- * [ ] Move mappings loader to utils.lua
+-- * [ ] Move options loader to utils.lua
+-- * Keep OPTIONS and MAPS tables in init.lua
+--     * [ ] Split out some of these "utility" (such as arrows) maps into mappings.lua
+-- * [ ] Create AUTOCOMMANDS table in autocommands.lua
+--     * Load AUTOCOMMANDS in init.lua via `AUTOCOMMANDS = require('autocommands').AUTOCOMMANDS`
+--     * Pass AUTOCOMMANDS to `utils.lua` function
+--         * [ ] Create autocommands loader in utils.lua
+-- * [ ] Create COMMANDS table in commands.lua
+--     * Load COMMANDS in init.lua via `COMMANDS = require('commands').COMMANDS`
+--     * Pass COMMANDS to `utils.lua` function
+--         * [ ] Create commands loader in utils.lua
+-- * [ ] Create `load_typo_commands` in `commands.lua`
+--     * Load table in utils?
+-- * [ ] Rename `plugins` to `extensions`
+--     * Load EXTENSIONS table from extensions.lua?
+-- * utils/loaders and utils/functions?
+
 -- LOAD SELECTED PLUGINS
 utils.disable_built_ins()
 utils.setup_packer()
@@ -296,313 +315,17 @@ end
 
 
 -- DEFINE FUNCTIONS
-vim.cmd [[
-    luafile ~/.config/nvim/lua/functions.lua
-]]
+utils.load_functions()
+
+-- DEFINE COMMANDS
+utils.load_commands()  -- TODO create a nicer API for this
 
 -- DEFINE AUTOCOMMANDS
-local id = vim.api.nvim_create_augroup("base", {clear = true})
--- equally resize windows when terminal is resized
-vim.api.nvim_create_autocmd(
-    {"VimResized"},
-    {
-        group = id,
-        pattern = {"*"},
-        callback = function() vim.cmd("wincmd =") end,
-    }
-)
--- replace tabs with spaces
-vim.api.nvim_create_autocmd(
-    {"BufWritePre"},
-    {
-        group = id,
-        pattern = "*",
-        callback = function() vim.cmd("retab") end,
-    }
-)
--- autoremove whitespace without upsetting changelist
-vim.api.nvim_create_autocmd(
-    {"BufWritePre"},
-    {
-        group = id,
-        pattern = "*",
-        callback = _G.TrimSpaces,
-    }
-)
--- create nested directories if needed when creating files
-vim.api.nvim_create_autocmd(
-    {"BufWritePre", "FileWritePre"},
-    {
-        group = id,
-        pattern = "*",
-        callback = _G.CreateDirs,
-    }
-)
-
-local id = vim.api.nvim_create_augroup("style", {clear = true})
--- toggle cursorline and colorcolumn when entering/exiting insert mode
-vim.api.nvim_create_autocmd(
-    {"InsertEnter"},
-    {
-        group = id,
-        pattern = "*",
-        callback = function()
-            vim.opt_local.cursorline = true
-            vim.opt_local.relativenumber = false
-            vim.opt_local.colorcolumn = {100, 101}
-        end
-    }
-)
-vim.api.nvim_create_autocmd(
-    {"InsertLeave"},
-    {
-        group = id,
-        pattern = "*",
-        callback = function()
-            vim.opt_local.cursorline = false
-            vim.opt_local.relativenumber = true
-            vim.opt_local.colorcolumn = {}
-        end
-    }
-)
--- echo a vimtip when opening vim
-vim.api.nvim_create_autocmd(
-    {"VimEnter"},
-    {
-        group = id,
-        pattern = "*",
-        callback = _G.VimTip,
-    }
-)
--- highlight yanked regions
-vim.api.nvim_create_autocmd(
-    {"TextYankPost"},
-    {
-        group = id,
-        pattern = "*",
-        callback = function() vim.highlight.on_yank({timeout = 700}) end,
-    }
-)
-
-
-local id = vim.api.nvim_create_augroup("ft_extra", {clear = true})
--- Make cmdwindows close with q
-vim.api.nvim_create_autocmd(
-    {"CmdWinEnter"},
-    {
-        group = id,
-        pattern = "*",
-        callback = function()
-            _G.SetQuitWithQ()
-            require('cmp').setup.buffer({enabled = false})
-        end,
-    }
-)
--- help/cmd win/qf list: Press q to close and disable spellcheck
-vim.api.nvim_create_autocmd(
-    {"FileType"},
-    {
-        group = id,
-        pattern = {"qf", "help", "fugitive"},
-        callback = function()
-            _G.SetQuitWithQ()
-            vim.opt_local.spell = false
-            vim.opt_local.colorcolumn = {}
-        end,
-    }
-)
--- restore default K action on help pages
-vim.api.nvim_create_autocmd(
-    {"FileType"},
-    {
-        group = id,
-        pattern = {"vim", "help"},
-        callback = function()
-            vim.keymap.set('n', 'K', ":h <C-r>=expand('<cword>')<CR><CR>", {silent=true, buffer=true})
-        end,
-    }
-)
--- Always open help in vertical split
-vim.api.nvim_create_autocmd(
-    {"FileType"},
-    {
-        group = id,
-        pattern = "help",
-        callback = function()
-            vim.cmd('wincmd L')
-            vim.cmd('vert resize 90')
-            vim.opt_local.formatoptions:remove('t')
-        end,
-    }
-)
--- Set pandoc as makeprg for markdown files (WARNING untested)
-vim.api.nvim_create_autocmd(
-    {"FileType"},
-    {
-        group = id,
-        pattern = "Markdown",
-        callback = function()
-            vim.opt_local.makeprg = "pandoc %:p -o %:p:h/out.pdf"
-        end,
-    }
-)
-
-
--- Edit settings
-vim.api.nvim_create_user_command(
-    'Settings',
-    function()
-        vim.cmd('edit $MYVIMRC')
-        vim.cmd('lcd %:p:h')
-        print('Editing settings: ' .. vim.fn.expand('%:p'))
-    end,
-    {force=true}
-)
-
--- Toggle display of quickfix/location list
-vim.api.nvim_create_user_command(
-    'ToggleQL',
-    function()
-        if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix') == 0 then
-            vim.cmd('copen')
-        else
-            vim.cmd('cclose')
-        end
-    end,
-    {force=true}
-)
-vim.api.nvim_create_user_command(
-    'ToggleLL',
-    function()
-        if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.loclist') == 0 then
-            vim.cmd('lopen')
-        else
-            vim.cmd('lclose')
-        end
-    end,
-    {force=true}
-)
--- Open notes buffer
-vim.api.nvim_create_user_command(
-    'Notes',
-    function()
-        vim.cmd('split')
-        vim.cmd('lcd ~/Dropbox/Journals')
-        vim.cmd('edit ~/Dropbox/Journals')
-    end,
-    {force=true}
-)
-vim.api.nvim_create_user_command(
-    'Note',
-    function(keys)
-        _G.NewNote(keys.args)
-    end,
-    {force=true, nargs='?'}
-)
-
--- Typos
-vim.api.nvim_create_user_command(
-    'E',
-    function(keys)
-        cmd = 'e'
-        if keys.bang then
-            cmd = cmd .. '!'
-        end
-        vim.cmd(cmd .. ' ' .. keys.args)
-    end,
-    {force=true, bang=true, nargs='*', complete='file'}
-)
-vim.api.nvim_create_user_command(
-    'W',
-    function(keys)
-        cmd = 'w'
-        if keys.bang then
-            cmd = cmd .. '!'
-        end
-        vim.cmd(cmd .. ' ' .. keys.args)
-    end,
-    {force=true, bang=true, nargs='*', complete='file'}
-)
-vim.api.nvim_create_user_command(
-    'Wq',
-    function(keys)
-        cmd = 'wq'
-        if keys.bang then
-            cmd = cmd .. '!'
-        end
-        vim.cmd(cmd .. ' ' .. keys.args)
-    end,
-    {force=true, bang=true, nargs='*', complete='file'}
-)
-vim.api.nvim_create_user_command(
-    'WQ',
-    function(keys)
-        cmd = 'wq'
-        if keys.bang then
-            cmd = cmd .. '!'
-        end
-        vim.cmd(cmd .. ' ' .. keys.args)
-    end,
-    {force=true, bang=true, nargs='*', complete='file'}
-)
-vim.api.nvim_create_user_command(
-    'Wa',
-    function(keys)
-        cmd = 'wa'
-        if keys.bang then
-            cmd = cmd .. '!'
-        end
-        vim.cmd(cmd .. ' ' .. keys.args)
-    end,
-    {force=true, bang=true, nargs='*', complete='file'}
-)
-vim.api.nvim_create_user_command(
-    'WA',
-    function(keys)
-        cmd = 'wa'
-        if keys.bang then
-            cmd = cmd .. '!'
-        end
-        vim.cmd(cmd .. ' ' .. keys.args)
-    end,
-    {force=true, bang=true, nargs='*', complete='file'}
-)
-vim.api.nvim_create_user_command(
-    'Q',
-    function(keys)
-        cmd = 'q'
-        if keys.bang then
-            cmd = cmd .. '!'
-        end
-        vim.cmd(cmd .. ' ' .. keys.args)
-    end,
-    {force=true, bang=true, nargs='*', complete='file'}
-)
-vim.api.nvim_create_user_command(
-    'Qa',
-    function(keys)
-        cmd = 'qa'
-        if keys.bang then
-            cmd = cmd .. '!'
-        end
-        vim.cmd(cmd .. ' ' .. keys.args)
-    end,
-    {force=true, bang=true, nargs='*', complete='file'}
-)
-vim.api.nvim_create_user_command(
-    'QA',
-    function(keys)
-        cmd = 'qa'
-        if keys.bang then
-            cmd = cmd .. '!'
-        end
-        vim.cmd(cmd .. ' ' .. keys.args)
-    end,
-    {force=true, bang=true, nargs='*', complete='file'}
-)
+utils.load_autocommands()  -- TODO create a nicer API for this
 
 
 -- DEFINE MAPPINGS
+-- TODO put this in utils
 vim.g.mapleader = " "
 local mapping_groups = {
     MAPS,

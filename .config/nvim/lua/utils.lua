@@ -149,5 +149,17 @@ M.replace_keycodes = function()
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+M.load_functions = function()
+    require('functions')
+end
+
+M.load_commands = function()
+    require('commands')
+end
+
+M.load_autocommands = function()
+    require('autocommands')
+end
+
 return M
 
