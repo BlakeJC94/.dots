@@ -70,123 +70,66 @@ function _G.NewNote(in_str)
     vim.cmd("normal! G$")
 end
 
-function _G.tabout()
-    local closers = {")", "]", "}", ">", "'", '"', "`", ","}
-    local line = vim.api.nvim_get_current_line()
-    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-    local after = line:sub(col + 1, -1)
+function _G.ShowSyntaxGroup()
+    -- Call with ":call ShowSyntaxGroup()"
+    local s = vim.fn.synID(vim.fn.line('.'), vim.fn.col('.'), 1)
+    local out_str = vim.fn.synIDattr(s, 'name') .. ' -> ' .. vim.fn.synIDattr(vim.fn.synIDtrans(s), 'name')
+    print(out_str)
+end
 
-    local closer_col = #after + 1
-    local closer_i = nil
+function _G.TrimSpaces(keys)
+    local winstate = vim.fn.winsaveview()
+    vim.cmd("keeppatterns %s/\\s\\+$//e")  -- escape `\`
+    vim.fn.winrestview(winstate)
+end
 
-    for i, closer in ipairs(closers) do
-        local cur_index, _ = after:find(closer)
-        if cur_index and (cur_index < closer_col) then
-            closer_col = cur_index
-            closer_i = i
-        end
+function _G.CreateDirs(keys)
+    local dir = keys.file:match("(.*/)")
+    if vim.fn.isdirectory(dir) == 0 then
+        vim.fn.mkdir(dir, 'p')
     end
+end
 
-    if closer_i then
-        vim.api.nvim_win_set_cursor(0, {row, col + closer_col})
+function _G.InsertToggles()
+    vim.opt_local.cursorline = not vim.opt_local.cursorline:get()
+    vim.opt_local.relativenumber = not vim.opt_local.relativenumber:get()
+
+    if #vim.opt_local.colorcolumn:get() == 0 then
+        vim.opt_local.colorcolumn = {100, 101}
     else
-        vim.api.nvim_win_set_cursor(0, {row, col + 1})
+        vim.opt_local.colorcolumn = {}
     end
 end
 
-function _G.jabarg_improve_target(cur_index, target_col, col, line_idx)
-    local flag = false
-    if not cur_index then
-        print("    TRACE : cur_index ist FALSCH D:")
-        return flag
-    end
+function _G.ShellExec(command)
+    local handle = io.popen(command)
+    local result = handle:read("*a")
+    handle:close()
+    return result
+end
 
-    print(string.format('    TRACE : CHECK [cur_index, target_col = %d, %d]', cur_index, target_col))
-    if cur_index and (cur_index < target_col) then
-        flag = true
-        -- -- If in current line, make sure jumping goes forward!
-        -- if ((line_idx == 1) and (cur_index > col + 1)) or (line_idx > 1) then
-        --     print(string.format('    TRACE : line_idx is 1, [col = %d]', col))
-        -- end
+function _G.PrintLines(mutiline_string)
+    for line in string.gmatch(mutiline_string, "[^\n]+") do
+        print(line)
     end
+end
+function _G.PutLines(mutiline_string)
+    lines = {}
+    for line in string.gmatch(mutiline_string, "[^\n]+") do
+        table.insert(lines, line)
+    end
+    vim.api.nvim_put(lines, "", true, true)
+end
 
-    if flag then
-        print("    TRACE : FOUND TARGET :)")
+function _G.VimTip()
+    if vim.g.vimtip == nil then
+        vim.g.vimtip = _G.ShellExec('fortune ~/.config/nvim/extras/vim-tips')
+        _G.PrintLines(vim.g.vimtip)
     else
-        print("    TRACE : TARGET NOT FOUND :(")
+        _G.PutLines(vim.g.vimtip)
     end
-
-
-    return flag
 end
 
-function _G.jabarg_get_target_col(line_idx, line, col, targets)
-
-    -- Loop over each target and find closest match
-    local target_i   = nil  -- int: index of target to jump to
-    local target_col = #line + 1
-    for i, target in ipairs(targets) do
-        local a, b = line:find(target)
-        print("  TRACE : target ", i,"  [start, end = ", a, b, "]")
-
-        local cur_index = nil
-        if a then
-            cur_index = a + 1
-        end
-
-
-        print("  TRACE : [cur_index = ", cur_index, "]")
-        if jabarg_improve_target(cur_index, target_col, col, line_idx) then
-            print("  TRACE : IMPROVE TARGET")
-            print(string.format("  TRACE : target %d found at %d", i, cur_index))
-            target_col = cur_index - 1
-            target_i = i
-        end
-    end
-
-    return target_i, target_col
-end
-
-function _G.jabarg()
-    -- local targets = {
-    --     '%S+%(',  -- function name
-    --     '%S+%.',  -- module name
-    --     '%S+,',  -- arg name
-    --     '%S+%)',  -- last arg name
-    --     '%S+%:',  -- condition name
-    --     -- ',%s[%w%d]+'  -- middle arg name
-    -- }    -- table[str]: list of targets to find
-    local targets = {
-        '[%s%.][%w%d]+%.',  -- module name (follows a space or a dot, ends with dot)
-        '[%s%.][%w%d]+%(',  -- function name (follows a space or a dot, ends with open bracket)
-        '[%(][%w%d]+[,%)]',  -- first arg name (follows space or open bracket ends with a comma or closed bracket)
-        -- '[%s][%w%d]+[,%)]',  -- middle arg name (follows space or open bracket ends with a comma or closed bracket)
-    }    -- table[str]: list of targets to find
-
-    -- Get current position and buffer contents
-    -- TODO : generalise to allow reverse jabs
-    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-    print(string.format("TRACE : starting cursor [row, col = %d, %d]", row, col))
-    local contents = vim.api.nvim_buf_get_lines(0, row - 1, -1, false)
-    contents[1] = contents[1]:sub(col + 1, -1)  -- Trim first line
-
-    -- Find first row with at least 1 target
-    local target_row = nil  -- int: relative row index to jump to
-    for line_idx, line in ipairs(contents) do
-        print(string.format("TRACE : searching line +%d [line_idx = %d]", line_idx - 1, line_idx))
-        -- Find the closest column with a target in selected target_row
-        target_i, target_col = jabarg_get_target_col(line_idx, line, col, targets)
-        -- Stop buffer iteration as soon as a match is found
-        if target_i then
-            target_row = row + line_idx - 1
-            print(string.format("TRACE : found target, [target_row, target_col = %d, %d]", target_row, target_col))
-            break
-        end
-    end
-
-    -- Send cursor to target
-    if target_i then
-        vim.api.nvim_win_set_cursor(0, {target_row, target_col})
-        print(string.format("TRACE : end cursor [row, col = %d, %d]", target_row, target_col))
-    end
+function _G.SetQuitWithQ()
+    vim.keymap.set('n', 'q', ':q<CR>', {buffer=true, silent=true})
 end

@@ -296,11 +296,17 @@ for i, opts in pairs(OPTIONS) do
     for k, v in pairs(opts) do vim.opt[k] = v end
 end
 
+
+-- DEFINE FUNCTIONS
+vim.cmd [[
+    luafile ~/.config/nvim/lua/functions.lua
+]]
+
 -- DEFINE AUTOCOMMANDS
 local id = vim.api.nvim_create_augroup("base", {clear = true})
 -- equally resize windows when terminal is resized
 vim.api.nvim_create_autocmd(
-    {"VimResized",},
+    {"VimResized"},
     {
         group = id,
         pattern = {"*"},
@@ -322,11 +328,7 @@ vim.api.nvim_create_autocmd(
     {
         group = id,
         pattern = "*",
-        callback = function()
-            local winstate = vim.fn.winsaveview()
-            vim.cmd("keeppatterns %s/\\s\\+$//e")  -- escape `\`
-            vim.fn.winrestview(winstate)
-        end,
+        callback = _G.TrimSpaces,
     }
 )
 -- create nested directories if needed when creating files
@@ -335,25 +337,10 @@ vim.api.nvim_create_autocmd(
     {
         group = id,
         pattern = "*",
-        callback = function(keys)
-            local dir = keys.file:match("(.*/)")
-            if vim.fn.isdirectory(dir) == 0 then
-                vim.fn.mkdir(dir, 'p')
-            end
-        end,
+        callback = _G.CreateDirs,
     }
 )
 
-local insert_toggles = function()
-    vim.opt_local.cursorline = not vim.opt_local.cursorline:get()
-    vim.opt_local.relativenumber = not vim.opt_local.relativenumber:get()
-
-    if #vim.opt_local.colorcolumn:get() == 0 then
-        vim.opt_local.colorcolumn = {100, 101}
-    else
-        vim.opt_local.colorcolumn = {}
-    end
-end
 local id = vim.api.nvim_create_augroup("style", {clear = true})
 -- toggle cursorline and colorcolumn when entering/exiting insert mode
 vim.api.nvim_create_autocmd(
@@ -361,7 +348,7 @@ vim.api.nvim_create_autocmd(
     {
         group = id,
         pattern = "*",
-        callback = insert_toggles,
+        callback = _G.InsertToggles,
     }
 )
 -- echo a vimtip when opening vim
@@ -370,17 +357,7 @@ vim.api.nvim_create_autocmd(
     {
         group = id,
         pattern = "*",
-        callback = function()
-            if vim.g.vimtip == nil then
-                local handle = io.popen('fortune ~/.config/nvim/extras/vim-tips')
-                vim.g.vimtip = handle:read("*a")
-                handle:close()
-            end
-
-            for line in string.gmatch(vim.g.vimtip, "[^\n]+") do
-               print(line)
-            end
-        end
+        callback = _G.VimTip,
     }
 )
 -- highlight yanked regions
@@ -389,14 +366,12 @@ vim.api.nvim_create_autocmd(
     {
         group = id,
         pattern = "*",
-        callback = function()
-            vim.highlight.on_yank({timeout = 700})
-        end,
+        callback = function() vim.highlight.on_yank({timeout = 700}) end,
     }
 )
 
 
-local id = vim.api.nvim_create_augroup("ft_extra_lua", {clear = true})
+local id = vim.api.nvim_create_augroup("ft_extra", {clear = true})
 -- Make cmdwindows close with q
 vim.api.nvim_create_autocmd(
     {"CmdWinEnter"},
@@ -404,7 +379,7 @@ vim.api.nvim_create_autocmd(
         group = id,
         pattern = "*",
         callback = function()
-            vim.keymap.set('n', 'q', ':q<CR>', {buffer=true})
+            _G.SetQuitWithQ()
             require('cmp').setup.buffer({enabled = false})
         end,
     }
@@ -416,7 +391,7 @@ vim.api.nvim_create_autocmd(
         group = id,
         pattern = {"qf", "help", "fugitive"},
         callback = function()
-            vim.keymap.set('n', 'q', ':q<CR>', {silent=true, buffer=true})
+            _G.SetQuitWithQ()
             vim.opt_local.spell = false
             vim.opt_local.colorcolumn = {}
         end,
@@ -446,7 +421,7 @@ vim.api.nvim_create_autocmd(
         end,
     }
 )
--- Set pandoc as makeprg for markdown files
+-- Set pandoc as makeprg for markdown files (WARNING untested)
 vim.api.nvim_create_autocmd(
     {"FileType"},
     {
@@ -459,11 +434,159 @@ vim.api.nvim_create_autocmd(
 )
 
 
--- DEFINE COMMANDS (VIMSCRIPT AND LUA)
-vim.cmd [[
-    luafile ~/.config/nvim/lua/functions.lua
-    source  ~/.config/nvim/vimscript/commands.vim
-]]
+-- Edit settings
+vim.api.nvim_create_user_command(
+    'Settings',
+    function()
+        vim.cmd('edit $MYVIMRC')
+        vim.cmd('lcd %:p:h')
+        print('Editing settings: ' .. vim.fn.expand('%:p'))
+    end,
+    {force=true}
+)
+
+-- Toggle display of quickfix/location list
+vim.api.nvim_create_user_command(
+    'ToggleQL',
+    function()
+        if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix') == 0 then
+            vim.cmd('copen')
+        else
+            vim.cmd('cclose')
+        end
+    end,
+    {force=true}
+)
+vim.api.nvim_create_user_command(
+    'ToggleLL',
+    function()
+        if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.loclist') == 0 then
+            vim.cmd('lopen')
+        else
+            vim.cmd('lclose')
+        end
+    end,
+    {force=true}
+)
+-- Open notes buffer
+vim.api.nvim_create_user_command(
+    'Notes',
+    function()
+        vim.cmd('split')
+        vim.cmd('lcd ~/Dropbox/Journals')
+        vim.cmd('edit ~/Dropbox/Journals')
+    end,
+    {force=true}
+)
+vim.api.nvim_create_user_command(
+    'Note',
+    function(keys)
+        _G.NewNote(keys.args)
+    end,
+    {force=true, nargs='?'}
+)
+
+-- Typos
+vim.api.nvim_create_user_command(
+    'E',
+    function(keys)
+        cmd = 'e'
+        if keys.bang then
+            cmd = cmd .. '!'
+        end
+        vim.cmd(cmd .. ' ' .. keys.args)
+    end,
+    {force=true, bang=true, nargs='*', complete='file'}
+)
+vim.api.nvim_create_user_command(
+    'W',
+    function(keys)
+        cmd = 'w'
+        if keys.bang then
+            cmd = cmd .. '!'
+        end
+        vim.cmd(cmd .. ' ' .. keys.args)
+    end,
+    {force=true, bang=true, nargs='*', complete='file'}
+)
+vim.api.nvim_create_user_command(
+    'Wq',
+    function(keys)
+        cmd = 'wq'
+        if keys.bang then
+            cmd = cmd .. '!'
+        end
+        vim.cmd(cmd .. ' ' .. keys.args)
+    end,
+    {force=true, bang=true, nargs='*', complete='file'}
+)
+vim.api.nvim_create_user_command(
+    'WQ',
+    function(keys)
+        cmd = 'wq'
+        if keys.bang then
+            cmd = cmd .. '!'
+        end
+        vim.cmd(cmd .. ' ' .. keys.args)
+    end,
+    {force=true, bang=true, nargs='*', complete='file'}
+)
+vim.api.nvim_create_user_command(
+    'Wa',
+    function(keys)
+        cmd = 'wa'
+        if keys.bang then
+            cmd = cmd .. '!'
+        end
+        vim.cmd(cmd .. ' ' .. keys.args)
+    end,
+    {force=true, bang=true, nargs='*', complete='file'}
+)
+vim.api.nvim_create_user_command(
+    'WA',
+    function(keys)
+        cmd = 'wa'
+        if keys.bang then
+            cmd = cmd .. '!'
+        end
+        vim.cmd(cmd .. ' ' .. keys.args)
+    end,
+    {force=true, bang=true, nargs='*', complete='file'}
+)
+vim.api.nvim_create_user_command(
+    'Q',
+    function(keys)
+        cmd = 'q'
+        if keys.bang then
+            cmd = cmd .. '!'
+        end
+        vim.cmd(cmd .. ' ' .. keys.args)
+    end,
+    {force=true, bang=true, nargs='*', complete='file'}
+)
+vim.api.nvim_create_user_command(
+    'Qa',
+    function(keys)
+        cmd = 'qa'
+        if keys.bang then
+            cmd = cmd .. '!'
+        end
+        vim.cmd(cmd .. ' ' .. keys.args)
+    end,
+    {force=true, bang=true, nargs='*', complete='file'}
+)
+vim.api.nvim_create_user_command(
+    'QA',
+    function(keys)
+        cmd = 'qa'
+        if keys.bang then
+            cmd = cmd .. '!'
+        end
+        vim.cmd(cmd .. ' ' .. keys.args)
+    end,
+    {force=true, bang=true, nargs='*', complete='file'}
+)
+
 
 -- DEFINE MAPPINGS
 vim.g.mapleader = " "
