@@ -125,10 +125,9 @@ MAPS = {
         -- Tmux window control passthrough
         --   <S-Arrow> => Resize split
         --   <C-z><Arrow> => Move to split
-        --   <C-z><S-Arrow> => Move split to direction
+        --   <C-z><S-Arrow> => Move pane to direction
+        --   <Leader><S-Arrow> => Move split to direction
         ['<C-z>'] = {map='<C-w>', opts={noremap=false}},
-        -- Disable <C-z> from stopping vim for now
-        -- ['<C-z>'] = "",
         -- Tab controls
         ['<Leader>.'] = ":tabnext<CR>",
         ['<Leader>,'] = ":tabprev<CR>",

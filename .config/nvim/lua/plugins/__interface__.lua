@@ -250,10 +250,14 @@ M['aserowy/tmux.nvim'] = {
         map('', '<S-Right>', function() return require("tmux").resize_right(8)  end)
 
         -- Link up `wincmd` <S-Arrow> actions
-        map('', '<C-z><S-Left>',  '<C-w>H')
-        map('', '<C-z><S-Down>',  '<C-w>J')
-        map('', '<C-z><S-Up>',    '<C-w>K')
-        map('', '<C-z><S-Right>', '<C-w>L')
+        map('', '<Leader><S-Left>',  '<C-w>H')
+        map('', '<Leader><S-Down>',  '<C-w>J')
+        map('', '<Leader><S-Up>',    '<C-w>K')
+        map('', '<Leader><S-Right>', '<C-w>L')
+        map('', '<Leader>H', '<C-w>H')
+        map('', '<Leader>J', '<C-w>J')
+        map('', '<Leader>K', '<C-w>K')
+        map('', '<Leader>L', '<C-w>L')
 
     end
 }
