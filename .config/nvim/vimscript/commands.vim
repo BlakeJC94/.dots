@@ -3,7 +3,7 @@
 command! Settings edit $MYVIMRC | lcd %:p:h | echo 'Editing settings: ' . expand('%')
 
 " Trim trailing spaces without upsetting changelist
-command! TrimSpaces let g:tmp = winsaveview() | keeppatterns %s/\s\+$//e | call winrestview(g:tmp)
+" command! TrimSpaces let g:tmp = winsaveview() | keeppatterns %s/\s\+$//e | call winrestview(g:tmp)
 
 " Toggle display of quickfix/location list
 command! ToggleQL exec empty(filter(getwininfo(), 'v:val.quickfix')) ? "copen" : "cclose"

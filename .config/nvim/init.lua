@@ -125,11 +125,11 @@ MAPS = {
         ['<Leader>|'] = ':vsplit<CR>',
         -- Tmux window control passthrough
         --   <S-Arrow> => Resize split
-        --   <M-z><Arrow> => Move to split
-        --   <M-z><S-Arrow> => Move split to direction
-        ['<M-z>'] = {map="<C-w>", opts={noremap=false}},  -- This chord should be more comfortable!  TODO rectify tmux binds
+        --   <C-z><Arrow> => Move to split
+        --   <C-z><S-Arrow> => Move split to direction
+        ['<C-z>'] = {map="<C-w>", opts={noremap=false}},
         -- Disable <C-z> from stopping vim for now
-        ['<C-z>'] = "",
+        -- ['<C-z>'] = "",
         -- Tab controls
         ['<Leader>.'] = ":tabnext<CR>",
         ['<Leader>,'] = ":tabprev<CR>",
@@ -256,8 +256,8 @@ MAPS = {
         ['<C-Space><Esc>'] = '<C-\\><C-n>',
         -- <Esc>: => (terminal) go to command mode
         ['<C-Space>:'] = '<C-\\><C-n>:',
-        -- <M-z> => Tmux bindkey passthrough
-        ['<M-z>'] = {map="<C-\\><C-n><C-w>", opts={noremap=false}},
+        -- <C-z> => Tmux bindkey passthrough
+        ['<C-z>'] = {map="<C-\\><C-n><C-w>", opts={noremap=false}},
     },
     o = {
         -- Custom text object: "around document"
@@ -296,11 +296,173 @@ for i, opts in pairs(OPTIONS) do
     for k, v in pairs(opts) do vim.opt[k] = v end
 end
 
+-- DEFINE AUTOCOMMANDS
+local id = vim.api.nvim_create_augroup("base", {clear = true})
+-- equally resize windows when terminal is resized
+vim.api.nvim_create_autocmd(
+    {"VimResized",},
+    {
+        group = id,
+        pattern = {"*"},
+        callback = function() vim.cmd("wincmd =") end,
+    }
+)
+-- replace tabs with spaces
+vim.api.nvim_create_autocmd(
+    {"BufWritePre"},
+    {
+        group = id,
+        pattern = "*",
+        callback = function() vim.cmd("retab") end,
+    }
+)
+-- autoremove whitespace without upsetting changelist
+vim.api.nvim_create_autocmd(
+    {"BufWritePre"},
+    {
+        group = id,
+        pattern = "*",
+        callback = function()
+            local winstate = vim.fn.winsaveview()
+            vim.cmd("keeppatterns %s/\\s\\+$//e")  -- escape `\`
+            vim.fn.winrestview(winstate)
+        end,
+    }
+)
+-- create nested directories if needed when creating files
+vim.api.nvim_create_autocmd(
+    {"BufWritePre", "FileWritePre"},
+    {
+        group = id,
+        pattern = "*",
+        callback = function(keys)
+            local dir = keys.file:match("(.*/)")
+            if vim.fn.isdirectory(dir) == 0 then
+                vim.fn.mkdir(dir, 'p')
+            end
+        end,
+    }
+)
+
+local insert_toggles = function()
+    vim.opt_local.cursorline = not vim.opt_local.cursorline:get()
+    vim.opt_local.relativenumber = not vim.opt_local.relativenumber:get()
+
+    if #vim.opt_local.colorcolumn:get() == 0 then
+        vim.opt_local.colorcolumn = {100, 101}
+    else
+        vim.opt_local.colorcolumn = {}
+    end
+end
+local id = vim.api.nvim_create_augroup("style", {clear = true})
+-- toggle cursorline and colorcolumn when entering/exiting insert mode
+vim.api.nvim_create_autocmd(
+    {"InsertEnter", "InsertLeave"},
+    {
+        group = id,
+        pattern = "*",
+        callback = insert_toggles,
+    }
+)
+-- echo a vimtip when opening vim
+vim.api.nvim_create_autocmd(
+    {"VimEnter"},
+    {
+        group = id,
+        pattern = "*",
+        callback = function()
+            if vim.g.vimtip == nil then
+                local handle = io.popen('fortune ~/.config/nvim/extras/vim-tips')
+                vim.g.vimtip = handle:read("*a")
+                handle:close()
+            end
+
+            for line in string.gmatch(vim.g.vimtip, "[^\n]+") do
+               print(line)
+            end
+        end
+    }
+)
+-- highlight yanked regions
+vim.api.nvim_create_autocmd(
+    {"TextYankPost"},
+    {
+        group = id,
+        pattern = "*",
+        callback = function()
+            vim.highlight.on_yank({timeout = 700})
+        end,
+    }
+)
+
+
+local id = vim.api.nvim_create_augroup("ft_extra_lua", {clear = true})
+-- Make cmdwindows close with q
+vim.api.nvim_create_autocmd(
+    {"CmdWinEnter"},
+    {
+        group = id,
+        pattern = "*",
+        callback = function()
+            vim.keymap.set('n', 'q', ':q<CR>', {buffer=true})
+            require('cmp').setup.buffer({enabled = false})
+        end,
+    }
+)
+-- help/cmd win/qf list: Press q to close and disable spellcheck
+vim.api.nvim_create_autocmd(
+    {"FileType"},
+    {
+        group = id,
+        pattern = {"qf", "help", "fugitive"},
+        callback = function()
+            vim.keymap.set('n', 'q', ':q<CR>', {silent=true, buffer=true})
+            vim.opt_local.spell = false
+            vim.opt_local.colorcolumn = {}
+        end,
+    }
+)
+-- restore default K action on help pages
+vim.api.nvim_create_autocmd(
+    {"FileType"},
+    {
+        group = id,
+        pattern = {"vim", "help"},
+        callback = function()
+            vim.keymap.set('n', 'K', ":h <C-r>=expand('<cword>')<CR><CR>", {silent=true, buffer=true})
+        end,
+    }
+)
+-- Always open help in vertical split
+vim.api.nvim_create_autocmd(
+    {"FileType"},
+    {
+        group = id,
+        pattern = "help",
+        callback = function()
+            vim.cmd('wincmd L')
+            vim.cmd('vert resize 90')
+            vim.opt_local.formatoptions:remove('t')
+        end,
+    }
+)
+-- Set pandoc as makeprg for markdown files
+vim.api.nvim_create_autocmd(
+    {"FileType"},
+    {
+        group = id,
+        pattern = "Markdown",
+        callback = function()
+            vim.opt_local.makeprg = "pandoc %:p -o %:p:h/out.pdf"
+        end,
+    }
+)
+
+
 -- DEFINE COMMANDS (VIMSCRIPT AND LUA)
 vim.cmd [[
     luafile ~/.config/nvim/lua/functions.lua
     source  ~/.config/nvim/vimscript/commands.vim
-    source  ~/.config/nvim/vimscript/autogroups.vim
 ]]
 
 -- DEFINE MAPPINGS
