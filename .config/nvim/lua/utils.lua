@@ -120,9 +120,9 @@ M.disable_built_ins = function()
     end
 end
 
-M.set_mapping_group = function(mapping_group)
-    for mode, mappings in pairs(mapping_group) do
-        for keys, mapping in pairs(mappings) do
+M._set_mappings = function(mappings)
+    for mode, mode_mappings in pairs(mappings) do
+        for keys, mapping in pairs(mode_mappings) do
             if (type(mapping) == "table") then
                 local opts = vim.tbl_extend('force', DEFAULT_MAP_OPTS, mapping.opts)
                 vim.keymap.set(mode, keys, mapping.map, opts)
@@ -161,27 +161,40 @@ M.load_autocommands = function()
     require('autocommands')
 end
 
-M.load_options = function(...)
+M._parse_table_vargs = function(...)
     local args = {...}
+    if #args == 0 then return nil end
 
-    -- Skip if no args passed
-    if #args == 0 then return end
-
-    -- Filter to tables passed to args
-    local options_groups = {}
-    local options_index = 0
+    local groups = {}
+    local index = 0
     for i = 1, #args do
         if type(args[i]) ~= 'table' or type(next(args[i])) then
-            options_index = options_index + 1
-            options_groups[options_index] = args[i]
+            index = index + 1
+            groups[index] = args[i]
         end
     end
 
-    -- Iterate over groups and apply
-    for _i, options in ipairs(options_groups) do
-        for k, v in pairs(options) do vim.opt[k] = v end
+    return groups
+end
+
+M.load_options = function(...)
+    groups = require('utils')._parse_table_vargs(...)
+    if groups then
+        for _i, options in ipairs(groups) do
+            for k, v in pairs(options) do vim.opt[k] = v end
+        end
     end
 end
+
+M.load_mappings = function(...)
+    groups = require('utils')._parse_table_vargs(...)
+    if groups then
+        for _i, mappings in ipairs(groups) do
+            utils._set_mappings(mappings)
+        end
+    end
+end
+
 
 return M
 

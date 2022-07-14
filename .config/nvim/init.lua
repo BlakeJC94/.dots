@@ -276,7 +276,7 @@ MAPS = {
 -- config tables can be defined in init.lua or defined elsewere and imported to init.lua.
 -- should call loaders in init.lua so nothing is hidden
 -- TODO
--- * [ ] Move mappings loader to utils.lua
+-- * [X] Move mappings loader to utils.lua
 -- * [X] Move options loader to utils.lua
 -- * Keep OPTIONS and MAPS tables in init.lua
 --     * [ ] Split out some of these "utility" (such as arrows) maps into mappings.lua
@@ -289,10 +289,9 @@ MAPS = {
 --     * Pass COMMANDS to `utils.lua` function
 --         * [ ] Create commands loader in utils.lua
 -- * [ ] Create `load_typo_commands` in `commands.lua`
---     * Load table in utils?
 -- * [ ] Rename `plugins` to `extensions`
 --     * Load EXTENSIONS table from extensions.lua?
--- * utils/loaders and utils/functions?
+-- * utils/loaders and utils/functions and utils/helpers?
 
 -- LOAD SELECTED PLUGINS
 utils.disable_built_ins()
@@ -315,7 +314,10 @@ if status_ok then
 end
 
 -- SET OPTIONS
-utils.load_options(BEHAVIOUR_OPTIONS, LAYOUT_OPTIONS)
+utils.load_options(
+    BEHAVIOUR_OPTIONS,
+    LAYOUT_OPTIONS
+)
 
 -- DEFINE FUNCTIONS
 utils.load_functions()
@@ -326,15 +328,10 @@ utils.load_commands()  -- TODO create a nicer API for this
 -- DEFINE AUTOCOMMANDS
 utils.load_autocommands()  -- TODO create a nicer API for this
 
-
 -- DEFINE MAPPINGS
--- TODO put this in utils
 vim.g.mapleader = " "
-local mapping_groups = {
+utils.load_mappings(
     MAPS,
     utils.arrow_maps,
-    utils.insert_undo_maps,
-}
-for _, group in ipairs(mapping_groups) do
-    utils.set_mapping_group(group)
-end
+    utils.insert_undo_maps
+)
