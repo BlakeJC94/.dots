@@ -273,7 +273,7 @@ MAPS = {
 
 -- TODO
 -- * [ ] Move mappings loader to utils.lua
--- * [ ] Move options loader to utils.lua
+-- * [X] Move options loader to utils.lua
 -- * Keep OPTIONS and MAPS tables in init.lua
 --     * [ ] Split out some of these "utility" (such as arrows) maps into mappings.lua
 -- * [ ] Create AUTOCOMMANDS table in autocommands.lua
@@ -311,10 +311,7 @@ if status_ok then
 end
 
 -- SET OPTIONS
-for i, opts in pairs(OPTIONS) do
-    for k, v in pairs(opts) do vim.opt[k] = v end
-end
-
+utils.load_options(OPTIONS)
 
 -- DEFINE FUNCTIONS
 utils.load_functions()

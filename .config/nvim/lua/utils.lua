@@ -161,5 +161,14 @@ M.load_autocommands = function()
     require('autocommands')
 end
 
+M.load_options = function(options)
+    if type(options) ~= 'table' or type(next(options)) == "nil" then return end
+    if #options == 0 and type(next(options)) ~= "table" then options = {options} end
+
+    for _i, opts in ipairs(options) do
+        for k, v in pairs(opts) do vim.opt[k] = v end
+    end
+end
+
 return M
 
