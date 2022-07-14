@@ -256,6 +256,8 @@ MAPS = {
         ['<C-Space>:'] = '<C-\\><C-n>:',
         -- <C-z> => Tmux bindkey passthrough
         ['<C-z>'] = {map="<C-\\><C-n><C-w>", opts={noremap=false}},
+        -- <C-l> => Do C-l action in vim as well
+        ['<C-l>'] = '<C-\\><C-n><C-l>i<C-l>',
     },
     o = {
         -- Custom text object: "around document"
