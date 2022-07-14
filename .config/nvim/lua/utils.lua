@@ -161,12 +161,25 @@ M.load_autocommands = function()
     require('autocommands')
 end
 
-M.load_options = function(options)
-    if type(options) ~= 'table' or type(next(options)) == "nil" then return end
-    if #options == 0 and type(next(options)) ~= "table" then options = {options} end
+M.load_options = function(...)
+    local args = {...}
 
-    for _i, opts in ipairs(options) do
-        for k, v in pairs(opts) do vim.opt[k] = v end
+    -- Skip if no args passed
+    if #args == 0 then return end
+
+    -- Filter to tables passed to args
+    local options_groups = {}
+    local options_index = 0
+    for i = 1, #args do
+        if type(args[i]) ~= 'table' or type(next(args[i])) then
+            options_index = options_index + 1
+            options_groups[options_index] = args[i]
+        end
+    end
+
+    -- Iterate over groups and apply
+    for _i, options in ipairs(options_groups) do
+        for k, v in pairs(options) do vim.opt[k] = v end
     end
 end
 
