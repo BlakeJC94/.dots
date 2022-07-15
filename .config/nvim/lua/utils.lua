@@ -18,6 +18,7 @@ DISABLED_BUILT_INS = {
 }
 
 DEFAULT_MAP_OPTS = {noremap = true, silent = true}
+DEFAULT_CMD_OPTS = {force = true}
 
 
 M.setup_packer = function()
@@ -36,6 +37,25 @@ end
 M.disable_built_ins = function()
     for _, i in pairs(DISABLED_BUILT_INS) do
         vim.g['loaded_' .. i] = 1
+    end
+end
+
+M._set_commands = function(commands)
+    for name, command in pairs(commands) do
+        if (type(command) == 'table') then
+            local opts = vim.tbl_extend('force', DEFAULT_CMD_OPTS, command[2])
+            vim.api.nvim_create_user_command(
+                name,
+                command[1],
+                opts
+            )
+        else
+            vim.api.nvim_create_user_command(
+                name,
+                command,
+                DEFAULT_CMD_OPTS
+            )
+        end
     end
 end
 
@@ -64,16 +84,13 @@ M.my_fold_text = function()
     return string.sub(fold_str, 0, 100 - #fold_size_str) .. fold_size_str
 end
 
-M.replace_keycodes = function()
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
+-- TODO remove
+-- M.replace_keycodes = function()
+--     return vim.api.nvim_replace_termcodes(str, true, true, true)
+-- end
 
-M.load_functions = function()
+M.load_functions = function(...)
     require('functions')
-end
-
-M.load_commands = function()
-    require('commands')
 end
 
 M.load_autocommands = function()
@@ -114,6 +131,14 @@ M.load_mappings = function(...)
     end
 end
 
+M.load_commands = function(...)
+    groups = require('utils')._parse_table_vargs(...)
+    if groups then
+        for _i, commands in ipairs(groups) do
+            utils._set_commands(commands)
+        end
+    end
+end
 
 return M
 

@@ -126,8 +126,13 @@ utils.load_options(
 -- DEFINE FUNCTIONS
 utils.load_functions()
 
--- DEFINE COMMANDS
-utils.load_commands()  -- TODO create a nicer API for this
+-- LOAD COMMANDS
+commands = require('commands')
+utils.load_commands(
+    commands.CMDS,
+    commands.NOTES_CMDS,
+    commands.TYPO_CMDS
+)
 
 -- DEFINE AUTOCOMMANDS
 utils.load_autocommands()  -- TODO create a nicer API for this
