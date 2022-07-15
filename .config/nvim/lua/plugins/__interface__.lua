@@ -231,34 +231,6 @@ M['aserowy/tmux.nvim'] = {
                 resize_step_y = 8,
             }
         })
-
-        local map = vim.keymap.set
-        -- Set mappings to override `wincmd` commands
-        map('', '<C-z><Left>',  function() return require("tmux").move_left()   end)
-        map('', '<C-z>h',       function() return require("tmux").move_left()   end)
-        map('', '<C-z><Down>',  function() return require("tmux").move_bottom() end)
-        map('', '<C-z>j',       function() return require("tmux").move_bottom() end)
-        map('', '<C-z><Up>',    function() return require("tmux").move_top()    end)
-        map('', '<C-z>k',       function() return require("tmux").move_top()    end)
-        map('', '<C-z><Right>', function() return require("tmux").move_right()  end)
-        map('', '<C-z>l',       function() return require("tmux").move_right()  end)
-
-        -- Set mappings for resizing splits
-        map('', '<S-Left>',  function() return require("tmux").resize_left(8)   end)
-        map('', '<S-Down>',  function() return require("tmux").resize_bottom(4) end)
-        map('', '<S-Up>',    function() return require("tmux").resize_top(4)    end)
-        map('', '<S-Right>', function() return require("tmux").resize_right(8)  end)
-
-        -- Link up `wincmd` <S-Arrow> actions
-        map('', '<Leader><S-Left>',  '<C-w>H')
-        map('', '<Leader><S-Down>',  '<C-w>J')
-        map('', '<Leader><S-Up>',    '<C-w>K')
-        map('', '<Leader><S-Right>', '<C-w>L')
-        map('', '<Leader>H', '<C-w>H')
-        map('', '<Leader>J', '<C-w>J')
-        map('', '<Leader>K', '<C-w>K')
-        map('', '<Leader>L', '<C-w>L')
-
     end
 }
 

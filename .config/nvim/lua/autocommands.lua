@@ -144,3 +144,21 @@ vim.api.nvim_create_autocmd(
     }
 )
 
+-- Update plugins after saving changes to plugins.lua
+local id = vim.api.nvim_create_augroup("packer_autocompile", {clear = true})
+vim.api.nvim_create_autocmd(
+    {"BufWritePost"},
+    {
+        group = id,
+        pattern = "plugins.lua",
+        callback = function(keys) vim.cmd('source ' .. keys.file .. ' | PackerCompile') end
+    }
+)
+vim.api.nvim_create_autocmd(
+    {"BufWritePost"},
+    {
+        group = id,
+        pattern = "configs.lua",
+        callback = function(keys) vim.cmd('source ' .. keys.file .. ' | PackerCompile') end
+    }
+)
