@@ -1,5 +1,4 @@
 M = {}
-
 FUNCTIONS = require('functions')
 
 M.BASE = {
@@ -71,7 +70,6 @@ M.STYLE = {
         }
     },
 }
-
 
 M.FT_EXTRA = {
     close_cmdwin_with_q = {

@@ -80,19 +80,6 @@ LAYOUT_OPTIONS = {
 -- config tables can be defined in init.lua or defined elsewere and imported to init.lua.
 -- should call loaders in init.lua so nothing is hidden
 -- TODO
--- * [X] Move mappings loader to utils.lua
--- * [X] Move options loader to utils.lua
--- * Keep OPTIONS and MAPS tables in init.lua
---     * [X] Split out some of these "utility" (such as arrows) maps into mappings.lua
--- * [x] Create AUTOCOMMANDS table in autocommands.lua
---     * Load AUTOCOMMANDS in init.lua via `AUTOCOMMANDS = require('autocommands').AUTOCOMMANDS`
---     * Pass AUTOCOMMANDS to `utils.lua` function
---         * [x] Create autocommands loader in utils.lua
--- * [x] Create COMMANDS table in commands.lua
---     * Load COMMANDS in init.lua via `COMMANDS = require('commands').COMMANDS`
---     * Pass COMMANDS to `utils.lua` function
---         * [x] Create commands loader in utils.lua
--- * [x] Create `load_typo_commands` in `commands.lua`
 -- * [ ] Rename `plugins` to `extensions`
 --     * Load EXTENSIONS table from extensions.lua?
 -- * utils/loaders and utils/functions and utils/helpers?
@@ -127,6 +114,10 @@ utils.load_options(
 functions = require('functions')
 utils.load_functions(functions)
 
+-- DEFINE AUTOGROUPS TODO fix the table parser
+autocommands = require('autocommands')
+utils.load_autocommands(autocommands)
+
 -- LOAD COMMANDS
 commands = require('commands')
 utils.load_commands(
@@ -134,10 +125,6 @@ utils.load_commands(
     commands.NOTES_CMDS,
     commands.TYPO_CMDS
 )
-
--- DEFINE AUTOCOMMANDS
-autocommands = require('autocommands')
-utils.load_autocommands(autocommands)  -- TODO create a nicer API for this
 
 -- LOAD MAPPINGS
 vim.g.mapleader = " "

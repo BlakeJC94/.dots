@@ -19,7 +19,6 @@ DISABLED_BUILT_INS = {
 
 DEFAULT_MAP_OPTS = {noremap = true, silent = true}
 DEFAULT_CMD_OPTS = {force = true}
-DEFAULT_AUTOCMD_OPTS = {}
 
 
 M.setup_packer = function()
@@ -73,9 +72,8 @@ M._set_mappings = function(mappings)
     end
 end
 
-M._set_augroup = function(augroup, name)
+M._set_augroup = function(name, augroup)
     local id = vim.api.nvim_create_augroup(name, {clear = true})
-
     for _name, autocmd in pairs(augroup) do
         local events = autocmd[1]
         local cmd = autocmd[2]
@@ -90,21 +88,31 @@ M._set_augroup = function(augroup, name)
     end
 end
 
-M.custom_fold_text = function()
-    local line = vim.fn.getline(vim.v.foldstart)
-
-    local indent_str = string.rep(" ", vim.fn.indent(vim.v.foldstart - 1))
-    local fold_str = indent_str .. line .. string.rep(" ", 100)
-
-    local fold_size = vim.v.foldend - vim.v.foldstart + 1
-    local fold_size_str = " (" .. fold_size .. ") "
-
-    return string.sub(fold_str, 0, 100 - #fold_size_str) .. fold_size_str
+M._set_options = function(_, options)
+    for k, v in pairs(options) do vim.opt[k] = v end
 end
 
 M._parse_table_vargs = function(...)
     local args = {...}
     if #args == 0 then return nil end
+    -- if type(args) == 'table' and
+    
+    -- Is the input just one table? If so, return the input
+    -- if #args == 1 and type(args[1][next(args[1])]) == 'table' then
+    -- if #args == 1 then
+    --     local single_arg = args[next(args)]
+    --     print("PARSE----")
+    --     print("  type of single_arg", type(single_arg))
+    --     print("  len of single_arg", #single_arg)
+    --     -- print(vim.inspect(single_arg))
+
+
+
+    --     local first_arg = args[1][next(args[1])]
+    --     print(vim.inspect(first_arg))
+    --     return args[1]
+    -- end
+
 
     local groups = {}
     local index = 0
@@ -118,49 +126,70 @@ M._parse_table_vargs = function(...)
     return groups
 end
 
+-- M.load = function(setter, ...)
+--     groups = require('utils')._parse_table_vargs(...)
+--     if not groups then return end
+--     for key, values in pairs(groups) do
+--         setter(key, values)
+--     end
+-- end
+
 M.load_options = function(...)
     groups = require('utils')._parse_table_vargs(...)
-    if groups then
-        for _i, options in ipairs(groups) do
-            for k, v in pairs(options) do vim.opt[k] = v end
-        end
+    if not groups then return end
+    for _i, options in ipairs(groups) do
+        require('utils')._set_options(_i, options)
     end
 end
 
 M.load_mappings = function(...)
     groups = require('utils')._parse_table_vargs(...)
-    if groups then
-        for _i, mappings in ipairs(groups) do
-            utils._set_mappings(mappings)
-        end
+    if not groups then return end
+    for _i, mappings in ipairs(groups) do
+        utils._set_mappings(mappings)
     end
 end
 
 M.load_commands = function(...)
     groups = require('utils')._parse_table_vargs(...)
-    if groups then
-        for _i, commands in ipairs(groups) do
-            utils._set_commands(commands)
-        end
+    if not groups then return end
+    for _i, commands in ipairs(groups) do
+        utils._set_commands(commands)
     end
 end
 
-M.load_functions = function(funcs)
-    groups = require('utils')._parse_table_vargs(funcs)
-    if not funcs then return end
+-- TODO write docs explaining that this input should just be one table
+M.load_functions = function(...)
+    groups = require('utils')._parse_table_vargs(...)
+    if not groups then return end
     for _i, group in ipairs(groups) do
-        for name, func in pairs(groups) do
+        for name, func in pairs(group) do
             _G.name = func
         end
     end
 end
 
-M.load_autocommands = function(autocmds)
-    for name, augroup in pairs(autocmds) do
-        -- print("TRACE")
-        -- print(name)
-        -- print(vim.inspect(augroup))
-        utils._set_augroup(augroup, name)
+-- TODO write docs explaining that this input should just be one table
+M.load_autocommands = function(...)
+    groups = require('utils')._parse_table_vargs(...)
+    if not groups then return end
+    for _i, group in ipairs(groups) do
+        for name, augroup in pairs(group) do
+
+            local id = vim.api.nvim_create_augroup(name, {clear = true})
+            for _name, autocmd in pairs(augroup) do
+                local events = autocmd[1]
+                local cmd = autocmd[2]
+                vim.api.nvim_create_autocmd(
+                    events,
+                    {
+                        group = id,
+                        pattern = cmd.pattern,
+                        callback = cmd.callback,
+                    }
+                )
+            end
+        end
     end
 end
 
