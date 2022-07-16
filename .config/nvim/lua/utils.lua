@@ -19,6 +19,7 @@ DISABLED_BUILT_INS = {
 
 DEFAULT_MAP_OPTS = {noremap = true, silent = true}
 DEFAULT_CMD_OPTS = {force = true}
+DEFAULT_AUTOCMD_OPTS = {}
 
 
 M.setup_packer = function()
@@ -72,7 +73,24 @@ M._set_mappings = function(mappings)
     end
 end
 
-M.my_fold_text = function()
+M._set_augroup = function(augroup, name)
+    local id = vim.api.nvim_create_augroup(name, {clear = true})
+
+    for _name, autocmd in pairs(augroup) do
+        local events = autocmd[1]
+        local cmd = autocmd[2]
+        vim.api.nvim_create_autocmd(
+            events,
+            {
+                group = id,
+                pattern = cmd.pattern,
+                callback = cmd.callback,
+            }
+        )
+    end
+end
+
+M.custom_fold_text = function()
     local line = vim.fn.getline(vim.v.foldstart)
 
     local indent_str = string.rep(" ", vim.fn.indent(vim.v.foldstart - 1))
@@ -82,19 +100,6 @@ M.my_fold_text = function()
     local fold_size_str = " (" .. fold_size .. ") "
 
     return string.sub(fold_str, 0, 100 - #fold_size_str) .. fold_size_str
-end
-
--- TODO remove
--- M.replace_keycodes = function()
---     return vim.api.nvim_replace_termcodes(str, true, true, true)
--- end
-
-M.load_functions = function(...)
-    require('functions')
-end
-
-M.load_autocommands = function()
-    require('autocommands')
 end
 
 M._parse_table_vargs = function(...)
@@ -137,6 +142,25 @@ M.load_commands = function(...)
         for _i, commands in ipairs(groups) do
             utils._set_commands(commands)
         end
+    end
+end
+
+M.load_functions = function(funcs)
+    groups = require('utils')._parse_table_vargs(funcs)
+    if not funcs then return end
+    for _i, group in ipairs(groups) do
+        for name, func in pairs(groups) do
+            _G.name = func
+        end
+    end
+end
+
+M.load_autocommands = function(autocmds)
+    for name, augroup in pairs(autocmds) do
+        -- print("TRACE")
+        -- print(name)
+        -- print(vim.inspect(augroup))
+        utils._set_augroup(augroup, name)
     end
 end
 

@@ -1,5 +1,7 @@
+M = {}
+
 -- Generate new md file with auto-generated header and filename
-function _G.NewNote(in_str)
+M.NewNote = function(in_str)
     local title = ""
     local note_path = ""
 
@@ -70,40 +72,40 @@ function _G.NewNote(in_str)
     vim.cmd("normal! G$")
 end
 
-function _G.ShowSyntaxGroup()
+M.ShowSyntaxGroup = function()
     -- Call with ":call ShowSyntaxGroup()"
     local s = vim.fn.synID(vim.fn.line('.'), vim.fn.col('.'), 1)
     local out_str = vim.fn.synIDattr(s, 'name') .. ' -> ' .. vim.fn.synIDattr(vim.fn.synIDtrans(s), 'name')
     print(out_str)
 end
 
-function _G.TrimSpaces(keys)
+M.TrimSpaces = function(keys)
     local winstate = vim.fn.winsaveview()
     vim.cmd("keeppatterns %s/\\s\\+$//e")  -- escape `\`
     vim.fn.winrestview(winstate)
 end
 
-function _G.CreateDirs(keys)
+M.CreateDirs = function(keys)
     local dir = keys.file:match("(.*/)")
     if vim.fn.isdirectory(dir) == 0 then
         vim.fn.mkdir(dir, 'p')
     end
 end
 
-function _G.ShellExec(command)
+M.ShellExec = function(command)
     local handle = io.popen(command)
     local result = handle:read("*a")
     handle:close()
     return result
 end
 
-function _G.PrintLines(mutiline_string)
+M.PrintLines = function(mutiline_string)
     for line in string.gmatch(mutiline_string, "[^\n]+") do
         print(line)
     end
 end
 
-function _G.PutLines(mutiline_string)
+M.PutLines = function(mutiline_string)
     lines = {}
     for line in string.gmatch(mutiline_string, "[^\n]+") do
         table.insert(lines, line)
@@ -111,15 +113,30 @@ function _G.PutLines(mutiline_string)
     vim.api.nvim_put(lines, "", true, true)
 end
 
-function _G.VimTip()
+M.VimTip = function()
     if vim.g.vimtip == nil then
-        vim.g.vimtip = _G.ShellExec('fortune ~/.config/nvim/extras/vim-tips')
-        _G.PrintLines(vim.g.vimtip)
+        vim.g.vimtip = require('functions').ShellExec('fortune ~/.config/nvim/extras/vim-tips')
+        require('functions').PrintLines(vim.g.vimtip)
     else
-        _G.PutLines(vim.g.vimtip)
+        require('functions').PutLines(vim.g.vimtip)
     end
 end
 
-function _G.SetQuitWithQ()
+M.SetQuitWithQ = function()
     vim.keymap.set('n', 'q', ':q<CR>', {buffer=true, silent=true})
 end
+
+M.CustomFoldText = function()
+    local line = vim.fn.getline(vim.v.foldstart)
+
+    local indent_str = string.rep(" ", vim.fn.indent(vim.v.foldstart - 1))
+    local fold_str = indent_str .. line .. string.rep(" ", 100)
+
+    local fold_size = vim.v.foldend - vim.v.foldstart + 1
+    local fold_size_str = " (" .. fold_size .. ") "
+
+    return string.sub(fold_str, 0, 100 - #fold_size_str) .. fold_size_str
+end
+
+
+return M

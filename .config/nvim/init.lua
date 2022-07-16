@@ -61,7 +61,7 @@ LAYOUT_OPTIONS = {
     foldmethod = 'indent',             -- Auto-create folds by indent levels
     foldlevel  = 0,                    -- Close all folds when opening file
     fillchars  = {fold=' ', eob=' '},  -- Replace dots with spaces in fold head
-    foldtext   = 'v:lua.require("utils").my_fold_text()',  -- Custom fold text
+    foldtext   = 'v:lua.require("functions").CustomFoldText()',
     -- LEFT MARGIN
     number         = true,  -- Show line numbers
     relativenumber = true,  -- Show rel/abs line numbers
@@ -84,15 +84,15 @@ LAYOUT_OPTIONS = {
 -- * [X] Move options loader to utils.lua
 -- * Keep OPTIONS and MAPS tables in init.lua
 --     * [X] Split out some of these "utility" (such as arrows) maps into mappings.lua
--- * [ ] Create AUTOCOMMANDS table in autocommands.lua
+-- * [x] Create AUTOCOMMANDS table in autocommands.lua
 --     * Load AUTOCOMMANDS in init.lua via `AUTOCOMMANDS = require('autocommands').AUTOCOMMANDS`
 --     * Pass AUTOCOMMANDS to `utils.lua` function
---         * [ ] Create autocommands loader in utils.lua
--- * [ ] Create COMMANDS table in commands.lua
+--         * [x] Create autocommands loader in utils.lua
+-- * [x] Create COMMANDS table in commands.lua
 --     * Load COMMANDS in init.lua via `COMMANDS = require('commands').COMMANDS`
 --     * Pass COMMANDS to `utils.lua` function
---         * [ ] Create commands loader in utils.lua
--- * [ ] Create `load_typo_commands` in `commands.lua`
+--         * [x] Create commands loader in utils.lua
+-- * [x] Create `load_typo_commands` in `commands.lua`
 -- * [ ] Rename `plugins` to `extensions`
 --     * Load EXTENSIONS table from extensions.lua?
 -- * utils/loaders and utils/functions and utils/helpers?
@@ -124,7 +124,8 @@ utils.load_options(
 )
 
 -- DEFINE FUNCTIONS
-utils.load_functions()
+functions = require('functions')
+utils.load_functions(functions)
 
 -- LOAD COMMANDS
 commands = require('commands')
@@ -135,7 +136,8 @@ utils.load_commands(
 )
 
 -- DEFINE AUTOCOMMANDS
-utils.load_autocommands()  -- TODO create a nicer API for this
+autocommands = require('autocommands')
+utils.load_autocommands(autocommands)  -- TODO create a nicer API for this
 
 -- LOAD MAPPINGS
 vim.g.mapleader = " "
