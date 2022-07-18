@@ -40,63 +40,29 @@ M.disable_built_ins = function()
     end
 end
 
-M._set_commands = function(commands)
-    for name, command in pairs(commands) do
-        if (type(command) == 'table') then
-            local opts = vim.tbl_extend('force', DEFAULT_CMD_OPTS, command[2])
-            vim.api.nvim_create_user_command(
-                name,
-                command[1],
-                opts
-            )
-        else
-            vim.api.nvim_create_user_command(
-                name,
-                command,
-                DEFAULT_CMD_OPTS
-            )
-        end
-    end
-end
 
-M._set_mappings = function(mappings)
-    for mode, mode_mappings in pairs(mappings) do
-        for keys, mapping in pairs(mode_mappings) do
-            if (type(mapping) == "table") then
-                local opts = vim.tbl_extend('force', DEFAULT_MAP_OPTS, mapping.opts)
-                vim.keymap.set(mode, keys, mapping.map, opts)
-            else
-                vim.keymap.set(mode, keys, mapping, DEFAULT_MAP_OPTS)
-            end
-        end
-    end
-end
+-- M._set_augroup = function(name, augroup)
+--     local id = vim.api.nvim_create_augroup(name, {clear = true})
+--     for _name, autocmd in pairs(augroup) do
+--         local events = autocmd[1]
+--         local cmd = autocmd[2]
+--         vim.api.nvim_create_autocmd(
+--             events,
+--             {
+--                 group = id,
+--                 pattern = cmd.pattern,
+--                 callback = cmd.callback,
+--             }
+--         )
+--     end
+-- end
 
-M._set_augroup = function(name, augroup)
-    local id = vim.api.nvim_create_augroup(name, {clear = true})
-    for _name, autocmd in pairs(augroup) do
-        local events = autocmd[1]
-        local cmd = autocmd[2]
-        vim.api.nvim_create_autocmd(
-            events,
-            {
-                group = id,
-                pattern = cmd.pattern,
-                callback = cmd.callback,
-            }
-        )
-    end
-end
-
-M._set_options = function(_, options)
-    for k, v in pairs(options) do vim.opt[k] = v end
-end
 
 M._parse_table_vargs = function(...)
     local args = {...}
     if #args == 0 then return nil end
     -- if type(args) == 'table' and
-    
+
     -- Is the input just one table? If so, return the input
     -- if #args == 1 and type(args[1][next(args[1])]) == 'table' then
     -- if #args == 1 then
@@ -192,6 +158,83 @@ M.load_autocommands = function(...)
         end
     end
 end
+
+-- -----------------------------
+M.load = function(setter, groups)
+    -- setter should be a function
+    if type(setter) ~= "function" then return end
+
+    -- `groups` should be a table of tables
+    -- groups = {group_name: {setter_args}}
+    if type(groups) ~= "table" then return end
+    for _k, v in pairs(groups) do
+        if type(v) ~= "table" then return end
+    end
+
+    -- Apply setter to each group
+    for name, group in pairs(groups) do
+        setter(name, group)
+    end
+end
+
+M._set_options = function(_, options)
+    for k, v in pairs(options) do vim.opt[k] = v end
+end
+
+M._set_functions = function(_, functions)
+    for name, func in pairs(functions) do _G.name = func end
+end
+
+M._set_autocommands = function(name, autocommands)
+    local id = vim.api.nvim_create_augroup(name, {clear = true})
+    for _, autocmd in pairs(autocommands) do
+        vim.api.nvim_create_autocmd(
+            autocmd.events,
+            {
+                group = id,
+                pattern = autocmd.pattern,
+                callback = autocmd.callback,
+            }
+        )
+    end
+end
+
+M._set_commands = function(_, commands)
+    for name, command in pairs(commands) do
+        if (type(command) == 'table') then
+            local opts = vim.tbl_extend('force', DEFAULT_CMD_OPTS, command[2])
+            vim.api.nvim_create_user_command(
+                name,
+                command[1],
+                opts
+            )
+        else
+            vim.api.nvim_create_user_command(
+                name,
+                command,
+                DEFAULT_CMD_OPTS
+            )
+        end
+    end
+end
+
+M._set_mappings = function(_, mappings)
+    for mode, mode_mappings in pairs(mappings) do
+        for keys, mapping in pairs(mode_mappings) do
+            if (type(mapping) == "table") then
+                local opts = vim.tbl_extend('force', DEFAULT_MAP_OPTS, mapping.opts)
+                vim.keymap.set(mode, keys, mapping.map, opts)
+            else
+                vim.keymap.set(mode, keys, mapping, DEFAULT_MAP_OPTS)
+            end
+        end
+    end
+end
+
+-- TODO
+-- M._set_plugins = function(name, plugins)
+-- end
+
 
 return M
 

@@ -76,15 +76,7 @@ LAYOUT_OPTIONS = {
 }
 
 
--- init.lua should just be the place where all the config tables are loaded,
--- config tables can be defined in init.lua or defined elsewere and imported to init.lua.
--- should call loaders in init.lua so nothing is hidden
--- TODO
--- * [ ] Rename `plugins` to `extensions`
---     * Load EXTENSIONS table from extensions.lua?
--- * utils/loaders and utils/functions and utils/helpers?
-
--- LOAD SELECTED PLUGINS
+-- LOAD SELECTED PLUGINS  TODO move this into config table
 utils.disable_built_ins()
 utils.setup_packer()
 local status_ok, packer = pcall(require, "packer")
@@ -104,41 +96,17 @@ if status_ok then
     packer.install()
 end
 
--- SET OPTIONS
-utils.load_options(
-    BEHAVIOUR_OPTIONS,
-    LAYOUT_OPTIONS
-)
 
--- DEFINE FUNCTIONS
-functions = require('functions')
-utils.load_functions(functions)
-
--- DEFINE AUTOGROUPS TODO fix the table parser
-autocommands = require('autocommands')
-utils.load_autocommands(autocommands)
-
--- LOAD COMMANDS
-commands = require('commands')
-utils.load_commands(
-    commands.CMDS,
-    commands.NOTES_CMDS,
-    commands.TYPO_CMDS
-)
-
--- LOAD MAPPINGS
 vim.g.mapleader = " "
-mappings = require('mappings')
-utils.load_mappings(
-    mappings.MAPS,
-    mappings.LEADER_MAPS,
-    mappings.NAVIGATION_MAPS,
-    mappings.FKEY_MAPS,
-    mappings.QFLIST_MAPS,
-    mappings.LSP_MAPS,
-    mappings.GIT_MAPS,
-    mappings.TELESCOPE_MAPS,
-    mappings.PACKER_MAPS,
-    mappings.DISABLE_ARROW_MAPS,
-    mappings.INSERT_UNDO_MAPS
-)
+options = {BEHAVIOUR_OPTIONS, LAYOUT_OPTIONS}
+config = {
+    {utils._set_options,      options                },
+    {utils._set_functions,    require('functions')   },
+    {utils._set_autocommands, require('autocommands')},
+    {utils._set_commands,     require('commands')    },
+    {utils._set_mappings,     require('mappings')    },
+}
+
+for _, table in pairs(config) do
+    utils.load(table[1], table[2])
+end
