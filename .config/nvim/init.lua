@@ -1,17 +1,5 @@
 ----- BLAKEJC94S NEOVIM INIT.LUA ------------------------------------------------------------------
 utils = require('utils')
-PLUGINS = {
-    -- BASE PLUGINS
-    __editor__    = true,
-    __interface__ = true,
-    -- EXTENSIONS
-    cmp        = true,
-    git        = true,
-    lsp        = true,
-    lualine    = true,
-    telescope  = true,
-    treesitter = true,
-}
 
 -- DEFINE OPTIONS
 BEHAVIOUR_OPTIONS = {
@@ -77,6 +65,31 @@ LAYOUT_OPTIONS = {
 
 
 -- LOAD SELECTED PLUGINS  TODO move this into config table
+-- TODO:
+-- New plugins config structure:
+--   plugins.lua
+--   packer/
+--     - settings.lua
+--     - configs.lua
+--    * [ ] Create `plugins.lua` that returns a list of ALL plugins in one file
+--        * I.e. returns a table {"plugin1", "plugin2", ...}
+--    * [ ] Create `packer/settings.lua` that returns a table with additional packer keys
+--        * I.e. {["plugin1"] = {requires=...,}}
+--        * Create `packer/configs.lua` that returns a table with functions
+--          * I.e. {["plugin1"] = function() ... end, ...}
+--    * [ ] Write a plugins loader that gets list from `plugins.lua` and checks if "plugin" is in
+--        `packer.configs` and extends the packer.use arg if so
+--
+PLUGINS = {
+    "__editor__",
+    "__interface__",
+    "cmp",
+    "git",
+    "lsp",
+    "lualine",
+    "telescope",
+    "treesitter",
+}
 utils.disable_built_ins()
 utils.setup_packer()
 local status_ok, packer = pcall(require, "packer")
@@ -84,13 +97,11 @@ if status_ok then
     packer.init()
     packer.reset()
     packer.use({'wbthomason/packer.nvim'})
-    for module_name, opt in pairs(PLUGINS) do
-        if opt == true then
-            module = require('plugins.' .. module_name)
-            for k, v in pairs(module) do
-                repo = vim.tbl_extend("force", {k}, v)
-                packer.use(repo)
-            end
+    for _, module_name in pairs(PLUGINS) do
+        module = require('plugins.' .. module_name)
+        for k, v in pairs(module) do
+            repo = vim.tbl_extend("force", {k}, v)
+            packer.use(repo)
         end
     end
     packer.install()
