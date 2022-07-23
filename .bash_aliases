@@ -1,3 +1,17 @@
+alias ..='cd ..'
+alias duh='du -d 1 -h'
+alias myip='curl http://ifconfig.me/ip'
+alias bc='bc -l'
+alias meminfo='free -m -l -t'
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+alias pscpu='ps auxf | sort -nr -k 3'
+alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+alias cpuinfo='lscpu'
+alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
+alias wget='wget -c'  # Resume wget by default
+alias mkdir="mkdir -pv"  # make parent dirs verbosely
+
 # git status alias
 alias g='git status'
 # quick cd command
@@ -29,10 +43,10 @@ function mann() {
     curl --silent "https://cheat.sh/$1" | less -R
 }
 
-function mkcd() {
+function mcd() {
     if [[ $# -eq 0 ]] ; then
         echo 'Alias for mkdir and cd'
-        echo '  Usage: user@pc~/path/:$ wat [search query]'
+        echo '  Usage: user@pc~/path/:$ mcd [dirname]'
     else
         mkdir -p "$1" && cd "$1"
     fi

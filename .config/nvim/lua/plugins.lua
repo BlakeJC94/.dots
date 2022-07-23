@@ -18,7 +18,6 @@ M.OPERATIONS = {
     'tpope/vim-surround',  -- cs]} => Change surrounding brackets
     'tpope/vim-commentary',  -- gc<motion> => toggle comments
     'inkarkat/vim-ReplaceWithRegister',  -- ["x]gr<motion> ==> Replace motion region with register x
-
 }
 
 M.TEXTOBJS = {
@@ -46,6 +45,7 @@ M.COLOURS = {
 
 M.INTERFACE = {
     'nvim-lualine/lualine.nvim',
+    'milisims/nvim-luaref',  -- Lua reference
     'https://gitlab.com/yorickpeterse/nvim-pqf',  -- Better quickfix list format
     'nacro90/numb.nvim',  -- Peek buffer lines during selection in command mode
     'ethanholz/nvim-lastplace',  -- Jump to last place when opening a file

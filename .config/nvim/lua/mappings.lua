@@ -8,7 +8,6 @@ M.MAPS = {
         ['x'] = '"_x',
         ['X'] = '"_X',
         ['s'] = '"_s',
-        ['S'] = '"_S',
         -- Open folds when flicking through search matches
         ['n'] = 'nzv',
         ['N'] = 'Nzv',
@@ -19,13 +18,14 @@ M.MAPS = {
         ['<C-l>'] = ':noh | redraw | echon ""<CR><C-l>',
     },
     n = {
-        -- Make Y behave like D and C
+        -- Make Y and S behave like D and C
         ['Y']  = 'y$',
+        ['S']  = '"_c$',
         -- Better jumplist for large line steps (and step through visual lines with j/k)
         ['j'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts={expr=true}},
         ['k'] = {map=[[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts={expr=true}},
-        -- gp: Visually select last pasted block (like gv)
-        ['gp'] = '`[v`]',
+        -- gV: Visually select last pasted block (like gv)
+        ['gV'] = '`[v`]',
         -- gF: create new file at filename over cursor
         ['gF'] = ':e <c-r><c-f><CR>',
         -- J doesn't move cursor

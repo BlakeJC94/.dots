@@ -25,6 +25,10 @@ syntax on           " Syntax highlighting
 set noerrorbells  " Silence error sounds
 set shortmess-=I  " Disable landing page message
 
+set ttyfast        " Fast redrawing
+set lazyredraw     " Only redraw when needed
+set synmaxcol=200  " Limit syntax highlighting to a number of columns
+
 set nrformats-=octal  " Prevent <C-a>/<C-x> from interpreting numbers as octals
 
 " Tabs and indents
@@ -48,6 +52,8 @@ set incsearch  " Jump to matches while typing
 set hlsearch   " Highlight matches
 
 set ignorecase smartcase  " Case-sensitive only with upper-case chars
+
+set wrapscan  " Always wrap searches around after end of file
 
 " Backups
 " -------
@@ -82,6 +88,7 @@ set number relativenumber  " Show rel/abs linenumbers
 set laststatus=2  " Always show status line
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)
 
+set showmode      " Show current mode in status bar
 set showcmd       " Show commands in bottom right
 set cmdheight=2   " Height for Vim command mode
 
@@ -118,14 +125,14 @@ noremap <Right> <Nop>
 noremap x "_x
 noremap X "_x
 noremap s "_s
-noremap S "_S
 
 " Open folds when flicking through search matches with `n`/`N`
 noremap n nzv
 noremap N Nzv
 
-" Make `Y` behave like `D` and `C`
+" Make `Y` and `S` behave like `D` and `C`
 nnoremap Y y$
+nnoremap S "_c$
 
 " Clear search highlights and commands on `<ESC>`
 nnoremap <ESC> :noh \| redraw \| echon ""<CR><ESC>
@@ -144,8 +151,8 @@ nnoremap c# ?\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``cgN
 nnoremap d* /\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``dgn
 nnoremap d# ?\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``dgN
 
-" Visually select last pasted regions with `gp`
-nnoremap gp `[v`]
+" Visually select last pasted regions with `gV`
+nnoremap gV `[v`]
 
 " Maintain Visual mode after `>`/`<`/`=`
 vmap < <gv
@@ -163,6 +170,9 @@ vnoremap P Pgvy
 " Make `<C-w>`/`<C-u>` actions insert mode undoable with `u`
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
+
+" Expand `%%` as current filename in command mode
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " Leader mappings
 " ---------------
@@ -286,6 +296,8 @@ augroup base
     autocmd BufWritePre * TrimSpaces
     " create nested directories if needed when creating files
     autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
+    " Save last cursor position in a file
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "norm! g'\"" | endif
 augroup END
 
 augroup style
@@ -306,6 +318,8 @@ augroup ft_extra
     " Always open help in vertical split
     autocmd FileType help wincmd L | vert resize 90
     autocmd FileType help setl fo-=t
+    " Make *.bash files highlight properly
+    autocmd BufNewFile,Bufread *.bash set syntax=sh
 augroup END
 
 cnoreabbrev vterm vert term

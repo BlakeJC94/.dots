@@ -85,8 +85,8 @@ M.TrimSpaces = function(keys)
     vim.fn.winrestview(winstate)
 end
 
-M.CreateDirs = function(keys)
-    local dir = keys.file:match("(.*/)")
+M.CreateDirs = function()
+    local dir = vim.fn.expand('<afile>:p:h')
     if vim.fn.isdirectory(dir) == 0 then
         vim.fn.mkdir(dir, 'p')
     end
@@ -138,5 +138,8 @@ M.CustomFoldText = function()
     return string.sub(fold_str, 0, 100 - #fold_size_str) .. fold_size_str
 end
 
+M.GetWords = function()
+    return tostring(vim.fn.wordcount().words)
+end
 
 return M
