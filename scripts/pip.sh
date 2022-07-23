@@ -1,1 +1,1 @@
-python3 -m pip install thefuck pip-tools
+python3 -m pip install thefuck pip-tools howdoi
