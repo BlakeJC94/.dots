@@ -60,16 +60,6 @@ M.MAPS = {
         -- <C-l> => Do C-l action in vim as well
         ['<C-l>'] = '<C-l><C-\\><C-n>:noh | redraw | echon ""<CR>i',
     },
-    o = {
-        -- Custom text object: "around document"
-        ['ad'] = '<Cmd>normal! ggVG<CR>',
-        ['id'] = '<Cmd>normal! ggVG<CR>',
-    },
-    x = {
-        -- Custom text object: "around document"
-        ['ad'] = 'gg0oG$',
-        ['id'] = 'gg0oG$',
-    },
 }
 
 M.LEADER_MAPS = {
@@ -133,14 +123,14 @@ M.NAVIGATION_MAPS = {
         -- <C-z> => map to <C-w> wincmds (useful when not using tmux)
         ['<C-z>'] = {map='<C-w>', opts={noremap=false}},
         -- <C-w><Arrow> => Mave to tmux/vim splits
-        ['<C-w><Left>'] =  {map=function() require("tmux").move_left()   end, opts={noremap=false}},
-        ['<C-w>h'] =       {map=function() require("tmux").move_left()   end, opts={noremap=false}},
-        ['<C-w><Down>'] =  {map=function() require("tmux").move_bottom() end, opts={noremap=false}},
-        ['<C-w>j'] =       {map=function() require("tmux").move_bottom() end, opts={noremap=false}},
-        ['<C-w><Up>'] =    {map=function() require("tmux").move_top()    end, opts={noremap=false}},
-        ['<C-w>k'] =       {map=function() require("tmux").move_top()    end, opts={noremap=false}},
-        ['<C-w><Right>'] = {map=function() require("tmux").move_right()  end, opts={noremap=false}},
-        ['<C-w>l'] =       {map=function() require("tmux").move_right()  end, opts={noremap=false}},
+        ['<C-z><Left>'] =  {map=function() require("tmux").move_left()   end, opts={noremap=false}},
+        ['<C-z>h'] =       {map=function() require("tmux").move_left()   end, opts={noremap=false}},
+        ['<C-z><Down>'] =  {map=function() require("tmux").move_bottom() end, opts={noremap=false}},
+        ['<C-z>j'] =       {map=function() require("tmux").move_bottom() end, opts={noremap=false}},
+        ['<C-z><Up>'] =    {map=function() require("tmux").move_top()    end, opts={noremap=false}},
+        ['<C-z>k'] =       {map=function() require("tmux").move_top()    end, opts={noremap=false}},
+        ['<C-z><Right>'] = {map=function() require("tmux").move_right()  end, opts={noremap=false}},
+        ['<C-z>l'] =       {map=function() require("tmux").move_right()  end, opts={noremap=false}},
     },
     t = {
         -- <C-Space> => ToggleTerm Hide
