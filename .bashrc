@@ -146,11 +146,11 @@ if [[ "$(command -v pyenv)" ]]; then
 fi
 
 # using vim as man pager
-# if [[ "$(command -v vim)" ]]; then
-#     export EDITOR='vim'
-#     export MANPAGER='vim +Man!'
-#     export MANWIDTH=999
-# fi
+if [[ "$(command -v vim)" ]]; then
+    # export EDITOR='vim'
+    export MANPAGER='vim +Man!'
+    # export MANWIDTH=999
+fi
 
 # Automatically launch Tmux in Kitty
 if ! [ -z "$KITTY_WINDOW_ID" ] && [ -z "$TMUX" ]; then

@@ -112,14 +112,6 @@ M.NAVIGATION_MAPS = {
         ['<A-Down>'] =  function() require("tmux").resize_bottom(4) end,
         ['<A-Up>'] =    function() require("tmux").resize_top(4)    end,
         ['<A-Right>'] = function() require("tmux").resize_right(8)  end,
-        -- <C-Space> => Terminal "leader"
-        --   <C-Space><C-Space> => Toggle floating terminal
-        --   <C-Space>_ => Toggle split terminal
-        --   <C-Space>| => Toggle vertical split terminal
-        ['<C-Space>'] = "",
-        ['<C-Space><C-Space>'] = function() require('FTerm').toggle() end,
-        ['<C-Space>_'] = function() require('FTerm').toggle(); vim.cmd('wincmd J') end,
-        ['<C-Space>|'] = function() require('FTerm').toggle(); vim.cmd('wincmd L') end,
         -- <C-z> => map to <C-w> wincmds (useful when not using tmux)
         ['<C-z>'] = {map='<C-w>', opts={noremap=false}},
         -- <C-w><Arrow> => Mave to tmux/vim splits
@@ -131,6 +123,28 @@ M.NAVIGATION_MAPS = {
         ['<C-z>k'] =       {map=function() require("tmux").move_top()    end, opts={noremap=false}},
         ['<C-z><Right>'] = {map=function() require("tmux").move_right()  end, opts={noremap=false}},
         ['<C-z>l'] =       {map=function() require("tmux").move_right()  end, opts={noremap=false}},
+    },
+    n = {
+        -- <C-Space> => Terminal "leader"
+        --   <C-Space><C-Space> => Toggle floating terminal
+        --   <C-Space>_ => Toggle split terminal
+        --   <C-Space>| => Toggle vertical split terminal
+        ['<C-Space>'] = "",
+        ['<C-Space><C-Space>'] = function() require('FTerm').toggle() end,
+        ['<C-Space>_'] = function() require('FTerm').toggle(); vim.cmd('wincmd J') end,
+        ['<C-Space>|'] = function() require('FTerm').toggle(); vim.cmd('wincmd L') end,
+    },
+    i = {
+        ['<C-Space>'] = "",
+        ['<C-Space><C-Space>'] = "<Esc>:lua require('FTerm').toggle()<CR>",
+        ['<C-Space>_'] = "<Esc>:lua require('FTerm').toggle(); vim.cmd('wincmd J')<CR>",
+        ['<C-Space>|'] = "<Esc>:lua require('FTerm').toggle(); vim.cmd('wincmd L')<CR>",
+    },
+    v = {
+        ['<C-Space>'] = "",
+        ['<C-Space><C-Space>'] = "<Esc>:lua require('FTerm').toggle()<CR>",
+        ['<C-Space>_'] = "<Esc>:lua require('FTerm').toggle(); vim.cmd('wincmd J')<CR>",
+        ['<C-Space>|'] = "<Esc>:lua require('FTerm').toggle(); vim.cmd('wincmd L')<CR>",
     },
     t = {
         -- <C-Space> => ToggleTerm Hide

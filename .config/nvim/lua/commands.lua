@@ -1,5 +1,7 @@
 M = {}
 
+FUNCTIONS = require('functions')
+
 M.CMDS = {
     ['Settings'] = function()
         vim.cmd('edit $MYVIMRC')
@@ -50,7 +52,7 @@ M.NOTES_CMDS = {
     end,
     ['Note'] = {
         function(keys)
-            _G.NewNote(keys.args)
+            FUNCTIONS.NewNote(keys.args)
         end,
         {force=true, nargs='?'}
     },
