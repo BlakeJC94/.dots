@@ -598,14 +598,45 @@ M['neovim/nvim-lspconfig'] = {
 }
 
 M['jose-elias-alvarez/null-ls.nvim'] = {
+    requires = {"kdheepak/JuliaFormatter.vim"},
     config = function()
         local null_ls = require("null-ls")
+
+        -- TODO add this to null-ls
+        local h = require("null-ls.helpers")
+        local methods = require("null-ls.methods")
+
+        local FORMATTING = methods.internal.FORMATTING
+
+        local juliaformatter = h.make_builtin({
+            name = "juliaformatter",
+            meta = {
+                url = "https://github.com/domluna/JuliaFormatter.jl",
+                description = "An opinionated code formatter for Julia. Plot twist - the opinion is your own.",
+            },
+            method = FORMATTING,
+            filetypes = { "julia" },
+            generator_opts = {
+                command = "julia",
+                args = {
+                    -- "--project=" .. juliaformatter_project,
+                    "--startup-file=no",
+                    "--color=no",
+                    "-e",
+                    [['using JuliaFormatter; format("$FILENAME")']],
+                },
+                to_stdin = false,
+            },
+            factory = h.formatter_factory,
+        })
+
+        -- local juliaformatter = require("juliaformatter").null_ls
         null_ls.setup({
             sources = {
-                -- null_ls.builtins.formatting.yapf,
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.diagnostics.pylint,
                 null_ls.builtins.formatting.jq,
+                juliaformatter,
             },
         })
     end,
