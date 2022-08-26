@@ -283,11 +283,11 @@ M['nvim-lualine/lualine.nvim'] = {
             },
             sections = {
                 lualine_a = {'mode'},
-                lualine_b = {'branch', 'diff'},
-                lualine_c = {'filename', 'lsp_progress'},
+                lualine_b = { { 'tabs', mode = 1, } },
+                lualine_c = {'lsp_progress'},
                 lualine_x = {'filetype'},
-                lualine_y = {'location', 'progress'},
-                lualine_z = { { 'tabs', mode = 1, } },
+                lualine_y = {'location', 'progress', 'diff'},
+                lualine_z = {'branch'},
             },
             inactive_sections = {
                 lualine_a = {},
