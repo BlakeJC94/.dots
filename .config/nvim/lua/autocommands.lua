@@ -26,6 +26,12 @@ M.BASE = {
         pattern = "*",
         callback = FUNCTIONS.CreateDirs,
     },
+    -- Auto-start insert mode when switching to a terminal split
+    {
+        events = {"WinEnter"},
+        pattern = "term://*",
+        callback = function() vim.cmd("startinsert") end,
+    },
 }
 
 M.STYLE = {
