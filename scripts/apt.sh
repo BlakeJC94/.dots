@@ -15,6 +15,9 @@ sudo apt install -y \
     nvtop \
     bashtop \
     neofetch \
+    luarocks \
+    cargo \
+    cmake \
     zathura \
     zathura-djvu \
     zathura-ps

@@ -16,6 +16,8 @@ M.MAPS = {
         ['Q'] = 'q',
         -- Clear last search hl with <C-l> before <C-l> action
         ['<C-l>'] = ':noh | redraw | echon ""<CR><C-l>',
+        -- Replace `gx`
+        ['gx'] = require('functions').OpenURL, -- ":lua require('functions').OpenURL()<CR>",
     },
     n = {
         -- Make Y and S behave like D and C
@@ -69,6 +71,7 @@ M.LEADER_MAPS = {
         ['<Leader><Tab>'] = "<C-^>",                        -- Last file
         ['<Leader><Esc>'] = ":Telescope buffers<CR>",       -- Buffers
         ['<Leader>q'] = ":q<CR>",                           -- Quit
+        ['<Leader>w'] = ":w<CR>",                           -- Save
         ['<Leader>n'] = ":NewFile<CR>",
         ['<Leader>N'] = ":NewSession<CR>",
         ['<Leader>d'] = ":ChangeLocalDir<CR>",
@@ -77,9 +80,6 @@ M.LEADER_MAPS = {
         ['<Leader>l'] = ":ToggleLL<CR>",               -- Toggle loclist
         ['<Leader>;'] = ":Settings<CR>",               -- Edit settings
         ['<Leader>:'] = ":luafile $MYVIMRC<CR>",       -- Reload settings
-        ['<Leader>z'] = ":Twilight<CR>",               -- Toggle FocusMode
-        ['<Leader>Z'] = ":ZenMode<CR>",                -- Toggle ZenMode
-        ['<Leader>A'] = ":Neogen<CR>",                 -- Generate docs
     }
 }
 

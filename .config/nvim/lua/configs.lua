@@ -113,6 +113,7 @@ M["lukas-reineke/indent-blankline.nvim"] = {
     end
 }
 
+-- TODO Lua this!
 M["unblevable/quick-scope"] = {
     config = function()
         vim.g.qs_max_chars=800
@@ -498,7 +499,6 @@ M["danymat/neogen"] = {
 M['neovim/nvim-lspconfig'] = {
     requires = {
         "hrsh7th/cmp-nvim-lsp",
-        "williamboman/nvim-lsp-installer",
         "RRethy/vim-illuminate",
         "ii14/lsp-command",
     },
@@ -555,24 +555,10 @@ M['neovim/nvim-lspconfig'] = {
         }
         settings["sumneko_lua"] = {
             Lua = {
-                runtime = {
-                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                    version = 'LuaJIT',
-                    -- Setup your lua path
-                    path = runtime_path,
-                },
-                diagnostics = {
-                    -- Get the language server to recognize the `vim` global
-                    globals = {'vim'},
-                },
-                workspace = {
-                    -- Make the server aware of Neovim runtime files
-                    library = vim.api.nvim_get_runtime_file("", true),
-                },
-                -- Do not send telemetry data containing a randomized but unique identifier
-                telemetry = {
-                    enable = false,
-                },
+                runtime = { version = 'LuaJIT' },
+                diagnostics = { globals = {'vim'} },
+                workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                telemetry = { enable = false },
             },
         }
 
@@ -598,7 +584,6 @@ M['neovim/nvim-lspconfig'] = {
 }
 
 M['jose-elias-alvarez/null-ls.nvim'] = {
-    requires = {"kdheepak/JuliaFormatter.vim"},
     config = function()
         local null_ls = require("null-ls")
 
@@ -630,16 +615,39 @@ M['jose-elias-alvarez/null-ls.nvim'] = {
             factory = h.formatter_factory,
         })
 
-        -- local juliaformatter = require("juliaformatter").null_ls
         null_ls.setup({
             sources = {
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.diagnostics.pylint,
                 null_ls.builtins.formatting.jq,
+                null_ls.builtins.diagnostics.luacheck,
+                null_ls.builtins.formatting.stylua,
                 juliaformatter,
             },
         })
     end,
+}
+
+-- TODO put all these configs in seperate files
+M['williamboman/mason.nvim'] = {
+    config = function() require("mason").setup() end,
+}
+
+M["WhoIsSethDaniel/mason-tool-installer.nvim"] = {
+    config = function()
+        require'mason-tool-installer'.setup {
+            ensure_installed = {
+                'lua-language-server',
+                'vim-language-server',
+                'stylua',
+                'shellcheck',
+                'jq',
+                'black',
+                'pylint',
+                'luacheck',
+            },
+        }
+    end
 }
 
 -- Loading status for LSP in bottom right

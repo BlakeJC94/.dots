@@ -142,4 +142,18 @@ M.GetWords = function()
     return tostring(vim.fn.wordcount().words)
 end
 
+M.OpenURL = function()
+    local uri = vim.fn.expand('<cWORD>')
+    uri = string.gsub(uri, '?', '\\?')
+    uri = vim.fn.shellescape(uri, 1)
+    if uri ~= '' then
+        vim.fn.execute("!xdg-open " .. uri)
+    elseif string.match(uri, "%S+/%S+") then
+        vim.fn.execute("!xdg-open https://github.com/" .. uri)
+    end
+end
+
+-- TODO define luaprint and luainspect functions
+-- cabbrev luaprint lua print( )<Left><Left>
+-- cabbrev luainspect lua print(vim.inspect( ))<Left><Left><Left>
 return M
