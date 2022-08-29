@@ -638,7 +638,6 @@ M["WhoIsSethDaniel/mason-tool-installer.nvim"] = {
         require'mason-tool-installer'.setup {
             ensure_installed = {
                 'lua-language-server',
-                'vim-language-server',
                 'stylua',
                 'shellcheck',
                 'jq',
