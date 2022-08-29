@@ -97,4 +97,21 @@ M.add_plugins = function(packer_config, packer)
     packer.install()
 end
 
+M.add_plugins_NEW = function(packer)
+    -- TODO get plugin files from ./lua/plugins
+    packer.init()
+    packer.reset()
+    packer.use({'wbthomason/packer.nvim'})
+    for _name, repos in pairs(plugins) do
+        for _, repo in pairs(repos) do
+            local repo_config = {repo}
+            if configs[repo] ~= nil then
+                repo_config = vim.tbl_extend("force", repo_config, configs[repo])
+            end
+            packer.use(repo_config)
+        end
+    end
+    packer.install()
+end
+
 return M

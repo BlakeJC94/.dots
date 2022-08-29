@@ -4,31 +4,9 @@ M['inkarkat/vim-ReplaceWithRegister'] = {
     requires = {"inkarkat/vim-ingo-library"},
 }
 
-M['thinca/vim-visualstar'] = {
-    config = function()
-        vim.g['visualstar_extra_commands'] = 'zzzv'
-    end
-}
-
 M['Julian/vim-textobj-variable-segment'] = {
     requires = {'kana/vim-textobj-user'},
     branch = "main",
-}
-
-M['AckslD/nvim-revJ.lua'] = {
-    requires = {
-        'kana/vim-textobj-user',
-        'sgur/vim-textobj-parameter',
-    },
-    config = function()
-        require("revj").setup({
-            keymaps = {
-                operator = 'gJ', -- for operator (+motion)
-                line = 'gJJ', -- for formatting current line
-                visual = 'gJ', -- for formatting visual selection
-            },
-        })
-    end
 }
 
 M["ellisonleao/gruvbox.nvim"] = {
@@ -62,8 +40,8 @@ M["ellisonleao/gruvbox.nvim"] = {
 
 M['jpalardy/vim-slime'] = {
     config = function()
-        vim.g.slime_target = "neovim"
         vim.g.slime_python_ipython = 1
+        vim.g.slime_target = "neovim"
         -- vim.g.slime_paste_file = vim.fn.tempname()
         -- vim.g.slime_default_config = {socket_name = "default", target_pane = "{last}"}
     end
@@ -567,7 +545,7 @@ M['neovim/nvim-lspconfig'] = {
             "pyright",  -- npm i -g pyright
             "julials",  -- julia --project=~/.julia/environments/nvim-lspconfig -e 'using Pkg; Pkg.add("LanguageServer")'
             -- "bashls",
-            -- "sumneko_lua",
+            "sumneko_lua",
         }
         for _, lsp in ipairs(servers) do
             lspconfig[lsp].setup({

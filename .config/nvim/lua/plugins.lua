@@ -1,8 +1,6 @@
 M = {}
 
 M.EDITOR = {
-    -- 'inkarkat/vim-visualrepeat',  -- Better .-repreat actions for visual mode
-    -- 'kana/vim-smartinput',  -- Minimal autopairs (maybe this one will be alright?)
     'tpope/vim-dispatch',  -- Asynchronous job execution (:Make, :Dispatch)
     'tpope/vim-eunuch',  -- Unix commands for vim (:Delete, :Move, :Rename, :Cfind)
     'tpope/vim-rsi',  -- Readline keybindings for insert/command mode (<C-a> <A-b> <A-f> <C-e>)
@@ -11,10 +9,7 @@ M.EDITOR = {
 M.OPERATIONS = {
     'tpope/vim-repeat',  -- Better .-repeat actions
     'christoomey/vim-sort-motion',  -- gs<object> ==> Sort operator across object
-    -- 'AckslD/nvim-revJ.lua',  -- gJ => Inverse <S-j> operation
-    -- 'tpope/vim-abolish',  -- crs => coerce cursor word to snake_case. :Subvert => Case invariant substitution
     'tommcdo/vim-lion',  -- gl<obj><char> => align selection to <char>
-    -- 'thinca/vim-visualstar',  -- Star operator for visual mode, search current selections
     'tpope/vim-surround',  -- cs]} => Change surrounding brackets
     'tpope/vim-commentary',  -- gc<motion> => toggle comments
     'inkarkat/vim-ReplaceWithRegister',  -- ["x]gr<motion> ==> Replace motion region with register x
