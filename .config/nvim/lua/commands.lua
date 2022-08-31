@@ -1,65 +1,56 @@
-M = {}
+local FUNCTIONS = require('functions')
 
-FUNCTIONS = require('functions')
-
-M.CMDS = {
-    ['Settings'] = function()
+return {
+    Settings = function()
         vim.cmd('edit $MYVIMRC')
         vim.cmd('lcd %:p:h')
         print('Editing settings: ' .. vim.fn.expand('%:p'))
     end,
-    ['NewSession'] = function()
+    NewSession = function()
         vim.cmd('bufdo bdel')
         vim.cmd('enew')
         print('[New session]')
     end,
-    ['ChangeDir'] = function()
+    ChangeDir = function()
         vim.cmd('cd ' .. vim.fn.expand('%:p:h'))
         print('Changed directory to ' .. vim.fn.getcwd())
     end,
-    ['ChangeLocalDir'] = function()
+    ChangeLocalDir = function()
         vim.cmd('lcd ' .. vim.fn.expand('%:p:h'))
         print('Changed local diriectory to ' .. vim.fn.getcwd())
     end,
-    ['NewFile'] = function()
+    NewFile = function()
         vim.cmd('enew')
         print('[New file]')
     end,
-    -- Toggle display of quickfix list
-    ['ToggleQL'] = function()
+    ToggleQL = function()  -- Toggle display of quickfix list
         if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix') == 0 then
             vim.cmd('copen')
         else
             vim.cmd('cclose')
         end
     end,
-    -- Toggle display of location list
-    ['ToggleLL'] = function()
+    ToggleLL = function()  -- Toggle display of location list
         if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.loclist') == 0 then
             vim.cmd('lopen')
         else
             vim.cmd('lclose')
         end
     end,
-}
-
-M.NOTES_CMDS = {
-    -- Open notes buffer
-    ['Notes'] = function()
+    -- NOTES_CMDS
+    Notes = function()  -- Open notes buffer
         vim.cmd('split')
         vim.cmd('lcd ~/Dropbox/Journals')
         vim.cmd('edit ~/Dropbox/Journals')
     end,
-    ['Note'] = {
+    Note = {
         function(keys)
             FUNCTIONS.NewNote(keys.args)
         end,
         {force=true, nargs='?'}
     },
-}
-
-M.TYPO_CMDS = {
-    ['E'] = {
+    -- TYPO_CMDS
+    E = {
         function(keys)
             local cmd = 'e'
             if keys.bang then cmd = cmd .. '!' end
@@ -67,7 +58,7 @@ M.TYPO_CMDS = {
         end,
         {force=true, bang=true, nargs='*', complete='file'}
     },
-    ['W'] = {
+    W = {
         function(keys)
             local cmd = 'w'
             if keys.bang then cmd = cmd .. '!' end
@@ -75,7 +66,7 @@ M.TYPO_CMDS = {
         end,
         {force=true, bang=true, nargs='*', complete='file'}
     },
-    ['Wq'] = {
+    Wq = {
         function(keys)
             local cmd = 'wq'
             if keys.bang then cmd = cmd .. '!' end
@@ -83,7 +74,7 @@ M.TYPO_CMDS = {
         end,
         {force=true, bang=true, nargs='*', complete='file'}
     },
-    ['WQ'] = {
+    WQ = {
         function(keys)
             local cmd = 'wq'
             if keys.bang then cmd = cmd .. '!' end
@@ -91,7 +82,7 @@ M.TYPO_CMDS = {
         end,
         {force=true, bang=true, nargs='*', complete='file'}
     },
-    ['Wa'] = {
+    Wa = {
         function(keys)
             local cmd = 'wa'
             if keys.bang then cmd = cmd .. '!' end
@@ -99,7 +90,7 @@ M.TYPO_CMDS = {
         end,
         {force=true, bang=true, nargs='*', complete='file'}
     },
-    ['WA'] = {
+    WA = {
         function(keys)
             local cmd = 'wa'
             if keys.bang then cmd = cmd .. '!' end
@@ -107,7 +98,7 @@ M.TYPO_CMDS = {
         end,
         {force=true, bang=true, nargs='*', complete='file'}
     },
-    ['Q'] = {
+    Q = {
         function(keys)
             local cmd = 'q'
             if keys.bang then cmd = cmd .. '!' end
@@ -115,7 +106,7 @@ M.TYPO_CMDS = {
         end,
         {force=true, bang=true, nargs='*', complete='file'}
     },
-    ['Qa'] = {
+    Qa = {
         function(keys)
             local cmd = 'qa'
             if keys.bang then cmd = cmd .. '!' end
@@ -123,7 +114,7 @@ M.TYPO_CMDS = {
         end,
         {force=true, bang=true, nargs='*', complete='file'}
     },
-    ['QA'] = {
+    QA = {
         function(keys)
             local cmd = 'qa'
             if keys.bang then cmd = cmd .. '!' end
@@ -132,5 +123,3 @@ M.TYPO_CMDS = {
         {force=true, bang=true, nargs='*', complete='file'}
     },
 }
-
-return M

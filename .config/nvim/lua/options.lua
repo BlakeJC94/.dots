@@ -1,6 +1,4 @@
-M = {}
-
-M.BEHAVIOUR_OPTIONS = {
+return {
     -- MAIN INPUT/OUTPUT
     clipboard     = "unnamedplus",  -- Allows vim to use "+ for yanks, puts, cuts, and deletes
     timeoutlen    = 1000,           -- Time (ms) between key sequences
@@ -25,9 +23,6 @@ M.BEHAVIOUR_OPTIONS = {
     spell    = true,   -- Built-in spell-checker
     undofile = true,   -- Create global undofile
     undodir  = os.getenv("HOME") .. '/.vim/undodir',
-}
-
-M.LAYOUT_OPTIONS = {
     -- WINDOW DISPLAY
     splitbelow    = true,              -- Open splits below
     splitright    = true,              -- Open vsplits on right
@@ -61,5 +56,3 @@ M.LAYOUT_OPTIONS = {
     -- TOP MARGIN
     showtabline = 0,  -- Display tab line (0, never, 1 auto, 2 always)
 }
-
-return M
