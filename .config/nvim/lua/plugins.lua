@@ -34,15 +34,12 @@ return {
     'https://gitlab.com/yorickpeterse/nvim-pqf',  -- Better quickfix list format
     'ethanholz/nvim-lastplace',  -- Jump to last place when opening a file
     "luukvbaal/stabilize.nvim",  -- Stabilise split creation  TODO remove when merged
-    'alec-gibson/nvim-tetris',  -- :Tetris
+    'nacro90/numb.nvim',
     'Pocco81/true-zen.nvim',  -- True focus mode
     -- LSP
     'neovim/nvim-lspconfig',  -- LSP Engine configuration
     'jose-elias-alvarez/null-ls.nvim',  -- Extra sources for LSP
-    'j-hui/fidget.nvim',  -- Loading status for LSP in bottom right
-    'Mofiqul/trld.nvim',  -- display diagnostic status in top right
     "williamboman/mason.nvim",  -- Installer for external tools
-    "WhoIsSethDaniel/mason-tool-installer.nvim",  -- Autoinstaller
     -- GIT
     'lewis6991/gitsigns.nvim', -- Gitgutter, floating hunks, and virtual text blames
     'tpope/vim-fugitive',  -- The ultimate git plugin for Vim

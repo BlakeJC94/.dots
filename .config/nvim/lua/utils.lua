@@ -8,6 +8,7 @@ SETTERS.functions = function(func)
     _G.name = func
 end
 
+-- TODO find a nicer solution than this, maybe a dir?
 SETTERS.autocommands = function(autocommands)
     for name, augroup in pairs(autocommands) do
         local id = vim.api.nvim_create_augroup(name, {clear = true})
@@ -76,11 +77,24 @@ SETTERS.plugins = function(plugins)
 
     for _, plugin in pairs(plugins) do
         local repo = {plugin}
-        if configs[plugin] ~= nil then
-            repo = vim.tbl_extend("force", repo, configs[plugin])
+
+        local plugin_name = string.match(plugin, '[^/]+/[^/]+$')
+        plugin_name = string.match(plugin_name, '/[^.]+')
+        plugin_name = string.sub(plugin_name, 2, -1)
+
+        if configs[plugin_name] ~= nil then
+            repo = vim.tbl_extend("force", repo, configs[plugin_name])
+            configs[plugin_name] = nil
         end
         packer.use(repo)
     end
+
+    for k, v in pairs(configs) do
+        if v ~= nil then
+            print("Warning: no plugin found for config `" .. k .. ".lua`")
+        end
+    end
+
     packer.install()
 end
 

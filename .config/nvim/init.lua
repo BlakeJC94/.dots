@@ -24,5 +24,5 @@ vim.cmd("packadd packer.nvim")
 vim.g.mapleader = " "
 
 -- Set modules
-utils = require('utils')
+local utils = require('utils')
 for key, table in pairs(NVIM_CONFIG) do utils[key](table) end

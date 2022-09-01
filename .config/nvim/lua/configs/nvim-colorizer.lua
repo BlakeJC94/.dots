@@ -1,6 +1,8 @@
-return function()
-    require("colorizer").setup(
-        {'*'},
-        {names=false}
-    )
-end
+return {
+    config = function()
+        require("colorizer").setup(
+            {'*'},
+            {names=false}
+        )
+    end
+}
