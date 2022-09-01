@@ -1,7 +1,7 @@
 local configs_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/configs'
-local file_list = vim.fn.readdir(configs_dir)
-
 local configs = {}
+
+local file_list = vim.fn.readdir(configs_dir)
 for _, file in pairs(file_list) do
     if file ~= 'init.lua' then
         local plugin_name = string.sub(file, 1, -5)

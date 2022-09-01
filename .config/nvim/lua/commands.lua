@@ -1,55 +1,65 @@
 local FUNCTIONS = require('functions')
 
-return {
-    Settings = function()
-        vim.cmd('edit $MYVIMRC')
-        vim.cmd('lcd %:p:h')
-        print('Editing settings: ' .. vim.fn.expand('%:p'))
+local commands = {}
+
+commands['Settings'] = function()
+    vim.cmd('edit $MYVIMRC')
+    vim.cmd('lcd %:p:h')
+    print('Editing settings: ' .. vim.fn.expand('%:p'))
+end
+
+commands['NewSession'] = function()
+    vim.cmd('bufdo bdel')
+    vim.cmd('enew')
+    print('[New session]')
+end
+commands['NewFile'] = function()
+    vim.cmd('enew')
+    print('[New file]')
+end
+
+commands['ChangeDir'] = function()
+    vim.cmd('cd ' .. vim.fn.expand('%:p:h'))
+    print('Changed directory to ' .. vim.fn.getcwd())
+end
+commands['ChangeLocalDir'] = function()
+    vim.cmd('lcd ' .. vim.fn.expand('%:p:h'))
+    print('Changed local diriectory to ' .. vim.fn.getcwd())
+end
+
+-- Toggle display of quickfix list
+commands['ToggleQL'] = function()
+    if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix') == 0 then
+        vim.cmd('copen')
+    else
+        vim.cmd('cclose')
+    end
+end
+-- Toggle display of location list
+commands['ToggleLL'] = function()
+    if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.loclist') == 0 then
+        vim.cmd('lopen')
+    else
+        vim.cmd('lclose')
+    end
+end
+
+-- Open notes buffer
+commands['Notes'] = function()
+    vim.cmd('split')
+    vim.cmd('lcd ~/Dropbox/Journals')
+    vim.cmd('edit ~/Dropbox/Journals')
+end
+
+commands['Note'] = {
+    function(keys)
+        FUNCTIONS.NewNote(keys.args)
     end,
-    NewSession = function()
-        vim.cmd('bufdo bdel')
-        vim.cmd('enew')
-        print('[New session]')
-    end,
-    ChangeDir = function()
-        vim.cmd('cd ' .. vim.fn.expand('%:p:h'))
-        print('Changed directory to ' .. vim.fn.getcwd())
-    end,
-    ChangeLocalDir = function()
-        vim.cmd('lcd ' .. vim.fn.expand('%:p:h'))
-        print('Changed local diriectory to ' .. vim.fn.getcwd())
-    end,
-    NewFile = function()
-        vim.cmd('enew')
-        print('[New file]')
-    end,
-    ToggleQL = function()  -- Toggle display of quickfix list
-        if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix') == 0 then
-            vim.cmd('copen')
-        else
-            vim.cmd('cclose')
-        end
-    end,
-    ToggleLL = function()  -- Toggle display of location list
-        if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.loclist') == 0 then
-            vim.cmd('lopen')
-        else
-            vim.cmd('lclose')
-        end
-    end,
-    -- NOTES_CMDS
-    Notes = function()  -- Open notes buffer
-        vim.cmd('split')
-        vim.cmd('lcd ~/Dropbox/Journals')
-        vim.cmd('edit ~/Dropbox/Journals')
-    end,
-    Note = {
-        function(keys)
-            FUNCTIONS.NewNote(keys.args)
-        end,
-        {force=true, nargs='?'}
-    },
-    -- TYPO_CMDS
+    {force=true, nargs='?'}
+}
+
+
+local typo_commands = {
     E = {
         function(keys)
             local cmd = 'e'
@@ -123,3 +133,11 @@ return {
         {force=true, bang=true, nargs='*', complete='file'}
     },
 }
+for k, v in pairs(typo_commands) do
+    commands[k] = v
+end
+
+return commands
+-- TODO define luaprint and luainspect commands
+-- cabbrev luaprint lua print( )<Left><Left>
+-- cabbrev luainspect lua print(vim.inspect( ))<Left><Left><Left>

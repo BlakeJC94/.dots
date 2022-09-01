@@ -17,7 +17,7 @@ M.MAPS = {
         -- Clear last search hl with <C-l> before <C-l> action
         ['<C-l>'] = ':noh | redraw | echon ""<CR><C-l>',
         -- Replace `gx`
-        ['gx'] = require('functions').OpenURL, -- ":lua require('functions').OpenURL()<CR>",
+        ['gx'] = require('functions').OpenURL,
     },
     n = {
         -- Make Y and S behave like D and C

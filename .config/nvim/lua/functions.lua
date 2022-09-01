@@ -1,7 +1,7 @@
-M = {}
+local functions = {}
 
 -- Generate new md file with auto-generated header and filename
-M.NewNote = function(in_str)
+functions['NewNote'] = function(in_str)
     local title = ""
     local note_path = ""
 
@@ -72,40 +72,40 @@ M.NewNote = function(in_str)
     vim.cmd("normal! G$")
 end
 
-M.ShowSyntaxGroup = function()
+functions['ShowSyntaxGroup'] = function()
     -- Call with ":call ShowSyntaxGroup()"
     local s = vim.fn.synID(vim.fn.line('.'), vim.fn.col('.'), 1)
     local out_str = vim.fn.synIDattr(s, 'name') .. ' -> ' .. vim.fn.synIDattr(vim.fn.synIDtrans(s), 'name')
     print(out_str)
 end
 
-M.TrimSpaces = function(keys)
+functions['TrimSpaces'] = function(keys)
     local winstate = vim.fn.winsaveview()
     vim.cmd("keeppatterns %s/\\s\\+$//e")  -- escape `\`
     vim.fn.winrestview(winstate)
 end
 
-M.CreateDirs = function()
+functions['CreateDirs'] = function()
     local dir = vim.fn.expand('<afile>:p:h')
     if vim.fn.isdirectory(dir) == 0 then
         vim.fn.mkdir(dir, 'p')
     end
 end
 
-M.ShellExec = function(command)
+functions['ShellExec'] = function(command)
     local handle = io.popen(command)
     local result = handle:read("*a")
     handle:close()
     return result
 end
 
-M.PrintLines = function(mutiline_string)
+functions['PrintLines'] = function(mutiline_string)
     for line in string.gmatch(mutiline_string, "[^\n]+") do
         print(line)
     end
 end
 
-M.PutLines = function(mutiline_string)
+functions['PutLines'] = function(mutiline_string)
     lines = {}
     for line in string.gmatch(mutiline_string, "[^\n]+") do
         table.insert(lines, line)
@@ -113,7 +113,7 @@ M.PutLines = function(mutiline_string)
     vim.api.nvim_put(lines, "", true, true)
 end
 
-M.VimTip = function()
+functions['VimTip'] = function()
     if vim.g.vimtip == nil then
         vim.g.vimtip = require('functions').ShellExec('fortune ~/.config/nvim/extras/vim-tips')
         require('functions').PrintLines(vim.g.vimtip)
@@ -122,11 +122,11 @@ M.VimTip = function()
     end
 end
 
-M.SetQuitWithQ = function()
+functions['SetQuitWithQ'] = function()
     vim.keymap.set('n', 'q', ':q<CR>', {buffer=true, silent=true})
 end
 
-M.CustomFoldText = function()
+functions['CustomFoldText'] = function()
     local line = vim.fn.getline(vim.v.foldstart)
 
     local indent_str = string.rep(" ", vim.fn.indent(vim.v.foldstart - 1))
@@ -138,11 +138,11 @@ M.CustomFoldText = function()
     return string.sub(fold_str, 0, 100 - #fold_size_str) .. fold_size_str
 end
 
-M.GetWords = function()
+functions['GetWords'] = function()
     return tostring(vim.fn.wordcount().words)
 end
 
-M.OpenURL = function()
+functions['OpenURL'] = function()
     local uri = vim.fn.expand('<cWORD>')
     uri = string.gsub(uri, '?', '\\?')
     uri = vim.fn.shellescape(uri, 1)
@@ -153,7 +153,4 @@ M.OpenURL = function()
     end
 end
 
--- TODO define luaprint and luainspect functions
--- cabbrev luaprint lua print( )<Left><Left>
--- cabbrev luainspect lua print(vim.inspect( ))<Left><Left><Left>
-return M
+return functions
