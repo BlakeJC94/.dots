@@ -1,5 +1,4 @@
-local mappings_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/mappings'
-local mappings = {
+return {
     [''] = {
         -- Move left faster with `gh`
         ['gh'] = {map=[[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts={expr=true}},
@@ -90,21 +89,3 @@ local mappings = {
     c = {},
 }
 
-local file_list = vim.fn.readdir(mappings_dir)
-for _, file in pairs(file_list) do
-    if file ~= 'init.lua' then
-        local name = string.sub(file, 1, -5)
-        local mapping_group = require('mappings.' .. name)
-
-        for mode, maps in pairs(mapping_group) do
-            for key, map in pairs(maps) do
-                if mappings[mode][key] ~= nil then
-                    print("Warning: Overriding key `" .. key .."` in mode `" .. mode .. "`.")
-                end
-                mappings[mode][key] = map
-            end
-        end
-    end
-end
-
-return mappings
