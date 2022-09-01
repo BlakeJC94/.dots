@@ -8,7 +8,6 @@ SETTERS.functions = function(func)
     _G.name = func
 end
 
--- TODO find a nicer solution than this, maybe a dir?
 SETTERS.autocommands = function(autocommands)
     for name, augroup in pairs(autocommands) do
         local id = vim.api.nvim_create_augroup(name, {clear = true})
@@ -48,15 +47,13 @@ end
 -- TODO find a nicer solution than this, maybe a dir?
 SETTERS.mappings = function(mappings)
     local DEFAULT_MAP_OPTS = {noremap = true, silent = true}
-    for _, group_mappings in pairs(mappings) do
-        for mode, mode_mappings in pairs(group_mappings) do
-            for keys, mapping in pairs(mode_mappings) do
-                if (type(mapping) == "table") then
-                    local opts = vim.tbl_extend('force', DEFAULT_MAP_OPTS, mapping.opts)
-                    vim.keymap.set(mode, keys, mapping.map, opts)
-                else
-                    vim.keymap.set(mode, keys, mapping, DEFAULT_MAP_OPTS)
-                end
+    for mode, mode_mappings in pairs(mappings) do
+        for keys, mapping in pairs(mode_mappings) do
+            if (type(mapping) == "table") then
+                local opts = vim.tbl_extend('force', DEFAULT_MAP_OPTS, mapping.opts)
+                vim.keymap.set(mode, keys, mapping.map, opts)
+            else
+                vim.keymap.set(mode, keys, mapping, DEFAULT_MAP_OPTS)
             end
         end
     end
