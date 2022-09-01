@@ -1,14 +1,32 @@
-local SETTERS = {}
+local M = {}
 
-SETTERS.options = function(options)
+M.plugins = function(repos)
+    local status_ok, packer = pcall(require, "packer")
+    if not status_ok then
+        error("Packer not properly installed, skipping plugin loading.")
+        return
+    end
+
+    packer.init()
+    packer.reset()
+    packer.use({'wbthomason/packer.nvim'})
+
+    for _, repo in pairs(repos) do
+        packer.use(repo)
+    end
+
+    packer.install()
+end
+
+M.options = function(options)
     for k, v in pairs(options) do vim.opt[k] = v end
 end
 
-SETTERS.functions = function(func)
+M.functions = function(func)
     _G.name = func
 end
 
-SETTERS.autocommands = function(autocommands)
+M.autocommands = function(autocommands)
     for name, augroup in pairs(autocommands) do
         local id = vim.api.nvim_create_augroup(name, {clear = true})
         for _, autocmd in pairs(augroup) do
@@ -24,7 +42,7 @@ SETTERS.autocommands = function(autocommands)
     end
 end
 
-SETTERS.commands = function(commands)
+M.commands = function(commands)
     local DEFAULT_CMD_OPTS = {force = true}
     for name, command in pairs(commands) do
         if (type(command) == 'table') then
@@ -44,7 +62,7 @@ SETTERS.commands = function(commands)
     end
 end
 
-SETTERS.mappings = function(mappings)
+M.mappings = function(mappings)
     local DEFAULT_MAP_OPTS = {noremap = true, silent = true}
     for mode, mode_mappings in pairs(mappings) do
         for keys, mapping in pairs(mode_mappings) do
@@ -58,47 +76,6 @@ SETTERS.mappings = function(mappings)
     end
 end
 
-SETTERS.plugins = function(plugins)
-    local status_ok, packer = pcall(require, "packer")
-    if not status_ok then
-        error("Packer not properly installed, skipping plugin loading.")
-        return
-    end
 
-    local configs_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/configs'
-    local configs = {}
+return M
 
-    local file_list = vim.fn.readdir(configs_dir)
-    for _, file in pairs(file_list) do
-        local plugin_name = string.sub(file, 1, -5)
-        configs[plugin_name] = require('configs.' .. plugin_name)
-    end
-
-    packer.init()
-    packer.reset()
-    packer.use({'wbthomason/packer.nvim'})
-
-    for _, plugin in pairs(plugins) do
-        local repo = {plugin}
-
-        local plugin_name = string.match(plugin, '[^/]+/[^/]+$')
-        plugin_name = string.match(plugin_name, '/[^.]+')
-        plugin_name = string.sub(plugin_name, 2, -1)
-
-        if configs[plugin_name] ~= nil then
-            repo = vim.tbl_extend("force", repo, configs[plugin_name])
-            configs[plugin_name] = nil
-        end
-        packer.use(repo)
-    end
-
-    for k, v in pairs(configs) do
-        if v ~= nil then
-            print("Warning: no plugin found for config `" .. k .. ".lua`")
-        end
-    end
-
-    packer.install()
-end
-
-return SETTERS
