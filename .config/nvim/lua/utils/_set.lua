@@ -3,7 +3,7 @@ local M = {}
 M.plugins = function(repos)
     local status_ok, packer = pcall(require, "packer")
     if not status_ok then
-        error("Packer not properly installed, skipping plugin loading.")
+        error("Warning: Packer not properly installed, skipping plugin loading.")
         return
     end
 
@@ -26,22 +26,6 @@ M.functions = function(func)
     _G.name = func
 end
 
-M.autocommands = function(autocommands)
-    for name, augroup in pairs(autocommands) do
-        local id = vim.api.nvim_create_augroup(name, {clear = true})
-        for _, autocmd in pairs(augroup) do
-            vim.api.nvim_create_autocmd(
-                autocmd.events,
-                {
-                    group = id,
-                    pattern = autocmd.pattern,
-                    callback = autocmd.callback,
-                }
-            )
-        end
-    end
-end
-
 M.commands = function(commands)
     local DEFAULT_CMD_OPTS = {force = true}
     for name, command in pairs(commands) do
@@ -57,6 +41,22 @@ M.commands = function(commands)
                 name,
                 command,
                 DEFAULT_CMD_OPTS
+            )
+        end
+    end
+end
+
+M.autocommands = function(autocommands)
+    for name, augroup in pairs(autocommands) do
+        local id = vim.api.nvim_create_augroup(name, {clear = true})
+        for _, autocmd in pairs(augroup) do
+            vim.api.nvim_create_autocmd(
+                autocmd.events,
+                {
+                    group = id,
+                    pattern = autocmd.pattern,
+                    callback = autocmd.callback,
+                }
             )
         end
     end

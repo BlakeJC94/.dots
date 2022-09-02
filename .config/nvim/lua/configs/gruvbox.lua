@@ -1,8 +1,19 @@
--- TODO add all the hlgroups here and refactor
+_G._configs.gruvbox_telescope_colors = function()
+    vim.cmd("highlight TelescopePromptBorder guibg=#282828")
+    vim.cmd("highlight TelescopePromptNormal guibg=#282828")
+
+    vim.cmd("highlight TelescopeResultsBorder guibg=#3c3836")
+    vim.cmd("highlight TelescopeResultsNormal guibg=#3c3836")
+
+    vim.cmd("highlight TelescopePreviewBorder guibg=#282828")
+    vim.cmd("highlight TelescopePreviewNormal guibg=#282828")
+end
+
 return {
     requires = {"rktjmp/lush.nvim"},
     config = function()
         vim.o.background = "dark"
+
         require("gruvbox").setup({
             undercurl = true,
             underline = true,
@@ -24,6 +35,7 @@ return {
                 IncSearch = {fg = "#fabd2f", bg = "#282828"},
             },
         })
+
         vim.cmd("colorscheme gruvbox")
     end
 }

@@ -80,8 +80,8 @@ echo "Installing ncspot"
 source ./scripts/ncspot.sh
 
 # echo "=============="
-# echo "Updating Julia"
-# source ./scripts/julia.sh
+echo "Updating Julia"
+source ./scripts/julia.sh
 
 echo "================"
 echo "Installing fonts"

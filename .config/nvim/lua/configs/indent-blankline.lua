@@ -4,13 +4,7 @@ return {
         require("indent_blankline").setup({
             show_current_context = true,
             show_current_context_start = false,
-            filetype_exclude = {
-                "help",
-                "alpha",
-                "lir",
-                "packer",
-                "man",
-            },
+            filetype_exclude = _G._configs.filetype_exclude,
             buftype_exclude = {"terminal"},
         })
     end

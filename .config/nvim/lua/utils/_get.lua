@@ -3,6 +3,16 @@ local M = {}
 M.plugins = function()
     local configs_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/configs'
     local configs = {}
+    _G._configs = {}
+
+    _G._configs.filetype_exclude = {
+        "help",
+        "man",
+        "packer",
+        "fugitive",
+        "mason",
+        "FTerm",
+    }
 
     local file_list = vim.fn.readdir(configs_dir)
     for _, file in pairs(file_list) do

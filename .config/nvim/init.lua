@@ -1,5 +1,5 @@
 -- BLAKEJC94S NEOVIM INIT.LUA
--- --------------------------
+-- ==========================
 local utils = require('utils')
 
 local NVIM_CONFIG = {

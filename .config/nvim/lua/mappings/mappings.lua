@@ -87,5 +87,15 @@ return {
         ['<C-l>'] = '<C-l><C-\\><C-n>:noh | redraw | echon ""<CR>i',
     },
     c = {},
+    o = {
+        -- Custom text object: "around document"
+        ['ad'] = '<Cmd>normal! ggVG<CR>',
+        ['id'] = '<Cmd>normal! ggVG<CR>',
+    },
+    x = {
+        -- Custom text object: "around document"
+        ['ad'] = 'gg0oG$',
+        ['id'] = 'gg0oG$',
+    },
 }
 

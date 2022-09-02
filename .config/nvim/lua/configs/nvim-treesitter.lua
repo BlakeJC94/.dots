@@ -1,13 +1,12 @@
--- TODO refactor
 return {
     requires = {
-        'nvim-treesitter/playground',
-        'nvim-treesitter/nvim-treesitter-textobjects',
-        'lewis6991/spellsitter.nvim',
-        'lewis6991/nvim-treesitter-context',
+        "nvim-treesitter/playground",
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        "lewis6991/spellsitter.nvim",
+        "lewis6991/nvim-treesitter-context",
         "danymat/neogen",
     },
-    run = ':TSUpdate',
+    run = ":TSUpdate",
     config = function()
         local default_parsers = {
             "comment",
@@ -20,6 +19,7 @@ return {
             "r",
             "rst",
         }
+
         require('nvim-treesitter.configs').setup({
             ensure_installed = default_parsers,
             sync_install = false,
@@ -55,9 +55,8 @@ return {
             },
         })
 
-        -- TODO refacotr, check if loaded popen?
-        require('spellsitter').setup()
-        require('treesitter-context').setup({
+        require("spellsitter").setup()
+        require("treesitter-context").setup({
             enable = true,
             throttle = true,
             max_lines = 0,

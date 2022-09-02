@@ -138,6 +138,3 @@ for k, v in pairs(typo_commands) do
 end
 
 return commands
--- TODO define luaprint and luainspect commands
--- cabbrev luaprint lua print( )<Left><Left>
--- cabbrev luainspect lua print(vim.inspect( ))<Left><Left><Left>
