@@ -6,9 +6,9 @@ if ! [[ "$(command -v nvm)" ]]; then
 fi
 nvm install node --latest-npm
 
-npm install -g \
-    pyright \
-    yaml-language-server \
-    prettier \
-    bash-language-server
+# npm install -g \
+#     pyright \
+#     yaml-language-server \
+#     prettier \
+#     bash-language-server
 

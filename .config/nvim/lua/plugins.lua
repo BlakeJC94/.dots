@@ -24,6 +24,9 @@ return {
     "unblevable/quick-scope",  -- Better f/t targets
     "norcalli/nvim-colorizer.lua",  -- Colors Hex codes
     "RRethy/vim-illuminate",  -- Subtle highlighting of instances of word under cursor
+        -- TODO figure out hls here, also cursorline? might have to replace augroup
+        -- https://github.com/yamatsum/nvim-cursorline
+        -- https://github.com/yamatsum/nvim-cursorline/blob/804f0023692653b2b2368462d67d2a87056947f9/lua/nvim-cursorline.lua#L90
     "danilamihailov/beacon.nvim",  -- Ping cursor location after jump
     "fladson/vim-kitty",  -- Highlighting for kitty config
     -- INTERFACE

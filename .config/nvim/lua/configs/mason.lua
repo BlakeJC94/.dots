@@ -10,13 +10,14 @@ return {
                 "pyright",
                 "lua-language-server",
                 "bash-language-server",
+                "julia-lsp",
                 -- null-ls tools
-                "stylua",
-                "shellcheck",
-                "jq",
                 "black",
                 "pylint",
+                "jq",
+                "stylua",
                 "luacheck",
+                "shellcheck",
             },
         })
 

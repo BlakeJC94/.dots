@@ -22,8 +22,8 @@ M.options = function(options)
     for k, v in pairs(options) do vim.opt[k] = v end
 end
 
-M.functions = function(func)
-    _G.name = func
+M.functions = function(functions)
+    for name, func in pairs(functions) do _G[name] = func end
 end
 
 M.commands = function(commands)
