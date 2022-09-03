@@ -37,7 +37,6 @@ return {
     "ethanholz/nvim-lastplace",  -- Jump to last place when opening a file
     "luukvbaal/stabilize.nvim",  -- Stabilise split creation  TODO remove when merged
     "nacro90/numb.nvim",  -- Peek lines when selecting in command mode
-    "Pocco81/true-zen.nvim",  -- True focus mode
     -- LSP
     "neovim/nvim-lspconfig",  -- LSP Engine configuration
     "jose-elias-alvarez/null-ls.nvim",  -- Extra sources for LSP

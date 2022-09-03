@@ -1,7 +1,7 @@
 local M = {}
 
 M.plugins = function()
-    local configs_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/configs'
+    local configs_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/extra/configs'
     local configs = {}
     _G._configs = {}
 
@@ -17,7 +17,7 @@ M.plugins = function()
     local file_list = vim.fn.readdir(configs_dir)
     for _, file in pairs(file_list) do
         local plugin_name = string.sub(file, 1, -5)
-        configs[plugin_name] = require('configs.' .. plugin_name)
+        configs[plugin_name] = require('extra.configs.' .. plugin_name)
     end
 
     local plugins = require('plugins')
@@ -74,25 +74,23 @@ M.autocommands = function()
 end
 
 M.mappings = function()
-    local mappings_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/mappings'
-    local mappings = {}
+    local mappings_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/extra/mappings'
+    local mappings = require('mappings')
 
     local file_list = vim.fn.readdir(mappings_dir)
     for _, file in pairs(file_list) do
-        if file ~= 'init.lua' then
-            local name = string.sub(file, 1, -5)
-            local mapping_group = require('mappings.' .. name)
+        local name = string.sub(file, 1, -5)
+        local mapping_group = require('extra.mappings.' .. name)
 
-            for mode, maps in pairs(mapping_group) do
-                if mappings[mode] == nil then
-                    mappings[mode] = {}
+        for mode, maps in pairs(mapping_group) do
+            if mappings[mode] == nil then
+                mappings[mode] = {}
+            end
+            for key, map in pairs(maps) do
+                if mappings[mode][key] ~= nil then
+                    print("Warning: Overriding key `" .. key .."` in mode `" .. mode .. "`.")
                 end
-                for key, map in pairs(maps) do
-                    if mappings[mode][key] ~= nil then
-                        print("Warning: Overriding key `" .. key .."` in mode `" .. mode .. "`.")
-                    end
-                    mappings[mode][key] = map
-                end
+                mappings[mode][key] = map
             end
         end
     end
