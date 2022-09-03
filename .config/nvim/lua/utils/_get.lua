@@ -1,7 +1,7 @@
 local M = {}
 
 M.plugins = function()
-    local configs_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/extra/configs'
+    local configs_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/addons/configs'
     local configs = {}
     _G._configs = {}
 
@@ -17,7 +17,7 @@ M.plugins = function()
     local file_list = vim.fn.readdir(configs_dir)
     for _, file in pairs(file_list) do
         local plugin_name = string.sub(file, 1, -5)
-        configs[plugin_name] = require('extra.configs.' .. plugin_name)
+        configs[plugin_name] = require('addons.configs.' .. plugin_name)
     end
 
     local plugins = require('plugins')
@@ -74,13 +74,13 @@ M.autocommands = function()
 end
 
 M.mappings = function()
-    local mappings_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/extra/mappings'
+    local mappings_dir = vim.fn.expand('$HOME') .. '/.config/nvim/lua/addons/mappings'
     local mappings = require('mappings')
 
     local file_list = vim.fn.readdir(mappings_dir)
     for _, file in pairs(file_list) do
         local name = string.sub(file, 1, -5)
-        local mapping_group = require('extra.mappings.' .. name)
+        local mapping_group = require('addons.mappings.' .. name)
 
         for mode, maps in pairs(mapping_group) do
             if mappings[mode] == nil then

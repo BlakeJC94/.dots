@@ -16,7 +16,7 @@ return {
     -- TERMINAL
     "jpalardy/vim-slime",  -- <C-c><C-c> => Send code snippet to terminal
     "5long/pytest-vim-compiler",  -- Link :make to pytest
-    "numToStr/FTerm.nvim",  -- TODO investigate using max/min tmux pane and remove
+    "numToStr/FTerm.nvim",  -- TODO investigate using max/min tmux pane and remove, vim use C-w _
     "aserowy/tmux.nvim",  -- TODO investigate using max/min tmux pane and remove
     -- COLOURS
     "ellisonleao/gruvbox.nvim",  -- Colorscheme

@@ -81,7 +81,7 @@ return {
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
-        ["<C-s>"] = "<C-g>u<Esc>[s1z=`]a<c-g>u", -- Currently borked by spellsitter?
+        ["<C-s>"] = { map = "<C-g>u<Esc>[s1z=`]a<C-g>u", opts = { remap = true } },
     },
     t = {
         -- <C-l> => Do C-l action in vim as well

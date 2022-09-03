@@ -2,7 +2,7 @@ TODO investigate fugitive mappings
 TODO write a readme for nvim repo
 
 # RETIRED AUTOGROUPS
-```
+```lua
 local term_cmds = {
     name='term_cmds',
     cmds= {

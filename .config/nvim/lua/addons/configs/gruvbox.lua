@@ -18,7 +18,7 @@ return {
             undercurl = true,
             underline = true,
             bold = true,
-            italic = true, -- will make italic comments and special strings
+            italic = false, -- will make italic comments and special strings
             invert_selection = false,
             invert_signs = false,
             invert_tabline = false,
