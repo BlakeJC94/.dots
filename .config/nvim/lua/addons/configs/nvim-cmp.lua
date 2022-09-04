@@ -5,9 +5,12 @@ end
 
 _G._configs.cmp_tab = function(fallback)
     local cmp = require("cmp")
+    local luasnip = require("luasnip")
     local has_words_before = _G._configs.has_words_before
     if cmp.visible() then
         cmp.select_next_item()
+    elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
     elseif has_words_before() then
         cmp.complete()
     else
@@ -17,8 +20,11 @@ end
 
 _G._configs.cmp_s_tab = function(fallback)
     local cmp = require("cmp")
+    local luasnip = require("luasnip")
     if cmp.visible() then
         cmp.select_prev_item()
+    elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
     else
         fallback()
     end
@@ -48,12 +54,15 @@ return {
     requires = {
         "onsails/lspkind-nvim",
         "windwp/nvim-autopairs",
+        "L3MON4D3/LuaSnip",
+        "rafamadriz/friendly-snippets",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "kdheepak/cmp-latex-symbols",
         "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-cmdline",
+        "saadparwaiz1/cmp_luasnip",
     },
     config = function()
         local cmp = require("cmp")
@@ -65,11 +74,17 @@ return {
         cmp.setup({
             formatting = { format = lspkind.cmp_format({ with_text = true, maxwidth = 50 }) },
             mapping = _G._configs.cmp_mappings(),
+            snippet = {
+                expand = function(args)
+                    require("luasnip").lsp_expand(args.body)
+                end,
+            },
             sources = {
                 { name = "nvim_lsp_signature_help" },
                 { name = "nvim_lsp" },
                 { name = "path" },
                 { name = "buffer" },
+                { name = "luasnip" },
                 { name = "latex_symbols" },
             },
         })
@@ -87,7 +102,7 @@ return {
 
         -- Set up autopairs
         autopairs.setup({})
-        local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+        local cmp_autopairs = require("nvim-autopairs.completion.cmp")
         local on_confirm_done = cmp_autopairs.on_confirm_done
         cmp.event:on("confirm_done", on_confirm_done({ map_char = { tex = "" } }))
     end,
