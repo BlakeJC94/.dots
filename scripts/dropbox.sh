@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo apt install python3-gpg
 
-sudo wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf - --directory=~
+sudo wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf - --directory=$HOME
 sudo curl "https://linux.dropbox.com/packages/dropbox.py" -o "$HOME/.local/dropbox.py"
 
 if ! [[ "$(command -v dropbox)" ]]; then

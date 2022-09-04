@@ -5,9 +5,10 @@ end
 
 _G._configs.cmp_tab = function(fallback)
     local cmp = require("cmp")
+    local has_words_before = _G._configs.has_words_before
     if cmp.visible() then
         cmp.select_next_item()
-    elseif _G._configs.has_words_before() then
+    elseif has_words_before() then
         cmp.complete()
     else
         fallback()

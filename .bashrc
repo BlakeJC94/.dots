@@ -155,11 +155,10 @@ if ! [ -z "$KITTY_WINDOW_ID" ] && [ -z "$TMUX" ]; then
         N=$(tmux ls | grep -v attached | head -1 | cut -d: -f1)
         if [[ ! -z $N ]]
         then
-            ATTACH_OPTS="attach -t $N"
+            tmux attach -t $N
+        else
+            exec tmux new-session && exit;
         fi
-
-        exec tmux -CC $ATTACH_OPTS
-        # tmux attach || exec tmux new-session && exit;
     fi
 fi
 

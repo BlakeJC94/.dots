@@ -1,3 +1,60 @@
+_G._configs.treesitter_get_textobjs = function()
+    return {
+        select = {
+            enable = true,
+            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+            keymaps = {
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",
+                ["ic"] = "@class.inner",
+            },
+            selection_modes = {
+                ["@parameter.outer"] = "v",
+                ["@function.outer"] = "V",
+                ["@class.outer"] = "V",
+            },
+        },
+        swap = {
+            enable = true,
+            swap_next = {
+                ["<leader>s"] = "@parameter.inner",
+            },
+            swap_previous = {
+                ["<leader>S"] = "@parameter.inner",
+            },
+        },
+        move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+                ["]f"] = "@function.outer",
+                ["]c"] = "@class.outer",
+                ["]p"] = "@parameter.outer",
+                ["]a"] = "@attribute.outer",
+            },
+            goto_next_end = {
+                ["]F"] = "@function.outer",
+                ["]C"] = "@class.outer",
+                ["]P"] = "@parameter.outer",
+                ["]A"] = "@attribute.outer",
+            },
+            goto_previous_start = {
+                ["[f"] = "@function.outer",
+                ["[c"] = "@class.outer",
+                ["[p"] = "@parameter.outer",
+                ["[a"] = "@attribute.outer",
+            },
+            goto_previous_end = {
+                ["[F"] = "@function.outer",
+                ["[C"] = "@class.outer",
+                ["[P"] = "@parameter.outer",
+                ["[A"] = "@attribute.outer",
+            },
+        },
+    }
+end
+
 return {
     requires = {
         "nvim-treesitter/playground",
@@ -23,70 +80,10 @@ return {
         require("nvim-treesitter.configs").setup({
             ensure_installed = default_parsers,
             sync_install = false,
-            highlight = {
-                enable = true,
-            },
-            indent = {
-                enable = true,
-                -- disable = {"python", },
-            },
-            textobjects = {
-                select = {
-                    enable = true,
-                    lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-                    keymaps = {
-                        ["af"] = "@function.outer",
-                        ["if"] = "@function.inner",
-                        ["ac"] = "@class.outer",
-                        ["ic"] = "@class.inner",
-                    },
-                    selection_modes = {
-                        ["@parameter.outer"] = "v",
-                        ["@function.outer"] = "V",
-                        ["@class.outer"] = "V",
-                    },
-                },
-                swap = {
-                    enable = true,
-                    swap_next = {
-                        ["<leader>s"] = "@parameter.inner",
-                    },
-                    swap_previous = {
-                        ["<leader>S"] = "@parameter.inner",
-                    },
-                },
-                move = {
-                    enable = true,
-                    set_jumps = true, -- whether to set jumps in the jumplist
-                    goto_next_start = {
-                        ["]f"] = "@function.outer",
-                        ["]c"] = "@class.outer",
-                        ["]p"] = "@parameter.outer",
-                        ["]a"] = "@attribute.outer",
-                    },
-                    goto_next_end = {
-                        ["]F"] = "@function.outer",
-                        ["]C"] = "@class.outer",
-                        ["]P"] = "@parameter.outer",
-                        ["]A"] = "@attribute.outer",
-                    },
-                    goto_previous_start = {
-                        ["[f"] = "@function.outer",
-                        ["[c"] = "@class.outer",
-                        ["[p"] = "@parameter.outer",
-                        ["[a"] = "@attribute.outer",
-                    },
-                    goto_previous_end = {
-                        ["[F"] = "@function.outer",
-                        ["[C"] = "@class.outer",
-                        ["[P"] = "@parameter.outer",
-                        ["[A"] = "@attribute.outer",
-                    },
-                },
-            },
-            playground = {
-                enable = true,
-            },
+            highlight = { enable = true },
+            indent = { enable = true },
+            playground = { enable = true },
+            textobjects = _G._configs.treesitter_get_textobjs(),
         })
 
         require("spellsitter").setup()
