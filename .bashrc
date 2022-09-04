@@ -129,9 +129,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-alias luamake=/opt/lua-language-server/3rd/luamake/luamake
-
-
 # FIX FOR PYRIGHT
 # source : https://fabiorosado.dev/blog/pyright-worker-threads-missing/
 export NODE\_OPTIONS=--experimental-worker
@@ -156,6 +153,8 @@ fi
 if ! [ -z "$KITTY_WINDOW_ID" ] && [ -z "$TMUX" ]; then
     if [[ "$(command -v tmux)" ]]; then
         tmux attach || exec tmux new-session && exit;
+        # TODO gwt first non-attached session and att
+        # (tmux ls | grep -vq attached && tmux at) || tmux -2
     fi
 fi
 
@@ -166,9 +165,6 @@ fi
 
 # disable <C-s> from pausing input to terminal
 stty -ixon
-
-# Add ZK environment variable
-export ZK_NOTEBOOK_DIR="$HOME/Dropbox/Journals/"
 
 # print a fortune when starting up a bash session
 if [[ "$(command -v fortune)" ]] && [[ -f ~/.dots/extras/fortune/programming-tips ]]; then

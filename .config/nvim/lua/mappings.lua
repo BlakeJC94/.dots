@@ -12,6 +12,9 @@ return {
         -- Remap q and Q to stop polluting registers accidentally!
         ["q"] = "gq",
         ["Q"] = "q",
+        -- Paste and match indent
+        ["gp"] = "]p",
+        ["gP"] = "]P",
         -- Clear last search hl with <C-l> before <C-l> action
         ["<C-l>"] = ':noh | redraw | echon ""<CR><C-l>',
         -- Replace `gx`

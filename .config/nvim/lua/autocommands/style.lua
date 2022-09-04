@@ -11,7 +11,7 @@ return {
                 if vim.bo.filetype == v then allowed = false end
             end
             if allowed then
-                vim.opt_local.cursorline = true
+                -- vim.opt_local.cursorline = true
                 vim.opt_local.relativenumber = false
                 vim.opt_local.colorcolumn = {100, 101}
             end
@@ -27,7 +27,7 @@ return {
                 if vim.bo.filetype == v then allowed = false end
             end
             if allowed then
-                vim.opt_local.cursorline = false
+                -- vim.opt_local.cursorline = false
                 vim.opt_local.relativenumber = true
                 vim.opt_local.colorcolumn = {}
             end

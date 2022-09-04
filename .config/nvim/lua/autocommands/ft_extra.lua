@@ -13,7 +13,7 @@ return {
     -- set info buffer opts
     {
         events = {"FileType"},
-        pattern = {"qf", "help", "fugitive"},
+        pattern = {"qf", "help", "fugitive", "man"},
         callback = function()
             FUNCTIONS.SetQuitWithQ()
             vim.opt_local.spell = false

@@ -16,19 +16,13 @@ return {
     -- TERMINAL
     "jpalardy/vim-slime",  -- <C-c><C-c> => Send code snippet to terminal
     "5long/pytest-vim-compiler",  -- Link :make to pytest
-    "numToStr/FTerm.nvim",  -- TODO investigate using max/min tmux pane and remove, vim use C-w _
-    "aserowy/tmux.nvim",  -- TODO investigate using max/min tmux pane and remove
     -- COLOURS
     "ellisonleao/gruvbox.nvim",  -- Colorscheme
     "lukas-reineke/indent-blankline.nvim",  -- Indent guides
     "unblevable/quick-scope",  -- Better f/t targets
     "norcalli/nvim-colorizer.lua",  -- Colors Hex codes
     "RRethy/vim-illuminate",  -- Subtle highlighting of instances of word under cursor
-        -- TODO figure out hls here, also cursorline? might have to replace augroup
-        -- https://github.com/yamatsum/nvim-cursorline
-        -- https://github.com/yamatsum/nvim-cursorline/blob/804f0023692653b2b2368462d67d2a87056947f9/lua/nvim-cursorline.lua#L90
     "danilamihailov/beacon.nvim",  -- Ping cursor location after jump
-    "fladson/vim-kitty",  -- Highlighting for kitty config
     -- INTERFACE
     "hrsh7th/nvim-cmp",  -- Completion menu
     "nvim-lualine/lualine.nvim",  -- Statusline
@@ -37,6 +31,7 @@ return {
     "ethanholz/nvim-lastplace",  -- Jump to last place when opening a file
     "luukvbaal/stabilize.nvim",  -- Stabilise split creation  TODO remove when merged
     "nacro90/numb.nvim",  -- Peek lines when selecting in command mode
+    "mrjones2014/smart-splits.nvim",  -- smarter split resize functions
     -- LSP
     "neovim/nvim-lspconfig",  -- LSP Engine configuration
     "jose-elias-alvarez/null-ls.nvim",  -- Extra sources for LSP
@@ -44,7 +39,6 @@ return {
     -- GIT
     "tpope/vim-fugitive",  -- The ultimate git plugin for Vim
     "lewis6991/gitsigns.nvim", -- Gitgutter, floating hunks, and virtual text blames
-    "junegunn/gv.vim",  -- :gv => better git log
     -- TELESCOPE
     "nvim-telescope/telescope-fzf-native.nvim",
     "nvim-telescope/telescope.nvim", -- Extensible Fuzzy finder

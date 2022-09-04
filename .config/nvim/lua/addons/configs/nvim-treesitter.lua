@@ -15,14 +15,14 @@ return {
             "markdown",
             "markdown_inline",
             "python",
-            "bash",
             "lua",
-            "regex",
+            "bash",
             "julia",
             "r",
+            "regex",
         }
 
-        require('nvim-treesitter.configs').setup({
+        require("nvim-treesitter.configs").setup({
             ensure_installed = default_parsers,
             sync_install = false,
             highlight = {
@@ -31,6 +31,63 @@ return {
             indent = {
                 enable = true,
                 -- disable = {"python", },
+            },
+            textobjects = {
+                select = {
+                    enable = true,
+                    lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+                    keymaps = {
+                        ["af"] = "@function.outer",
+                        ["if"] = "@function.inner",
+                        ["ac"] = "@class.outer",
+                        ["ic"] = "@class.inner",
+                    },
+                    selection_modes = {
+                        ["@parameter.outer"] = "v",
+                        ["@function.outer"] = "V",
+                        ["@class.outer"] = "V",
+                    },
+                },
+                swap = {
+                    enable = true,
+                    swap_next = {
+                        ["<leader>s"] = "@parameter.inner",
+                    },
+                    swap_previous = {
+                        ["<leader>S"] = "@parameter.inner",
+                    },
+                },
+                move = {
+                    enable = true,
+                    set_jumps = true, -- whether to set jumps in the jumplist
+                    goto_next_start = {
+                        ["]m"] = "@function.outer",
+                        ["]c"] = "@class.outer",
+                        ["]p"] = "@parameter.outer",
+                        ["]a"] = "@attribute.outer",
+                    },
+                    goto_next_end = {
+                        ["]M"] = "@function.outer",
+                        ["]C"] = "@class.outer",
+                        ["]P"] = "@parameter.outer",
+                        ["]A"] = "@attribute.outer",
+                    },
+                    goto_previous_start = {
+                        ["[m"] = "@function.outer",
+                        ["[c"] = "@class.outer",
+                        ["[p"] = "@parameter.outer",
+                        ["[a"] = "@attribute.outer",
+                    },
+                    goto_previous_end = {
+                        ["[M"] = "@function.outer",
+                        ["[C"] = "@class.outer",
+                        ["[P"] = "@parameter.outer",
+                        ["[A"] = "@attribute.outer",
+                    },
+                },
+            },
+            playground = {
+                enable = true,
             },
         })
 
@@ -41,13 +98,12 @@ return {
             max_lines = 0,
             patterns = {
                 default = {
-                    'class',
-                    'function',
-                    'method',
+                    "class",
+                    "function",
+                    "method",
                 },
             },
         })
-        require('neogen').setup({enabled = true})
-    end
+        require("neogen").setup({ enabled = true })
+    end,
 }
-
