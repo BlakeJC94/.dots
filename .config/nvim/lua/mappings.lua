@@ -26,6 +26,15 @@ return {
         ["[l"] = ":lprev<CR>",
         -- Disable <C-z> to stop process
         ["<C-z>"] = {map='', opts={remap=true}},
+        -- Vim split controls
+        ['<Leader>_'] = ':split<CR>',
+        ['<Leader>|'] = ':vsplit<CR>',
+        -- Vim Tab controls
+        ['<Leader>t'] = ':tabedit %<CR>',
+        ['<Leader>.'] = ":tabnext<CR>",
+        ['<Leader>,'] = ":tabprev<CR>",
+        ['<Leader>>'] = ":+tabmove<CR>",
+        ['<Leader><'] = ":-tabmove<CR>",
         -- Leader maps
         ["<Leader><CR>"] = ":Telescope file_browser<CR>", -- File browser
         ["<Leader><BS>"] = ":Telescope find_files<CR>", -- File finder

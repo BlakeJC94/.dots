@@ -11,7 +11,7 @@ return {
     "christoomey/vim-sort-motion",  -- gs<object> ==> Sort operator across object
     "inkarkat/vim-ReplaceWithRegister",  -- ["x]gr<motion> ==> Replace motion region with register x
     -- TEXTOBJS
-    "wellle/targets.vim",  -- Many more text objects
+    "wellle/targets.vim",  -- Many many more text objects
     "Julian/vim-textobj-variable-segment",  -- iv/av => Text objects for substrings in snake/camel/kebab case
     -- TERMINAL
     "jpalardy/vim-slime",  -- <C-c><C-c> => Send code snippet to terminal
@@ -42,5 +42,6 @@ return {
     -- TELESCOPE
     "nvim-telescope/telescope-fzf-native.nvim",
     "nvim-telescope/telescope.nvim", -- Extensible Fuzzy finder
+    -- TREESITTER
     "nvim-treesitter/nvim-treesitter",  -- TreeSitter plugin configuration
 }
