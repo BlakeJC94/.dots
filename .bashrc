@@ -152,9 +152,14 @@ fi
 # Automatically launch Tmux in Kitty
 if ! [ -z "$KITTY_WINDOW_ID" ] && [ -z "$TMUX" ]; then
     if [[ "$(command -v tmux)" ]]; then
-        tmux attach || exec tmux new-session && exit;
-        # TODO gwt first non-attached session and att
-        # (tmux ls | grep -vq attached && tmux at) || tmux -2
+        N=$(tmux ls | grep -v attached | head -1 | cut -d: -f1)
+        if [[ ! -z $N ]]
+        then
+            ATTACH_OPTS="attach -t $N"
+        fi
+
+        exec tmux -CC $ATTACH_OPTS
+        # tmux attach || exec tmux new-session && exit;
     fi
 fi
 

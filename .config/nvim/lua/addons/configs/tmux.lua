@@ -10,7 +10,7 @@ return {
             resize = {
                 enable_default_keybindings = false,
                 resize_step_x = 8,
-                resize_step_y = 8,
+                resize_step_y = 4,
             }
         })
     end

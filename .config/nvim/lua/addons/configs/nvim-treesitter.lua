@@ -1,5 +1,3 @@
--- TODO setup textobjects properly
-
 return {
     requires = {
         "nvim-treesitter/playground",

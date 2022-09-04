@@ -2,7 +2,6 @@ _G._configs.slime_nvim_terminal = function()
     vim.g.slime_target = "neovim"
 end
 
--- TODO autocmd to remove tmux paste files
 _G._configs.slime_tmux = function()
     vim.g.slime_target = "tmux"
     vim.g.slime_paste_file = vim.fn.tempname() .. "_slime"

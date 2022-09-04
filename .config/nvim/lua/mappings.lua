@@ -24,6 +24,8 @@ return {
         ["[c"] = ":cprev<CR>",
         ["]l"] = ":lnext<CR>",
         ["[l"] = ":lprev<CR>",
+        -- Disable <C-z> to stop process
+        ["<C-z>"] = {map='', opts={remap=true}},
         -- Leader maps
         ["<Leader><CR>"] = ":Telescope file_browser<CR>", -- File browser
         ["<Leader><BS>"] = ":Telescope find_files<CR>", -- File finder
