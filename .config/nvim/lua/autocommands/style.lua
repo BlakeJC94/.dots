@@ -38,11 +38,11 @@ return {
         end,
     },
     -- echo vimtip on open
-    {
-        events = { "VimEnter" },
-        callback = FUNCTIONS.VimTip,
-        pattern = "*",
-    },
+    -- {
+    --     events = { "VimEnter" },
+    --     callback = FUNCTIONS.VimTip,
+    --     pattern = "*",
+    -- },
     -- highlight yanks
     {
         events = { "TextYankPost" },
