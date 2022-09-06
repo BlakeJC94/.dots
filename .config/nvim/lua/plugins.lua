@@ -28,6 +28,7 @@ return {
     "nvim-lualine/lualine.nvim",  -- Statusline
     "https://gitlab.com/yorickpeterse/nvim-pqf",  -- Better quickfix list format
     "milisims/nvim-luaref",  -- Lua reference
+    "sam4llis/nvim-lua-gf",  -- Make `gf` work for lua requires
     "ethanholz/nvim-lastplace",  -- Jump to last place when opening a file
     "luukvbaal/stabilize.nvim",  -- Stabilise split creation  TODO remove when merged
     "nacro90/numb.nvim",  -- Peek lines when selecting in command mode
@@ -43,5 +44,5 @@ return {
     "nvim-telescope/telescope-fzf-native.nvim",
     "nvim-telescope/telescope.nvim", -- Extensible Fuzzy finder
     -- TREESITTER
-    "nvim-treesitter/nvim-treesitter",  -- TreeSitter plugin configuration
+    "nvim-treesitter/nvim-treesitter",  -- TreeSitter plugin configuration TODO rm spellsitter on 0.8
 }

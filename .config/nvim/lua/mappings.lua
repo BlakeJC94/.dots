@@ -29,6 +29,7 @@ return {
         -- Vim split controls
         ['<Leader>_'] = ':split<CR>',
         ['<Leader>|'] = ':vsplit<CR>',
+        ['<Leader>w'] = "<C-w>",
         -- Vim Tab controls
         ['<Leader>t'] = ':tabedit %<CR>',
         ['<Leader>.'] = ":tabnext<CR>",
@@ -41,7 +42,6 @@ return {
         ["<Leader><Tab>"] = "<C-^>", -- Last file
         ["<Leader><Esc>"] = ":Telescope buffers<CR>", -- Buffers
         ["<Leader>q"] = ":q<CR>", -- Quit
-        ["<Leader>w"] = ":w<CR>", -- Save
         ["<Leader>n"] = ":NewFile<CR>",
         ["<Leader>N"] = ":NewSession<CR>",
         ["<Leader>d"] = ":ChangeLocalDir<CR>",
