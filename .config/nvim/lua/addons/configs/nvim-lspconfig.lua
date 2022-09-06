@@ -63,7 +63,6 @@ return {
     requires = {
         "hrsh7th/cmp-nvim-lsp",  -- cmp integration for lsp
         "ii14/lsp-command",  -- :Lsp <cmd> => Command interface for LSP functions
-        "j-hui/fidget.nvim",  -- Loading status for LSP in bottom right
         "Mofiqul/trld.nvim",  -- display diagnostic status in top right
     },
     config = function()
@@ -83,6 +82,5 @@ return {
         end
 
         require('trld').setup({})
-        require('fidget').setup({})
     end
 }
