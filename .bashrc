@@ -135,12 +135,18 @@ export NODE\_OPTIONS=--experimental-worker
 
 # pyenv setup
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 if [[ "$(command -v pyenv)" ]]; then
-    eval "$(pyenv init --path)"
     eval "$(pyenv init -)"
-    # export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+    eval "$(pyenv virtualenv-init -)"
 fi
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# if [[ "$(command -v pyenv)" ]]; then
+#     eval "$(pyenv init --path)"
+#     eval "$(pyenv init -)"
+#     # export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# fi
 
 # using vim as man pager
 if [[ "$(command -v vim)" ]]; then
@@ -155,7 +161,7 @@ if ! [ -z "$KITTY_WINDOW_ID" ] && [ -z "$TMUX" ]; then
         N=$(tmux ls | grep -v attached | head -1 | cut -d: -f1)
         if [[ ! -z $N ]]
         then
-            tmux attach -t $N
+            exec tmux attach -t $N && exit;
         else
             exec tmux new-session && exit;
         fi

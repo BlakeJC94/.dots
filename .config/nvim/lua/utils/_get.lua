@@ -37,10 +37,15 @@ M.plugins = function()
         table.insert(repos, repo)
     end
 
+    local pause = false
     for k, v in pairs(configs) do
-        if v ~= nil then
+        if v ~= nil and string.sub(k, 1, 1) ~= "_" then
             print("Warning: no plugin found for config `" .. k .. ".lua`")
+            pause = true
         end
+    end
+    if pause then
+        vim.fn.input('Press any key to continue.')
     end
 
     return repos

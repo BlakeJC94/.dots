@@ -32,7 +32,7 @@ _G._configs.lspconfig_get_lsp_settings = function()
                     },
                 },
                 venvPath = "/home/blake/.pyenv/versions",
-                venv = "seer-algo",
+                venv = "seeralgo",
             },
         },
         sumneko_lua = {
