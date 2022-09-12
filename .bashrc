@@ -156,7 +156,7 @@ if [[ "$(command -v vim)" ]]; then
 fi
 
 # Automatically launch Tmux in Kitty
-if ! [ -z "$KITTY_WINDOW_ID" ] && [ -z "$TMUX" ]; then
+if ! [ -z "$KITTY_WINDOW_ID" ] || ! [ -z "$WEZTERM_PANE" ] && [ -z "$TMUX" ]; then
     if [[ "$(command -v tmux)" ]]; then
         N=$(tmux ls | grep -v attached | head -1 | cut -d: -f1)
         if [[ ! -z $N ]]
@@ -232,4 +232,3 @@ export GCLOUD_PROJECT="seer-prod-au"
 if [ -f ~/.seerflow.sh ]; then
     source ~/.seerflow.sh
 fi
-
