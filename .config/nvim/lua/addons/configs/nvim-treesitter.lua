@@ -59,9 +59,10 @@ return {
     requires = {
         "nvim-treesitter/playground",
         "nvim-treesitter/nvim-treesitter-textobjects",
-        "lewis6991/spellsitter.nvim",
-        "lewis6991/nvim-treesitter-context",
-        "danymat/neogen",
+        "lewis6991/spellsitter.nvim",  -- TODO remove when merged into neovim
+        "lewis6991/nvim-treesitter-context",  -- Pop-up for context
+        "danymat/neogen",  -- Generate docstrings
+        "andymass/vim-matchup",  -- Extended motions for %
     },
     run = ":TSUpdate",
     config = function()
