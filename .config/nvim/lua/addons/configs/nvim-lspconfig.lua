@@ -31,8 +31,6 @@ _G._configs.lspconfig_get_lsp_settings = function()
                         reportPrivateImportUsage = "none",
                     },
                 },
-                venvPath = "/home/blake/.pyenv/versions",
-                venv = "seeralgo",
             },
         },
         sumneko_lua = {

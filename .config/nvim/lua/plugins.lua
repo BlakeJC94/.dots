@@ -36,7 +36,7 @@ return {
     -- LSP
     "neovim/nvim-lspconfig",  -- LSP Engine configuration
     "jose-elias-alvarez/null-ls.nvim",  -- Extra sources for LSP
-    -- "williamboman/mason.nvim",  -- Installer for external tools
+    "williamboman/mason.nvim",  -- Installer for external tools
     -- GIT
     "tpope/vim-fugitive",  -- The ultimate git plugin for Vim
     "lewis6991/gitsigns.nvim", -- Gitgutter, floating hunks, and virtual text blames
