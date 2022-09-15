@@ -84,6 +84,7 @@ return {
             highlight = { enable = true },
             indent = { enable = true },
             playground = { enable = true },
+            matchup = { enable = true },
             textobjects = _G._configs.treesitter_get_textobjs(),
         })
 

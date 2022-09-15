@@ -33,6 +33,10 @@ return {
                 Search = {fg = "#fabd2f", bg = "#282828"},
                 CurSearch = {bg = "#fabd2f", fg = "#282828"},
                 IncSearch = {fg = "#fabd2f", bg = "#282828"},
+                DiffChange = {bg = "#24312A"},
+                DiffAdd = {bg = "#282B20"},
+                DiffDelete = {bg = "#2D2021"},
+                -- DiffText = {bg = ""},
             },
         })
 
