@@ -105,5 +105,8 @@ return {
         local cmp_autopairs = require("nvim-autopairs.completion.cmp")
         local on_confirm_done = cmp_autopairs.on_confirm_done
         cmp.event:on("confirm_done", on_confirm_done({ map_char = { tex = "" } }))
+
+        -- Set up snippets
+        require("luasnip.loaders.from_vscode").lazy_load()
     end,
 }
