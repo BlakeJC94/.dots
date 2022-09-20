@@ -95,9 +95,6 @@ M.mappings = function()
                 if mappings[mode][key] ~= nil then
                     print("Warning: Overriding key `" .. key .."` in mode `" .. mode .. "`.")
                 end
-                if key == '<A-Left>' then
-                    print("FOO")
-                end
                 mappings[mode][key] = map
             end
         end
