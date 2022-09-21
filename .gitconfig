@@ -1,10 +1,11 @@
 [user]
-	name = BlakeJC94
+    name = BlakeJC94
     email = blakejamescook@gmail.com
     username = BlakeJC94
 
 [alias]
     pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
+    pullup = "!git pull --set-upstream origin $(git symbolic-ref --short HEAD)"
     hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
 
 [color]
@@ -45,7 +46,7 @@
 [pull]
     rebase = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
