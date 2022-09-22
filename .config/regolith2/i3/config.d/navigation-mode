@@ -25,6 +25,16 @@ mode "Leader Mode" {
         bindsym Shift+k move up ; mode "default"
         bindsym Shift+l move right ; mode "default"
 
+        # Move workspace to monitors
+        bindsym Ctrl+h move workspace to output left ; mode "default"
+        bindsym Ctrl+j move workspace to output down ; mode "default"
+        bindsym Ctrl+k move workspace to output up ; mode "default"
+        bindsym Ctrl+l move workspace to output right ; mode "default"
+        bindsym Ctrl+Left move workspace to output left ; mode "default"
+        bindsym Ctrl+Down move workspace to output down ; mode "default"
+        bindsym Ctrl+Up move workspace to output up ; mode "default"
+        bindsym Ctrl+Right move workspace to output right ; mode "default"
+
 
         ## Resize // Resize Window // Alt + ↑ ↓ ← → ##
         bindsym $alt+h resize shrink width 6 px or 6 ppt
@@ -41,6 +51,9 @@ mode "Leader Mode" {
         bindsym $mod+j workspace number $ws2 ; mode "default"
         bindsym $mod+k workspace number $ws3 ; mode "default"
         bindsym $mod+l workspace number $ws4 ; mode "default"
+        bindsym $mod+semicolon workspace number $ws5 ; mode "default"
+        bindsym $mod+comma workspace number $ws6 ; mode "default"
+        bindsym $mod+period workspace number $ws7 ; mode "default"
 
         # Navigate // Workspaces 1-10 // 0..9 ##
         bindsym $ws1_key workspace number $ws1 ; mode "default"
@@ -68,47 +81,35 @@ mode "Leader Mode" {
 
 
         ## Navigate // Next Workspace on Output // Tab ##
-        bindsym Tab workspace next_on_output ; mode "default"
+        bindsym period workspace next_on_output ; mode "default"
         ## Navigate // Previous Workspace on Output // Shift + Tab ##
-        bindsym Shift+Tab workspace prev_on_output ; mode "default"
+        bindsym comma workspace prev_on_output ; mode "default"
 
         ## Navigate // Next Workspace // Alt + Tab ##
-        bindsym $alt+Tab workspace next ; mode "default"
+        bindsym Shift+period workspace next ; mode "default"
         ## Navigate // Previous Workspace // Alt + Shift + Tab ##
-        bindsym $alt+Shift+Tab workspace prev ; mode "default"
+        bindsym Shift+comma workspace prev ; mode "default"
 
-        # Move workspace to monitors
-        # bindsym < move workspace to output left ; mode "default"
-        # # # bindsym . move workspace to output down ; mode "default"
-        # # # bindsym \, move workspace to output up ; mode "default"
-        # bindsym > move workspace to output right ; mode "default"
 
-        # Fullscreen Toggle
-        bindsym Space fullscreen toggle ; mode "default"
+        # Space: Fullscreen Toggle
+        bindsym space fullscreen toggle ; mode "default"
 
-        # ## Resize // Resize Window // ↑ ↓ ← → ##
-        # bindsym Left resize shrink width 6 px or 6 ppt
-        # bindsym Down resize grow height 6 px or 6 ppt
-        # bindsym Up resize shrink height 6 px or 6 ppt
-        # bindsym Right resize grow width 6 px or 6 ppt
+        # r: Refresh config
+        bindsym r reload ; mode "default"
 
-        # bindsym Shift+Left resize shrink width 12 px or 12 ppt
-        # bindsym Shift+Down resize grow height 12 px or 12 ppt
-        # bindsym Shift+Up resize shrink height 12 px or 12 ppt
-        # bindsym Shift+Right resize grow width 12 px or 12 ppt
+        # Backspace: find window
+        bindsym BackSpace exec --no-startup-id $i3-wm.program.launcher.window -t $ilia.stylesheet ; mode "default"
 
-        # ## Resize // Resize Window // k j h l ##
-        # bindsym $i3-wm.binding.left resize shrink width 6 px or 6 ppt
-        # bindsym $i3-wm.binding.up resize grow height 6 px or 6 ppt
-        # bindsym $i3-wm.binding.down resize shrink height 6 px or 6 ppt
-        # bindsym $i3-wm.binding.right resize grow width 6 px or 6 ppt
+        # Enter: toggle layout
+        bindsym Return layout toggle tabbed splith splitv ; mode "default"
 
-        # bindsym $i3-wm.binding.move_left resize shrink width 12 px or 12 ppt
-        # bindsym $i3-wm.binding.move_up resize grow height 12 px or 12 ppt
-        # bindsym $i3-wm.binding.move_down resize shrink height 12 px or 12 ppt
-        # bindsym $i3-wm.binding.move_right resize grow width 12 px or 12 ppt
+        # Tab: toggle float
+        bindsym Tab focus mode_toggle ; mode "default"
 
-        # ## Resize // Exit Resize Mode // Escape or Enter ##
+        # q: kill
+        bindsym q kill ; mode "default"
+
+        # ## Leader // Exit Leader Mode // Escape or Enter ##
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+z mode "default"

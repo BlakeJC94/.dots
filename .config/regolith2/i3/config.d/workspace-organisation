@@ -1,0 +1,11 @@
+# TODO check this matches $ xrandr --listmonitors
+workspace $ws1 output DP-2
+workspace $ws2 output DP-2
+workspace $ws3 output DP-2
+workspace $ws4 output DP-2
+workspace $ws5 output DP-1
+workspace $ws6 output DP-1
+workspace $ws7 output DP-1
+
+for_window [class="Slack"] move to workspace $ws5
+for_window [class="Kitty"] move to workspace $ws1
