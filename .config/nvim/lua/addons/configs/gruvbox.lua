@@ -10,6 +10,7 @@ _G._configs.gruvbox_telescope_colors = function()
 end
 
 return {
+    after={"gitsigns.nvim", "telescope.nvim", "nvim-treesitter"},
     requires = {"rktjmp/lush.nvim"},
     config = function()
         vim.o.background = "dark"
@@ -33,10 +34,13 @@ return {
                 Search = {fg = "#fabd2f", bg = "#282828"},
                 CurSearch = {bg = "#fabd2f", fg = "#282828"},
                 IncSearch = {fg = "#fabd2f", bg = "#282828"},
-                DiffChange = {fg= "", bg = "#24312A"},
-                DiffAdd = {fg= "", bg = "#282B20"},
-                DiffDelete = {fg= "", bg = "#2D2021"},
+                DiffChange = {bg = "#24312A", fg="", reverse=false},
+                DiffAdd = {bg = "#282B20", fg="", reverse=false},
+                DiffDelete = {bg = "#2D2021", fg="", reverse=false},
                 -- DiffText = {bg = ""},
+                MatchWord = {bg = "#282828"},
+                MatchParenCur = {bg = "#282828"},
+                MatchWordCur  = {bg = "#282828"},
             },
         })
 
