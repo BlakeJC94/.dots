@@ -8,4 +8,4 @@ workspace $ws6 output DP-1
 workspace $ws7 output DP-1
 
 for_window [class="Slack"] move to workspace $ws5
-for_window [class="Kitty"] move to workspace $ws1
+for_window [class="Kitty"] move to workspace $ws2

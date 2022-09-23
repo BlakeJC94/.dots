@@ -1,52 +1,51 @@
-# TODO override the files `40_workspace-config` and `30_navigation`
 ## Navigate // Enter Leader Mode // <> + z ##
 mode "Leader Mode" {
 
-        ## Navigate // Relative Window // ↑ ↓ ← → ##
+        # ↑ ↓ ← → : Go to Window
         bindsym Left focus left ; mode "default"
         bindsym Down focus down ; mode "default"
         bindsym Up focus up ; mode "default"
         bindsym Right focus right ; mode "default"
-        ## Navigate // Relative Window // k j h l ##
+        # h j k l : Go to Window
         bindsym h focus left ; mode "default"
         bindsym j focus down ; mode "default"
         bindsym k focus up ; mode "default"
         bindsym l focus right ; mode "default"
 
-
-        ## Move // Relative Window // Shift + ↑ ↓ ← → ##
+        # Shift + ↑ ↓ ← → : Move Window
         bindsym Shift+Left move left ; mode "default"
         bindsym Shift+Down move down ; mode "default"
         bindsym Shift+Up move up ; mode "default"
         bindsym Shift+Right move right ; mode "default"
-        ## Move // Relative Window // Shift + k j h l ##
+        # Shift + k j h l : Move Window
         bindsym Shift+h move left ; mode "default"
         bindsym Shift+j move down ; mode "default"
         bindsym Shift+k move up ; mode "default"
         bindsym Shift+l move right ; mode "default"
 
-        # Move workspace to monitors
-        bindsym Ctrl+h move workspace to output left ; mode "default"
-        bindsym Ctrl+j move workspace to output down ; mode "default"
-        bindsym Ctrl+k move workspace to output up ; mode "default"
-        bindsym Ctrl+l move workspace to output right ; mode "default"
+        # Ctrl + ↑ ↓ ← → : Move workspace to monitors
         bindsym Ctrl+Left move workspace to output left ; mode "default"
         bindsym Ctrl+Down move workspace to output down ; mode "default"
         bindsym Ctrl+Up move workspace to output up ; mode "default"
         bindsym Ctrl+Right move workspace to output right ; mode "default"
+        # Ctrl + h j k l : Move workspace to monitors
+        bindsym Ctrl+h move workspace to output left ; mode "default"
+        bindsym Ctrl+j move workspace to output down ; mode "default"
+        bindsym Ctrl+k move workspace to output up ; mode "default"
+        bindsym Ctrl+l move workspace to output right ; mode "default"
 
-
-        ## Resize // Resize Window // Alt + ↑ ↓ ← → ##
+        # Alt + ↑ ↓ ← → : Resize Window
         bindsym $alt+h resize shrink width 6 px or 6 ppt
         bindsym $alt+j resize grow height 6 px or 6 ppt
         bindsym $alt+k resize shrink height 6 px or 6 ppt
         bindsym $alt+l resize grow width 6 px or 6 ppt
-        ## Resize // Resize Window // Alt + k j h l ##
+        # Alt + k j h l : Resize Window
         bindsym $alt+Left resize shrink width 6 px or 6 ppt
         bindsym $alt+Down resize grow height 6 px or 6 ppt
         bindsym $alt+Up resize shrink height 6 px or 6 ppt
         bindsym $alt+Right resize grow width 6 px or 6 ppt
 
+        # Win + k j h l : Jump to main
         bindsym $mod+h workspace number $ws1 ; mode "default"
         bindsym $mod+j workspace number $ws2 ; mode "default"
         bindsym $mod+k workspace number $ws3 ; mode "default"
@@ -55,7 +54,7 @@ mode "Leader Mode" {
         bindsym $mod+comma workspace number $ws6 ; mode "default"
         bindsym $mod+period workspace number $ws7 ; mode "default"
 
-        # Navigate // Workspaces 1-10 // 0..9 ##
+        # 0..9: Go to workspace
         bindsym $ws1_key workspace number $ws1 ; mode "default"
         bindsym $ws2_key workspace number $ws2 ; mode "default"
         bindsym $ws3_key workspace number $ws3 ; mode "default"
@@ -67,7 +66,7 @@ mode "Leader Mode" {
         bindsym $ws9_key workspace number $ws9 ; mode "default"
         bindsym $ws10_key workspace number $ws10 ; mode "default"
 
-        # Move // Workspaces 1-10 // Shift + 0..9 ##
+        # Shift + 0..9: Move win to workspace
         bindsym Shift+$ws1_key move container to workspace number $ws1 ; mode "default"
         bindsym Shift+$ws2_key move container to workspace number $ws2 ; mode "default"
         bindsym Shift+$ws3_key move container to workspace number $ws3 ; mode "default"
@@ -79,37 +78,35 @@ mode "Leader Mode" {
         bindsym Shift+$ws9_key move container to workspace number $ws9 ; mode "default"
         bindsym Shift+$ws10_key move container to workspace number $ws10 ; mode "default"
 
-
-        ## Navigate // Next Workspace on Output // Tab ##
+        # . : Next Workspace on Output
         bindsym period workspace next_on_output ; mode "default"
-        ## Navigate // Previous Workspace on Output // Shift + Tab ##
+        # , : Previous Workspace on Output
         bindsym comma workspace prev_on_output ; mode "default"
 
-        ## Navigate // Next Workspace // Alt + Tab ##
+        # < : Next Workspace
         bindsym Shift+period workspace next ; mode "default"
-        ## Navigate // Previous Workspace // Alt + Shift + Tab ##
+        # > : Previous Workspace
         bindsym Shift+comma workspace prev ; mode "default"
 
-
-        # Space: Fullscreen Toggle
+        # Space : Fullscreen Toggle
         bindsym space fullscreen toggle ; mode "default"
 
-        # r: Refresh config
-        bindsym r reload ; mode "default"
+        # c : Refresh config
+        bindsym c reload ; mode "default"
 
-        # Backspace: find window
+        # Backspace : find window
         bindsym BackSpace exec --no-startup-id $i3-wm.program.launcher.window -t $ilia.stylesheet ; mode "default"
 
-        # Enter: toggle layout
+        # Enter : toggle layout
         bindsym Return layout toggle tabbed splith splitv ; mode "default"
 
-        # Tab: toggle float
+        # Tab : toggle float
         bindsym Tab focus mode_toggle ; mode "default"
 
-        # q: kill
+        # q : kill
         bindsym q kill ; mode "default"
 
-        # ## Leader // Exit Leader Mode // Escape or Enter ##
+        # Escape or Enter : Exit Leader Mode
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+z mode "default"
