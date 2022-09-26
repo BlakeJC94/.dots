@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# TODO write program that accepts vargin and echos the command it plans to run
+# e.g. echo "DRY-RUN: ln -sf" ${SOURCE} ${DEST}
