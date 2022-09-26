@@ -44,7 +44,7 @@ for DIR in ${DIRS_TO_SET_UP}; do
             # echo "FOO" $DEST
             mv ${DEST} ${DEST}.dots.bak
         fi
-        ln -sf ${SOURCE} ${DEST}
+        ln -sTf ${SOURCE} ${DEST}
         # echo "DRYRUN: ln -s"  ${SOURCE} ${DEST}
     done
 done
