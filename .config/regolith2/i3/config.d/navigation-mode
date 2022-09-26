@@ -43,3 +43,8 @@ mode "Leader Mode" {
         bindsym $mod+z mode "default"
 }
 bindsym $mod+z mode "Leader Mode"
+
+# TODO move to separeate file and add playerctl to apt list
+bindsym $mod+semicolon exec playerctl play-pause
+bindsym $mod+period exec playerctl next
+bindsym $mod+comma exec playerctl previous
