@@ -41,10 +41,11 @@ for DIR in ${DIRS_TO_SET_UP}; do
         DEST=$(echo ${SOURCE} | sed "s/\.dots\/${DIRNAME}\//${NEWSTEM}/")
 
         if [ -e "${DEST}" ]; then
-	    mv ${DEST} ${DEST}.dots.bak
-    	fi
-        ln -s  ${SOURCE} ${DEST}
-	# echo "ln -s"  ${SOURCE} ${DEST}
+            # echo "FOO" $DEST
+            mv ${DEST} ${DEST}.dots.bak
+        fi
+        ln -sf ${SOURCE} ${DEST}
+        # echo "DRYRUN: ln -s"  ${SOURCE} ${DEST}
     done
 done
 

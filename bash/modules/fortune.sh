@@ -1,9 +1,10 @@
 # print a fortune when starting up a bash session
-if [[ "$(command -v fortune)" ]] && [[ -f ~/.dots/extras/fortune/programming-tips ]]; then
+FORTUNES_FILE="${HOME}/.dots/fortune/programming-tips"
+if [[ "$(command -v fortune)" ]] && [[ -f ${FORTUNES_FILE} ]]; then
     if [[ "$(command -v colorize)" ]]; then
-        fortune $HOME/.dots/fortune/programming-tips | colorize magenta
+        fortune ${FORTUNES_FILE} | colorize magenta
     else
-        fortune $HOME/.dots/fortune/programming-tips
+        fortune ${FORTUNES_FILE}
     fi
 fi
 
