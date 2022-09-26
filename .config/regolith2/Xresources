@@ -1,5 +1,8 @@
 regolith.look.path: /usr/share/regolith-look/gruvbox
 
+i3xrocks.warning: "#dc322f"
+i3xrocks.critical.colok: "#dc322f"
+
 i3-wm.binding.focus_child: x
 
 i3-wm.workspace.01.name: "1"
