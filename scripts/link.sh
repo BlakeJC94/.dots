@@ -44,6 +44,11 @@ for DIR in ${DIRS_TO_SET_UP}; do
             # echo "FOO" $DEST
             mv ${DEST} ${DEST}.dots.bak
         fi
+
+        if [ -L ${DEST} ] ; then
+            unlink ${DEST}
+        fi
+
         ln -sfn ${SOURCE} ${DEST}
         # echo "DRYRUN: ln -s"  ${SOURCE} ${DEST}
     done
