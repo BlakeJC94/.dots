@@ -111,7 +111,11 @@ apt install -y \
 
 
 # DOWNLOAD SOURCE FOR WEZTERM AND INSTALL
-VERSION=$(curl -s https://api.github.com/repos/wez/wezterm/releases/latest|grep tag_name|cut -d '"' -f 4)
+VERSION=$( \
+    curl -s https://api.github.com/repos/wez/wezterm/releases/latest \
+    | grep tag_name \
+    | cut -d '"' -f 4 \
+)
 if ! [ "$(command -v wezterm)" ] || [ "$(wezterm --version | cut -d ' ' -f 2)" != "${VERSION}" ]; then
     wget \
         https://github.com/wez/wezterm/releases/download/${VERSION}/wezterm-${VERSION}.Ubuntu22.04.deb \
@@ -133,4 +137,19 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 for i in "${PACKAGES[@]}"; do
     flatpak install --noninteractive flathub "${i}"
 done
+
+
+# INSTALL AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+./aws/install
+
+
+# TODO INSTALL AWS-SSO
+
+
+# INSTALL TAILSCALE
+if ! [[ "$(command -v tailscale)" ]]; then
+    curl -fsSL https://tailscale.com/install.sh | sh
+fi
 

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 0 ]] ; then
+    echo -e "Google things using `wat` \n"
+    echo -e "  Usage: wat [search query] \n"
+    exit 1
+fi
+
+search_term="${*}"
+search_term="${search_term// /+}"
+firefox https://www.google.com.au/search?q=${search_term} &
+
+

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 0 ]] ; then
+    echo -e "Clone git worktrees and configure git fetch \n"
+    echo -e "  Usage: clonetree [repo url] [dir name (optional)] \n"
+    exit 1
+fi
+
+url=$1
+basename=${url##*/}
+name=${2:-${basename%.*}}
+
+mkdir $name
+
+# Moves all the administrative git files (a.k.a $GIT_DIR) under .bare directory.
+#
+# Plan is to create worktrees as siblings of this directory.
+# Example targeted structure:
+# .bare
+# main
+# new-awesome-feature
+# hotfix-bug-12
+# ...
+STATUS=$(
+    cd "${name}"
+    git clone --bare "$url" .git
+    echo "gitdir: ./.git" > .git
+
+    # Explicitly sets the remote origin fetch so we can fetch remote branches
+    git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+
+    # Gets all branches from origin
+    git fetch origin
+)
+
+exit ${STATUS}

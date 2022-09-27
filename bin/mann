@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 0 ]] ; then
+    echo -e "Cheat.sh alias, pipe query result to less. \n"
+    echo -e "    Usage: mann [query] \n"
+    exit 1
+fi
+
+curl --silent "https://cheat.sh/${1}" | less -R
+exit 0

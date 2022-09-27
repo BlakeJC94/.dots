@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 0 ]] ; then
+    echo -e "Alias for mkdir and cd \n "
+    echo -e "  Usage: cdm [dirname] \n"
+fi
+
+mkdir -p "$1" && cd "$1" || return 1
+
+return 0
