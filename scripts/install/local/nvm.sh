@@ -5,11 +5,3 @@ if ! [[ "$(command -v nvm)" ]]; then
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
 nvm install node --latest-npm
-
-npm install -g \
-    pyright \
-    yaml-language-server \
-    prettier \
-    bash-language-server \
-    @johnnymorganz/stylua-bin
-

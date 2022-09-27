@@ -39,6 +39,7 @@ source $HOME/.dots/bash/modules/tex.sh
 source $HOME/.dots/bash/modules/nvm.sh
 source $HOME/.dots/bash/modules/pyright.sh
 source $HOME/.dots/bash/modules/pyenv.sh
+source $HOME/.dots/bash/modules/jill.sh
 
 source $HOME/.dots/bash/modules/vim.sh
 source $HOME/.dots/bash/modules/tmux.sh
