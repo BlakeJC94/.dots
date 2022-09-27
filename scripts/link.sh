@@ -40,16 +40,20 @@ for DIR in ${DIRS_TO_SET_UP}; do
 
         DEST=$(echo ${SOURCE} | sed "s/\.dots\/${DIRNAME}\//${NEWSTEM}/")
 
-        if [ -e "${DEST}" ]; then
-            # echo "FOO" $DEST
-            mv ${DEST} ${DEST}.dots.bak
-        fi
-
         if [ -L ${DEST} ] ; then
+            if [ -e ${DEST} ] ; then
+                echo "Good link"
+            else
+                echo "Broken link"
+            fi
             unlink ${DEST}
+        elif [ -e ${DEST} ] ; then
+            echo "Not a link"
+            mv ${DEST} ${DEST}.dots.bak
+        else
+            echo "Missing"
         fi
-
-        ln -sfn ${SOURCE} ${DEST}
+        ln -sf ${SOURCE} ${DEST}
         # echo "DRYRUN: ln -s"  ${SOURCE} ${DEST}
     done
 done
