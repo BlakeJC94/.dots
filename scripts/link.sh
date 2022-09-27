@@ -58,4 +58,7 @@ for DIR in ${DIRS_TO_SET_UP}; do
     done
 done
 
+# Make bin scripts executable
+find "${HOME}/.dots/bin" -type f exec chmod a+x "{}" \; 2> /dev/null
+
 echo "==> Done!"
