@@ -54,13 +54,13 @@ apt install -y \
     ripgrep
 
 
-
 # INSTALL OTHER PACKAGE MANAGERS AND DEPENDENCIES
 apt install -y \
     luarocks \
     lua5.1 \
     cargo \
     cmake
+
 
 # INSTALL BREW DEPENDENCIES
 apt install -y \
@@ -69,6 +69,7 @@ apt install -y \
     curl \
     file \
     git
+
 
 # INSTALL NCSPOT DEPENDENCIES
 apt install -y \
@@ -119,7 +120,7 @@ VERSION=$( \
 if ! [ "$(command -v wezterm)" ] || [ "$(wezterm --version | cut -d ' ' -f 2)" != "${VERSION}" ]; then
     wget \
         https://github.com/wez/wezterm/releases/download/${VERSION}/wezterm-${VERSION}.Ubuntu22.04.deb \
-        -o /tmp/wezterm.deb
+        -O /tmp/wezterm.deb
     apt install -y /tmp/wezterm.deb
     rm /tmp/wezterm.deb
     update-alternatives --set x-terminal-emulator /usr/bin/open-wezterm-here
@@ -143,6 +144,8 @@ done
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 ./aws/install
+rm -r ./aws
+rm awscliv2.zip
 
 
 # TODO INSTALL AWS-SSO
