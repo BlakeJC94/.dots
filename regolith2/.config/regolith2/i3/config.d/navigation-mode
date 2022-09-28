@@ -17,7 +17,8 @@ mode "Leader Mode" {
         bindsym $ws9_key workspace number $ws9 ; mode "default"
         bindsym $ws10_key workspace number $ws10 ; mode "default"
 
-        bindsym Tab mode "Move Mode"
+        bindsym m mode "Move Mode"
+        bindsym r mode "Resize Mode"
 
         # k j h l ; , . : Go to main workspaces
         bindsym h workspace number $ws1 ; mode "default"
@@ -62,3 +63,4 @@ mode "Move Mode" {
         bindsym Escape mode "default"
         bindsym Tab mode "default"
 }
+bindsym $mod+m mode "Move Mode"
