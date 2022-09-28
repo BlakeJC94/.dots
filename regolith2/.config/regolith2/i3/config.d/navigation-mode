@@ -1,5 +1,23 @@
+# TODO move to separate file
+bindsym $mod+semicolon exec playerctl play-pause
+bindsym $mod+period exec playerctl next
+bindsym $mod+comma exec playerctl previous
+
 ## Navigate // Enter Leader Mode // <> + z ##
 mode "Leader Mode" {
+
+        bindsym $ws1_key workspace number $ws1 ; mode "default"
+        bindsym $ws2_key workspace number $ws2 ; mode "default"
+        bindsym $ws3_key workspace number $ws3 ; mode "default"
+        bindsym $ws4_key workspace number $ws4 ; mode "default"
+        bindsym $ws5_key workspace number $ws5 ; mode "default"
+        bindsym $ws6_key workspace number $ws6 ; mode "default"
+        bindsym $ws7_key workspace number $ws7 ; mode "default"
+        bindsym $ws8_key workspace number $ws8 ; mode "default"
+        bindsym $ws9_key workspace number $ws9 ; mode "default"
+        bindsym $ws10_key workspace number $ws10 ; mode "default"
+
+        bindsym Tab mode "Move Mode"
 
         # k j h l ; , . : Go to main workspaces
         bindsym h workspace number $ws1 ; mode "default"
@@ -19,24 +37,6 @@ mode "Leader Mode" {
         bindsym Shift+comma move container to workspace number $ws6 ; workspace number $ws5 ; mode "default"
         bindsym Shift+period move container to workspace number $ws7 ; workspace number $ws5 ; mode "default"
 
-        # Space : Fullscreen Toggle
-        bindsym space fullscreen toggle ; mode "default"
-
-        # c : Refresh config
-        bindsym c reload ; mode "default"
-
-        # Backspace : find window
-        bindsym BackSpace exec --no-startup-id $i3-wm.program.launcher.window -t $ilia.stylesheet ; mode "default"
-
-        # Enter : toggle layout
-        bindsym Return layout toggle tabbed splith splitv ; mode "default"
-
-        # Tab : toggle float
-        bindsym Tab focus mode_toggle ; mode "default"
-
-        # q : kill
-        bindsym q kill ; mode "default"
-
         # Escape or Enter : Exit Leader Mode
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -44,7 +44,21 @@ mode "Leader Mode" {
 }
 bindsym $mod+z mode "Leader Mode"
 
-# TODO move to separeate file and add playerctl to apt list
-bindsym $mod+semicolon exec playerctl play-pause
-bindsym $mod+period exec playerctl next
-bindsym $mod+comma exec playerctl previous
+mode "Move Mode" {
+
+        bindsym $ws1_key move container to workspace number $ws1 ; workspace number $ws1 ; mode "default"
+        bindsym $ws2_key move container to workspace number $ws2 ; workspace number $ws2 ; mode "default"
+        bindsym $ws3_key move container to workspace number $ws3 ; workspace number $ws3 ; mode "default"
+        bindsym $ws4_key move container to workspace number $ws4 ; workspace number $ws4 ; mode "default"
+        bindsym $ws5_key move container to workspace number $ws5 ; workspace number $ws5 ; mode "default"
+        bindsym $ws6_key move container to workspace number $ws6 ; workspace number $ws6 ; mode "default"
+        bindsym $ws7_key move container to workspace number $ws7 ; workspace number $ws7 ; mode "default"
+        bindsym $ws8_key move container to workspace number $ws8 ; workspace number $ws8 ; mode "default"
+        bindsym $ws9_key move container to workspace number $ws9 ; workspace number $ws9 ; mode "default"
+        bindsym $ws10_key move container to workspace number $ws10 ; workspace number $ws10 ; mode "default"
+
+        # Escape or Enter : Exit Leader Mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Tab mode "default"
+}

@@ -1,6 +1,6 @@
 
 i3xrocks.warning: "#dc322f"
-i3xrocks.critical.colok: "#dc322f"
+i3xrocks.critical.color: "#dc322f"
 
 i3-wm.binding.focus_child: x
 

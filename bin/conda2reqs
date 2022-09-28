@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+cat environment.yml | sed -n '/dependencies/,$p' | tail +2 | sed '/^\s\+-\s\+python[=<>]/d' | cut -d ' ' -f 4 > ./requirements.txt
