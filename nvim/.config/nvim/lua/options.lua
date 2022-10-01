@@ -51,7 +51,7 @@ return {
     -- BOTTOM MARGIN
     laststatus = 3,     -- Show global status line
     showcmd    = true,  -- Show command in bottom right
-    cmdheight  = 0,     -- Set height of command window
+    cmdheight  = 2,     -- Set height of command window
     wildignore = {'*.pyc', '**/.git/*', '**/data/*'},
     -- TOP MARGIN
     showtabline = 0,  -- Display tab line (0, never, 1 auto, 2 always)
