@@ -50,7 +50,7 @@ return {
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
         ["<Leader>;"] = ":Settings<CR>", -- Edit settings
         ["<Leader>:"] = ":luafile $MYVIMRC<CR>", -- Reload settings
-        ["<Leader>h"] = ":Neogen<CR>", -- Reload settings
+        ["<Leader>h"] = ":Neogen<CR>", -- Generate docs
         -- Fkey maps
         ["<F1>"] = { map = ":setl relativenumber!<CR>:setl relativenumber?<CR>", opts = { silent = false } },
         ["<F2>"] = { map = ":setl number!<CR>:setl number?<CR>", opts = { silent = false } },
