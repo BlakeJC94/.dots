@@ -4,5 +4,5 @@ tar -xzf nvim-linux64.tar.gz --directory=$HOME/.local/opt --wildcards nvim-linux
 rm nvim-linux64.tar.gz
 
 if ! [[ "$(command -v nvim)" ]]; then
-    sudo ln -sf $HOME/.local/opt/nvim-linux64/bin/nvim $HOME/.local/bin/nvim
+    ln -sf $HOME/.local/opt/nvim-linux64/bin/nvim $HOME/.local/bin/nvim
 fi
