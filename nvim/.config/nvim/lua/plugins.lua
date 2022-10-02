@@ -30,7 +30,7 @@ return {
     "milisims/nvim-luaref",  -- Lua reference
     "sam4llis/nvim-lua-gf",  -- Make `gf` work for lua requires
     "ethanholz/nvim-lastplace",  -- Jump to last place when opening a file
-    "luukvbaal/stabilize.nvim",  -- Stabilise split creation  TODO remove when merged
+    "luukvbaal/stabilize.nvim",  -- Stabilise split creation  TODO remove when merged in 0.9
     "nacro90/numb.nvim",  -- Peek lines when selecting in command mode
     "mrjones2014/smart-splits.nvim",  -- smarter split resize functions
     -- LSP
