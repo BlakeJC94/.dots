@@ -59,7 +59,6 @@ return {
     requires = {
         "nvim-treesitter/playground",
         "nvim-treesitter/nvim-treesitter-textobjects",
-        "lewis6991/spellsitter.nvim",  -- TODO remove when merged into neovim
         "lewis6991/nvim-treesitter-context",  -- Pop-up for context
         "danymat/neogen",  -- Generate docstrings
         "andymass/vim-matchup",  -- Extended motions for %
@@ -88,7 +87,6 @@ return {
             textobjects = _G._configs.treesitter_get_textobjs(),
         })
 
-        require("spellsitter").setup()
         require("treesitter-context").setup({
             enable = true,
             throttle = true,

@@ -44,5 +44,5 @@ return {
     "nvim-telescope/telescope-fzf-native.nvim",
     "nvim-telescope/telescope.nvim", -- Extensible Fuzzy finder
     -- TREESITTER
-    "nvim-treesitter/nvim-treesitter",  -- TreeSitter plugin configuration TODO rm spellsitter on 0.8
+    "nvim-treesitter/nvim-treesitter",  -- TreeSitter plugin configuration
 }

@@ -13,11 +13,12 @@ return {
     -- set info buffer opts
     {
         events = {"FileType"},
-        pattern = {"qf", "help", "fugitive", "man"},
+        pattern = {"qf", "help", "fugitive", "man", "gitcommit"},
         callback = function()
             FUNCTIONS.SetQuitWithQ()
             vim.opt_local.spell = false
             vim.opt_local.colorcolumn = {}
+            vim.opt_local.foldlevel = 99
             -- restore default K action on help pages
             vim.keymap.set('n', 'K', ":h <C-r>=expand('<cword>')<CR><CR>", {silent=true, buffer=true})
         end,
