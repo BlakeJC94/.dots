@@ -22,8 +22,8 @@ return {
     disable_default_key_bindings = true,
     keys = {
         { key = "n", mods = "CTRL|SHIFT", action = wezterm.action.SpawnWindow },
-        { key = "c", mods = "CTRL|SHIFT", action = wezterm.action.CopyTo("Clipboard") },
-        { key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
+        { key = "c", mods = "CTRL|SHIFT", action = {CopyTo = "Clipboard"} },
+        { key = "v", mods = "CTRL|SHIFT", action = {PasteFrom="Clipboard"} },
         { key = "+", mods = "CTRL|SHIFT", action = wezterm.action.IncreaseFontSize },
         { key = "_", mods = "CTRL|SHIFT", action = wezterm.action.DecreaseFontSize },
         { key = "0", mods = "CTRL|SHIFT", action = wezterm.action.ResetFontSize },
