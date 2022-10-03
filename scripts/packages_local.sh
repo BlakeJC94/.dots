@@ -1,5 +1,6 @@
 
 bash ${HOME}/.dots/scripts/install/local/pyenv.sh
+bash ${HOME}/.dots/scripts/install/local/rust.sh
 bash ${HOME}/.dots/scripts/install/local/nvm.sh
 # bash ${HOME}/.dots/scripts/install/local/brew.sh
 bash ${HOME}/.dots/scripts/install/local/ncspot.sh
