@@ -8,31 +8,9 @@ fi
 # HOME=$(getent passwd $SUDO_USER | cut -d: -f6)
 
 
-# ADD SOURCE FOR REGOLITH
-# Register the Regolith public key to your local apt
-wget -qO - https://regolith-desktop.org/regolith.key | gpg --dearmor | sudo tee /usr/share/keyrings/regolith-archive-keyring.gpg > /dev/null
-# Add the repository URL to your local apt
-echo deb "[arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.org/release-ubuntu-jammy-amd64 jammy main" | \
-tee /etc/apt/sources.list.d/regolith.list
-
-
 # UPDATE AND UPGRADE APT
 apt update
 apt upgrade -y
-
-
-# INSTALL REGOLITH
-apt install -y \
-    regolith-desktop \
-    regolith-look-gruvbox \
-    i3xrocks-focused-window-name \
-    i3xrocks-rofication \
-    i3xrocks-info \
-    i3xrocks-app-launcher \
-    i3xrocks-memory \
-    i3xrocks-battery \
-    regolith-compositor-picom-glx \
-    playerctl \
 
 
 # INSTALL COMMAND LINE TOOLS
