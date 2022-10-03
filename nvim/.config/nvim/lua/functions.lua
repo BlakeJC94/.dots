@@ -82,7 +82,7 @@ end
 
 functions['TrimSpaces'] = function(keys)
     local winstate = vim.fn.winsaveview()
-    vim.cmd.keeppatterns("%s/\\s\\+$//e")  -- escape `\`
+    vim.cmd("keeppatterns %s/\\s\\+$//e")  -- escape `\`
     vim.fn.winrestview(winstate)
 end
 
@@ -152,6 +152,40 @@ functions['OpenURL'] = function()
     elseif string.match(uri, "%S+/%S+") then
         vim.fn.execute("!xdg-open https://github.com/" .. uri)
     end
+end
+
+functions['ColorMidpoint'] = function(color1, color2, n_midpoints, point_idx)
+    n_midpoints = n_midpoints or 1
+    point_idx = point_idx or 1
+
+    if n_midpoints < 1 then error("Invalid n_midpoints, expected >= 1") end
+    if point_idx < 1 or point_idx > n_midpoints then error("Invalid point_idx") end
+
+    local color_coords = {}
+    for _, color in ipairs({color1, color2}) do
+        if type(color) ~= "string" or #color ~= 7 or color:sub(1,1) ~= "#" then
+            error("Invalid color given, expected format '#xxxxxx'")
+        end
+        color_coords[color] = {
+            tonumber("0x" .. color:sub(2):sub(1, 2)),
+            tonumber("0x" .. color:sub(2):sub(3, 4)),
+            tonumber("0x" .. color:sub(2):sub(5, 6)),
+        }
+    end
+
+    local delta_x = 1/(n_midpoints + 1)
+    local result = "#"
+
+    for i = 1, 3 do
+        local m = color_coords[color2][i] - color_coords[color1][i]
+        local c = color_coords[color1][i]
+        local step = point_idx * delta_x
+
+        local val = step * m + c
+        result = result .. string.format("%02x", math.floor(val + 0.5))
+    end
+
+    return result
 end
 
 return functions

@@ -1,4 +1,3 @@
-TODO investigate fugitive mappings
 TODO write a readme for nvim repo
 
 # RETIRED AUTOGROUPS

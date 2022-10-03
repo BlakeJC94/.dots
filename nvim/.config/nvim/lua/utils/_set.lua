@@ -7,7 +7,10 @@ M.plugins = function(repos)
         return
     end
 
-    packer.init()
+    packer.init({
+        snapshot_path = vim.fn.stdpath("config") .. "/snapshots",
+        snapshot = "packer.json",
+    })
     packer.reset()
     packer.use({'wbthomason/packer.nvim'})
 

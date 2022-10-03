@@ -1,21 +1,17 @@
--- TODO use vim.api.nvim_set_hl(0, group, settings) instead of cmd
-_G._configs.gruvbox_telescope_colors = function()
-    local palette = require('gruvbox.palette')
-end
-
-_G._configs.gruvbox_vim_illuminate_colors = function()
-    local palette = require('gruvbox.palette')
-end
-
 return {
     after = { "gitsigns.nvim", "telescope.nvim", "nvim-treesitter", "vim-illuminate" },
     requires = { "rktjmp/lush.nvim" },
     config = function()
-        vim.o.background = "dark"
-
+        local gruvbox = require("gruvbox")
         local palette = require('gruvbox.palette')
 
-        require("gruvbox").setup({
+        local bg_diff_delete = _G.ColorMidpoint(palette.dark0_hard, palette.neutral_red,    10, 1)
+        local bg_diff_add =    _G.ColorMidpoint(palette.dark0_hard, palette.neutral_green,  10, 1)
+        local bg_diff_change = _G.ColorMidpoint(palette.dark0_hard, palette.neutral_blue,   10, 1)
+        local bg_diff_text =   _G.ColorMidpoint(palette.dark0_hard, palette.neutral_yellow, 10, 3)
+
+        vim.o.background = "dark"
+        gruvbox.setup({
             undercurl = true,
             underline = true,
             bold = true,
@@ -34,41 +30,40 @@ return {
                 Search =                     { fg = palette.bright_yellow, bg = palette.dark0 },
                 CurSearch =                  { bg = palette.bright_yellow, fg = palette.dark0 },
                 IncSearch =                  { fg = palette.bright_yellow, bg = palette.dark0 },
-                DiffChange =                 { bg = "#24312A", fg = "", reverse = false },
-                DiffAdd =                    { bg = "#282B20", fg = "", reverse = false },
-                DiffDelete =                 { bg = "#2D2021", fg = "", reverse = false },
-                DiffText =                   { bg = "#3F3621", fg = "", reverse = false },
+                DiffChange =                 { bg = bg_diff_change, fg = "", reverse = false },
+                DiffAdd =                    { bg = bg_diff_add,    fg = "", reverse = false },
+                DiffDelete =                 { bg = bg_diff_delete, fg = "", reverse = false },
+                DiffText =                   { bg = bg_diff_text, fg = "", reverse = false },
                 MatchWord =                  { bg = palette.dark0 },
                 MatchParenCur =              { bg = palette.dark0 },
                 MatchWordCur =               { bg = palette.dark0 },
             },
         })
-
-        -- TODO: find a native lua method for this
-        -- Note: Diff* colors are obtained from Colorblender
-        --   Color 1: #1D2021  <-- (palette.neutral_red)
-        --   Color 2: #CC241D  <-- (palette.neutral_red)
-        --   Midpoints: 10
-
         vim.cmd.colorscheme("gruvbox")
 
-        local ok, _ = pcall(require, "telescope")
-        if ok then
-            vim.cmd.highlight("TelescopePromptBorder guibg=" .. palette.dark0_hard)
-            vim.cmd.highlight("TelescopePromptNormal guibg=" .. palette.dark0_hard)
+        local plugin_overrides = {
+            telescope = {
+                TelescopePromptBorder  = { bg = palette.dark0_hard },
+                TelescopePromptNormal  = { bg = palette.dark0_hard },
+                TelescopeResultsBorder = { bg = palette.dark1 },
+                TelescopeResultsNormal = { bg = palette.dark1 },
+                TelescopePreviewBorder = { bg = palette.dark0_hard },
+                TelescopePreviewNormal = { bg = palette.dark0_hard },
+            },
+            illuminate = {
+                IlluminatedWordText = { bg = palette.dark0 },
+                IlluminatedWordRead = { bg = palette.dark0 },
+                IlluminatedWordWrite= { bg = palette.dark0 },
+            },
+        }
 
-            vim.cmd.highlight("TelescopeResultsBorder guibg=" .. palette.dark1)
-            vim.cmd.highlight("TelescopeResultsNormal guibg=" .. palette.dark1)
-
-            vim.cmd.highlight("TelescopePreviewBorder guibg=" .. palette.dark0_hard)
-            vim.cmd.highlight("TelescopePreviewNormal guibg=" .. palette.dark0_hard)
-        end
-
-        local ok, _ = pcall(require, "illuminate")
-        if ok then
-            vim.cmd.highlight("def IlluminatedWordText guibg=" .. palette.dark0)
-            vim.cmd.highlight("def IlluminatedWordRead guibg=" .. palette.dark0)
-            vim.cmd.highlight("def IlluminatedWordWrite guibg=" .. palette.dark0)
+        for plugin, overrides in pairs(plugin_overrides) do
+            local ok, _ = pcall(require, plugin)
+            if ok then
+                for group, settings in pairs(overrides) do
+                    vim.api.nvim_set_hl(0, group, settings)
+                end
+            end
         end
     end,
 }
