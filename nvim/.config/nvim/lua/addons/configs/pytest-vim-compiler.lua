@@ -8,7 +8,7 @@ return {
             {
                 group = augroup("pytest_vim_compiler", {clear = true}),
                 pattern = "*.py",
-                callback = function() vim.cmd("compiler pytest") end,
+                callback = function() vim.cmd.compiler("pytest") end,
             }
         )
     end

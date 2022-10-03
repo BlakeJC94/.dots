@@ -1,6 +1,6 @@
 _G._configs.quick_scope_colors = function()
-    vim.cmd("highlight QuickScopePrimary guifg='#ff007c' gui=bold ctermfg=198 cterm=bold")
-    vim.cmd("highlight QuickScopeSecondary guifg='#00dfff' gui=bold ctermfg=45 cterm=bold")
+    vim.cmd.highlight("QuickScopePrimary guifg='#ff007c' gui=bold ctermfg=198 cterm=bold")
+    vim.cmd.highlight("QuickScopeSecondary guifg='#00dfff' gui=bold ctermfg=45 cterm=bold")
 end
 
 return {

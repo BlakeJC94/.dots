@@ -68,8 +68,9 @@ functions['NewNote'] = function(in_str)
     end
 
     -- Open in vertical split and move cursor to end of file
-    vim.cmd("vsplit | edit " .. note_path)
-    vim.cmd("normal! G$")
+    vim.cmd.vsplit()
+    vim.cmd.edit(note_path)
+    vim.cmd.normal("G$")  -- bang needed?
 end
 
 functions['ShowSyntaxGroup'] = function()
@@ -81,7 +82,7 @@ end
 
 functions['TrimSpaces'] = function(keys)
     local winstate = vim.fn.winsaveview()
-    vim.cmd("keeppatterns %s/\\s\\+$//e")  -- escape `\`
+    vim.cmd.keeppatterns("%s/\\s\\+$//e")  -- escape `\`
     vim.fn.winrestview(winstate)
 end
 

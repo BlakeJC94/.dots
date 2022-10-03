@@ -70,10 +70,5 @@ return {
 
         telescope.load_extension("fzf")
         telescope.load_extension("file_browser")
-
-        -- Load a couple of custom gruvbox colours
-        if _G._configs.gruvbox_telescope_colors ~= nil then
-            _G._configs.gruvbox_telescope_colors()
-        end
     end,
 }

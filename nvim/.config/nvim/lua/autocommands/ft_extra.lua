@@ -28,7 +28,7 @@ return {
         events = {"FileType"},
         pattern = "help",
         callback = function()
-            vim.cmd('wincmd L')
+            vim.cmd.wincmd('L')
             vim.cmd('vert resize 90')
             vim.opt_local.formatoptions:remove('t')
         end,

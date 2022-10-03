@@ -1,19 +1,19 @@
+-- TODO use vim.api.nvim_set_hl(0, group, settings) instead of cmd
 _G._configs.gruvbox_telescope_colors = function()
-    vim.cmd.highlight("TelescopePromptBorder guibg=#282828")
-    vim.cmd.highlight("TelescopePromptNormal guibg=#282828")
+    local palette = require('gruvbox.palette')
+end
 
-    vim.cmd.highlight("TelescopeResultsBorder guibg=#3c3836")
-    vim.cmd.highlight("TelescopeResultsNormal guibg=#3c3836")
-
-    vim.cmd.highlight("TelescopePreviewBorder guibg=#282828")
-    vim.cmd.highlight("TelescopePreviewNormal guibg=#282828")
+_G._configs.gruvbox_vim_illuminate_colors = function()
+    local palette = require('gruvbox.palette')
 end
 
 return {
-    after = { "gitsigns.nvim", "telescope.nvim", "nvim-treesitter" },
+    after = { "gitsigns.nvim", "telescope.nvim", "nvim-treesitter", "vim-illuminate" },
     requires = { "rktjmp/lush.nvim" },
     config = function()
         vim.o.background = "dark"
+
+        local palette = require('gruvbox.palette')
 
         require("gruvbox").setup({
             undercurl = true,
@@ -26,24 +26,53 @@ return {
             invert_intend_guides = false,
             contrast = "hard", -- can be "hard" or "soft"
             overrides = {
-                Folded = { bg = "#282828" },
-                ColorColumn = { bg = "#282828" },
-                CursorLine = { bg = "#282828" },
-                CursorLineNr = { bg = "#282828" },
-                IndentBlanklineContextChar = { fg = "#a89984" },
-                Search = { fg = "#fabd2f", bg = "#282828" },
-                CurSearch = { bg = "#fabd2f", fg = "#282828" },
-                IncSearch = { fg = "#fabd2f", bg = "#282828" },
-                DiffChange = { bg = "#24312A", fg = "", reverse = false },
-                DiffAdd = { bg = "#282B20", fg = "", reverse = false },
-                DiffDelete = { bg = "#2D2021", fg = "", reverse = false },
-                -- DiffText = {bg = ""},
-                MatchWord = { bg = "#282828" },
-                MatchParenCur = { bg = "#282828" },
-                MatchWordCur = { bg = "#282828" },
+                Folded =                     { bg = palette.dark0 },
+                ColorColumn =                { bg = palette.dark0 },
+                CursorLine =                 { bg = palette.dark0 },
+                CursorLineNr =               { bg = palette.dark0 },
+                IndentBlanklineContextChar = { fg = palette.light4 },
+                Search =                     { fg = palette.bright_yellow, bg = palette.dark0 },
+                CurSearch =                  { bg = palette.bright_yellow, fg = palette.dark0 },
+                IncSearch =                  { fg = palette.bright_yellow, bg = palette.dark0 },
+                DiffChange =                 { bg = "#24312A", fg = "", reverse = false },
+                DiffAdd =                    { bg = "#282B20", fg = "", reverse = false },
+                DiffDelete =                 { bg = "#2D2021", fg = "", reverse = false },
+                DiffText =                   { bg = "#3F3621", fg = "", reverse = false },
+                MatchWord =                  { bg = palette.dark0 },
+                MatchParenCur =              { bg = palette.dark0 },
+                MatchWordCur =               { bg = palette.dark0 },
             },
         })
 
+        -- TODO: find a native lua method for this
+        -- Note: Diff* colors are obtained from Colorblender
+        --   Color 1: #1D2021  <-- (palette.neutral_red)
+        --   Color 2: #CC241D  <-- (palette.neutral_red)
+        --   Midpoints: 10
+
         vim.cmd.colorscheme("gruvbox")
+
+        local ok, _ = pcall(require, "telescope")
+        if ok then
+            vim.cmd.highlight("TelescopePromptBorder guibg=" .. palette.dark0_hard)
+            vim.cmd.highlight("TelescopePromptNormal guibg=" .. palette.dark0_hard)
+
+            vim.cmd.highlight("TelescopeResultsBorder guibg=" .. palette.dark1)
+            vim.cmd.highlight("TelescopeResultsNormal guibg=" .. palette.dark1)
+
+            vim.cmd.highlight("TelescopePreviewBorder guibg=" .. palette.dark0_hard)
+            vim.cmd.highlight("TelescopePreviewNormal guibg=" .. palette.dark0_hard)
+        end
+
+        local ok, _ = pcall(require, "illuminate")
+        if ok then
+            vim.cmd.highlight("def IlluminatedWordText guibg=" .. palette.dark0)
+            vim.cmd.highlight("def IlluminatedWordRead guibg=" .. palette.dark0)
+            vim.cmd.highlight("def IlluminatedWordWrite guibg=" .. palette.dark0)
+        end
     end,
 }
+
+
+
+

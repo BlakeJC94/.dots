@@ -6,8 +6,8 @@ _G._configs.treesitter_get_textobjs = function()
             keymaps = {
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner",
+                ["ao"] = "@class.outer",
+                ["io"] = "@class.inner",
             },
             selection_modes = {
                 ["@parameter.outer"] = "v",
@@ -29,25 +29,25 @@ _G._configs.treesitter_get_textobjs = function()
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
                 ["]f"] = "@function.outer",
-                ["]c"] = "@class.outer",
+                ["]o"] = "@class.outer",
                 ["]p"] = "@parameter.outer",
                 ["]a"] = "@attribute.outer",
             },
             goto_next_end = {
                 ["]F"] = "@function.outer",
-                ["]C"] = "@class.outer",
+                ["]O"] = "@class.outer",
                 ["]P"] = "@parameter.outer",
                 ["]A"] = "@attribute.outer",
             },
             goto_previous_start = {
                 ["[f"] = "@function.outer",
-                ["[c"] = "@class.outer",
+                ["[o"] = "@class.outer",
                 ["[p"] = "@parameter.outer",
                 ["[a"] = "@attribute.outer",
             },
             goto_previous_end = {
                 ["[F"] = "@function.outer",
-                ["[C"] = "@class.outer",
+                ["[O"] = "@class.outer",
                 ["[P"] = "@parameter.outer",
                 ["[A"] = "@attribute.outer",
             },
@@ -75,12 +75,20 @@ return {
             "julia",
             "r",
             "regex",
+            "vim",
         }
 
         require("nvim-treesitter.configs").setup({
             ensure_installed = default_parsers,
             sync_install = false,
-            highlight = { enable = true },
+            highlight = {
+                enable = true,
+                disable = function(lang, buf)
+                    if vim.api.nvim_buf_get_option(buf, "filetype") == "help" then
+                        return true
+                    end
+                end,
+            },
             indent = { enable = true },
             playground = { enable = true },
             matchup = { enable = true },

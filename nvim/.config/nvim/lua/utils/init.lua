@@ -16,7 +16,7 @@ M.setup_packer = function()
         vim.fn.execute(install_cmd)
     end
 
-    vim.cmd("packadd packer.nvim")
+    vim.cmd.packadd("packer.nvim")
 end
 
 return M

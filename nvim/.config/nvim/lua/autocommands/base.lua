@@ -5,13 +5,13 @@ return {
     {
         events = {"VimResized"},
         pattern = {"*"},
-        callback = function() vim.cmd("wincmd =") end,
+        callback = function() vim.cmd.wincmd("=") end,
     },
     -- replace tabs with spaces
     {
         events = {"BufWritePre"},
         pattern = "*",
-        callback = function() vim.cmd("retab") end,
+        callback = function() vim.cmd.retab() end,
     },
     -- autoremove whitespace
     {
@@ -29,6 +29,6 @@ return {
     {
         events = {"WinEnter"},
         pattern = "term://*",
-        callback = function() vim.cmd("startinsert") end,
+        callback = function() vim.cmd.startinsert() end,
     },
 }
