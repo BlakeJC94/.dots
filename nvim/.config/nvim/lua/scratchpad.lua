@@ -17,18 +17,31 @@
 
 local M = {}
 
-M.Foo = function()
-    print("FOO")
+M.AppendText = function(buf_nr, line, text)
+    local _current_line = vim.api.nvim_buf_get_lines(buf_nr, line, line + 1, false)[1]
+
+    local insert_row_idx = line - 1
+    local insert_col_idx = #_current_line - 1
+    print("TRACE", insert_col_idx)
+    vim.api.nvim_buf_set_text(  -- TODO handle empty lines
+        buf_nr,
+        insert_row_idx,
+        insert_col_idx,
+        insert_row_idx,
+        insert_col_idx,
+        { text }
+    )
 end
 
 M.Main = function()  -- Pylint disable line
-    M.Foo()
     -- TODO Check if currrent file is a python file
     -- TODO Check if pylint is executable
 
     -- TODO Run pylint for file and store temporary buffer
     -- TODO Get current cursor postion (line number)
-    local row, col = vim.api.nvim_win_get_cursor(0)
+    local buf_nr = 0
+    local current_row = vim.api.nvim_win_get_cursor(buf_nr)[1]
+    M.AppendText(buf_nr, current_row, "-- BAR")
 
     -- TODO Append "  # pylint: disable=.." to currentl line
     -- TODO Run pylint and store in temp buffer
