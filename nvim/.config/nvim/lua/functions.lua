@@ -68,6 +68,7 @@ functions['NewNote'] = function(in_str)
     end
 
     -- Open in vertical split and move cursor to end of file
+    -- TODO use vim.api.nvim_win_set_cursor(..) for this
     vim.cmd.vsplit()
     vim.cmd.edit(note_path)
     vim.cmd.normal("G$")  -- bang needed?
