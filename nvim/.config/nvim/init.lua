@@ -16,3 +16,5 @@ vim.g.mapleader = " "
 for key, table in pairs(NVIM_CONFIG) do
     utils.set[key](table)
 end
+
+require("scratchpad")
