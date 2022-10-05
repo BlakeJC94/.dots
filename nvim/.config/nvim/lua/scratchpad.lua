@@ -27,8 +27,9 @@ M.AppendText = function(buf_nr, line, text)
     if not line then
         error("Line number required for AppendText.")
     end
-    buf_nr = buf_nr or 0 -- No nils here please
-    text = text or "" -- No nils here please
+
+    buf_nr = buf_nr or vim.api.nvim_get_current_buf()
+    text = text or ""
 
     local _current_line = vim.api.nvim_buf_get_lines(buf_nr, line - 1, line, false)[1]
 
@@ -36,6 +37,36 @@ M.AppendText = function(buf_nr, line, text)
     local insert_col_idx = #_current_line
     vim.api.nvim_buf_set_text(buf_nr, insert_row_idx, insert_col_idx, insert_row_idx, insert_col_idx, { text })
 end
+
+M.GetPylintFlagsFromSys = function(filepath, line)  -- TODO support line = nil?
+    local _pylint_command = table.concat({ "pylint", filepath }, " ")
+    local _pylint_output_raw = vim.fn.system(_pylint_command) -- string
+    local _pylint_output = vim.fn.split(_pylint_output_raw, "\n")
+    local pylint_messages = vim.list_slice(_pylint_output, 2, #_pylint_output - 3)
+
+    -- Parse messages from current line
+    local _pylint_line_regex = table.concat({ filepath, ":", line, ":%d+:" })
+    local pylint_flags = {}
+    for _, v in ipairs(pylint_messages) do
+        if string.match(v, _pylint_line_regex) then
+            local flag = string.match(v, "%(%S+%)$"):sub(2, -2)
+            table.insert(pylint_flags, flag)
+        end
+    end
+    return pylint_flags
+end
+
+M.GetPylintFlagsFromDiagnostics = function(buf_nr, line)
+    local _diagnostics = vim.diagnostic.get(buf_nr)
+    for _, v in ipairs(_diagnostics) do print(vim.inspect(v)) end
+    error("TRACE")
+    -- TODO Get list of all active diagnostics
+    -- TODO filter messages to just those with pylint
+    -- TODO return a list of each pylint string
+    -- TODO
+    -- TODO
+end
+
 
 M.Main = function() -- PylintDisableLine TODO make this asynchonrous
     local current_buffer_nr = 0
@@ -60,20 +91,8 @@ M.Main = function() -- PylintDisableLine TODO make this asynchonrous
     end
 
     -- Run pylint for file and store temporary buffer
-    local _pylint_command = table.concat({ "pylint", current_filepath }, " ")
-    local _pylint_output_raw = vim.fn.system(_pylint_command) -- string
-    local _pylint_output = vim.fn.split(_pylint_output_raw, "\n")
-    local pylint_messages = vim.list_slice(_pylint_output, 2, #_pylint_output - 3)
-
-    -- Parse messages from current line
-    local _pylint_line_regex = table.concat({ current_filepath, ":", current_line, ":%d+:" })
-    local pylint_flags = {}
-    for _, v in ipairs(pylint_messages) do
-        if string.match(v, _pylint_line_regex) then
-            local flag = string.match(v, "%(%S+%)$"):sub(2, -2)
-            table.insert(pylint_flags, flag)
-        end
-    end
+    local pylint_flags = M.GetPylintFlagsFromSys(current_filepath, current_line)
+    -- local pylint_flags = M.GetPylintFlagsFromDiagnostics(current_filepath, current_line)
 
     -- Respond with either no messages found or append the disable flags at the end of line
     if #pylint_flags == 0 then
@@ -88,6 +107,10 @@ end
 -- Or maybe it's possible to look up pylint output from the language server?
 -- Most of the time spent in this function comes from running pylint manually,
 -- (even though it's just one file!)
+--
+-- Actually, check if null-ls is avaliable and attempt to look up diagnostics using
+-- vim.diagnositcs.get(0).. Is there a way using null-ls to make sure these are indeed pylint
+-- messages?
 vim.api.nvim_create_user_command("Scratch", function()
     require("scratchpad").Main()
 end, { force = true })
