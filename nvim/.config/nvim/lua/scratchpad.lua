@@ -58,13 +58,14 @@ end
 
 M.GetPylintFlagsFromDiagnostics = function(buf_nr, line)
     local _diagnostics = vim.diagnostic.get(buf_nr)
-    for _, v in ipairs(_diagnostics) do print(vim.inspect(v)) end
-    error("TRACE")
-    -- TODO Get list of all active diagnostics
-    -- TODO filter messages to just those with pylint
-    -- TODO return a list of each pylint string
-    -- TODO
-    -- TODO
+    local pylint_flags = {}
+    for _, v in ipairs(_diagnostics) do
+        if v.source == "pylint" and v.row == line then
+            -- print(vim.inspect(v))
+            table.insert(pylint_flags, v.code)
+        end
+    end
+    return pylint_flags
 end
 
 
@@ -73,7 +74,6 @@ M.Main = function() -- PylintDisableLine TODO make this asynchonrous
     local pylint_disable_string = "  # pylint: disable="
 
     local current_line = vim.api.nvim_win_get_cursor(current_buffer_nr)[1]
-    local current_filepath = vim.fn.expand("%")
 
     -- Check if current file is a python file
     local _current_filetype = vim.api.nvim_buf_get_option(current_buffer_nr, "filetype")
@@ -91,8 +91,28 @@ M.Main = function() -- PylintDisableLine TODO make this asynchonrous
     end
 
     -- Run pylint for file and store temporary buffer
-    local pylint_flags = M.GetPylintFlagsFromSys(current_filepath, current_line)
-    -- local pylint_flags = M.GetPylintFlagsFromDiagnostics(current_filepath, current_line)
+    -- local pylint_flags = M.GetPylintFlagsFromSys(current_filepath, current_line)
+    local pylint_flags = M.GetPylintFlagsFromDiagnostics(current_buffer_nr, current_line)
+    if #pylint_flags == 0 then
+        -- TODO remove this hack to fallback to slow method if no diagnostics are found
+        local current_filepath = vim.fn.expand("%")
+        pylint_flags = vim.schedule(M.GetPylintFlagsFromSys(current_filepath, current_line))
+    end
+
+    -- TODO
+    -- local null_ls_available, _ = pcall(require, "null-ls")
+    -- local pylint_via_null_ls = false
+    -- if null_ls_available then
+    --     for _, v in ipairs(require("null-ls.sources").get_available("python")) do
+    --         if v.name == "pylint" then
+    --             pylint_via_null_ls = true
+    --             print(vim.inspect(v))
+    --         end
+    --     end
+    -- end
+    -- if not pylint_via_null_ls then
+    -- end
+
 
     -- Respond with either no messages found or append the disable flags at the end of line
     if #pylint_flags == 0 then
