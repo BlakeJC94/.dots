@@ -69,7 +69,7 @@ functions['NewNote'] = function(in_str)
 
     -- Open in vertical split and move cursor to end of file
     -- TODO use vim.api.nvim_win_set_cursor(..) for this
-    vim.cmd.vsplit()
+    -- vim.cmd.vsplit()
     vim.cmd.edit(note_path)
     vim.cmd.normal("G$")  -- bang needed?
 end
@@ -148,10 +148,10 @@ functions['OpenURL'] = function()
     local uri = vim.fn.expand('<cWORD>')
     uri = string.gsub(uri, '?', '\\?')
     uri = vim.fn.shellescape(uri, 1)
-    if uri ~= '' then
-        vim.fn.execute("!xdg-open " .. uri)
-    elseif string.match(uri, "%S+/%S+") then
+    if string.match(uri, "%S+/%S+") then
         vim.fn.execute("!xdg-open https://github.com/" .. uri)
+    elseif uri ~= '' then
+        vim.fn.execute("!xdg-open " .. uri)
     end
 end
 

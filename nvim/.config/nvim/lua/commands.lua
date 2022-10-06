@@ -5,7 +5,7 @@ local commands = {}
 commands['Settings'] = function()
     vim.cmd.edit('$MYVIMRC')
     vim.cmd.lcd('%:p:h')
-    print('Editing settings: ' .. vim.fn.expand('%:p'))
+    -- print('Editing settings: ' .. vim.fn.expand('%:p'))
 end
 
 commands['NewSession'] = function()
