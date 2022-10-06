@@ -68,8 +68,7 @@ M.GetPylintFlagsFromDiagnostics = function(buf_nr, line)
     return pylint_flags
 end
 
-
-M.Main = function() -- PylintDisableLine TODO make this asynchonrous
+M.PylintDisableLine = function()
     local current_buffer_nr = 0
     local pylint_disable_string = "  # pylint: disable="
 
@@ -83,54 +82,40 @@ M.Main = function() -- PylintDisableLine TODO make this asynchonrous
         return
     end
 
-    -- Check if pylint is executable  TODO replace this with a check for null-ls?
+    -- Check if pylint is executable
     local pylint_is_executable = (vim.fn.executable("pylint") == 1)
     if not pylint_is_executable then
         print("Couldn't find a pylint executable.")
         return
     end
 
-    -- Run pylint for file and store temporary buffer
-    -- local pylint_flags = M.GetPylintFlagsFromSys(current_filepath, current_line)
     local pylint_flags = M.GetPylintFlagsFromDiagnostics(current_buffer_nr, current_line)
-    if #pylint_flags == 0 then
-        -- TODO remove this hack to fallback to slow method if no diagnostics are found
-        local current_filepath = vim.fn.expand("%")
-        pylint_flags = vim.schedule(M.GetPylintFlagsFromSys(current_filepath, current_line))
-    end
+    M.AppendPylintFlags(current_buffer_nr, current_line, pylint_disable_string, pylint_flags)
 
-    -- TODO
-    -- local null_ls_available, _ = pcall(require, "null-ls")
-    -- local pylint_via_null_ls = false
-    -- if null_ls_available then
-    --     for _, v in ipairs(require("null-ls.sources").get_available("python")) do
-    --         if v.name == "pylint" then
-    --             pylint_via_null_ls = true
-    --             print(vim.inspect(v))
-    --         end
-    --     end
+    -- TODO write a proper non-blocking fallback
+    -- if #pylint_flags == 0 then
+    --     local current_filepath = vim.fn.expand("%")
+    --     local async = require("plenary.async")
+    --     async.run(function()
+    --         pylint_flags = M.GetPylintFlagsFromSys(current_filepath, current_line)
+    --         M.AppendPylintFlags(current_buffer_nr, current_line, pylint_disable_string, pylint_flags)
+    --     end)
     -- end
-    -- if not pylint_via_null_ls then
-    -- end
+end
 
+M.Main = function() -- PylintDisableLine TODO make this asynchonrous
+    M.PylintDisableLine()
+end
 
-    -- Respond with either no messages found or append the disable flags at the end of line
+M.AppendPylintFlags = function(current_buffer_nr, current_line, pylint_disable_string, pylint_flags)
     if #pylint_flags == 0 then
-        print("No pylint message on line " .. current_line)
+        -- print("No pylint message on line " .. current_line)
         return
     end
     local pylint_disable_line_str = pylint_disable_string .. table.concat(pylint_flags, ",")
     M.AppendText(current_buffer_nr, current_line, pylint_disable_line_str)
 end
 
--- I wonder how feasible asynchonrous execution is.
--- Or maybe it's possible to look up pylint output from the language server?
--- Most of the time spent in this function comes from running pylint manually,
--- (even though it's just one file!)
---
--- Actually, check if null-ls is avaliable and attempt to look up diagnostics using
--- vim.diagnositcs.get(0).. Is there a way using null-ls to make sure these are indeed pylint
--- messages?
 vim.api.nvim_create_user_command("Scratch", function()
     require("scratchpad").Main()
 end, { force = true })
