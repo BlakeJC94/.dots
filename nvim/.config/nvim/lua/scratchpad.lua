@@ -23,7 +23,7 @@ local M = {}
 ---@param buf_nr: buffer number selected
 ---@param line: 1-based index for buffer line to append text to
 ---@param text: string to append to end of buffer line
-M.AppendText = function(buf_nr, line, text)
+local append_text = function(buf_nr, line, text)
     if not line then
         error("Line number required for AppendText.")
     end
@@ -38,7 +38,7 @@ M.AppendText = function(buf_nr, line, text)
     vim.api.nvim_buf_set_text(buf_nr, insert_row_idx, insert_col_idx, insert_row_idx, insert_col_idx, { text })
 end
 
-M.GetPylintFlagsFromSys = function(filepath, line)  -- TODO support line = nil?
+local get_pylint_flags_from_sys = function(filepath, line)
     local _pylint_command = table.concat({ "pylint", filepath }, " ")
     local _pylint_output_raw = vim.fn.system(_pylint_command) -- string
     local _pylint_output = vim.fn.split(_pylint_output_raw, "\n")
@@ -56,7 +56,7 @@ M.GetPylintFlagsFromSys = function(filepath, line)  -- TODO support line = nil?
     return pylint_flags
 end
 
-M.GetPylintFlagsFromDiagnostics = function(buf_nr, line)
+local get_pylint_flags_from_diagnostics = function(buf_nr, line)
     local _diagnostics = vim.diagnostic.get(buf_nr)
     local pylint_flags = {}
     for _, v in ipairs(_diagnostics) do
@@ -68,14 +68,23 @@ M.GetPylintFlagsFromDiagnostics = function(buf_nr, line)
     return pylint_flags
 end
 
-M.PylintDisableLine = function()
-    local current_buffer_nr = 0
+local append_pylint_flags = function(current_buffer_nr, current_line, pylint_disable_string, pylint_flags)
+    if #pylint_flags == 0 then
+        -- print("No pylint message on line " .. current_line)
+        return
+    end
+    local pylint_disable_line_str = pylint_disable_string .. table.concat(pylint_flags, ",")
+    append_text(current_buffer_nr, current_line, pylint_disable_line_str)
+end
+
+M.pylint_disable_line = function()
+    local current_buf_nr = 0
     local pylint_disable_string = "  # pylint: disable="
 
-    local current_line = vim.api.nvim_win_get_cursor(current_buffer_nr)[1]
+    local current_line = vim.api.nvim_win_get_cursor(current_buf_nr)[1]
 
     -- Check if current file is a python file
-    local _current_filetype = vim.api.nvim_buf_get_option(current_buffer_nr, "filetype")
+    local _current_filetype = vim.api.nvim_buf_get_option(current_buf_nr, "filetype")
     local current_buffer_is_python = (_current_filetype == "python")
     if not current_buffer_is_python then
         print("Current buffer isn't a python file.")
@@ -89,35 +98,30 @@ M.PylintDisableLine = function()
         return
     end
 
-    local pylint_flags = M.GetPylintFlagsFromDiagnostics(current_buffer_nr, current_line)
-    M.AppendPylintFlags(current_buffer_nr, current_line, pylint_disable_string, pylint_flags)
+    local pylint_flags = get_pylint_flags_from_diagnostics(current_buf_nr, current_line)
+    append_pylint_flags(current_buf_nr, current_line, pylint_disable_string, pylint_flags)
+
 
     -- TODO write a proper non-blocking fallback
     -- if #pylint_flags == 0 then
     --     local current_filepath = vim.fn.expand("%")
+    --     pylint_flags = get_pylint_flags_from_sys(current_filepath, current_line)
+    --     append_pylint_flags(current_buf_nr, current_line, pylint_disable_string, pylint_flags)
+    -- end
+    -- if #pylint_flags == 0 then
+    --     local current_filepath = vim.fn.expand("%")
     --     local async = require("plenary.async")
     --     async.run(function()
-    --         pylint_flags = M.GetPylintFlagsFromSys(current_filepath, current_line)
-    --         M.AppendPylintFlags(current_buffer_nr, current_line, pylint_disable_string, pylint_flags)
+    --         pylint_flags = get_pylint_flags_from_sys(current_filepath, current_line)
+    --         append_pylint_flags(current_buffer_nr, current_line, pylint_disable_string, pylint_flags)
     --     end)
     -- end
 end
 
-M.Main = function() -- PylintDisableLine TODO make this asynchonrous
-    M.PylintDisableLine()
+M.main = function()
+    M.pylint_disable_line()
 end
 
-M.AppendPylintFlags = function(current_buffer_nr, current_line, pylint_disable_string, pylint_flags)
-    if #pylint_flags == 0 then
-        -- print("No pylint message on line " .. current_line)
-        return
-    end
-    local pylint_disable_line_str = pylint_disable_string .. table.concat(pylint_flags, ",")
-    M.AppendText(current_buffer_nr, current_line, pylint_disable_line_str)
-end
-
-vim.api.nvim_create_user_command("Scratch", function()
-    require("scratchpad").Main()
-end, { force = true })
+vim.api.nvim_create_user_command("Scratch", M.main, { force = true })
 
 return M
