@@ -52,7 +52,7 @@ end
 
 commands['Note'] = {
     function(keys)
-        FUNCTIONS.NewNote(keys.args)
+        FUNCTIONS.new_note(keys.args)
     end,
     {force=true, nargs='?'}
 }

@@ -1,7 +1,7 @@
 local functions = {}
 
 -- Generate new md file with auto-generated header and filename
-functions['NewNote'] = function(in_str)
+functions.new_note = function(in_str)  -- TODO update this
     local title = ""
     local note_path = ""
 
@@ -74,40 +74,39 @@ functions['NewNote'] = function(in_str)
     vim.cmd.normal("G$")  -- bang needed?
 end
 
-functions['ShowSyntaxGroup'] = function()
-    -- Call with ":call ShowSyntaxGroup()"
+functions.show_syntax_group = function()
     local s = vim.fn.synID(vim.fn.line('.'), vim.fn.col('.'), 1)
     local out_str = vim.fn.synIDattr(s, 'name') .. ' -> ' .. vim.fn.synIDattr(vim.fn.synIDtrans(s), 'name')
     print(out_str)
 end
 
-functions['TrimSpaces'] = function(keys)
+functions.trim_spaces = function(keys)  -- TODO update input args and investigate keeppatterns
     local winstate = vim.fn.winsaveview()
     vim.cmd("keeppatterns %s/\\s\\+$//e")  -- escape `\`
     vim.fn.winrestview(winstate)
 end
 
-functions['CreateDirs'] = function()
+functions.create_dirs = function()
     local dir = vim.fn.expand('<afile>:p:h')
     if vim.fn.isdirectory(dir) == 0 then
         vim.fn.mkdir(dir, 'p')
     end
 end
 
-functions['ShellExec'] = function(command)
+functions.shell_exec = function(command)
     local handle = io.popen(command)
     local result = handle:read("*a")
     handle:close()
     return result
 end
 
-functions['PrintLines'] = function(mutiline_string)
+functions.print_lines = function(mutiline_string)
     for line in string.gmatch(mutiline_string, "[^\n]+") do
         print(line)
     end
 end
 
-functions['PutLines'] = function(mutiline_string)
+functions.put_lines = function(mutiline_string)
     lines = {}
     for line in string.gmatch(mutiline_string, "[^\n]+") do
         table.insert(lines, line)
@@ -115,20 +114,20 @@ functions['PutLines'] = function(mutiline_string)
     vim.api.nvim_put(lines, "", true, true)
 end
 
-functions['VimTip'] = function()
+functions.vimtip = function()
     if vim.g.vimtip == nil then
-        vim.g.vimtip = require('functions').ShellExec('fortune ~/.config/nvim/extras/vim-tips')
-        require('functions').PrintLines(vim.g.vimtip)
+        vim.g.vimtip = require('functions').shell_exec('fortune ~/.config/nvim/extras/vim-tips')
+        require('functions').print_lines(vim.g.vimtip)
     else
-        require('functions').PutLines(vim.g.vimtip)
+        require('functions').put_lines(vim.g.vimtip)
     end
 end
 
-functions['SetQuitWithQ'] = function()
+functions.set_quit_with_q = function()
     vim.keymap.set('n', 'q', ':q<CR>', {buffer=true, silent=true})
 end
 
-functions['CustomFoldText'] = function()
+functions.custom_fold_text = function()
     local line = vim.fn.getline(vim.v.foldstart)
 
     local indent_str = string.rep(" ", vim.fn.indent(vim.v.foldstart - 1))
@@ -140,11 +139,12 @@ functions['CustomFoldText'] = function()
     return string.sub(fold_str, 0, 100 - #fold_size_str) .. fold_size_str
 end
 
-functions['GetWords'] = function()
+functions.count_words = function()
     return tostring(vim.fn.wordcount().words)
 end
 
-functions['OpenURL'] = function()
+-- TODO improve this based on wezterm helpers
+functions.open_url = function()
     local uri = vim.fn.expand('<cWORD>')
     uri = string.gsub(uri, '?', '\\?')
     uri = vim.fn.shellescape(uri, 1)
@@ -155,7 +155,7 @@ functions['OpenURL'] = function()
     end
 end
 
-functions['ColorMidpoint'] = function(color1, color2, n_midpoints, point_idx)
+functions.color_midpoint = function(color1, color2, n_midpoints, point_idx)
     n_midpoints = n_midpoints or 1
     point_idx = point_idx or 1
 
@@ -187,6 +187,73 @@ functions['ColorMidpoint'] = function(color1, color2, n_midpoints, point_idx)
     end
 
     return result
+end
+
+
+--- Append a string to the end of the line selected (can be called multiple times)
+---@param buf_nr: buffer number selected
+---@param line: 1-based index for buffer line to append text to
+---@param text: string to append to end of buffer line
+local append_text = function(buf_nr, line, text)
+    if not line then
+        error("Line number required for AppendText.")
+    end
+
+    buf_nr = buf_nr or vim.api.nvim_get_current_buf()
+    text = text or ""
+
+    local _current_line = vim.api.nvim_buf_get_lines(buf_nr, line - 1, line, false)[1]
+
+    local insert_row_idx = line - 1
+    local insert_col_idx = #_current_line
+    vim.api.nvim_buf_set_text(buf_nr, insert_row_idx, insert_col_idx, insert_row_idx, insert_col_idx, { text })
+end
+
+local get_pylint_flags_from_diagnostics = function(buf_nr, line)
+    local _diagnostics = vim.diagnostic.get(buf_nr)
+    local pylint_flags = {}
+    for _, v in ipairs(_diagnostics) do
+        if v.source == "pylint" and v.row == line then
+            -- print(vim.inspect(v))
+            table.insert(pylint_flags, v.code)
+        end
+    end
+    return pylint_flags
+end
+
+local append_pylint_flags = function(current_buffer_nr, current_line, pylint_disable_string, pylint_flags)
+    if #pylint_flags == 0 then
+        -- print("No pylint message on line " .. current_line)
+        return
+    end
+    local pylint_disable_line_str = pylint_disable_string .. table.concat(pylint_flags, ",")
+    append_text(current_buffer_nr, current_line, pylint_disable_line_str)
+end
+
+-- TODO keybinding
+functions.pylint_disable_line = function()
+    local current_buf_nr = 0
+    local pylint_disable_string = "  # pylint: disable="
+
+    local current_line = vim.api.nvim_win_get_cursor(current_buf_nr)[1]
+
+    -- Check if current file is a python file
+    local _current_filetype = vim.api.nvim_buf_get_option(current_buf_nr, "filetype")
+    local current_buffer_is_python = (_current_filetype == "python")
+    if not current_buffer_is_python then
+        print("Current buffer isn't a python file.")
+        return
+    end
+
+    -- Check if pylint is executable
+    local pylint_is_executable = (vim.fn.executable("pylint") == 1)
+    if not pylint_is_executable then
+        print("Couldn't find a pylint executable.")
+        return
+    end
+
+    local pylint_flags = get_pylint_flags_from_diagnostics(current_buf_nr, current_line)
+    append_pylint_flags(current_buf_nr, current_line, pylint_disable_string, pylint_flags)
 end
 
 return functions

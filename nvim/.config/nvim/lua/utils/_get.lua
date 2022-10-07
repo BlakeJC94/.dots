@@ -55,7 +55,7 @@ M.options = function()
     return require('options')
 end
 
-M.functions = function()
+M.functions = function()  -- TODO split this into a folder
     return require('functions')
 end
 

@@ -6,7 +6,7 @@ return {
         events = {"CmdWinEnter"},
         pattern = "*",
         callback = function()
-            FUNCTIONS.SetQuitWithQ()
+            FUNCTIONS.set_quit_with_q()
             require('cmp').setup.buffer({enabled = false})
         end,
     },
@@ -15,7 +15,7 @@ return {
         events = {"FileType"},
         pattern = {"qf", "help", "fugitive", "man", "gitcommit"},
         callback = function()
-            FUNCTIONS.SetQuitWithQ()
+            FUNCTIONS.set_quit_with_q()
             vim.opt_local.spell = false
             vim.opt_local.colorcolumn = {}
             vim.opt_local.foldlevel = 99

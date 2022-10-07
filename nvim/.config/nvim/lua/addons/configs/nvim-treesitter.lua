@@ -83,7 +83,7 @@ return {
             sync_install = false,
             highlight = {
                 enable = true,
-                disable = function(lang, buf)
+                disable = function(lang, buf)  -- Not a fan of handling on help docs
                     if vim.api.nvim_buf_get_option(buf, "filetype") == "help" then
                         return true
                     end

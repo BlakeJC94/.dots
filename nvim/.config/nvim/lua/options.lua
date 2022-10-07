@@ -43,7 +43,7 @@ return {
     foldmethod = 'indent',             -- Auto-create folds by indent levels
     foldlevel  = 0,                    -- Close all folds when opening file
     fillchars  = {fold=' ', eob=' '},  -- Replace dots with spaces in fold head
-    foldtext   = 'v:lua.require("functions").CustomFoldText()',
+    foldtext   = 'v:lua.require("functions").custom_fold_text()',
     -- LEFT MARGIN
     number         = true,  -- Show line numbers
     relativenumber = true,  -- Show rel/abs line numbers

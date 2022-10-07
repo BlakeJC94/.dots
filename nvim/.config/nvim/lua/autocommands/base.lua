@@ -17,13 +17,13 @@ return {
     {
         events = {"BufWritePre"},
         pattern = "*",
-        callback = FUNCTIONS.TrimSpaces,
+        callback = FUNCTIONS.trim_spaces,
     },
     -- make new dirs on save
     {
         events = {"BufWritePre", "FileWritePre"},
         pattern = "*",
-        callback = FUNCTIONS.CreateDirs,
+        callback = FUNCTIONS.create_dirs,
     },
     -- Auto-start insert mode when switching to a terminal split
     {

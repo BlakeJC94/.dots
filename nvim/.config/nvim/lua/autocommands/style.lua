@@ -40,7 +40,7 @@ return {
     -- echo vimtip on open
     -- {
     --     events = { "VimEnter" },
-    --     callback = FUNCTIONS.VimTip,
+    --     callback = FUNCTIONS.vimtip,
     --     pattern = "*",
     -- },
     -- highlight yanks

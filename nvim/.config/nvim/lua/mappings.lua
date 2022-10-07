@@ -18,7 +18,7 @@ return {
         -- Clear last search hl with <C-l> before <C-l> action
         ["<C-l>"] = ':noh | redraw | echon ""<CR><C-l>',
         -- Replace `gx`
-        ["gx"] = require("functions").OpenURL,
+        ["gx"] = require("functions").open_url,
         -- Navigate quickfix list
         ["]c"] = ":cnext<CR>",
         ["[c"] = ":cprev<CR>",

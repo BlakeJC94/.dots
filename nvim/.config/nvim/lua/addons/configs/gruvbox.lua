@@ -5,10 +5,10 @@ return {
         local gruvbox = require("gruvbox")
         local palette = require('gruvbox.palette')
 
-        local bg_diff_delete = _G.ColorMidpoint(palette.dark0_hard, palette.neutral_red,    10, 1)
-        local bg_diff_add =    _G.ColorMidpoint(palette.dark0_hard, palette.neutral_green,  10, 1)
-        local bg_diff_change = _G.ColorMidpoint(palette.dark0_hard, palette.neutral_blue,   10, 1)
-        local bg_diff_text =   _G.ColorMidpoint(palette.dark0_hard, palette.neutral_yellow, 10, 3)
+        local bg_diff_delete = _G.color_midpoint(palette.dark0_hard, palette.neutral_red,    10, 1)
+        local bg_diff_add =    _G.color_midpoint(palette.dark0_hard, palette.neutral_green,  10, 1)
+        local bg_diff_change = _G.color_midpoint(palette.dark0_hard, palette.neutral_blue,   10, 1)
+        local bg_diff_text =   _G.color_midpoint(palette.dark0_hard, palette.neutral_yellow, 10, 3)
 
         vim.o.background = "dark"
         gruvbox.setup({
