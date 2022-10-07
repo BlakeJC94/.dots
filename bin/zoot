@@ -1,0 +1,83 @@
+#!/bin/sh
+# shellcheck shell=bash
+
+# This is a portable script utility to deploy my dotfiles and install programs selectively
+#
+
+# TODO change "install" to "zoot"
+ZOOTROOT="${HOME}/.dots/scripts/install"
+
+usage() {
+    cat 1>&2 <<EOF
+zoot
+The installer for .dots
+
+[TODO] write a bit more documentation here
+
+USAGE:
+    zoot [OPTIONS]
+
+OPTIONS:
+    -h, --help                                     Show documentation
+    -l, --list                                     Show which scripts are available
+    -a, --all                                      Run all install scripts
+EOF
+}
+
+get_all_scripts() {
+    local all_files
+    all_files=$(find "${ZOOTROOT}" -name "*.sh" -path "*/local/*" -o -path "*/global/*")
+    # check there's no spaces?
+    echo "${all_files}"
+}
+
+main() {
+    for arg in "$@"; do
+        case "$arg" in
+            --help)
+                usage
+                exit 0
+                ;;
+            --list)
+                MSG="requested list"
+                ;;
+            --all)
+                MSG="requested all"
+                ;;
+            *)
+                while getopts :hla sub_arg "$arg"; do
+                    case "$sub_arg" in
+                        h)
+                            usage
+                            exit 0
+                            ;;
+                        l)
+                            MSG="requested list"
+                            ;;
+                        a)
+                            MSG="requested all"
+                            ;;
+                        *)
+                            ;;
+                        esac
+                done
+                ;;
+        esac
+    done
+    echo "${MSG}"
+
+    FOO=$(get_all_scripts)
+    echo "${FOO}"
+
+    # I would need to parse all the remaining args..
+    # TODO get list of scripts from user instructions
+    # if --all:
+    #     TODO declare what --all actually means
+    # else:
+    #    TODO match script names from user input
+    #
+    # TODO handle sudo properly
+    # * Get subset of requested options that require sudo and execute in a subshell
+}
+
+main "$@" || exit 1
