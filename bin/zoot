@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # shellcheck shell=bash
 
 # This is a portable script utility to deploy my dotfiles and install programs selectively
@@ -24,37 +24,29 @@ OPTIONS:
 EOF
 }
 
-# get_all_scripts() {
-#     local all_files
-#     all_files=$(find "${ZOOTROOT}" -name "*.sh" -path "*/local/*" -o -path "*/global/*")
-#     # check there's no spaces?
-#     echo "${all_files}"
-# }
-
-get_local_scripts() {
+get_scripts() {
     local root_dir
     local local_scripts
-    root_dir=${1}
-    local_scripts=$(find "${root_dir}" -name "*.sh" -path "*/local/*")
-    echo "${local_scripts}"
-}
+    local stem_dir
+    local name
 
-get_global_scripts() {
-    local global_scripts
-    local root_dir
     root_dir=${1}
-    global_scripts=$(find "${root_dir}" -name "*.sh" -path "*/global/*")
-    echo "${global_scripts}"
+    stem_dir=${2}
+    name=${3:-*}
+
+    local_scripts=$(find "${root_dir}" -name "${name}.sh" -path "*/${stem_dir}/*")
+    # echo "${local_scripts// /\\ }" | paste -sd " "
+    # TODO error if there's files with spaces
+    # TODO printf
+    echo "${local_scripts}" | paste -sd " "
 }
 
 run_scripts() {
     local scripts_to_run
     scripts_to_run=$*
-    echo ${scripts_to_run}
+
     for script in ${scripts_to_run}; do
-        # echo "foo"
-        # bash "${script}"
-        echo "${script}"
+        echo "==>==> $(basename ${script}) $(whoami)"
     done
 }
 
@@ -110,12 +102,21 @@ main() {
 
     # TODO link dotfiles
 
-    # Install globals
+    # Install globals TODO filter
     # sudo apt update && sudo apt upgrade -y
     # sudo bash -c "for script in ${ZOOTROOT}/global/**; bash \$script; done"
+    local global_scripts
+    global_scripts=$(get_scripts "${ZOOTROOT}" "local" "")
+    if [ -n "${global_scripts}" ]; then
+        # sudo bash -c "$(declare -f run_scripts); run_scripts ${global_scripts}"
+    fi
 
-    # Install locals
-    # bash -c "for script in ${ZOOTROOT}/local/**; bash \$script; done"
+    # Install locals TODO filter
+    local local_scripts
+    local_scripts=$(get_scripts "${ZOOTROOT}" "local" "")
+    if [ -n "${local_scripts}" ]; then
+        # bash -c "$(declare -f run_scripts); run_scripts ${local_scripts}"
+    fi
 
     echo "==> PASS!"
     return 0
