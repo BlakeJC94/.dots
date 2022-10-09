@@ -24,18 +24,37 @@ OPTIONS:
 EOF
 }
 
-get_all_scripts() {
-    local all_files
-    all_files=$(find "${ZOOTROOT}" -name "*.sh" -path "*/local/*" -o -path "*/global/*")
-    # check there's no spaces?
-    echo "${all_files}"
+# get_all_scripts() {
+#     local all_files
+#     all_files=$(find "${ZOOTROOT}" -name "*.sh" -path "*/local/*" -o -path "*/global/*")
+#     # check there's no spaces?
+#     echo "${all_files}"
+# }
+
+get_local_scripts() {
+    local root_dir
+    local local_scripts
+    root_dir=${1}
+    local_scripts=$(find "${root_dir}" -name "*.sh" -path "*/local/*")
+    echo "${local_scripts}"
+}
+
+get_global_scripts() {
+    local global_scripts
+    local root_dir
+    root_dir=${1}
+    global_scripts=$(find "${root_dir}" -name "*.sh" -path "*/global/*")
+    echo "${global_scripts}"
 }
 
 run_scripts() {
     local scripts_to_run
     scripts_to_run=$*
+    echo ${scripts_to_run}
     for script in ${scripts_to_run}; do
-        bash "${script}"
+        # echo "foo"
+        # bash "${script}"
+        echo "${script}"
     done
 }
 
@@ -77,11 +96,9 @@ main() {
                 ;;
         esac
     done
-    MSG="${MSG} ${requested}"
-    echo "${MSG}"
 
-    FOO=$(get_all_scripts)  # Maybe `get_all_local_scripts` and `get_all_global_scripts`?
-    echo "${FOO}"
+    # MSG="${MSG} ${requested}"
+    # echo "${MSG}"
 
     # I would need to parse all the remaining args..
     # TODO get list of scripts from user instructions
@@ -90,16 +107,16 @@ main() {
     # else:
     #    TODO match script names from user input
     #    TODO error if there's no matches
-    #
-    # TODO handle sudo properly
-    # * Get subset of requested options that require sudo and execute in a subshell
-    sudo bash -c "$(declare -f run_scripts); run_scripts ${GLOBAL_SCRIPTS}"
-    bash -c "$(declare -f run_scripts); run_scripts ${LOCAL_SCRIPTS}"
-    #
 
     # TODO link dotfiles
-    # TODO install sudo globals
-    # TODO install locals
+
+    # Install globals
+    # sudo apt update && sudo apt upgrade -y
+    # sudo bash -c "for script in ${ZOOTROOT}/global/**; bash \$script; done"
+
+    # Install locals
+    # bash -c "for script in ${ZOOTROOT}/local/**; bash \$script; done"
+
     echo "==> PASS!"
     return 0
 }
