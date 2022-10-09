@@ -31,6 +31,14 @@ get_all_scripts() {
     echo "${all_files}"
 }
 
+run_scripts() {
+    local scripts_to_run
+    scripts_to_run=$*
+    for script in ${scripts_to_run}; do
+        bash "${script}"
+    done
+}
+
 main() {
     for arg in "$@"; do
         case "$arg" in
@@ -75,9 +83,12 @@ main() {
     #     TODO declare what --all actually means
     # else:
     #    TODO match script names from user input
+    #    TODO error if there's no matches
     #
     # TODO handle sudo properly
     # * Get subset of requested options that require sudo and execute in a subshell
+    sudo bash -c "$(declare -f run_scripts); run_scripts ${GLOBAL_SCRIPTS}"
+    bash -c "$(declare -f run_scripts); run_scripts ${LOCAL_SCRIPTS}"
 }
 
 main "$@" || exit 1
