@@ -1,7 +1,6 @@
 apt install -y \
     tmux \
     jq \
-    tldr \
     tree \
     bat \
     colorize \
