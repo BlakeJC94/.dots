@@ -40,6 +40,7 @@ run_scripts() {
 }
 
 main() {
+    local requested
     for arg in "$@"; do
         case "$arg" in
             --help)
@@ -53,28 +54,33 @@ main() {
                 MSG="requested all"
                 ;;
             *)
-                while getopts :hla sub_arg "$arg"; do
-                    case "$sub_arg" in
-                        h)
-                            usage
-                            exit 0
-                            ;;
-                        l)
-                            MSG="requested list"
-                            ;;
-                        a)
-                            MSG="requested all"
-                            ;;
-                        *)
-                            ;;
-                        esac
-                done
+                if [[ "$arg" =~ ^-- ]]; then
+                    requested="${requested} ${arg:2}"
+                else
+                    while getopts :hla sub_arg "$arg"; do
+                        case "$sub_arg" in
+                            h)
+                                usage
+                                exit 0
+                                ;;
+                            l)
+                                MSG="requested list"
+                                ;;
+                            a)
+                                MSG="requested all"
+                                ;;
+                            *)
+                                ;;
+                            esac
+                    done
+                fi
                 ;;
         esac
     done
+    MSG="${MSG} ${requested}"
     echo "${MSG}"
 
-    FOO=$(get_all_scripts)
+    FOO=$(get_all_scripts)  # Maybe `get_all_local_scripts` and `get_all_global_scripts`?
     echo "${FOO}"
 
     # I would need to parse all the remaining args..
@@ -89,6 +95,13 @@ main() {
     # * Get subset of requested options that require sudo and execute in a subshell
     sudo bash -c "$(declare -f run_scripts); run_scripts ${GLOBAL_SCRIPTS}"
     bash -c "$(declare -f run_scripts); run_scripts ${LOCAL_SCRIPTS}"
+    #
+
+    # TODO link dotfiles
+    # TODO install sudo globals
+    # TODO install locals
+    echo "==> PASS!"
+    return 0
 }
 
 main "$@" || exit 1
