@@ -31,7 +31,7 @@ alias :Q="exit"
 
 # More aliases
 alias matlabcli="matlab -nodisplay"
-alias bat="batcat"
+alias bat="batcat --theme=gruvbox-dark"
 alias upgit="git add . && git commit -m 'sync' && git push"
 alias less="less -R"
 alias v="nvim"

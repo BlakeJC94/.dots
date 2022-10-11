@@ -57,6 +57,10 @@ commands['Note'] = {
     {force=true, nargs='?'}
 }
 
+commands['PylintDisableLine'] = function()
+    FUNCTIONS.pylint_disable_line()
+end
+
 
 local typo_commands = {
     E = {
