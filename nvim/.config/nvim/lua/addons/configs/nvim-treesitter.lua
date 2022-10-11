@@ -62,6 +62,7 @@ return {
         "lewis6991/nvim-treesitter-context",  -- Pop-up for context
         "danymat/neogen",  -- Generate docstrings
         "andymass/vim-matchup",  -- Extended motions for %
+        "phelipetls/jsonpath.nvim",  -- JSON paths require"jsonpath".get()
     },
     run = ":TSUpdate",
     config = function()

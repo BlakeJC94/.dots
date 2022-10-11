@@ -63,6 +63,7 @@ return {
         "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-cmdline",
         "saadparwaiz1/cmp_luasnip",
+        "amarakon/nvim-cmp-buffer-lines",
     },
     config = function()
         local cmp = require("cmp")
@@ -83,6 +84,7 @@ return {
                 { name = "nvim_lsp_signature_help" },
                 { name = "nvim_lsp" },
                 { name = "path" },
+                { name = "buffer-lines" },
                 { name = "buffer" },
                 { name = "luasnip" },
                 { name = "latex_symbols" },

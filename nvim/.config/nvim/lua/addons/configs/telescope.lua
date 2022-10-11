@@ -2,8 +2,7 @@ return {
     requires = {
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-fzf-native.nvim",
-        -- "nvim-telescope/telescope-file-browser.nvim",
-        "BlakeJC94/telescope-file-browser.nvim",  -- Fork contains quiter logger for broken links
+        "nvim-telescope/telescope-file-browser.nvim",
     },
     config = function()
         local telescope = require("telescope")

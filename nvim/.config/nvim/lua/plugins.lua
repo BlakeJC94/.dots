@@ -17,7 +17,7 @@ return {
     "jpalardy/vim-slime",  -- <C-c><C-c> => Send code snippet to terminal
     "5long/pytest-vim-compiler",  -- Link :make to pytest
     -- COLOURS
-    "ellisonleao/gruvbox.nvim",  -- Colorscheme
+    "ellisonleao/gruvbox.nvim",  -- Colorscheme (try nightfox or catpuccin?)
     "lukas-reineke/indent-blankline.nvim",  -- Indent guides
     "unblevable/quick-scope",  -- Better f/t targets
     "norcalli/nvim-colorizer.lua",  -- Colors Hex codes
