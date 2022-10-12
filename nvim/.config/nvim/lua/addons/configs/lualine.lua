@@ -1,37 +1,44 @@
+_G._configs._lualine_search_count = function()
+    -- TODO check hlsearch is on?
+    local result = vim.fn.searchcount()
+    return string.format("[ %d / %d ]").format(result.count, result.total)
+end
+
 return {
     requires = {
-        'kyazdani42/nvim-web-devicons',
-        'arkav/lualine-lsp-progress',
+        "kyazdani42/nvim-web-devicons",
+        "arkav/lualine-lsp-progress",
     },
     config = function()
         require("lualine").setup({
             options = {
                 icons_enabled = true,
-                theme = 'gruvbox',
-                component_separators = { left = '', right = ''},
-                section_separators = { left = '', right = ''},
+                theme = "gruvbox",
+                component_separators = { left = "", right = "" },
+                section_separators = { left = "", right = "" },
                 disabled_filetypes = {},
                 always_divide_middle = true,
                 globalstatus = true,
             },
             sections = {
-                lualine_a = {'mode'},
-                lualine_b = { { 'tabs', mode = 1, } },
-                lualine_c = {'lsp_progress'},
-                lualine_x = {'filetype'},
-                lualine_y = {'location', 'progress', 'diff'},
-                lualine_z = {'branch'},
+                lualine_a = { "mode" },
+                lualine_b = { { "tabs", mode = 1 } },
+                lualine_c = { "lsp_progress" },
+                lualine_x = { "filetype" },
+                -- lualine_x = { _G._configs._lualine_search_count, "filetype" },
+                lualine_y = { "location", "progress", "diff" },
+                lualine_z = { "branch" },
             },
             inactive_sections = {
                 lualine_a = {},
                 lualine_b = {},
-                lualine_c = {'filename'},
-                lualine_x = {'location'},
+                lualine_c = { "filename" },
+                lualine_x = { "location" },
                 lualine_y = {},
-                lualine_z = {}
+                lualine_z = {},
             },
             tabline = {},
-            extensions = {}
+            extensions = {},
         })
-    end
+    end,
 }
