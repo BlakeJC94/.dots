@@ -1,8 +1,8 @@
 return {
     [''] = {
         -- Navigate git changes in file
-        [']g'] = {map=[[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']], opts={expr=true}},
-        ['[g'] = {map=[[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']], opts={expr=true}},
+        [']g'] = ':silent Gitsigns next_hunk<CR>',
+        ['[g'] = ':silent Gitsigns prev_hunk<CR>',
         -- Leader maps
         ['<Leader>gg'] = ':Git<CR>',
         ['<Leader>gs'] = ':Git status<CR>',
@@ -21,4 +21,3 @@ return {
         ['<Leader>g_'] = ':Gdiffsplit<CR>',
     },
 }
-
