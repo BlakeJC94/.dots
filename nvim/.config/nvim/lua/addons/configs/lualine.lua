@@ -1,13 +1,8 @@
 _G._configs.lualine_search_count = function()
     if vim.v.hlsearch == 0 then return "" end
     local result = vim.fn.searchcount()
-    local total = math.min(result.total, result.maxcount) or 99
-    local current = result.current
-    return string.format("[%d/%d]", result.current, total)
-end
-
-_G._configs.hello = function()
-    return [[hello world]]
+    local denominator = math.min(result.total, result.maxcount) or 99
+    return string.format("[%d/%d]", result.current, denominator)
 end
 
 return {
@@ -31,7 +26,6 @@ return {
                 lualine_b = { { "tabs", mode = 1 } },
                 lualine_c = { "lsp_progress" },
                 lualine_x = { _G._configs.lualine_search_count , "filetype" },
-                -- lualine_x = { _G._configs._lualine_search_count, "filetype" },
                 lualine_y = { "location", "progress", "diff" },
                 lualine_z = { "branch" },
             },
