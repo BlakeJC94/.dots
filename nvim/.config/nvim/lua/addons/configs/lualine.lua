@@ -1,7 +1,13 @@
-_G._configs._lualine_search_count = function()
-    -- TODO check hlsearch is on?
+_G._configs.lualine_search_count = function()
+    if vim.v.hlsearch == 0 then return "" end
     local result = vim.fn.searchcount()
-    return string.format("[ %d / %d ]").format(result.count, result.total)
+    local total = math.min(result.total, result.maxcount) or 99
+    local current = result.current
+    return string.format("[%d/%d]", result.current, total)
+end
+
+_G._configs.hello = function()
+    return [[hello world]]
 end
 
 return {
@@ -14,8 +20,8 @@ return {
             options = {
                 icons_enabled = true,
                 theme = "gruvbox",
-                component_separators = { left = "", right = "" },
-                section_separators = { left = "", right = "" },
+                component_separators = { left = "│", right = "│" },
+                section_separators = { left = "", right = "" },
                 disabled_filetypes = {},
                 always_divide_middle = true,
                 globalstatus = true,
@@ -24,7 +30,7 @@ return {
                 lualine_a = { "mode" },
                 lualine_b = { { "tabs", mode = 1 } },
                 lualine_c = { "lsp_progress" },
-                lualine_x = { "filetype" },
+                lualine_x = { _G._configs.lualine_search_count , "filetype" },
                 -- lualine_x = { _G._configs._lualine_search_count, "filetype" },
                 lualine_y = { "location", "progress", "diff" },
                 lualine_z = { "branch" },
