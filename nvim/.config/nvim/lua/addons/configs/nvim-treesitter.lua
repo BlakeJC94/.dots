@@ -77,6 +77,7 @@ return {
             "r",
             "regex",
             "vim",
+            "graphql",
         }
 
         require("nvim-treesitter.configs").setup({
