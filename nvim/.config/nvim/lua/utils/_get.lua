@@ -14,6 +14,16 @@ M.plugins = function()
         "FTerm",
     }
 
+    _G._configs.filetype_include = {
+        "python",
+        "lua",
+        "bash",
+        "julia",
+        "r",
+        "vim",
+    }
+
+
     local file_list = vim.fn.readdir(configs_dir)
     for _, file in pairs(file_list) do
         local plugin_name = string.sub(file, 1, -5)

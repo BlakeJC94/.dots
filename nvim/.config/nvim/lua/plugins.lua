@@ -36,6 +36,8 @@ return {
     -- LSP
     "neovim/nvim-lspconfig",  -- LSP Engine configuration
     "jose-elias-alvarez/null-ls.nvim",  -- Extra sources for LSP
+    "mfussenegger/nvim-dap",  -- Debugger interfaces
+    "mfussenegger/nvim-dap-python",  -- TODO put this into a new config addon
     "williamboman/mason.nvim",  -- Installer for external tools
     -- GIT
     "tpope/vim-fugitive",  -- The ultimate git plugin for Vim

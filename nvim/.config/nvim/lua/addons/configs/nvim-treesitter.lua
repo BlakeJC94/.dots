@@ -66,22 +66,17 @@ return {
     },
     run = ":TSUpdate",
     config = function()
-        local default_parsers = {
+        local ts_parsers = {
             "comment",
             "markdown",
             "markdown_inline",
-            "python",
-            "lua",
-            "bash",
-            "julia",
-            "r",
             "regex",
-            "vim",
             "graphql",
         }
+        local ts_parsers = vim.list_extend(ts_parsers, _G._configs.filetype_include)
 
         require("nvim-treesitter.configs").setup({
-            ensure_installed = default_parsers,
+            ensure_installed = ts_parsers,
             sync_install = false,
             highlight = {
                 enable = true,
