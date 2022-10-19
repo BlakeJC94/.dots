@@ -25,6 +25,9 @@ source $HOME/.dots/bash/modules/window_title.sh
 source $HOME/.dots/bash/modules/completion.sh
 source $HOME/.dots/bash/modules/tab_cycle.sh
 
+# Stick dots onto the path
+export PATH="${HOME}/.dots/bin:${PATH}"
+
 # Alias definitions.
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 

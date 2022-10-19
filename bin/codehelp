@@ -34,14 +34,16 @@ EOF
 }
 
 
-# stash() {
-#     # TODO delete oldest file if there's more than 30 files
-#     # TODO write quote to file with timestamp
-#     # TODO check if there's more than 30 files
-# }
-
-get_msg() {
+get_random_msg() {
     fortune "${FORTUNES_FILE}"
+}
+
+get_last_msg() {
+    cat "$(get_latest_cache)"
+}
+
+get_latest_cache() {
+    find "${CACHE_DIR}" -type f -name '*.txt' -printf "%T@\t%p\n" | sort -nr | head -1 | cut -f 2
 }
 
 print_msg() {
@@ -54,8 +56,49 @@ print_msg() {
 
 random() {
     local msg
-    msg="$(get_msg)"
+    msg="$(get_random_msg)"
     print_msg "$msg"
+}
+
+# # TODO
+# flush_cache() {
+#     # check cache
+#     #    sort files by creation time
+#     #    delete excess files (max 29)
+# }
+
+current_timestamp(){
+    # printf "%.3f\n" "$(date +%s%3N)e-3"
+    date +%s
+}
+
+check_cache() {
+    # Make sure dir exists
+    mkdir -p "${CACHE_DIR}"
+
+    # if empty, return 1
+    if [ -d "${CACHE_DIR}" ] && [ ! $(ls -A "${CACHE_DIR}") ]; then
+        return 1
+    fi
+
+    # clear off excess cache
+    # flush_cache
+
+    local lastest_timestamp
+    local seconds_passed
+
+    lastest_timestamp="$(get_latest_cache | sed 's/.*\///' | cut -d '.' -f 2)"
+    seconds_passed="$(( ${lastest_timestamp} - $(current_timestamp)))"
+
+    if [ "${seconds_passed}" -lt "${CACHE_TIMEOUT}" ]; then
+        return 0
+    fi
+    return 1
+}
+
+cache_msg() {
+    # write contents to timestamped cache
+    echo "$@" > "${CACHE_DIR}/msg.$(current_timestamp).txt"
 }
 
 main() {
@@ -70,7 +113,7 @@ main() {
                 exit 0
                 ;;
             *)
-                while getopts :hla sub_arg "$arg"; do
+                while getopts :hr sub_arg "$arg"; do
                     case "$sub_arg" in
                         h)
                             usage
@@ -88,9 +131,17 @@ main() {
         esac
     done
 
-    # get quote
-    # sta
-    echo "FOO"
+
+    local msg
+
+    if check_cache; then
+        msg="$(get_last_msg)"
+    else
+        msg="$(get_random_msg)"
+        cache_msg "${msg}"
+    fi
+
+    print_msg "${msg}"
 }
 
 main "$@" || exit 1
