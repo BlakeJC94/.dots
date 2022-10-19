@@ -51,7 +51,7 @@ return {
         -- As long as a full URL hyperlink regex exists above this it should not match a full URL to
         -- GitHub or GitLab / BitBucket (i.e. https://gitlab.com/user/project.git is still a whole clickable URL)
         {
-            regex = [[[^/]["']?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["']?]],
+            regex = [[\s?[^/]["']?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["']?\s]],
             format = "https://www.github.com/$1/$3",
         },
     },
