@@ -1,0 +1,96 @@
+#!/bin/bash
+# shellcheck shell=bash
+
+# Print a formatted quote with programming advice and cache it to system for a user-deined amount
+# of time.
+
+# TODO add option to skip caching
+
+CACHE_DIR="/tmp/codehelp"
+CACHE_MAX=30
+CACHE_TIMEOUT=28800  # 28800 seconds = 8 hours
+
+FORTUNES_FILE="${HOME}/.dots/fortune/programming-tips"
+
+usage() {
+    cat 1>&2 <<EOF
+codehelp
+Advice for coding
+
+[TODO] write a bit more documentation here
+
+Calling this without arguments will print a quote and cache it.
+Calling it again without arguments within 8 hours will print the same
+cached quote. After 8 hours, calling it again will print and cache a
+new quote.
+
+USAGE:
+    codehelp [OPTIONS]
+
+OPTIONS:
+    -h, --help                                     Show documentation
+    -r, --random                 Print a random quote without caching
+EOF
+}
+
+
+# stash() {
+#     # TODO delete oldest file if there's more than 30 files
+#     # TODO write quote to file with timestamp
+#     # TODO check if there's more than 30 files
+# }
+
+get_msg() {
+    fortune "${FORTUNES_FILE}"
+}
+
+print_msg() {
+    if [[ "$(command -v colorize)" ]]; then
+        echo "$@" | colorize magenta
+    else
+        echo "$@"
+    fi
+}
+
+random() {
+    local msg
+    msg="$(get_msg)"
+    print_msg "$msg"
+}
+
+main() {
+    for arg in "$@"; do
+        case "$arg" in
+            --help)
+                usage
+                exit 0
+                ;;
+            --random)
+                random
+                exit 0
+                ;;
+            *)
+                while getopts :hla sub_arg "$arg"; do
+                    case "$sub_arg" in
+                        h)
+                            usage
+                            exit 0
+                            ;;
+                        r)
+                            random
+                            exit 0
+                            ;;
+                        *)
+                            ;;
+                        esac
+                done
+                ;;
+        esac
+    done
+
+    # get quote
+    # sta
+    echo "FOO"
+}
+
+main "$@" || exit 1
