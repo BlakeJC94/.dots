@@ -47,8 +47,7 @@ _G._configs.lspconfig_get_lsp_settings = function()
 end
 
 _G._configs.lspconfig_get_capabilities = function()
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    return require('cmp_nvim_lsp').update_capabilities(capabilities)
+    return require('cmp_nvim_lsp').default_capabilities()
 end
 
 -- Specify actions to happen when lsp server starts on a buffer

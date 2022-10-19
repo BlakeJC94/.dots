@@ -25,7 +25,7 @@ return {
                 lualine_a = { "mode" },
                 lualine_b = { { "tabs", mode = 1 } },
                 lualine_c = { "lsp_progress" },
-                lualine_x = { _G._configs.lualine_search_count , "filetype" },
+                lualine_x = { "searchcount" , "filetype" },
                 lualine_y = { "location", "progress", "diff" },
                 lualine_z = { "branch" },
             },
