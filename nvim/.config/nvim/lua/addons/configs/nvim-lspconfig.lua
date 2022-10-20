@@ -59,7 +59,8 @@ end
 return {
     requires = {
         "hrsh7th/cmp-nvim-lsp",  -- cmp integration for lsp
-        "ii14/lsp-command",  -- :Lsp <cmd> => Command interface for LSP functions
+        -- "ii14/lsp-command",  -- :Lsp <cmd> => Command interface for LSP functions
+        {"BlakeJC94/lsp-command", branch="feat/update-buf-format"},
         "Mofiqul/trld.nvim",  -- display diagnostic status in top right
     },
     config = function()
