@@ -24,7 +24,7 @@ mkdir $name
 STATUS=$(
     cd "${name}"
     git clone --bare "$url" .git
-    echo "gitdir: ./.git" > .git
+    # echo "gitdir: ./.git" > .git
 
     # Explicitly sets the remote origin fetch so we can fetch remote branches
     git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
