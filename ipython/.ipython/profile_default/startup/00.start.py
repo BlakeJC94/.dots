@@ -1,16 +1,54 @@
-from typing import List, Union
+print(">>>> ipython startup >>>>")
 
-def __randdf(rows: Union[int, List[str]] = 10, cols : Union[int, List[str]] = 3):
+# aliases
+q = exit
+
+# imports
+_imports = [
+    "import numpy as np",
+    "import pandas as pd",
+    "import matplotlib.pyplot as plt",
+    "from pathlib import Path",
+]
+for _statement in _imports:
     try:
-        import pandas as pd
-        import numpy as np
-
-        n_rows, rows = (len(rows), rows) if isinstance(rows, list) else (rows, None)
-        n_cols, cols = (len(cols), cols) if isinstance(cols, list) else (cols, None)
-
-        return pd.DataFrame(np.random.rand(n_rows, n_cols), index=rows, columns=cols)
-
+        exec(_statement)  # pylint: disable=exec-used
+        print(f"{_statement}")
     except ImportError:
-        print("Couldn't import numpy or pandas")
+        print(f"Couldn't {_statement}")
+
+# helpers
+def __randdf(rows=10, cols=3, dtypes=None):
+    import random  # pylint: disable=import-outside-toplevel
+    try:
+        import pandas as pd  # pylint: disable=import-outside-toplevel
+    except ImportError:
+        print("Couldn't import pandas")
+        return
+
+    n_rows, rows = (len(rows), rows) if isinstance(rows, list) else (rows, None)
+    n_cols, cols = (len(cols), cols) if isinstance(cols, list) else (cols, None)
+
+    if dtypes is None:
+        dtypes = float
+    if not isinstance(dtypes, list):
+        dtypes = [dtypes]
+    if not len(dtypes) == n_cols:
+        dtypes = [dtypes[0] for _ in range(n_cols)]
+
+    mockval = {
+        str(float):lambda: random.uniform(0, 1),
+        str(int):lambda: random.randint(0, 10),
+        str(str):lambda: random.choice(['qwe', 'asd', 'zxc']),
+    }
+
+    for j in range(n_cols):
+        if str(dtypes[j]) not in mockval:
+            print(f"{dtypes[j]} not supported, setting to float.")
+            dtypes[j] = float
+
+    data = [[mockval[str(dtypes[j])]() for j in range(n_cols)] for _ in range(n_rows)]
+    return pd.DataFrame(data, index=rows, columns=cols)
 
 
+print("<<<< ipython startup <<<<")
