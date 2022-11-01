@@ -7,7 +7,7 @@
     pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
     pullup = "!git pull --set-upstream origin $(git symbolic-ref --short HEAD)"
     hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
-    clonetree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/* && git fetch origin' -
+    clonetree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/* && git fetch origin && git worktree add $(git symbolic-ref --short HEAD) && cd $(git symbolic-ref --short HEAD) && git pullup' -
 
 [color]
     ui = true
