@@ -28,6 +28,7 @@ alias s='cd "$(find ~/.config -mindepth 1 -maxdepth 1 -type d -or -type l | fzf)
 # muscle memory
 alias :q="exit"
 alias :Q="exit"
+alias q="exit"
 
 # More aliases
 alias matlabcli="matlab -nodisplay"
