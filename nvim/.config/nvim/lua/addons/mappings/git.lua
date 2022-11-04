@@ -5,7 +5,7 @@ return {
         ['[g'] = ':silent Gitsigns prev_hunk<CR>',
         -- Leader maps
         ['<Leader>gg'] = ':Git<CR>',
-        -- ['<Leader>gs'] = ':Git status<CR>',
+        ['<Leader>gG'] = ':Git status<CR>',
         ['<Leader>gc'] = ':Git commit | startinsert<CR>',
         ['<Leader>gp'] = ':Gitsigns preview_hunk<CR>',
         ['<Leader>gs'] = ':w | Gitsigns stage_hunk<CR>',
