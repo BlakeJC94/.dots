@@ -38,6 +38,7 @@ export PATH="${HOME}/.dots/bin:${PATH}"
 [ -f ~/.bash_profile ] && source ~/.bash_profile
 
 source $HOME/.dots/bash/modules/qt.sh
+source $HOME/.dots/bash/modules/git.sh
 source $HOME/.dots/bash/modules/tex.sh
 source $HOME/.dots/bash/modules/nvm.sh
 source $HOME/.dots/bash/modules/pyright.sh
