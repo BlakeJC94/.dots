@@ -9,6 +9,7 @@
     primebranch = "!git symbolic-ref --short HEAD"
     hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
     clonetree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git fetch origin && git worktree add $(git primebranch) && cd $(git primebranch) && git pullup' -
+    uptree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git fetch origin && git worktree add $(git primebranch) && cd $(git primebranch) && git pullup' -
     sync = "!git add . && git commit -m 'sync' && git push"
     branches = "!git branch -a"
     merged = "!git branch --merged"
@@ -16,23 +17,23 @@
     cleanbranch = "!git rm $(git ls-files -d)"
 
 [color]
-    ui = 1
+    ui = auto
 
-[color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
+; [color "branch"]
+;     current = yellow reverse
+;     local = yellow
+;     remote = green
 
-[color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
+; [color "diff"]
+;     meta = yellow bold
+;     frag = magenta bold
+;     old = red bold
+;     new = green bold
 
-[color "status"]
-    added = yellow
-    changed = green
-    untracked = red
+; [color "status"]
+;     added = yellow
+;     changed = green
+;     untracked = red
 
 [core]
     excludesfile = /.gitignore

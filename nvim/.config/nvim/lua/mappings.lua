@@ -27,8 +27,8 @@ return {
         -- Disable <C-z> to stop process
         ["<C-z>"] = {map='', opts={remap=true}},
         -- Vim split controls
-        ['<Leader>_'] = ':split<CR>',
-        ['<Leader>|'] = ':vsplit<CR>',
+        -- ['<Leader>_'] = ':split<CR>',
+        -- ['<Leader>|'] = ':vsplit<CR>',
         ['<Leader>w'] = "<C-w>",
         -- Vim Tab controls
         ['<Leader>t'] = ':tabedit %<CR>',
@@ -41,7 +41,6 @@ return {
         ["<Leader><BS>"] = ":Telescope find_files<CR>", -- File finder
         ["<Leader><Tab>"] = "<C-^>", -- Last file
         ["<Leader><Esc>"] = ":Telescope buffers<CR>", -- Buffers
-        ["<Leader>q"] = ":q<CR>", -- Quit
         ["<Leader>n"] = ":NewFile<CR>",
         ["<Leader>N"] = ":NewSession<CR>",
         ["<Leader>d"] = ":ChangeLocalDir<CR>",
