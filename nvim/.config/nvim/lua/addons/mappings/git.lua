@@ -7,6 +7,7 @@ return {
         ['<Leader>gg'] = ':w | Git<CR>',
         ['<Leader>gG'] = ':Git status<CR>',
         ['<Leader>gc'] = ':Git commit | startinsert<CR>',
+        ['<Leader>gC'] = ':Git commit --amend | startinsert<CR>',
         ['<Leader>gp'] = ':Gitsigns preview_hunk<CR>',
         ['<Leader>gs'] = ':w | Gitsigns stage_hunk<CR>',
         ['<Leader>gu'] = ':w | Gitsigns undo_stage_hunk<CR>',
