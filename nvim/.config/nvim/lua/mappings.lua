@@ -86,11 +86,14 @@ return {
         [">"] = ">gv",
         ["="] = "=gv",
         -- Move visual block up or down
-        ["J"] = ":m '>+1<CR>gv",
-        ["K"] = ":m '<-2<CR>gv",
+        ["J"] = ":'<,'>m '>+1 | norm gv<CR>",
+        ["K"] = ":'<,'>m '<-2 | norm gv<CR>",
         -- Replace spaces in selection with underscores
         ["_"] = ":s/\\%V /_/g<CR>",
         ["g_"] = ":s/\\%V_/ /g<CR>",
+        -- Swap p and P to I stop losing register contents by pasting over
+        ["p"] = "P",
+        ["P"] = "p",
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
