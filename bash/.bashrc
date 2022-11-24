@@ -37,6 +37,8 @@ export PATH="${HOME}/.dots/bin:${PATH}"
 # source bash_profile if present
 [ -f ~/.bash_profile ] && source ~/.bash_profile
 
+source $HOME/.dots/bash/modules/tmux.sh
+
 source $HOME/.dots/bash/modules/qt.sh
 source $HOME/.dots/bash/modules/git.sh
 source $HOME/.dots/bash/modules/tex.sh
@@ -46,7 +48,6 @@ source $HOME/.dots/bash/modules/pyenv.sh
 source $HOME/.dots/bash/modules/rust.sh
 source $HOME/.dots/bash/modules/jill.sh
 
-source $HOME/.dots/bash/modules/vim.sh
-source $HOME/.dots/bash/modules/tmux.sh
-source $HOME/.dots/bash/modules/fortune.sh
 source $HOME/.dots/bash/modules/fzf.sh
+source $HOME/.dots/bash/modules/vim.sh
+source $HOME/.dots/bash/modules/fortune.sh
