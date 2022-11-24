@@ -1,8 +1,8 @@
 return {
     [""] = {
         -- Disable arrow keys, git gud with hjkl! (and bwe)
-        ["<Left>"] = "",
-        ["<Down>"] = "",
+        ["<Left>"] = "[",
+        ["<Down>"] = "]",
         ["<Up>"] = "",
         ["<Right>"] = "",
         ["<C-Left>"] = function()
