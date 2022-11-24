@@ -134,9 +134,6 @@ noremap N Nzv
 nnoremap Y y$
 nnoremap S "_c$
 
-" Clear search highlights and commands on `<ESC>`
-nnoremap <ESC> :noh \| redraw \| echon ""<CR><ESC>
-
 " `J` doesn't move cursor
 nnoremap J mzJ`z
 

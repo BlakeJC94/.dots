@@ -169,6 +169,7 @@ main() {
     local global_scripts
     global_scripts=$(get_scripts "${ZOOTROOT}" "local" "")
     if [ -n "${global_scripts}" ]; then
+        echo FOO
         # sudo bash -c "$(declare -f run_scripts); run_scripts ${global_scripts}"
     fi
 
@@ -176,6 +177,7 @@ main() {
     local local_scripts
     local_scripts=$(get_scripts "${ZOOTROOT}" "local" "")
     if [ -n "${local_scripts}" ]; then
+        echo BAR
         # bash -c "$(declare -f run_scripts); run_scripts ${local_scripts}"
     fi
 

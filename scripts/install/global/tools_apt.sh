@@ -1,4 +1,5 @@
 apt install -y \
+    flatpak \
     tmux \
     jq \
     tree \
@@ -15,5 +16,4 @@ apt install -y \
     ripgrep \
     luarocks \
     lua5.1 \
-    cmake \
-    flatpak
+    cmake
