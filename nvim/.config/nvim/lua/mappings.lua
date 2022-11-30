@@ -27,9 +27,7 @@ return {
         -- Disable <C-z> to stop process
         ["<C-z>"] = {map='', opts={remap=true}},
         -- Vim split controls
-        -- ['<Leader>_'] = ':split<CR>',
-        -- ['<Leader>|'] = ':vsplit<CR>',
-        ['<Leader>w'] = "<C-w>",
+        ['<Leader>w'] = "<C-w>",  -- s => split, v => vsplit, q => quit
         -- Vim Tab controls
         ['<Leader>t'] = ':tabedit %<CR>',
         ['<Leader>.'] = ":tabnext<CR>",

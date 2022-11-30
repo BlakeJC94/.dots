@@ -1,10 +1,10 @@
 return {
     [""] = {
         -- Disable arrow keys, git gud with hjkl! (and bwe)
-        ["<Left>"] = "[",
-        ["<Down>"] = "]",
-        ["<Up>"] = "",
-        ["<Right>"] = "",
+        ["<Left>"] = ":tabprev<CR>",
+        ["<Down>"] = {map="]", opts={remap=true}},
+        ["<Up>"] = {map="[", opts={remap=true}},
+        ["<Right>"] = ":tabnext<CR>",
         ["<C-Left>"] = function()
             require("smart-splits").resize_left(8)
         end,
