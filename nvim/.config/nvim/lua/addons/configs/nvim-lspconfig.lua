@@ -18,6 +18,8 @@ _G._configs.lspconfig_get_lsp_settings = function()
     return {
         pyright = {
             python = {
+                -- venvPath = os.getenv("PYENV_ROOT") .. '/versions',
+                -- venv = string.gsub(os.getenv("VIRTUAL_ENV"), "/%S+/", ""),
                 analysis = {
                     autoSearchPaths = true,
                     diagnosticMode = "workspace",
