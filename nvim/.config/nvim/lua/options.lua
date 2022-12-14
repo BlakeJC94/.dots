@@ -30,8 +30,8 @@ return {
     termguicolors = true,              -- Wider colorscheme support
     background    = 'dark',            -- Background mode
     -- LINE DISPLAY
-    scrolloff      = 8,          -- N lines to keep visible above/below cursor
-    sidescrolloff  = 8,          -- N columns to keep visible left/right of cursor
+    scrolloff      = 999,        -- N lines to keep visible above/below cursor
+    sidescrolloff  = 999,        -- N columns to keep visible left/right of cursor
     textwidth      = 99,         -- Margin for text input
     wrap           = false,      -- Soft-wrap long lines and use breakindent opts
     linebreak      = true,       -- Only split/wrap long lines after words

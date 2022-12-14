@@ -1,7 +1,6 @@
+-- TODO compile this to vimrc?
 return {
     [""] = {
-        -- Move left faster with `gh`
-        ["gh"] = { map = [[col('.') == match(getline('.'), '\S') + 1 ? '0' : '^']], opts = { expr = true } },
         -- Prevent x and s from overriding what's in the clipboard
         ["x"] = '"_x',
         ["X"] = '"_X',
@@ -27,7 +26,7 @@ return {
         -- Disable <C-z> to stop process
         ["<C-z>"] = {map='', opts={remap=true}},
         -- Vim split controls
-        ['<Leader>w'] = "<C-w>",  -- s => split, v => vsplit, q => quit
+        ['<Leader>w'] = "<C-w>",  -- s => split, v => vsplit, q => quit, T => tab
         -- Vim Tab controls
         ['<Leader>t'] = ':tabedit %<CR>',
         ['<Leader>.'] = ":tabnext<CR>",
@@ -68,7 +67,7 @@ return {
         ["gF"] = ":e <c-r><c-f><CR>",
         -- J doesn't move cursor
         ["J"] = "mzJ`z",
-        -- Make {/} don't change the the jumplist
+        -- Make {/} don't change the jumplist
         ["{"] = ":<C-u>keepjumps norm! {<CR>",
         ["}"] = ":<C-u>keepjumps norm! }<CR>",
         -- Change selected word (forward/backwards), . to repeat
@@ -97,18 +96,14 @@ return {
         -- C-s : Quickly guess correct spelling errors (undoable)
         ["<C-s>"] = { map = "<C-g>u<Esc>[s1z=`]a<C-g>u", opts = { remap = true } },
     },
-    t = {
-        -- <C-l> => Do C-l action in vim as well
-        ["<C-l>"] = '<C-l><C-\\><C-n>:noh | redraw | echon ""<CR>i',
-    },
     o = {
-        -- Custom text object: "around document"
-        ["ad"] = "<Cmd>normal! ggVG<CR>",
-        ["id"] = "<Cmd>normal! ggVG<CR>",
+        -- Custom text object: "around everything"
+        ["ae"] = "<Cmd>normal! ggVG<CR>",
+        ["ie"] = "<Cmd>normal! ggVG<CR>",
     },
     x = {
-        -- Custom text object: "around document"
-        ["ad"] = "gg0oG$",
-        ["id"] = "gg0oG$",
+        -- Custom text object: "around everything"
+        ["ae"] = "gg0oG$",
+        ["ie"] = "gg0oG$",
     },
 }

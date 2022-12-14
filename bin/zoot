@@ -4,6 +4,10 @@
 # This is a portable script utility to deploy my dotfiles and install programs selectively
 #
 # TODO write install.sh to add .dots/bin to path and echo zoot --all
+# TODO move all the scripts to zoot
+# TODO filter input
+# TODO factor out into its own repo
+# TODO put deploy.sh in root of dots
 
 # TODO change "install" to "zoot"
 ZOOTROOT="${HOME}/.dots/scripts/install"
@@ -51,6 +55,7 @@ run_scripts() {
 
 # TODO check for dead links that are meant to link to .dots and remove
 link_dotfiles() {
+    mkdir -pv "${HOME}"/.local/bin "${HOME}"/.local/opt
 
     # Get list of top level directories
     local dirs_to_set_up
@@ -112,6 +117,12 @@ link_dotfiles() {
 
 main() {
     local requested
+    local install_all
+    local list_all
+
+    install_all=false
+    list_all=false
+
     for arg in "$@"; do
         case "$arg" in
             --help)
@@ -120,15 +131,21 @@ main() {
                 ;;
             --list)
                 MSG="requested list"
+                list_all=true
                 ;;
             --all)
                 MSG="requested all"
+                install_all=true
+                ;;
+            --dots)
+                link_dotfiles
+                exit 0
                 ;;
             *)
                 if [[ "$arg" =~ ^-- ]]; then
                     requested="${requested} ${arg:2}"
                 else
-                    while getopts :hla sub_arg "$arg"; do
+                    while getopts :hlad sub_arg "$arg"; do
                         case "$sub_arg" in
                             h)
                                 usage
@@ -136,9 +153,15 @@ main() {
                                 ;;
                             l)
                                 MSG="requested list"
+                                list_all=true
                                 ;;
                             a)
                                 MSG="requested all"
+                                install_all=true
+                                ;;
+                            d)
+                                link_dotfiles
+                                exit 0
                                 ;;
                             *)
                                 ;;
@@ -155,19 +178,20 @@ main() {
     # I would need to parse all the remaining args..
     # TODO get list of scripts from user instructions
     # if --all:
-    #     TODO declare what --all actually means
+    #    TODO declare what --all actually means
     # else:
     #    TODO match script names from user input
     #    TODO error if there's no matches
 
     # link dotfiles
-    mkdir -pv ${HOME}/.local/bin ${HOME}/.local/opt
     link_dotfiles
 
     # Install globals TODO filter
+    # Exact matches? With an OR statement
     # sudo apt update && sudo apt upgrade -y
+    # install_global_scripts ${requested} TODO
     local global_scripts
-    global_scripts=$(get_scripts "${ZOOTROOT}" "local" "")
+    global_scripts=$(get_scripts "${ZOOTROOT}" "global" "")
     if [ -n "${global_scripts}" ]; then
         echo FOO
         # sudo bash -c "$(declare -f run_scripts); run_scripts ${global_scripts}"

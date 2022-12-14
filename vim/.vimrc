@@ -180,8 +180,6 @@ let mapleader = "\<Space>"
 " <Leader><Tab> ==> Last file (like alt-tab for vim)
 noremap <Leader><Tab> <C-^>
 
-" <Leader>w ==> Save
-
 " <Leader>n ==> Start new file
 " <Leader>N ==> Start new session (close all files)
 noremap <Leader>n :enew \| echo '[New file]'<CR>
@@ -195,51 +193,11 @@ noremap <Leader>D :cd %:p:h \| echo 'Changed dir to ' . getcwd()<CR>
 " Split and window navigation maps
 " --------------------------------
 
-" Make <C-z> a 'terminal leader' key (disable stopping key)
-noremap <C-z> <Nop>
-
-" Split controls
-" <Leader>_ ==> New horizontal split
-" <Leader>| ==> New vertical split
-" <Leader>q ==> Close split
-" <C-z>_ ==> New horizontal split terminal
-" <C-z>| ==> New vertical split terminal
-" <C-z>q ==> Close split terminal
-noremap <Leader>_ :split<CR>
-noremap <Leader>\| :vsplit<CR>
-noremap <Leader>q :q<CR>
-noremap <C-z>_ :term<CR>
-noremap <C-z>\| :vert term<CR>
-tnoremap <C-z>q! <C-w>N:q<CR>
-
-" Window controls maps (<Leader> = <C-z> if in term window)
-" <C-Arrow> ==> Move cursor to window
-" <S-Arrow> ==> Resize window
-" <Leader><Arrow> ==> Move current window
-noremap <C-Left>  :wincmd h<CR>
-noremap <C-Down>  :wincmd j<CR>
-noremap <C-Up>    :wincmd k<CR>
-noremap <C-Right> :wincmd l<CR>
-tnoremap <C-Left>  <C-w>N:wincmd h<CR>
-tnoremap <C-Down>  <C-w>N:wincmd j<CR>
-tnoremap <C-Up>    <C-w>N:wincmd k<CR>
-tnoremap <C-Right> <C-w>N:wincmd l<CR>
-noremap <S-Left>  :vert resize -8<CR>
-noremap <S-Down>  :resize -8<CR>
-noremap <S-Up>    :resize 8<CR>
-noremap <S-Right> :vert resize 8<CR>
-tnoremap <S-Left>  <C-w>N:vert resize -8<CR>
-tnoremap <S-Down>  <C-w>N:resize -8<CR>
-tnoremap <S-Up>    <C-w>N:resize 8<CR>
-tnoremap <S-Right> <C-w>N:vert resize 8<CR>
-noremap <Leader><Left>  :wincmd H<CR>
-noremap <Leader><Down>  :wincmd J<CR>
-noremap <Leader><Up>    :wincmd K<CR>
-noremap <Leader><Right> :wincmd L<CR>
-tnoremap <C-z><Left>  <C-w>N:wincmd H<CR>
-tnoremap <C-z><Down>  <C-w>N:wincmd J<CR>
-tnoremap <C-z><Up>    <C-w>N:wincmd K<CR>
-tnoremap <C-z><Right> <C-w>N:wincmd L<CR>
+" <C-Arrow> ==> Resize window
+noremap <C-Left>  :vert resize -8<CR>
+noremap <C-Down>  :resize -8<CR>
+noremap <C-Up>    :resize 8<CR>
+noremap <C-Right> :vert resize 8<CR>
 
 " Tab controls (<Leader> = <C-z> if in term window)
 " <Leader>t ==> open new tab
@@ -257,13 +215,6 @@ noremap <C-z>. <C-w>N:tabnext<CR>
 noremap <C-z>, <C-w>N:tabprev<CR>
 noremap <C-z>> <C-w>N:+tabmove<CR>
 noremap <C-z>< <C-w>N:-tabmove<CR>
-
-" <C-z><C-z> ==> Escape to normal mode in terminal buffer
-tnoremap <C-z><Esc> <C-w>N
-
-" <C-z><C-z> ==> Toggle terminal buffer
-tnoremap <C-z><C-z> <C-w>N:hide<CR>
-noremap <C-z><C-z> :unhide<CR>
 
 " <Leader>c ==> Toggle quickfix menu
 " <Leader>l ==> Toggle local quickfix menu
@@ -318,6 +269,3 @@ augroup ft_extra
     " Make *.bash files highlight properly
     autocmd BufNewFile,Bufread *.bash set syntax=sh
 augroup END
-
-cnoreabbrev vterm vert term
-cnoreabbrev qqq qa!
