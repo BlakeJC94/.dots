@@ -35,3 +35,4 @@ DataFrame
 EDF
 resample
 note
+__version__

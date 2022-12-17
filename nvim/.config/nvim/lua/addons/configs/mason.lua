@@ -11,6 +11,7 @@ return {
                 "lua-language-server",
                 "bash-language-server",
                 "julia-lsp",
+                "rust-analyzer",
                 -- null-ls tools
                 "jq",
                 "stylua",

@@ -75,6 +75,7 @@ return {
         cmp.setup({
             formatting = { format = lspkind.cmp_format({ with_text = true, maxwidth = 50 }) },
             mapping = _G._configs.cmp_mappings(),
+            preselect = cmp.PreselectMode.None,
             snippet = {
                 expand = function(args)
                     require("luasnip").lsp_expand(args.body)

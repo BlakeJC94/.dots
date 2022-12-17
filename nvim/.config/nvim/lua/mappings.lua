@@ -1,4 +1,5 @@
 -- TODO compile this to vimrc?
+-- TODO refactor and remove unused snippets
 return {
     [""] = {
         -- Prevent x and s from overriding what's in the clipboard

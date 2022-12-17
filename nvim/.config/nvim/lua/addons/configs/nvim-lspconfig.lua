@@ -45,6 +45,7 @@ _G._configs.lspconfig_get_lsp_settings = function()
         },
         julials = {},
         bashls = {},
+        rust_analyzer = {},
     }
 end
 

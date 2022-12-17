@@ -15,11 +15,12 @@ M.plugins = function()
     }
 
     _G._configs.filetype_include = {
-        "python",
-        "lua",
         "bash",
         "julia",
+        "lua",
+        "python",
         "r",
+        "rust",
         "vim",
     }
 
