@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
-
 DOTS="${HOME}"/.dots
 
-if ! [ -x "$(command -v stow)" ]; then
-    printf '%s\n' 'GNU stow not found, requesting permission to install'
-    sudo bash -c "apt install stow"
-fi
-
-# Get list of top level directories
 dirs_to_stow=$( \
     find "${DOTS}" \
         -maxdepth 1 -mindepth 1 \
@@ -18,5 +11,4 @@ dirs_to_stow=$( \
 
 for dir in ${dirs_to_stow}; do
     stow -D "${dir}"
-    stow "${dir}"
 done
