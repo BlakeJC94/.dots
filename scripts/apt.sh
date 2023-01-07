@@ -17,4 +17,6 @@ apt-get install -y \
     ripgrep \
     luarocks \
     lua5.1 \
-    cmake
+    cmake \
+    cargo \
+    tldr
