@@ -1,4 +1,5 @@
-apt install -y \
+apt-get update
+apt-get install -y \
     flatpak \
     tmux \
     jq \
