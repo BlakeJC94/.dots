@@ -29,3 +29,10 @@ then
 fi
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+if [ -x "$(command -v snap)" ]; then
+    snap remove firefox
+    apt-get remove snapd
+    flatpak install --noninteractive flathub org.mozilla.firefox
+fi
+

@@ -10,7 +10,7 @@ CACHE_DIR="/tmp/codehelp"
 CACHE_MAX=30
 CACHE_TIMEOUT=28800  # 28800 seconds = 8 hours
 
-FORTUNES_FILE="${HOME}/.dots/fortune/programming-tips"
+FORTUNES_FILE="${HOME}/.fortune/programming-tips"
 
 usage() {
     cat 1>&2 <<EOF
