@@ -20,7 +20,7 @@ fi
 
 shopt -s globstar
 pushd "${DOTS}"
-for i in ./*/; do
+for dir in ./*/; do
     name=$(basename $dir)
     printf '%s  [%s]\n' "${dir}" "$name"
     stow -D "${name}"
