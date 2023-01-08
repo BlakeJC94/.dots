@@ -2,20 +2,20 @@
 
 DOTS="${HOME}"/.dots
 
-source "${DOTS}"/scripts/run_scripts.sh
-source "${DOTS}"/scripts/get_scripts.sh
+
+run_scripts(){
+    shopt -s globstar
+    root_dir="${1}"
+    for f in "${root_dir}"/*.sh; do
+        bash "${f}" 2>&1 > "${f}".log
+    done
+}
 
 # bash "${DOTS}"/scripts/link.sh
+
 # sudo bash "${DOTS}"/scripts/apt.sh
-
-# run sudo installs
-readarray -d '' arr < <(get_scripts "${HOME}/.install-global")
-sudo bash -c "$(declare -f run_scripts); run_scripts \$@" -- "${arr[@]}"
-
-# run installs
-readarray -d '' arr < <(get_scripts "${HOME}/.install")
-bash -c "$(declare -f run_scripts); run_scripts \$@" -- "${arr[@]}"
-
-
-# flatpak install
 # bash "${DOTS}"/scripts/flatpak.sh
+
+# run sudo installs and user installs
+# sudo bash -c "$(declare -f run_scripts); run_scripts ${HOME}/.install-global"
+# bash -c "$(declare -f run_scripts); run_scripts ${HOME}/.install"

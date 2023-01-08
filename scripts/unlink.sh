@@ -3,14 +3,14 @@
 DOTS="${HOME}"/.dots
 BACKUP_BASHRC="${HOME}"/.bashrc.bak
 
-source "${DOTS}"/scripts/get_dirs.sh
-readarray -d '' dirs_to_stow < <(get_dirs)
-
-for dir in ${dirs_to_stow[@]}; do
+shopt -s globstar
+pushd "${DOTS}"
+for i in ./*/; do
     name=$(basename $dir)
     printf '%s  [%s]\n' "${dir}" "$name"
     stow -D "${name}"
 done
+popd
 
 # restore backup bashrc if needed
 bashrc="${HOME}"/.bashrc
