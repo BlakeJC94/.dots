@@ -3,7 +3,7 @@ VERSION=$( \
     | grep tag_name \
     | cut -d '"' -f 4 \
 )
-if ! [ "$(command -v wezterm)" ] || [ "$(wezterm --version | cut -d ' ' -f 2)" != "${VERSION}" ]; then
+if ! [ -x "$(command -v wezterm)" ] || [ "$(wezterm --version | cut -d ' ' -f 2)" != "${VERSION}" ]; then
     wget \
         https://github.com/wez/wezterm/releases/download/${VERSION}/wezterm-${VERSION}.Ubuntu22.04.deb \
         -O /tmp/wezterm.deb
