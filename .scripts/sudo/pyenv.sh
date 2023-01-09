@@ -1,4 +1,4 @@
-apt install -y \
+apt-get install -y \
     build-essential \
     gdb \
     lcov \
@@ -16,3 +16,10 @@ apt install -y \
     tk-dev \
     uuid-dev \
     zlib1g-dev
+
+if ! [ -x "$(command -v pyenv)" ]; then
+    curl https://pyenv.run | bash
+else
+    pyenv update
+fi
+

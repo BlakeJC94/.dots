@@ -1,4 +1,4 @@
-if ! [[ "$(command -v nvm)" ]]; then
+if ! [ -x "$(command -v nvm)" ]; then
     export PROFILE=/dev/null
     wget --progress bar -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     export NVM_DIR="$HOME/.nvm"

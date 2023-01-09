@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir -p ~/.fonts
 if [[ $(find ~/.fonts/ -name 'JetBrains*' | wc -l) -eq 0 ]]; then
     mkdir -p $HOME/.fonts
     wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
