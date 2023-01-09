@@ -7,6 +7,7 @@ BACKUP_BASHRC="${HOME}"/.bashrc.bak
 mkdir -p "${HOME}"/.local/bin
 mkdir -p "${HOME}"/.local/opt
 mkdir -p "${HOME}"/.install/sudo
+mkdir -p "${HOME}"/.bash/modules
 
 if ! [ -x "$(command -v stow)" ]; then
     printf '%s\n' 'GNU stow not found, requesting permission to install'

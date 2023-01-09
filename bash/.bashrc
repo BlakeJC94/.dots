@@ -19,11 +19,11 @@ shopt -s globstar
 # disable <C-s> from pausing input to terminal
 stty -ixon
 
-source $HOME/.dots/bash/.bash/modules/history.sh
-source $HOME/.dots/bash/.bash/modules/color_prompt.sh
-source $HOME/.dots/bash/.bash/modules/window_title.sh
-source $HOME/.dots/bash/.bash/modules/completion.sh
-source $HOME/.dots/bash/.bash/modules/tab_cycle.sh
+source $HOME/.bash/modules/history.sh
+source $HOME/.bash/modules/color_prompt.sh
+source $HOME/.bash/modules/window_title.sh
+source $HOME/.bash/modules/completion.sh
+source $HOME/.bash/modules/tab_cycle.sh
 
 # Alias definitions.
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
@@ -34,17 +34,19 @@ source $HOME/.dots/bash/.bash/modules/tab_cycle.sh
 # source bash_profile if present
 [ -f ~/.bash_profile ] && source ~/.bash_profile
 
-source $HOME/.dots/bash/.bash/modules/tmux.sh
+source $HOME/.bash/modules/tmux.sh
 
-source $HOME/.dots/bash/.bash/modules/qt.sh
-source $HOME/.dots/bash/.bash/modules/git.sh
-source $HOME/.dots/bash/.bash/modules/tex.sh
-source $HOME/.dots/bash/.bash/modules/nvm.sh
-source $HOME/.dots/bash/.bash/modules/pyright.sh
-source $HOME/.dots/bash/.bash/modules/pyenv.sh
-source $HOME/.dots/bash/.bash/modules/rust.sh
-source $HOME/.dots/bash/.bash/modules/jill.sh
+source $HOME/.bash/modules/qt.sh
+source $HOME/.bash/modules/git.sh
+source $HOME/.bash/modules/tex.sh
+source $HOME/.bash/modules/nvm.sh
+source $HOME/.bash/modules/pyright.sh
+source $HOME/.bash/modules/pyenv.sh
+source $HOME/.bash/modules/rust.sh
+source $HOME/.bash/modules/jill.sh
 
-source $HOME/.dots/bash/.bash/modules/fzf.sh
-source $HOME/.dots/bash/.bash/modules/vim.sh
-source $HOME/.dots/bash/.bash/modules/fortune.sh
+source $HOME/.bash/modules/fzf.sh
+source $HOME/.bash/modules/vim.sh
+source $HOME/.bash/modules/fortune.sh
+
+[ -f ~/.bash/modules/aws-sso.sh ] && source ~/.bash/modules/aws-sso.sh
