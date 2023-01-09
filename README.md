@@ -6,7 +6,9 @@ Keyboard configuration is located in `./extras/minivan-kb`
 
 Installation of programs:
 ```bash
+$ ssh-keygen -t ed25519 -C "<EMAIL>"
+$ cat ~/.ssh/id_ed25519.pub  # Add to GH
 $ git clone git@github.com:BlakeJC94/.dots.git ~/.dots
-$ curl -sSf https://raw.githubusercontent.com/BlakeJC94/zoot/main/install.sh | sh
-$ zoot -i ~/.dots/zoot
+$ cd ~/.dots
+$ bash install.sh
 ```
