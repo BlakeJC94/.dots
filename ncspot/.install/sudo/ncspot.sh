@@ -11,6 +11,6 @@ apt-get install -y \
 
 
 if ! [ -x "$(command -v ncspot)" ]; then
-     cargo install ncspot
-     ln -s /home/$SUDO_USER/.cargo/bin/ncspot /home/$SUDO_USER/.local/bin/ncspot
+    cargo install ncspot
+    ln -sf /home/$SUDO_USER/.cargo/bin/ncspot /home/$SUDO_USER/.local/bin/ncspot
 fi

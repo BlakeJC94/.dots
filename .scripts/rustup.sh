@@ -5,3 +5,4 @@ if ! [[ "$PATH" =~ (^|:)"${cargo_bin}"(:|$) ]]
 then
     PATH="${cargo_bin}:$PATH"
 fi
+source "$HOME/.cargo/env"
