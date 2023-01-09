@@ -1,0 +1,66 @@
+# TODO move to separate file
+bindsym $mod+semicolon exec playerctl play-pause
+bindsym $mod+period exec playerctl next
+bindsym $mod+comma exec playerctl previous
+
+## Navigate // Enter Leader Mode // <> + z ##
+mode "Leader Mode" {
+
+        bindsym $ws1_key workspace number $ws1 ; mode "default"
+        bindsym $ws2_key workspace number $ws2 ; mode "default"
+        bindsym $ws3_key workspace number $ws3 ; mode "default"
+        bindsym $ws4_key workspace number $ws4 ; mode "default"
+        bindsym $ws5_key workspace number $ws5 ; mode "default"
+        bindsym $ws6_key workspace number $ws6 ; mode "default"
+        bindsym $ws7_key workspace number $ws7 ; mode "default"
+        bindsym $ws8_key workspace number $ws8 ; mode "default"
+        bindsym $ws9_key workspace number $ws9 ; mode "default"
+        bindsym $ws10_key workspace number $ws10 ; mode "default"
+
+        bindsym m mode "Move Mode"
+        bindsym r mode "Resize Mode"
+
+        # k j h l ; , . : Go to main workspaces
+        bindsym h workspace number $ws1 ; mode "default"
+        bindsym j workspace number $ws2 ; mode "default"
+        bindsym k workspace number $ws3 ; mode "default"
+        bindsym l workspace number $ws4 ; mode "default"
+        bindsym semicolon workspace number $ws5 ; mode "default"
+        bindsym comma workspace number $ws6 ; mode "default"
+        bindsym period workspace number $ws7 ; mode "default"
+
+        # k j h l ; , . : Send window to main workspaces
+        bindsym Shift+h move container to workspace number $ws1 ; workspace number $ws1 ; mode "default"
+        bindsym Shift+j move container to workspace number $ws2 ; workspace number $ws2 ; mode "default"
+        bindsym Shift+k move container to workspace number $ws3 ; workspace number $ws3 ; mode "default"
+        bindsym Shift+l move container to workspace number $ws4 ; workspace number $ws4 ; mode "default"
+        bindsym Shift+semicolon move container to workspace number $ws5 ; workspace number $ws5 ; mode "default"
+        bindsym Shift+comma move container to workspace number $ws6 ; workspace number $ws5 ; mode "default"
+        bindsym Shift+period move container to workspace number $ws7 ; workspace number $ws5 ; mode "default"
+
+        # Escape or Enter : Exit Leader Mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+z mode "default"
+}
+bindsym $mod+z mode "Leader Mode"
+
+mode "Move Mode" {
+
+        bindsym $ws1_key move container to workspace number $ws1 ; workspace number $ws1 ; mode "default"
+        bindsym $ws2_key move container to workspace number $ws2 ; workspace number $ws2 ; mode "default"
+        bindsym $ws3_key move container to workspace number $ws3 ; workspace number $ws3 ; mode "default"
+        bindsym $ws4_key move container to workspace number $ws4 ; workspace number $ws4 ; mode "default"
+        bindsym $ws5_key move container to workspace number $ws5 ; workspace number $ws5 ; mode "default"
+        bindsym $ws6_key move container to workspace number $ws6 ; workspace number $ws6 ; mode "default"
+        bindsym $ws7_key move container to workspace number $ws7 ; workspace number $ws7 ; mode "default"
+        bindsym $ws8_key move container to workspace number $ws8 ; workspace number $ws8 ; mode "default"
+        bindsym $ws9_key move container to workspace number $ws9 ; workspace number $ws9 ; mode "default"
+        bindsym $ws10_key move container to workspace number $ws10 ; workspace number $ws10 ; mode "default"
+
+        # Escape or Enter : Exit Leader Mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Tab mode "default"
+}
+bindsym $mod+m mode "Move Mode"
