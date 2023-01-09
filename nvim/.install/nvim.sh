@@ -5,4 +5,5 @@ rm nvim-linux64.tar.gz
 
 if ! [[ "$(command -v nvim)" ]]; then
     ln -sf $HOME/.local/opt/nvim-linux64/bin/nvim $HOME/.local/bin/nvim
+    ln -sf $HOME/.local/bin/nvim $HOME/.local/bin/vim
 fi
