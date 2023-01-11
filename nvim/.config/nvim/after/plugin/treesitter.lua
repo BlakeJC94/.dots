@@ -1,4 +1,12 @@
-_G._configs.treesitter_get_textobjs = function()
+local additional_ts_parsers = {
+    "comment",
+    "markdown",
+    "markdown_inline",
+    "regex",
+    "graphql",
+}
+
+local function treesitter_textobjs_config()
     return {
         select = {
             enable = true,
@@ -55,55 +63,43 @@ _G._configs.treesitter_get_textobjs = function()
     }
 end
 
-return {
-    requires = {
-        "nvim-treesitter/playground",
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        "lewis6991/nvim-treesitter-context",  -- Pop-up for context
-        "danymat/neogen",  -- Generate docstrings
-        "andymass/vim-matchup",  -- Extended motions for %
-        "phelipetls/jsonpath.nvim",  -- JSON paths require"jsonpath".get()
-    },
-    run = ":TSUpdate",
-    config = function()
-        local ts_parsers = {
-            "comment",
-            "markdown",
-            "markdown_inline",
-            "regex",
-            "graphql",
-        }
-        local ts_parsers = vim.list_extend(ts_parsers, _G._configs.filetype_include)
+local function setup_treesitter()
+    local ts_parsers = vim.list_extend(
+        additional_ts_parsers,
+        require("BlakeJC94.globals").filetype_include
+    )
 
-        require("nvim-treesitter.configs").setup({
-            ensure_installed = ts_parsers,
-            sync_install = false,
-            highlight = {
-                enable = true,
-                disable = function(lang, buf)  -- Not a fan of handling on help docs
-                    if vim.api.nvim_buf_get_option(buf, "filetype") == "help" then
-                        return true
-                    end
-                end,
-            },
-            indent = { enable = true },
-            playground = { enable = true },
-            matchup = { enable = true },
-            textobjects = _G._configs.treesitter_get_textobjs(),
-        })
-
-        require("treesitter-context").setup({
+    require("nvim-treesitter.configs").setup({
+        ensure_installed = ts_parsers,
+        sync_install = false,
+        highlight = {
             enable = true,
-            throttle = true,
-            max_lines = 0,
-            patterns = {
-                default = {
-                    "class",
-                    "function",
-                    "method",
-                },
+            disable = function(lang, buf)  -- Not a fan of handling on help docs
+                if vim.api.nvim_buf_get_option(buf, "filetype") == "help" then
+                    return true
+                end
+            end,
+        },
+        indent = { enable = true },
+        playground = { enable = true },
+        matchup = { enable = true },
+        textobjects = treesitter_textobjs_config(),
+    })
+
+    require("treesitter-context").setup({
+        enable = true,
+        throttle = true,
+        max_lines = 0,
+        patterns = {
+            default = {
+                "class",
+                "function",
+                "method",
             },
-        })
-        require("neogen").setup({ enabled = true })
-    end,
-}
+        },
+    })
+
+    require("neogen").setup({ enabled = true })
+end
+
+setup_treesitter()

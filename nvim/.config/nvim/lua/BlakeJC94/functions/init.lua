@@ -1,7 +1,9 @@
-local functions = {}
+-- This module is for lua functions that can be used anywhere else in the configuration. Just use
+-- `require('BlakeJC94.functions').function_name` wherever needed.
+local M = {}
 
 -- Generate new md file with auto-generated header and filename
-functions.new_note = function(in_str)  -- TODO update this
+M.new_note = function(in_str)  -- TODO update this
     local title = ""
     local note_path = ""
 
@@ -74,39 +76,39 @@ functions.new_note = function(in_str)  -- TODO update this
     vim.cmd.normal("G$")  -- bang needed?
 end
 
-functions.show_syntax_group = function()
+M.show_syntax_group = function()
     local s = vim.fn.synID(vim.fn.line('.'), vim.fn.col('.'), 1)
     local out_str = vim.fn.synIDattr(s, 'name') .. ' -> ' .. vim.fn.synIDattr(vim.fn.synIDtrans(s), 'name')
     print(out_str)
 end
 
-functions.trim_spaces = function(keys)  -- TODO update input args and investigate keeppatterns
+M.trim_spaces = function(keys)  -- TODO update input args and investigate keeppatterns
     local winstate = vim.fn.winsaveview()
     vim.cmd("keeppatterns %s/\\s\\+$//e")  -- escape `\`
     vim.fn.winrestview(winstate)
 end
 
-functions.create_dirs = function()
+M.create_dirs = function()
     local dir = vim.fn.expand('<afile>:p:h')
     if vim.fn.isdirectory(dir) == 0 then
         vim.fn.mkdir(dir, 'p')
     end
 end
 
-functions.shell_exec = function(command)
+M.shell_exec = function(command)
     local handle = io.popen(command)
     local result = handle:read("*a")
     handle:close()
     return result
 end
 
-functions.print_lines = function(mutiline_string)
+M.print_lines = function(mutiline_string)
     for line in string.gmatch(mutiline_string, "[^\n]+") do
         print(line)
     end
 end
 
-functions.put_lines = function(mutiline_string)
+M.put_lines = function(mutiline_string)
     lines = {}
     for line in string.gmatch(mutiline_string, "[^\n]+") do
         table.insert(lines, line)
@@ -114,7 +116,7 @@ functions.put_lines = function(mutiline_string)
     vim.api.nvim_put(lines, "", true, true)
 end
 
-functions.vimtip = function()
+M.vimtip = function()
     if vim.g.vimtip == nil then
         vim.g.vimtip = require('functions').shell_exec('fortune ~/.config/nvim/extras/vim-tips')
         require('functions').print_lines(vim.g.vimtip)
@@ -123,11 +125,11 @@ functions.vimtip = function()
     end
 end
 
-functions.set_quit_with_q = function()
+M.set_quit_with_q = function()
     vim.keymap.set('n', 'q', ':q<CR>', {buffer=true, silent=true})
 end
 
-functions.custom_fold_text = function()
+M.custom_fold_text = function()
     local line = vim.fn.getline(vim.v.foldstart)
 
     local indent_str = string.rep(" ", vim.fn.indent(vim.v.foldstart - 1))
@@ -139,23 +141,11 @@ functions.custom_fold_text = function()
     return string.sub(fold_str, 0, 100 - #fold_size_str) .. fold_size_str
 end
 
-functions.count_words = function()
+M.count_words = function()
     return tostring(vim.fn.wordcount().words)
 end
 
--- TODO improve this based on wezterm helpers
-functions.open_url = function()
-    local uri = vim.fn.expand('<cWORD>')
-    uri = string.gsub(uri, '?', '\\?')
-    uri = vim.fn.shellescape(uri, 1)
-    if string.match(uri, "%S+/%S+") then
-        vim.fn.execute("!xdg-open https://github.com/" .. uri)
-    elseif uri ~= '' then
-        vim.fn.execute("!xdg-open " .. uri)
-    end
-end
-
-functions.color_midpoint = function(color1, color2, n_midpoints, point_idx)
+M.color_midpoint = function(color1, color2, n_midpoints, point_idx)
     n_midpoints = n_midpoints or 1
     point_idx = point_idx or 1
 
@@ -188,7 +178,6 @@ functions.color_midpoint = function(color1, color2, n_midpoints, point_idx)
 
     return result
 end
-
 
 --- Append a string to the end of the line selected (can be called multiple times)
 ---@param buf_nr: buffer number selected
@@ -230,8 +219,7 @@ local append_pylint_flags = function(current_buffer_nr, current_line, pylint_dis
     append_text(current_buffer_nr, current_line, pylint_disable_line_str)
 end
 
--- TODO keybinding
-functions.pylint_disable_line = function()
+M.pylint_disable_line = function()
     local current_buf_nr = 0
     local pylint_disable_string = "  # pylint: disable="
 
@@ -256,4 +244,5 @@ functions.pylint_disable_line = function()
     append_pylint_flags(current_buf_nr, current_line, pylint_disable_string, pylint_flags)
 end
 
-return functions
+return M
+

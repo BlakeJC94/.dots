@@ -1,6 +1,6 @@
-return {
+local options = {
     -- MAIN INPUT/OUTPUT
-    clipboard     = "unnamedplus",  -- Allows vim to use "+ for yanks, puts, cuts, and deletes
+    clipboard     = "unnamedplus",  -- Allows vim to use "+ for yanks, puts, and deletes
     timeoutlen    = 1000,           -- Time (ms) between key sequences
     ttimeoutlen   = 10,             -- Time (ms) between key sequences in terminal
     updatetime    = 300,            -- Time (ms) between swapfile writes
@@ -43,7 +43,7 @@ return {
     foldmethod = 'indent',             -- Auto-create folds by indent levels
     foldlevel  = 0,                    -- Close all folds when opening file
     fillchars  = {fold=' ', eob=' '},  -- Replace dots with spaces in fold head
-    foldtext   = 'v:lua.require("functions").custom_fold_text()',
+    foldtext   = 'v:lua.require("BlakeJC94.functions").custom_fold_text()',
     -- LEFT MARGIN
     number         = true,  -- Show line numbers
     relativenumber = true,  -- Show rel/abs line numbers
@@ -56,3 +56,11 @@ return {
     -- TOP MARGIN
     showtabline = 0,  -- Display tab line (0, never, 1 auto, 2 always)
 }
+
+local set_options = function(options)
+	for k, v in pairs(options) do vim.opt[k] = v end
+    return
+end
+
+set_options(options)
+return options
