@@ -1,4 +1,6 @@
-local function setup_telescope()
+local M = {}
+
+M.config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
 
@@ -66,4 +68,4 @@ local function setup_telescope()
     telescope.load_extension("file_browser")
 end
 
-setup_telescope()
+return M

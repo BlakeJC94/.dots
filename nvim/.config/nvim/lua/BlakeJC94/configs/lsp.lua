@@ -1,4 +1,6 @@
-local lsp_settings = {
+local M = {}
+
+M.lsp_settings = {
     pyright = {
         python = {
             venvPath = os.getenv("PYENV_ROOT") .. '/versions',
@@ -31,12 +33,12 @@ local lsp_settings = {
     rust_analyzer = {},
 }
 
-local function lspconfig_on_attach()
+M.on_attach = function()
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
-local function configure_mason()
+M.config_mason = function()
     require("mason").setup()
     require("mason-tool-installer").setup({
         ensure_installed = {
@@ -59,7 +61,8 @@ local function configure_mason()
     })
 end
 
-local function configure_lspconfig()
+M.config_lsp = function()
+    local self = require("BlakeJC94.configs.lsp")
     vim.diagnostic.config({
         virtual_text = false,
         signs = false,
@@ -75,9 +78,9 @@ local function configure_lspconfig()
     end
 
     local lspconfig = require('lspconfig')
-    for lsp, settings in pairs(lsp_settings) do
+    for lsp, settings in pairs(self.lsp_settings) do
         lspconfig[lsp].setup({
-            on_attach = lspconfig_on_attach,
+            on_attach = self.on_attach,
             capabilities = require('cmp_nvim_lsp').default_capabilities(),
             flags = { debounce_text_changes = 150 },
             settings = settings,
@@ -87,7 +90,7 @@ local function configure_lspconfig()
     require('trld').setup({})
 end
 
-local function null_ls_juliaformatter()
+M.null_ls_juliaformatter = function()
     local h = require("null-ls.helpers")
     local methods = require("null-ls.methods")
     return h.make_builtin({
@@ -113,7 +116,8 @@ local function null_ls_juliaformatter()
     })
 end
 
-local function configure_null_ls()
+M.config_null_ls = function()
+    local self = require("BlakeJC94.configs.lsp")
     local null_ls = require("null-ls")
     null_ls.setup({
         sources = {
@@ -122,12 +126,12 @@ local function configure_null_ls()
             null_ls.builtins.formatting.jq,
             null_ls.builtins.diagnostics.luacheck,
             null_ls.builtins.formatting.stylua,
-            -- null_ls_juliaformatter(),
+            -- self.null_ls_juliaformatter(),
         },
     })
 end
 
-local function configure_dap()
+M.config_dap = function()
     local dap = require("dap")
     dap.configurations.python = {
         {
@@ -140,16 +144,9 @@ local function configure_dap()
             end,
         },
     }
-
     require('dap-python').test_runner = 'pytest'
     require('dap-python').setup('~/.pyenv/shims/python')
 end
 
-local function configure_lsp()
-    configure_mason()
-    configure_lspconfig()
-    configure_null_ls()
-    configure_dap()
-end
 
-configure_lsp()
+return M

@@ -1,6 +1,6 @@
 local plugins = {}
 
-plugins.motions = {
+plugins.actions = {
     {   -- Readline keybindings for insert/command mode (<C-a> <A-b> <A-f> <C-e>)
         "tpope/vim-rsi",
     },
@@ -19,53 +19,6 @@ plugins.motions = {
     {   -- gs<object> => Sort operator across object
         "christoomey/vim-sort-motion",
     },
-}
-
-plugins.git = {
-    {   -- The ultimate git plugin for Vim
-        "tpope/vim-fugitive",
-    },
-    {   -- Gitgutter, floating hunks, and virtual text blames
-        "lewis6991/gitsigns.nvim",
-        requires = {'nvim-lua/plenary.nvim'},
-    },
-}
-
-plugins.interface = {
-    {   -- <C-c><C-c> => Send code snippet to terminal
-        "jpalardy/vim-slime",
-    },
-    {   -- Jump to last place when opening a file
-        "ethanholz/nvim-lastplace",
-    },
-    {   -- Ping cursor location after jump
-        "danilamihailov/beacon.nvim",
-    },
-    {
-        "glepnir/indent-guides.nvim"
-    },
-    -- {   -- Indent guides
-    --     "lukas-reineke/indent-blankline.nvim",
-    --     requires = {"lukas-reineke/virt-column.nvim"},
-    -- },
-    {   -- Stabilise split creation  TODO remove when merged in 0.9
-        "luukvbaal/stabilize.nvim",
-    },
-    {   -- smarter split resize functions
-        "mrjones2014/smart-splits.nvim",
-    },
-    {   -- Colors Hex codes
-        "norcalli/nvim-colorizer.lua",
-    },
-    {   -- Subtle highlighting of instances of word under cursor
-        "RRethy/vim-illuminate",
-    },
-    {   -- Link :make to pytest
-        "5long/pytest-vim-compiler",
-    },
-}
-
-plugins.textobjs = {
     {   -- Many many more text objects
         "wellle/targets.vim",
     },
@@ -75,24 +28,70 @@ plugins.textobjs = {
     },
 }
 
+plugins.interface = {
+    {   -- The ultimate git plugin for Vim
+        "tpope/vim-fugitive",
+    },
+    {   -- Gitgutter, floating hunks, and virtual text blames
+        "lewis6991/gitsigns.nvim",
+        requires = {'nvim-lua/plenary.nvim'},
+        config = require("BlakeJC94.configs.interface").config_gitsigns
+    },
+    {   -- <C-c><C-c> => Send code snippet to terminal
+        "jpalardy/vim-slime",
+        config = require("BlakeJC94.configs.interface").slime
+    },
+    {   -- Jump to last place when opening a file
+        "ethanholz/nvim-lastplace",
+        config = function() require('nvim-lastplace').setup({}) end
+    },
+    {   -- Ping cursor location after jump
+        "danilamihailov/beacon.nvim",
+    },
+    {   -- Stabilise split creation  TODO remove when merged in 0.9
+        "luukvbaal/stabilize.nvim",
+        config = function() require("stabilize").setup() end,
+    },
+    {   -- smarter split resize functions
+        "mrjones2014/smart-splits.nvim",
+    },
+    {   -- Colors Hex codes
+        "norcalli/nvim-colorizer.lua",
+        config = function() require("colorizer").setup({'*'}, {names=false}) end
+    },
+    {   -- Subtle highlighting of instances of word under cursor
+        "RRethy/vim-illuminate",
+        config = require("BlakeJC94.configs.interface").illuminate
+    },
+    {   -- Link :make to pytest
+        "5long/pytest-vim-compiler",
+        config = require("BlakeJC94.configs.interface").pytest_compiler
+    },
+}
+
 plugins.style = {
-    {   -- Colorscheme (try nightfox or catpuccin?)
+    {   -- Colorscheme
         "ellisonleao/gruvbox.nvim",
         requires = { "rktjmp/lush.nvim" },
+        config = require("BlakeJC94.configs.style").configure_gruvbox,
     },
     {   -- Better f/t targets
         "unblevable/quick-scope",
-        config = function()
-            vim.g.qs_max_chars = 800
-            vim.g.qs_highlight_on_keys = { "f", "F", "t", "T" }
-        end
+        config = require("BlakeJC94.configs.style").configure_quick_scope,
     },
     {   -- Better quickfix list format
         "https://gitlab.com/yorickpeterse/nvim-pqf",
+        config = require("BlakeJC94.configs.style").configure_pqf,
     },
     {   -- Statusline
         "nvim-lualine/lualine.nvim",
         requires = { "kyazdani42/nvim-web-devicons", "arkav/lualine-lsp-progress", },
+        config = require("BlakeJC94.configs.style").configure_lualine,
+    },
+    {   -- Indent guides
+        "lukas-reineke/indent-blankline.nvim",
+        requires = {"lukas-reineke/virt-column.nvim"},
+        config = require("BlakeJC94.configs.style").configure_indent_guides,
     },
 }
 
@@ -100,6 +99,7 @@ plugins.completion = {
     {   -- Snippets
         "L3MON4D3/LuaSnip",
         requires = { "rafamadriz/friendly-snippets", },
+        config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
     },
     {   -- Completion menu
         "hrsh7th/nvim-cmp",
@@ -114,9 +114,12 @@ plugins.completion = {
             "saadparwaiz1/cmp_luasnip",
             -- "amarakon/nvim-cmp-buffer-lines",
         },
+        config = require("BlakeJC94.configs.completion").config_cmp
     },
     {   -- Autoclose brakcets and quotes
         "windwp/nvim-autopairs",
+        requires = { "hrsh7th/nvim-cmp", },
+        config = require("BlakeJC94.configs.completion").config_cmp_autopairs
     }
 }
 
@@ -132,6 +135,7 @@ plugins.treesitter = {
             "phelipetls/jsonpath.nvim",  -- JSON paths require"jsonpath".get()
         },
         run = ":TSUpdate",
+        config = require("BlakeJC94.configs.treesitter").config
     },
 }
 
@@ -147,6 +151,7 @@ plugins.telescope = {
             "nvim-telescope/telescope-fzf-native.nvim",
             "nvim-telescope/telescope-file-browser.nvim",
         },
+        config = require("BlakeJC94.configs.telescope").config
     },
 }
 
@@ -157,22 +162,26 @@ plugins.lsp = {
             "hrsh7th/cmp-nvim-lsp",  -- cmp integration for lsp
             "Mofiqul/trld.nvim",  -- display diagnostic status in top right
         },
+        config = require("BlakeJC94.configs.lsp").config_lsp
     },
     {    -- :Lsp <cmd> => Command interface for LSP functions
         "ii14/lsp-command",
     },
     {   -- Extra sources for LSP
         "jose-elias-alvarez/null-ls.nvim",
+        config = require("BlakeJC94.configs.lsp").config_null_ls
     },
     {   -- Debugger interfaces
         "mfussenegger/nvim-dap",
         requires = {"mfussenegger/nvim-dap-python"},
+        config = require("BlakeJC94.configs.lsp").config_dap
     },
     {   -- Installer for external tools
         "williamboman/mason.nvim",
         requires = {
             "WhoIsSethDaniel/mason-tool-installer.nvim",
         },
+        config = require("BlakeJC94.configs.lsp").config_mason
     },
 }
 

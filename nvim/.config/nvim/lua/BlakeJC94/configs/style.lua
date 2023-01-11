@@ -1,10 +1,10 @@
-local default_colourscheme = "gruvbox"
+local M = {}
 
-local color_midpoint = require("BlakeJC94.functions").color_midpoint
 
-local function configure_gruvbox()
+M.configure_gruvbox = function()
     local gruvbox = require("gruvbox")
     local palette = require('gruvbox.palette')
+    local color_midpoint = require("BlakeJC94.functions").color_midpoint
 
     local bg_diff_delete = color_midpoint(palette.dark0_hard, palette.neutral_red,    10, 1)
     local bg_diff_add =    color_midpoint(palette.dark0_hard, palette.neutral_green,  10, 1)
@@ -65,20 +65,23 @@ local function configure_gruvbox()
             end
         end
     end
+    vim.cmd.colorscheme("gruvbox")
 end
 
-local function configure_indent_guides()
-    require('indent_guides').setup({
-      -- put your options in here
+M.configure_indent_guides = function()
+    require("indent_blankline").setup({
+        show_current_context = true,
+        show_current_context_start = false,
+        filetype_exclude = require("BlakeJC94.globals").filetype_exclude,
+        buftype_exclude = {"terminal"},
     })
 end
 
-local function configure_lualine(colourscheme)
-    local colourscheme = colourscheme or default_coloursscheme
+M.configure_lualine = function()
     require("lualine").setup({
         options = {
             icons_enabled = true,
-            theme = colourscheme,
+            theme = "gruvbox",
             component_separators = { left = "│", right = "│" },
             section_separators = { left = "", right = "" },
             disabled_filetypes = {},
@@ -107,12 +110,30 @@ local function configure_lualine(colourscheme)
 end
 
 
-local function configure_quick_scope()
+M.set_quickscope_colors = function()
     vim.cmd.highlight("QuickScopePrimary guifg='#ff007c' gui=bold ctermfg=198 cterm=bold")
     vim.cmd.highlight("QuickScopeSecondary guifg='#00dfff' gui=bold ctermfg=45 cterm=bold")
 end
 
-local function configure_pqf()
+M.configure_quick_scope = function()
+    vim.g.qs_max_chars = 800
+    vim.g.qs_highlight_on_keys = { "f", "F", "t", "T" }
+
+    local augroup = vim.api.nvim_create_augroup
+    local autocmd = vim.api.nvim_create_autocmd
+    autocmd(
+        {"ColorScheme"},
+        {
+            group = augroup("quick_scope_colors", {clear = true}),
+            pattern = "*",
+            callback = require("BlakeJC94.configs.style").set_quickscope_colors,
+        }
+    )
+
+    require("BlakeJC94.configs.style").set_quickscope_colors()
+end
+
+M.configure_pqf = function()
     require('pqf').setup({
         signs = {
             error = " ",
@@ -123,15 +144,5 @@ local function configure_pqf()
     })
 end
 
-local function setup_colours(colourscheme)
-    configure_indent_guides()
-    colourscheme = colourscheme or default_colourscheme
-    if colourscheme == 'gruvbox' then configure_gruvbox() end
-    configure_lualine(colourscheme)
-    configure_quick_scope()
-    configure_pqf()
-    vim.cmd.colorscheme(colourscheme)
-end
 
-setup_colours()
-
+return M

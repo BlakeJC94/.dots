@@ -1,4 +1,7 @@
-local function cmp_mappings()
+local M = {}
+
+M.cmp_mappings = function()
+    local self = require("BlakeJC94.configs.completion")
     local cmp = require("cmp")
     local map = cmp.mapping
     local confirm_with_insert = map.confirm({
@@ -13,31 +16,32 @@ local function cmp_mappings()
         ["<Left>"] = map(map.close(), { "i", "c" }),
         ["<Right>"] = map(confirm_with_insert, { "i", "c" }),
         ["<CR>"] = confirm_with_insert,
-        ["<Tab>"] = map(cmp_tab, { "i", "s", "c" }),
-        ["<S-Tab>"] = map(cmp_s_tab, { "i", "s", "c" }),
+        ["<Tab>"] = map(self.cmp_tab, { "i", "s", "c" }),
+        ["<S-Tab>"] = map(self.cmp_s_tab, { "i", "s", "c" }),
     }
 end
 
-local function has_words_before()
+M.has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local function cmp_tab(fallback)
+M.cmp_tab = function(fallback)
+    local self = require("BlakeJC94.configs.completion")
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     if cmp.visible() then
         cmp.select_next_item()
     elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
-    elseif has_words_before() then
+    elseif self.has_words_before() then
         cmp.complete()
     else
         fallback()
     end
 end
 
-local function cmp_s_tab(fallback)
+M.cmp_s_tab = function(fallback)
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     if cmp.visible() then
@@ -50,20 +54,16 @@ local function cmp_s_tab(fallback)
 end
 
 
-local function configure_snippets()
-    require("luasnip.loaders.from_vscode").lazy_load()
-end
-
-local function configure_cmp()
+M.config_cmp = function()
+    local self = require("BlakeJC94.configs.completion")
     local cmp = require("cmp")
     local lspkind = require("lspkind")
-    local autopairs = require("nvim-autopairs")
 
     vim.opt.completeopt = "menu,menuone,noselect"
 
     cmp.setup({
         formatting = { format = lspkind.cmp_format({ with_text = true, maxwidth = 50 }) },
-        mapping = cmp_mappings(),
+        mapping = self.cmp_mappings(),
         preselect = cmp.PreselectMode.None,
         snippet = {
             expand = function(args)
@@ -91,10 +91,9 @@ local function configure_cmp()
             { name = "buffer" },
         },
     })
-
 end
 
-local function configure_cmp_autopairs()
+M.config_cmp_autopairs = function()
     local cmp = require("cmp")
     local autopairs = require("nvim-autopairs")
 
@@ -105,11 +104,4 @@ local function configure_cmp_autopairs()
 end
 
 
-local function setup_completion()
-    configure_snippets()
-    configure_cmp()
-    configure_cmp_autopairs()
-end
-
-setup_completion()
-
+return M

@@ -1,4 +1,6 @@
-local additional_ts_parsers = {
+local M = {}
+
+M.additional_parsers = {
     "comment",
     "markdown",
     "markdown_inline",
@@ -6,7 +8,7 @@ local additional_ts_parsers = {
     "graphql",
 }
 
-local function treesitter_textobjs_config()
+M.treesitter_textobjs_setup = function()
     return {
         select = {
             enable = true,
@@ -63,18 +65,13 @@ local function treesitter_textobjs_config()
     }
 end
 
-local function setup_treesitter()
-    local ts_parsers = vim.list_extend(
-        additional_ts_parsers,
-        require("BlakeJC94.globals").filetype_include
-    )
-
-    require("nvim-treesitter.configs").setup({
+M.treesitter_setup = function(ts_parsers)
+    return {
         ensure_installed = ts_parsers,
         sync_install = false,
         highlight = {
             enable = true,
-            disable = function(lang, buf)  -- Not a fan of handling on help docs
+            disable = function(lang, buf) -- Not a fan of handling on help docs
                 if vim.api.nvim_buf_get_option(buf, "filetype") == "help" then
                     return true
                 end
@@ -83,10 +80,12 @@ local function setup_treesitter()
         indent = { enable = true },
         playground = { enable = true },
         matchup = { enable = true },
-        textobjects = treesitter_textobjs_config(),
-    })
+        textobjects = require("BlakeJC94.configs.treesitter").treesitter_textobjs_setup(),
+    }
+end
 
-    require("treesitter-context").setup({
+M.treesitter_context_setup = function()
+    return {
         enable = true,
         throttle = true,
         max_lines = 0,
@@ -97,9 +96,17 @@ local function setup_treesitter()
                 "method",
             },
         },
-    })
+    }
+end
 
+M.config = function()
+    local self = require("BlakeJC94.configs.treesitter")
+
+    local ts_parsers = vim.list_extend(self.additional_parsers, require("BlakeJC94.globals").filetype_include)
+
+    require("nvim-treesitter.configs").setup(self.treesitter_setup(ts_parsers))
+    require("treesitter-context").setup(self.treesitter_context_setup())
     require("neogen").setup({ enabled = true })
 end
 
-setup_treesitter()
+return M

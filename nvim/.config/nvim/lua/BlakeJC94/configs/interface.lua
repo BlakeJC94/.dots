@@ -1,29 +1,13 @@
+local M = {}
 
-local configure = {}
-
-configure.nvim_colorizer = function()
-    require("colorizer").setup(
-        {'*'},
-        {names=false}
-    )
-end
-
-configure.lastplace = function()
-    require('nvim-lastplace').setup({})
-end
-
-configure.stabilize = function()
-    require("stabilize").setup()
-end
-
-configure.illuminate = function()
+M.illuminate = function()
     require('illuminate').configure({
         filetypes_denylist = require("BlakeJC94.globals").filetype_exclude,
         filetypes_allowlist = require("BlakeJC94.globals").filetype_include,
     })
 end
 
-configure.slime = function()
+M.slime = function()
     vim.g.slime_python_ipython = 1
     vim.g.slime_target = "tmux"
     vim.g.slime_paste_file = vim.fn.tempname() .. "_slime"
@@ -46,7 +30,7 @@ configure.slime = function()
     )
 end
 
-configure.pytest_compiler = function()
+M.pytest_compiler = function()
     local augroup = vim.api.nvim_create_augroup
     local autocmd = vim.api.nvim_create_autocmd
     autocmd(
@@ -59,8 +43,19 @@ configure.pytest_compiler = function()
     )
 end
 
-local function setup_interface()
-    for _, config in pairs(configure) do config() end
+M.config_gitsigns = function()
+    require('gitsigns').setup({
+        signcolumn = false,
+        numhl      = true,
+        linehl     = false,
+        keymaps    = {}, -- Keymaps set in mappings.lua
+        current_line_blame = true,
+        preview_config = {
+            border = 'none',
+            style = 'minimal',
+            relative = 'cursor',
+        }
+    })
 end
 
-setup_interface()
+return M
