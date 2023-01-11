@@ -27,7 +27,6 @@ pushd "${DOTS}"
 for dir in ./*/; do
     name=$(basename $dir)
     printf '%s  [%s]\n' "${dir}" "$name"
-    stow -D "${name}"
-    stow "${name}"
+    stow -R "${name}"
 done
 popd
