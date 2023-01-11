@@ -1,15 +1,6 @@
 
 local configure = {}
 
-configure.indent_blankline = function()
-    require("indent_blankline").setup({
-        show_current_context = true,
-        show_current_context_start = false,
-        filetype_exclude = require("BlakeJC94.globals").filetype_exclude,
-        buftype_exclude = {"terminal"},
-    })
-end
-
 configure.nvim_colorizer = function()
     require("colorizer").setup(
         {'*'},

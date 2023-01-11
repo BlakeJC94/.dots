@@ -41,10 +41,13 @@ plugins.interface = {
     {   -- Ping cursor location after jump
         "danilamihailov/beacon.nvim",
     },
-    {   -- Indent guides
-        "lukas-reineke/indent-blankline.nvim",
-        requires = {"lukas-reineke/virt-column.nvim"},
+    {
+        "glepnir/indent-guides.nvim"
     },
+    -- {   -- Indent guides
+    --     "lukas-reineke/indent-blankline.nvim",
+    --     requires = {"lukas-reineke/virt-column.nvim"},
+    -- },
     {   -- Stabilise split creation  TODO remove when merged in 0.9
         "luukvbaal/stabilize.nvim",
     },

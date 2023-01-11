@@ -55,9 +55,6 @@ local function configure_gruvbox()
             IlluminatedWordRead = { bg = palette.dark0 },
             IlluminatedWordWrite= { bg = palette.dark0 },
         },
-        indent_blankline = {
-            IndentBlanklineContextChar = { fg = palette.light4 },
-        }
     }
 
     for plugin, overrides in pairs(plugin_overrides) do
@@ -70,6 +67,11 @@ local function configure_gruvbox()
     end
 end
 
+local function configure_indent_guides()
+    require('indent_guides').setup({
+      -- put your options in here
+    })
+end
 
 local function configure_lualine(colourscheme)
     local colourscheme = colourscheme or default_coloursscheme
@@ -121,19 +123,9 @@ local function configure_pqf()
     })
 end
 
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-autocmd(
-    {"ColorScheme"},
-    {
-        group = augroup("quick_scope_colors", {clear = true}),
-        pattern = "*",
-        callback = configure_quick_scope,
-    }
-)
-
 local function setup_colours(colourscheme)
-    local colourscheme = colourscheme or default_colourscheme
+    configure_indent_guides()
+    colourscheme = colourscheme or default_colourscheme
     if colourscheme == 'gruvbox' then configure_gruvbox() end
     configure_lualine(colourscheme)
     configure_quick_scope()
