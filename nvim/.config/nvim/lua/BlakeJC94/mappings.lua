@@ -36,8 +36,8 @@ local mappings = {
         ["<Leader><Esc>"] = ":Telescope buffers<CR>", -- Buffers
         ["<Leader>c"] = ":ToggleQL<CR>", -- Toggle qflist
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
-        ["<Leader>;"] = ":Settings<CR>", -- Edit settings
-        ["<Leader>:"] = ":luafile $MYVIMRC<CR>", -- Reload settings
+        ["<Leader>;"] = ":edit $MYVIMRC | lcd %:p:h<CR>", -- Edit settings
+        ["<Leader>:"] = ":source $MYVIMRC<CR>", -- Reload settings
         ["<Leader>h"] = ":Neogen<CR>", -- Generate docs
         -- Fkey maps
         ["<F1>"] = { map = ":setl relativenumber!<CR>:setl relativenumber?<CR>", opts = { silent = false } },
@@ -50,6 +50,8 @@ local mappings = {
         ["<C-Up>"] = function() require("smart-splits").resize_up(4) end,
         ["<C-Down>"] = function() require("smart-splits").resize_down(4) end,
         ["<C-Right>"] = function() require("smart-splits").resize_right(8) end,
+        -- Better opening of URLs and files
+        ["gx"] = [[:silent execute '!xdg-open ' . shellescape(expand('<cfile>'), 1)<CR>]],
         -- Navigate git changes in file
         [']g'] = ':silent Gitsigns next_hunk<CR>',
         ['[g'] = ':silent Gitsigns prev_hunk<CR>',
@@ -66,6 +68,7 @@ local mappings = {
         ['<Leader>gU'] = ':w | Gitsigns reset_buffer_index<CR>',
         ['<Leader>gR'] = ':Gitsigns reset_buffer | w<CR>',
         ['<Leader>gb'] = function() require("gitsigns").blame_line({full=true}) end,
+        ['<Leader>gB'] = ':GBrowse<CR>',
         ['<Leader>gd'] = ':Gvdiffsplit<CR>',
         ['<Leader>gD'] = ':Gdiffsplit<CR>',
         ['<Leader>gt'] = ':Git difftool<CR>',
@@ -75,7 +78,7 @@ local mappings = {
         ['<Leader>pi'] = ':PackerInstall<CR>',
         ['<Leader>pu'] = ':PackerUpdate<CR>',
         ['<Leader>pc'] = ':PackerCompile<CR>',
-        ['<Leader>pr'] = ':PackerClean<CR>',
+        ['<Leader>pC'] = ':PackerClean<CR>',
         ['<Leader>ps'] = ':PackerStatus<CR>',
         -- Navigate diagnostics
         [']e'] = function() vim.diagnostic.goto_next() end,

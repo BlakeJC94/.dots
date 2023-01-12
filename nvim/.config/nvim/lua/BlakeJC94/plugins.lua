@@ -31,6 +31,7 @@ plugins.actions = {
 plugins.interface = {
     {   -- The ultimate git plugin for Vim
         "tpope/vim-fugitive",
+        requires = {"tpope/vim-rhubarb"},
     },
     {   -- Gitgutter, floating hunks, and virtual text blames
         "lewis6991/gitsigns.nvim",
@@ -67,6 +68,13 @@ plugins.interface = {
         "5long/pytest-vim-compiler",
         config = require("BlakeJC94.configs.interface").pytest_compiler
     },
+    {   -- :UndotreeToggle
+        'mbbill/undotree',
+    },
+    {   -- <Leader>gy : Git linker
+        "ruifm/gitlinker.nvim",
+        config = function() require("gitlinker").setup({}) end,
+    },
 }
 
 plugins.style = {
@@ -75,6 +83,20 @@ plugins.style = {
         requires = { "rktjmp/lush.nvim" },
         config = require("BlakeJC94.configs.style").configure_gruvbox,
     },
+    -- {"rose-pine/neovim", opt=true},
+    -- { "navarasu/onedark.nvim", opt = true },
+    -- { "sainnhe/edge", opt = true },
+    -- { "sainnhe/sonokai", opt = true },
+    -- { "sainnhe/gruvbox-material", opt = true },
+    -- { "shaunsingh/nord.nvim", opt = true },
+    -- { "sainnhe/everforest", opt = true },
+    -- { "EdenEast/nightfox.nvim", opt = true },
+    -- { "rebelot/kanagawa.nvim", opt = true },
+    -- { "catppuccin/nvim", as = "catppuccin", opt = true },
+    -- { "rose-pine/neovim", as = 'rose-pine', opt = true },
+    -- { "olimorris/onedarkpro.nvim", opt = true },
+    -- { "tanvirtin/monokai.nvim", opt = true },
+    -- { "marko-cerovac/material.nvim", opt = true },
     {   -- Better f/t targets
         "unblevable/quick-scope",
         config = require("BlakeJC94.configs.style").configure_quick_scope,

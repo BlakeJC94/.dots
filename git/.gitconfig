@@ -15,6 +15,7 @@
     merged = "!git branch --merged"
     st = "!git status -sb"
     cleanbranch = "!git rm $(git ls-files -d)"
+    hub = "!gh"
 
 [color]
     ui = auto
