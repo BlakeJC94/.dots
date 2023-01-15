@@ -4,6 +4,9 @@ plugins.actions = {
     {   -- Readline keybindings for insert/command mode (<C-a> <A-b> <A-f> <C-e>)
         "tpope/vim-rsi",
     },
+    {   -- Unix commands
+        "tpope/vim-eunuch"
+    },
     {   -- Better .-repeat actions
         "tpope/vim-repeat",
     },
@@ -37,6 +40,15 @@ plugins.interface = {
         "lewis6991/gitsigns.nvim",
         requires = {'nvim-lua/plenary.nvim'},
         config = require("BlakeJC94.configs.interface").config_gitsigns
+    },
+    {   -- Even better github integration with :Octo
+        "pwntester/octo.nvim",
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope.nvim',
+            'kyazdani42/nvim-web-devicons',
+        },
+        config = function() require("octo").setup() end,
     },
     {   -- <C-c><C-c> => Send code snippet to terminal
         "jpalardy/vim-slime",
@@ -83,20 +95,9 @@ plugins.style = {
         requires = { "rktjmp/lush.nvim" },
         config = require("BlakeJC94.configs.style").configure_gruvbox,
     },
-    -- {"rose-pine/neovim", opt=true},
-    -- { "navarasu/onedark.nvim", opt = true },
-    -- { "sainnhe/edge", opt = true },
-    -- { "sainnhe/sonokai", opt = true },
-    -- { "sainnhe/gruvbox-material", opt = true },
-    -- { "shaunsingh/nord.nvim", opt = true },
-    -- { "sainnhe/everforest", opt = true },
-    -- { "EdenEast/nightfox.nvim", opt = true },
-    -- { "rebelot/kanagawa.nvim", opt = true },
-    -- { "catppuccin/nvim", as = "catppuccin", opt = true },
-    -- { "rose-pine/neovim", as = 'rose-pine', opt = true },
-    -- { "olimorris/onedarkpro.nvim", opt = true },
-    -- { "tanvirtin/monokai.nvim", opt = true },
-    -- { "marko-cerovac/material.nvim", opt = true },
+    { "rose-pine/neovim" },
+    { "rebelot/kanagawa.nvim" },
+    { "folke/tokyonight.nvim" },
     {   -- Better f/t targets
         "unblevable/quick-scope",
         config = require("BlakeJC94.configs.style").configure_quick_scope,
@@ -159,6 +160,12 @@ plugins.treesitter = {
         run = ":TSUpdate",
         config = require("BlakeJC94.configs.treesitter").config
     },
+    {
+        'ckolkey/ts-node-action',
+        requires = { 'nvim-treesitter' },
+        config = function() require("ts-node-action").setup({}) end
+    },
+
 }
 
 plugins.telescope = {
@@ -233,6 +240,8 @@ local set_plugins = function(repos)
     packer.init({
         snapshot_path = vim.fn.stdpath("config") .. "/snapshots",
         snapshot = "packer.json",
+        max_jobs = 16,
+        compile_path = vim.fn.stdpath("data") .. "/site/lua/packer_compiled.lua",
     })
     packer.reset()
     packer.use({'wbthomason/packer.nvim'})

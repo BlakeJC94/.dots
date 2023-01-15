@@ -6,6 +6,7 @@ local options = {
     updatetime    = 300,            -- Time (ms) between swapfile writes
     virtualedit   = "block",        -- Allow cursor to move anywhere ('all', 'block', 'insert')
     hidden        = false,          -- Allow buffers to be hidden without saving
+    mouse         = "",
     -- TABS AND INDENTS
     smartindent = true,  -- Enable better indenting
     tabstop     = 4,     -- Number of space chars for each tab char
@@ -51,14 +52,14 @@ local options = {
     -- BOTTOM MARGIN
     laststatus = 3,     -- Show global status line
     showcmd    = true,  -- Show command in bottom right
-    cmdheight  = 0,     -- Set height of command window
+    cmdheight  = 1,     -- Set height of command window
     wildignore = {'*.pyc', '**/.git/*', '**/data/*'},
     -- TOP MARGIN
     showtabline = 0,  -- Display tab line (0, never, 1 auto, 2 always)
 }
 
 local set_options = function(options)
-	for k, v in pairs(options) do vim.opt[k] = v end
+    for k, v in pairs(options) do vim.opt[k] = v end
     return
 end
 

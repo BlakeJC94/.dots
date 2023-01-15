@@ -36,9 +36,12 @@ local mappings = {
         ["<Leader><Esc>"] = ":Telescope buffers<CR>", -- Buffers
         ["<Leader>c"] = ":ToggleQL<CR>", -- Toggle qflist
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
+        ["<Leader>i"] = ":bprev<CR>",
+        ["<Leader>o"] = ":bnext<CR>",
         ["<Leader>;"] = ":edit $MYVIMRC | lcd %:p:h<CR>", -- Edit settings
         ["<Leader>:"] = ":source $MYVIMRC<CR>", -- Reload settings
-        ["<Leader>h"] = ":Neogen<CR>", -- Generate docs
+        ["<Leader>d"] = ":Neogen<CR>", -- Generate docs
+        ["<Leader>x"] = require("ts-node-action").node_action,
         -- Fkey maps
         ["<F1>"] = { map = ":setl relativenumber!<CR>:setl relativenumber?<CR>", opts = { silent = false } },
         ["<F2>"] = { map = ":setl number!<CR>:setl number?<CR>", opts = { silent = false } },
@@ -136,7 +139,7 @@ local mappings = {
         ["d#"] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
         -- Make K use lsp.hover, call twice to jump to hoverdoc
         ['K'] = function() vim.lsp.buf.hover() end,
-        -- Override spellchecker
+        -- Override spellchecker with telescope
         ['z='] = {map=[[v:count ? v:count . 'z=' : ':Telescope spell_suggest<CR>']], opts={expr=true}},
     },
     v = {
