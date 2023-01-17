@@ -50,3 +50,4 @@ source $HOME/.bash/modules/vim.sh
 source $HOME/.bash/modules/fortune.sh
 
 [ -f ~/.bash/modules/aws-sso.sh ] && source ~/.bash/modules/aws-sso.sh
+[ -f ~/.seerflow-completion.sh ] && source ~/.seerflow-completion.sh

@@ -21,8 +21,6 @@ local mappings = {
         ["[l"] = ":lprev<CR>",
         -- Disable <C-z> to stop process
         ["<C-z>"] = { map = '', opts = { remap = true } },
-        -- Vim split controls
-        ['<Leader>w'] = "<C-w>",  -- s => split, v => vsplit, q => quit, T => tab
         -- Vim Tab controls
         ['<Leader>t'] = ':tabedit %<CR>',
         ['<Leader>.'] = ":tabnext<CR>",

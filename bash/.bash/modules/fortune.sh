@@ -1,2 +1,4 @@
 # print a fortune when starting up a bash session
-codehelp
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    codehelp
+fi
