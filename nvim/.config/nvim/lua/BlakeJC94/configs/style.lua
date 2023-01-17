@@ -121,7 +121,8 @@ M.configure_lualine = function()
         },
         sections = {
             lualine_a = { "mode" },
-            lualine_b = { { "tabs", mode = 1 } },
+            lualine_b = { "filename" },
+            -- lualine_b = { { "tabs", mode = 1 } },
             lualine_c = { "lsp_progress" },
             lualine_x = { "searchcount" , "filetype" },
             lualine_y = { "location", "progress", "diff" },
@@ -139,7 +140,6 @@ M.configure_lualine = function()
         extensions = {},
     })
 end
-
 
 M.set_quickscope_colors = function()
     vim.cmd.highlight("QuickScopePrimary guifg='#ff007c' gui=bold ctermfg=198 cterm=bold")

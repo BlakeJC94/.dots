@@ -75,12 +75,12 @@ local mappings = {
         ['<Leader>gt'] = ':Git difftool<CR>',
         ['<Leader>gT'] = ':Git mergetool<CR>',
         -- Packer maps
-        ['<Leader>pp'] = ':PackerSync<CR>',
-        ['<Leader>pi'] = ':PackerInstall<CR>',
-        ['<Leader>pu'] = ':PackerUpdate<CR>',
-        ['<Leader>pc'] = ':PackerCompile<CR>',
-        ['<Leader>pC'] = ':PackerClean<CR>',
-        ['<Leader>ps'] = ':PackerStatus<CR>',
+        ['<Leader>pp'] = ':exec "PackerSync" | echo "Syncing plugins"<CR>',
+        ['<Leader>pi'] = ':exec "PackerInstall" | echo "Installing plugins"<CR>',
+        ['<Leader>pu'] = ':exec "PackerUpdate" | echo "Updating plugins.."<CR>',
+        ['<Leader>pc'] = ':exec "PackerCompile" | echo "Compiling plugins.."<CR>',
+        ['<Leader>pC'] = ':exec "PackerClean" | echo "Cleaning plugins.."<CR>',
+        ['<Leader>ps'] = ':exec "PackerStatus" | echo "Plugin status"<CR>',
         -- Navigate diagnostics
         [']e'] = function() vim.diagnostic.goto_next() end,
         ['[e'] = function() vim.diagnostic.goto_prev() end,

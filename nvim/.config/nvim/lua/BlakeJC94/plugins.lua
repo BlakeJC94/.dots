@@ -34,8 +34,16 @@ plugins.actions = {
 plugins.interface = {
     {   -- The ultimate git plugin for Vim
         "tpope/vim-fugitive",
-        requires = {"tpope/vim-rhubarb"},
+        requires = {
+            "tpope/vim-rhubarb",
+            "oguzbilgic/vim-gdiff",
+            -- "idanarye/vim-merginal"
+        },
     },
+    -- {
+    --     'sindrets/diffview.nvim',
+    --     requires = {'nvim-lua/plenary.nvim'},
+    -- },
     {   -- Gitgutter, floating hunks, and virtual text blames
         "lewis6991/gitsigns.nvim",
         requires = {'nvim-lua/plenary.nvim'},
@@ -92,7 +100,7 @@ plugins.interface = {
 plugins.style = {
     {   -- Colorscheme
         "ellisonleao/gruvbox.nvim",
-        requires = { "rktjmp/lush.nvim" },
+        requires = {"rktjmp/lush.nvim", "pwntester/octo.nvim"},
         config = require("BlakeJC94.configs.style").configure_gruvbox,
     },
     { "rose-pine/neovim" },
