@@ -8,7 +8,7 @@ case $- in
       *) return;;
 esac
 
-# check the window size after each command and, if necessary,
+# Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
@@ -16,7 +16,7 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
-# disable <C-s> from pausing input to terminal
+# Disable <C-s>/<C-q> from pausing/resuming input to terminal
 stty -ixon
 
 source $HOME/.bash/modules/history.sh
@@ -34,6 +34,7 @@ source $HOME/.bash/modules/tab_cycle.sh
 # source bash_profile if present
 [ -f ~/.bash_profile ] && source ~/.bash_profile
 
+# TODO replace this with a for loop and source from repo
 source $HOME/.bash/modules/tmux.sh
 
 source $HOME/.bash/modules/qt.sh
@@ -49,5 +50,6 @@ source $HOME/.bash/modules/fzf.sh
 source $HOME/.bash/modules/vim.sh
 source $HOME/.bash/modules/fortune.sh
 
+# TODO make this private by sourcing a linker in other repo
 [ -f ~/.bash/modules/aws-sso.sh ] && source ~/.bash/modules/aws-sso.sh
-[ -f ~/.seerflow-completion.sh ] && source ~/.seerflow-completion.sh
+[ -f ~/.bash/modules/seerflow.sh ] && source ~/.bash/modules/seerflow.sh
