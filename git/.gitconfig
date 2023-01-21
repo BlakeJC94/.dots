@@ -7,9 +7,9 @@
     pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
     pullup = "!git pull --set-upstream origin $(git symbolic-ref --short HEAD)"
     primebranch = "!git symbolic-ref --short HEAD"
+    primebranch = "!git symbolic-ref --short HEAD"
     hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
     clonetree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git fetch origin && git worktree add $(git primebranch) && cd $(git primebranch) && git pullup' -
-    uptree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git fetch origin && git worktree add $(git primebranch) && cd $(git primebranch) && git pullup' -
     sync = "!git add . && git commit -m 'sync' && git push"
     branches = "!git branch -a"
     merged = "!git branch --merged"
@@ -38,31 +38,48 @@
 
 [core]
     excludesfile = /.gitignore
+    editor = "nvim"
+
 [credential]
     helper = cache --timeout=3600
+
 [diff]
     tool = nvimdiff
+
 [difftool]
     prompt = false
+
 [difftool "nvimdiff"]
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+    trustExitCode = true  ; use :cq to abort commit message edit
+
 [merge]
-    tool = nvimdiff
+    tool = nfugitive
+
 [mergetool]
     prompt = true
+
 [mergetool "nvimdiff"]
-    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'
+
+[mergetool "nfugitive"]
+    cmd = nvim -f -c "Gvdiffsplit" "$MERGED"
+
 [pull]
     rebase = true
+
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
+
 [commit]
-    ; verbose = true
+    verbose = true
+
 [help]
     autocorrect = 15
+
 [remote "origin"]
-    ; fetch = +refs/heads/*:refs/remotes/origin/*
+    fetch = +refs/heads/*:refs/remotes/origin/*
     ; fetch = +refs/pulls/*/head:refs/remotes/origin/pr/*
