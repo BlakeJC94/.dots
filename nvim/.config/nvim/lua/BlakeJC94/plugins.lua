@@ -252,7 +252,6 @@ local set_plugins = function(repos)
         snapshot_path = vim.fn.stdpath("config") .. "/snapshots",
         snapshot = "packer.json",
         max_jobs = 16,
-        compile_path = vim.fn.stdpath("data") .. "/site/lua/packer_compiled.lua",
     })
     packer.reset()
     packer.use({'wbthomason/packer.nvim'})
@@ -268,7 +267,6 @@ local set_plugins = function(repos)
     if packer_bootstrap then
         packer.sync()
     end
-    return
 end
 
 set_plugins(plugins)
