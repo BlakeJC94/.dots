@@ -49,6 +49,17 @@ M.configure_indent_guides = function()
         filetype_exclude = require("BlakeJC94.globals").filetype_exclude,
         buftype_exclude = {"terminal"},
     })
+
+    local augroup = vim.api.nvim_create_augroup
+    local autocmd = vim.api.nvim_create_autocmd
+    autocmd(
+        {"InsertLeave"},
+        {
+            group = augroup("indent_blankline_updates", {clear = true}),
+            pattern = "*",
+            callback = function() vim.cmd.IndentBlanklineRefresh() end,
+        }
+    )
 end
 
 M.configure_lualine = function()
