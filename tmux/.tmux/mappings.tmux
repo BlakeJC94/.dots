@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+
 # Remap tmux leader
 unbind C-b
 set -g prefix C-z
@@ -12,7 +12,7 @@ bind c source-file ~/.tmux.conf \; display-message 'Reloaded tmux config'
 bind n new-session
 bind R command-prompt -I "#W" "rename-session '%%'"
 bind Q kill-session
-bind Enter choose-tree
+bind Enter choose-window
 
 # Windows
 bind t new-window -c "#{pane_current_path}"
@@ -38,6 +38,7 @@ bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -in -selection clipbo
 
 # Launchers
 bind-key p new-session ncspot \; rename-window ncspot \; rename-session spotify
+bind-key P splitw -v ~/.local/bin/tmux-sessionizer
 
 # Disable <C-z>+<arrow> accidental resizing
 unbind -T prefix C-Up
