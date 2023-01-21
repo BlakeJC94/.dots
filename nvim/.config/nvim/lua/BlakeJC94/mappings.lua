@@ -68,6 +68,7 @@ local mappings = {
         ['<Leader>gS'] = ':w | Gitsigns stage_buffer<CR>',
         ['<Leader>gU'] = ':w | Gitsigns reset_buffer_index<CR>',
         ['<Leader>gR'] = ':Gitsigns reset_buffer | w<CR>',
+        ['<Leader>gh'] = ':Gitsigns toggle_deleted<CR>',
         ['<Leader>gb'] = function() require("gitsigns").blame_line({full=true}) end,
         ['<Leader>gB'] = ':GBrowse<CR>',
         ['<Leader>gd'] = ':Gvdiffsplit<CR>',
@@ -94,7 +95,7 @@ local mappings = {
         -- LSP Leader bindings
         ['<Leader>e'] = function() vim.diagnostic.open_float() end,        -- Show line diagnostics
         ['<Leader>E'] = function() vim.diagnostic.setloclist() end,        -- Show buffer diagnostics
-        ['<Leader>='] = function() vim.lsp.buf.formatting_seq_sync() end,  -- Format buffer
+        ['<Leader>='] = function() vim.lsp.buf.format() end,               -- Format buffer
         ['<Leader>r'] = function() vim.lsp.buf.rename() end,               -- Rename current symbol
         ['<Leader>k'] = function() vim.lsp.buf.signature_help() end,       -- Show signature help
         ['<Leader>a'] = function() vim.lsp.buf.code_action() end,          -- Do code action
@@ -148,15 +149,14 @@ local mappings = {
         ["<"] = "<gv",
         [">"] = ">gv",
         ["="] = "=gv",
-        -- Move visual block up or down
+        -- Move visual block up or down (doesn't like cmdheight=0)
         ["J"] = ":'<,'>m '>+1 | norm gv<CR>",
         ["K"] = ":'<,'>m '<-2 | norm gv<CR>",
-        -- Replace spaces in selection with underscores
-        ["_"] = ":s/\\%V /_/g<CR>",
-        ["g_"] = ":s/\\%V_/ /g<CR>",
         -- Swap p and P to I stop losing register contents by pasting over
         ["p"] = "P",
         ["P"] = "p",
+        -- Gitsigns stage_hunk visual mode
+        ["<Leader>gs"] = ":'<,'>Gitsigns stage_hunk<CR>"
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
