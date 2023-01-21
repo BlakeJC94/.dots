@@ -91,6 +91,15 @@ plugins.interface = {
         "5long/pytest-vim-compiler",
         config = require("BlakeJC94.configs.interface").pytest_compiler
     },
+    {   -- :DocsViewToggle
+        "amrbashir/nvim-docs-view",
+        config = function()
+            require("docs-view").setup {
+                position = "bottom",
+                height = 10,
+            }
+        end
+    },
     {   -- :UndotreeToggle
         'mbbill/undotree',
     },
