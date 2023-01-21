@@ -1,4 +1,4 @@
-local DEFAULT_MAP_OPTS = {noremap = true, silent = true}
+local DEFAULT_MAP_OPTS = {remap = false, silent = true}
 
 vim.g.mapleader = " "
 
@@ -15,8 +15,8 @@ local mappings = {
         ["q"] = "gq",
         ["Q"] = "q",
         -- Navigate quickfix list
-        ["]c"] = ":cnext<CR>",
-        ["[c"] = ":cprev<CR>",
+        ["]q"] = ":cnext<CR>",
+        ["[q"] = ":cprev<CR>",
         ["]l"] = ":lnext<CR>",
         ["[l"] = ":lprev<CR>",
         -- Disable <C-z> to stop process
@@ -32,7 +32,7 @@ local mappings = {
         ["<Leader><BS>"] = ":Telescope find_files<CR>", -- File finder
         ["<Leader><Tab>"] = "<C-^>", -- Last file
         ["<Leader><Esc>"] = ":Telescope buffers<CR>", -- Buffers
-        ["<Leader>c"] = ":ToggleQL<CR>", -- Toggle qflist
+        ["<Leader>q"] = ":ToggleQL<CR>", -- Toggle qflist
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
         ["<Leader>i"] = ":bprev<CR>",
         ["<Leader>o"] = ":bnext<CR>",
@@ -139,6 +139,9 @@ local mappings = {
         ['K'] = function() vim.lsp.buf.hover() end,
         -- Override spellchecker with telescope
         ['z='] = {map=[[v:count ? v:count . 'z=' : ':Telescope spell_suggest<CR>']], opts={expr=true}},
+        -- Use unused arrow keys
+        ["<Left>"] = {map="[", opts={remap=true}},
+        ["<Right>"] = {map="]", opts={remap=true}},
     },
     v = {
         -- Maintain Visual Mode after >/</= actions
@@ -169,16 +172,22 @@ local mappings = {
         -- Custom text object: "around everything"
         ["ae"] = "<Cmd>normal! ggVG<CR>",
         ["ie"] = "<Cmd>normal! ggVG<CR>",
+        -- Use unused arrow keys
+        ["<Left>"] = {map="[", opts={remap=true}},
+        ["<Right>"] = {map="]", opts={remap=true}},
     },
     x = {
         -- Custom text object: "around everything"
         ["ae"] = "gg0oG$",
         ["ie"] = "gg0oG$",
+        -- Use unused arrow keys
+        ["<Left>"] = {map="[", opts={remap=true}},
+        ["<Right>"] = {map="]", opts={remap=true}},
     },
 }
 
 
-for _, mod in pairs({ "", "S-", "A-" }) do
+for _, mod in pairs({ "S-", "A-" }) do
     for _, dir in pairs({ "Left", "Down", "Up", "Right" }) do
         mappings[""]["<" .. mod .. dir .. ">"] = ""
     end

@@ -60,7 +60,7 @@
     process = git-lfs filter-process
     required = true
 [commit]
-    verbose = true
+    ; verbose = true
 [help]
     autocorrect = 15
 [remote "origin"]

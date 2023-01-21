@@ -75,7 +75,22 @@ M.config_cmp = function()
             { name = "nvim_lsp" },
             { name = "path" },
             -- { name = "buffer-lines" },
-            { name = "buffer" },
+            {
+                name = "buffer",
+                option = {
+                    get_bufnrs = function()
+                        local byte_size = vim.api.nvim_buf_get_offset(vim.api.nvim_get_current_buf(), vim.api.nvim_buf_line_count(buf))
+                        if byte_size > 1024 * 1024 then -- 1 Megabyte max
+                            return {}
+                        end
+                        local bufs = {}
+                        for _, win in ipairs(vim.api.nvim_list_wins()) do
+                            bufs[vim.api.nvim_win_get_buf(win)] = true
+                        end
+                        return vim.tbl_keys(bufs)
+                    end
+                },
+            },
             { name = "luasnip" },
             { name = "latex_symbols" },
         },

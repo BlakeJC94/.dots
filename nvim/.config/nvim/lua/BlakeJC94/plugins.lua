@@ -16,6 +16,9 @@ plugins.actions = {
     {   -- gc<motion> => toggle comments
         "tpope/vim-commentary",
     },
+    {   -- gc<motion> => toggle comments
+        "tpope/vim-unimpaired",
+    },
     {   -- gl<obj><char> => align selection to <char>
         "tommcdo/vim-lion",
     },
