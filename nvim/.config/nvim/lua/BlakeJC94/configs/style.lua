@@ -40,17 +40,6 @@ M.configure_gruvbox = function()
             MatchWordCur =               { bg = palette.dark0 },
         },
     })
-
-    local plugin_overrides = {
-        telescope = {
-            TelescopePromptBorder  = { bg = palette.dark0_hard },
-            TelescopePromptNormal  = { bg = palette.dark0_hard },
-            TelescopeResultsBorder = { bg = palette.dark1 },
-            TelescopeResultsNormal = { bg = palette.dark1 },
-            TelescopePreviewBorder = { bg = palette.dark0_hard },
-            TelescopePreviewNormal = { bg = palette.dark0_hard },
-        },
-    })
 end
 
 M.configure_indent_guides = function()
