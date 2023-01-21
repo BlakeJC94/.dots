@@ -40,6 +40,8 @@ M.configure_gruvbox = function()
             MatchWordCur =               { bg = palette.dark0 },
         },
     })
+
+    vim.cmd.colorscheme('gruvbox')
 end
 
 M.configure_indent_guides = function()
