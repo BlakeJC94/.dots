@@ -90,7 +90,8 @@ end
 
 M.create_dirs = function()
     local dir = vim.fn.expand('<afile>:p:h')
-    if vim.fn.isdirectory(dir) == 0 then
+    -- local is_fugitive = dir:sub(1,9) == "fugitive:"
+    if vim.fn.isdirectory(dir) == 0 and not string.find(dir, ':') then
         vim.fn.mkdir(dir, 'p')
     end
 end
@@ -109,7 +110,7 @@ M.print_lines = function(mutiline_string)
 end
 
 M.put_lines = function(mutiline_string)
-    lines = {}
+    local lines = {}
     for line in string.gmatch(mutiline_string, "[^\n]+") do
         table.insert(lines, line)
     end

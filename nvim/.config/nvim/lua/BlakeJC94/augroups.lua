@@ -13,12 +13,12 @@ augroups.base = {
         pattern = "*",
         callback = function() vim.cmd.retab() end,
     },
-    {   -- autoremove whitespace
+    {   -- Auto-remove whitespace
         events = {"BufWritePre"},
         pattern = "*",
         callback = functions.trim_spaces,
     },
-    {   -- make new dirs on save
+    {   -- Make new dirs on save
         events = {"BufWritePre", "FileWritePre"},
         pattern = "*",
         callback = functions.create_dirs,
