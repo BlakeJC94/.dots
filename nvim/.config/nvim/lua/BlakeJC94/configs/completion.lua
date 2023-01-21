@@ -74,18 +74,17 @@ M.config_cmp = function()
             { name = "nvim_lsp_signature_help" },
             { name = "nvim_lsp" },
             { name = "path" },
-            -- { name = "buffer-lines" },
             {
                 name = "buffer",
                 option = {
                     get_bufnrs = function()
-                        local byte_size = vim.api.nvim_buf_get_offset(vim.api.nvim_get_current_buf(), vim.api.nvim_buf_line_count(buf))
-                        if byte_size > 1024 * 1024 then -- 1 Megabyte max
-                            return {}
-                        end
                         local bufs = {}
                         for _, win in ipairs(vim.api.nvim_list_wins()) do
-                            bufs[vim.api.nvim_win_get_buf(win)] = true
+                            local buf = vim.api.nvim_win_get_buf(win)
+                            local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
+                            if byte_size < 1024 * 1024 then
+                                bufs[vim.api.nvim_win_get_buf(win)] = true
+                            end
                         end
                         return vim.tbl_keys(bufs)
                     end
