@@ -23,6 +23,16 @@ augroups.base = {
         pattern = "*",
         callback = functions.create_dirs,
     },
+    {   -- Auto-refresh fugitive status window
+        events = {"BufWritePre", "FileWritePre"},
+        pattern = "*",
+        callback = function() vim.fn["fugitive#ReloadStatus"]() end,
+    },
+    {   -- Auto-remove fugitive buffers when closed
+        events = {"BufReadPost"},
+        pattern = "fugitive://*",
+        callback = function() vim.bo.bufhidden = "delete" end,
+    },
 }
 
 augroups.ft_extra = {
