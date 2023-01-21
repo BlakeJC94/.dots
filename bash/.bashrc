@@ -31,7 +31,7 @@ source $HOME/.bash/modules/tab_cycle.sh
 # Run twolfson/sexy-bash-prompt
 [ -f ~/.bash_prompt ] && source ~/.bash_prompt
 
-# source bash_profile if present
+# Source bash_profile if present
 [ -f ~/.bash_profile ] && source ~/.bash_profile
 
 # TODO replace this with a for loop and source from repo

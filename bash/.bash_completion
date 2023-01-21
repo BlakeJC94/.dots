@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+[ -f ~/.tmux/completion ] && source ~/.tmux/completion
