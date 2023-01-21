@@ -40,10 +40,9 @@ plugins.interface = {
         requires = {
             "tpope/vim-rhubarb",
             "oguzbilgic/vim-gdiff",
-            -- "idanarye/vim-merginal"
         },
     },
-    -- {
+    -- {   -- TODO revisit this
     --     'sindrets/diffview.nvim',
     --     requires = {'nvim-lua/plenary.nvim'},
     -- },
@@ -111,13 +110,10 @@ plugins.interface = {
 
 plugins.style = {
     {   -- Colorscheme
-        "ellisonleao/gruvbox.nvim",
-        requires = {"rktjmp/lush.nvim", "pwntester/octo.nvim"},
+        "ellisonleao/gruvbox.nvim", -- rose-pine and tokyonight look neat too
+        requires = {"rktjmp/lush.nvim", "RRethy/vim-illuminate"},
         config = require("BlakeJC94.configs.style").configure_gruvbox,
     },
-    { "rose-pine/neovim" },
-    { "rebelot/kanagawa.nvim" },
-    { "folke/tokyonight.nvim" },
     {   -- Better f/t targets
         "unblevable/quick-scope",
         config = require("BlakeJC94.configs.style").configure_quick_scope,
@@ -185,7 +181,14 @@ plugins.treesitter = {
         requires = { 'nvim-treesitter' },
         config = function() require("ts-node-action").setup({}) end
     },
-
+    {
+        "ThePrimeagen/refactoring.nvim",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function() require('refactoring').setup({}) end,
+    },
 }
 
 plugins.telescope = {
