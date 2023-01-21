@@ -42,3 +42,12 @@ Changing the cursor in regular vim?
 :autocmd VimResume * exec 'silent !echo -ne "' . &t_EI . '"'
 ```
 
+```
+" Highlighting alternating lines?
+hi myZebra guibg=#000000 " The highlight colors for the lines
+function! MyZebra()
+  let l:lines = range(1, line('$'), 2) " 1 = offset, 2 = interval
+  call map(lines, { k, x -> '\%' . x . 'l' })
+  exe 'match myZebra /' . join(lines, '\|') . '/'
+endfunction
+```
