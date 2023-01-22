@@ -14,13 +14,6 @@ local mappings = {
         -- Remap q and Q to stop polluting registers accidentally!
         ["q"] = "gq",
         ["Q"] = "q",
-        -- Navigate quickfix list
-        ["]q"] = ":cnext<CR>",
-        ["[q"] = ":cprev<CR>",
-        ["]l"] = ":lnext<CR>",
-        ["[l"] = ":lprev<CR>",
-        -- Disable <C-z> to stop process
-        ["<C-z>"] = { map = '', opts = { remap = true } },
         -- Vim Tab controls
         ['<Leader>t'] = ':tabedit %<CR>',
         ['<Leader>.'] = ":tabnext<CR>",
@@ -39,6 +32,8 @@ local mappings = {
         ["<Leader>;"] = ":edit $MYVIMRC | lcd %:p:h<CR>", -- Edit settings
         ["<Leader>:"] = ":source $MYVIMRC<CR>", -- Reload settings
         ["<Leader>d"] = ":Neogen<CR>", -- Generate docs
+        ["<Leader>h"] = ":DocsViewToggle<CR>",
+        ["<Leader>u"] = ":UndoTreeToggle<CR>",
         ["<Leader>x"] = require("ts-node-action").node_action,
         -- Fkey maps
         ["<F1>"] = { map = ":setl relativenumber!<CR>:setl relativenumber?<CR>", opts = { silent = false } },
@@ -108,11 +103,14 @@ local mappings = {
         ['<Leader>f/'] = ":Telescope current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
         ['<Leader>fg'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
         ['<Leader>fh'] = ":Telescope help_tags<CR>",
+        ['<Leader>fH'] = ":Telescope man_pages<CR>",
+        ['<Leader>fc'] = ":Telescope highlights<CR>",
         ['<Leader>fG'] = ":Telescope git_status<CR>",
-        ['<Leader>fc'] = ":Telescope quickfix<CR>",
+        ['<Leader>fq'] = ":Telescope quickfix<CR>",
         ['<Leader>fl'] = ":Telescope loclist<CR>",
         ['<Leader>fs'] = ":Telescope spell_suggest<CR>",
-        ['<Leader>fa'] = ":Telescope lsp_code_actions<CR>",
+        ['<Leader>fv'] = ":Telescope lsp_document_symbols<CR>",
+        ['<Leader>fV'] = ":Telescope lsp_workspace_symbols<CR>",
     },
     n = {
         -- Make Y and S behave like D and C
