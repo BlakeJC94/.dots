@@ -33,6 +33,14 @@ augroups.base = {
         pattern = "fugitive://*",
         callback = function() vim.bo.bufhidden = "delete" end,
     },
+    -- {  -- TODO http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
+    --     events = {"BufReadPost"},
+    --     pattern = "fugitive://*",
+    --     callback = function()
+    --         local fugitive_buffer = vim.fn[fugitive#buffer]
+    --         vim.set.keymap('n', '..', ":edit %:h")
+    --     end,
+    -- },
 }
 
 augroups.ft_extra = {
