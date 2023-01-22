@@ -54,7 +54,8 @@ M.config_gitsigns = function()
             border = 'none',
             style = 'minimal',
             relative = 'cursor',
-        }
+        },
+        -- _signs_staged_enable = true,
     })
 end
 

@@ -51,15 +51,6 @@ plugins.interface = {
         requires = {'nvim-lua/plenary.nvim'},
         config = require("BlakeJC94.configs.interface").config_gitsigns
     },
-    {   -- Even better github integration with :Octo
-        "pwntester/octo.nvim",
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope.nvim',
-            'kyazdani42/nvim-web-devicons',
-        },
-        config = function() require("octo").setup() end,
-    },
     {   -- <C-c><C-c> => Send code snippet to terminal
         "jpalardy/vim-slime",
         config = require("BlakeJC94.configs.interface").slime

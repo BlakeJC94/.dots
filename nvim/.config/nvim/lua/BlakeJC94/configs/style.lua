@@ -24,6 +24,8 @@ M.configure_gruvbox = function()
         invert_intend_guides = false,
         contrast = "hard", -- can be "hard" or "soft"
         overrides = {
+            NormalFloat =                { bg = palette.dark0 },
+            SignColumn =                 { bg = palette.dark0_hard },
             Folded =                     { bg = palette.dark0 },
             ColorColumn =                { bg = palette.dark0 },
             CursorLine =                 { bg = palette.dark0 },
