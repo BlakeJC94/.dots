@@ -15,11 +15,11 @@ local mappings = {
         ["q"] = "gq",
         ["Q"] = "q",
         -- Vim Tab controls
-        ['<Leader>t'] = ':tabedit %<CR>',
-        ['<Leader>.'] = ":tabnext<CR>",
-        ['<Leader>,'] = ":tabprev<CR>",
-        ['<Leader>>'] = ":+tabmove<CR>",
-        ['<Leader><'] = ":-tabmove<CR>",
+        ['<Leader>c'] = ':tabedit %<CR>',
+        ['<Leader>n'] = ":tabnext<CR>",
+        ['<Leader>p'] = ":tabnext<CR>",
+        ['<Leader>N'] = ":+tabmove<CR>",
+        ['<Leader>P'] = ":-tabmove<CR>",
         -- Leader maps
         ["<Leader><CR>"] = ":Telescope file_browser<CR>", -- File browser
         ["<Leader><BS>"] = ":Telescope find_files<CR>", -- File finder

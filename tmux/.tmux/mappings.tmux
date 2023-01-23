@@ -5,40 +5,41 @@ unbind C-b
 set -g prefix C-z
 bind z send-keys C-z
 
-# Reload
-bind c source-file ~/.tmux.conf \; display-message 'Reloaded tmux config'
-
-# Sessions
-bind n new-session
-bind R command-prompt -I "#W" "rename-session '%%'"
-bind Q kill-session
-bind Enter choose-window
-
-# Windows
-bind t new-window -c "#{pane_current_path}"
-bind \; command-prompt -I "#W" "rename-window '%%'"
-bind Tab last-window
-bind BSpace command-prompt "find-window '%%'"
-bind , previous-window
-bind . next-window
-bind -r < swap-window -t -1 \; previous-window
-bind -r > swap-window -t +1 \; next-window
-
-# Panes/splits
-bind y next-layout
-bind v split-window -h -c "#{pane_current_path}"
-bind s split-window -v -c "#{pane_current_path}"
-bind q kill-pane
-
 # Mode
 bind C-z copy-mode
 bind -T copy-mode-vi i send -X cancel
 bind -T copy-mode-vi v send -X begin-selection
 bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
 
+# Reload
+bind Z source-file ~/.tmux.conf \; display-message 'Reloaded tmux config'
+
 # Launchers
-bind-key p new-session ncspot \; rename-window ncspot \; rename-session spotify
-bind-key P splitw -v ~/.local/bin/tmux-sessionizer
+bind-key \; new-session ncspot \; rename-window ncspot \; rename-session spotify
+bind-key G splitw -v ~/.local/bin/tmux-sessionizer
+bind BSpace command-prompt "find-window '%%'"
+bind Enter choose-window
+
+# Windows
+bind c new-window -c "#{pane_current_path}"
+bind C new-window
+bind T break-pane
+bind , command-prompt -I "#W" "rename-window '%%'"  # TODO remove
+bind Tab last-window
+# bind , previous-window
+# bind . next-window
+bind p previous-window
+bind n next-window
+# bind -r < swap-window -t -1 \; previous-window
+# bind -r > swap-window -t +1 \; next-window
+bind -r P swap-window -t -1 \; previous-window
+bind -r N swap-window -t +1 \; next-window
+
+# Panes/splits
+# bind y next-layout
+bind v split-window -h -c "#{pane_current_path}"
+bind s split-window -v -c "#{pane_current_path}"
+bind q kill-pane
 
 # Disable <C-z>+<arrow> accidental resizing
 unbind -T prefix C-Up
