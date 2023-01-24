@@ -50,7 +50,9 @@ bind C-w switch-client -T wincmd
 bind -T wincmd v split-window -h -c "#{pane_current_path}"
 bind -T wincmd s split-window -v -c "#{pane_current_path}"
 bind -T wincmd q kill-pane
+bind -T wincmd o resize-pane -Z
 bind -T wincmd T break-pane
+bind -T wincmd p select-pane -t '!'
 
 # select-pane
 bind -T wincmd h       if -F '#{pane_at_left}'   '' 'select-pane -L'
