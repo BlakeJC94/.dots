@@ -24,10 +24,10 @@ bind -n 'M-Up'    resize-pane -U 4
 bind -n 'M-Right' resize-pane -R 8
 
 # Move panes
-bind -T wincmd 'S-Left'  splitw -fhb \; swapp -t ! \; killp -t !
-bind -T wincmd 'S-Down'  splitw -fh  \; swapp -t ! \; killp -t !
-bind -T wincmd 'S-Up'    splitw -fv  \; swapp -t ! \; killp -t !
-bind -T wincmd 'S-Right' splitw -fvb \; swapp -t ! \; killp -t !
+bind 'S-Left'  splitw -fhb \; swapp -t ! \; killp -t !
+bind 'S-Down'  splitw -fh  \; swapp -t ! \; killp -t !
+bind 'S-Up'    splitw -fv  \; swapp -t ! \; killp -t !
+bind 'S-Right' splitw -fvb \; swapp -t ! \; killp -t !
 
 # Launchers
 bind G splitw -v ~/.local/bin/tmux-sessionizer
