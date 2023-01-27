@@ -23,6 +23,12 @@ bind -n 'M-Down'  resize-pane -D 4
 bind -n 'M-Up'    resize-pane -U 4
 bind -n 'M-Right' resize-pane -R 8
 
+# Move panes
+bind -T wincmd 'S-Left'  splitw -fhb \; swapp -t ! \; killp -t !
+bind -T wincmd 'S-Down'  splitw -fh  \; swapp -t ! \; killp -t !
+bind -T wincmd 'S-Up'    splitw -fv  \; swapp -t ! \; killp -t !
+bind -T wincmd 'S-Right' splitw -fvb \; swapp -t ! \; killp -t !
+
 # Launchers
 bind G splitw -v ~/.local/bin/tmux-sessionizer
 bind Z source-file ~/.tmux.conf \; display-message 'Reloaded tmux config'
@@ -59,16 +65,12 @@ bind -T wincmd h       if -F '#{pane_at_left}'   '' 'select-pane -L'
 bind -T wincmd j       if -F '#{pane_at_bottom}' '' 'select-pane -D'
 bind -T wincmd k       if -F '#{pane_at_top}'    '' 'select-pane -U'
 bind -T wincmd l       if -F '#{pane_at_right}'  '' 'select-pane -R'
-bind -T wincmd 'Left'  if -F '#{pane_at_left}'   '' 'select-pane -L'
-bind -T wincmd 'Down'  if -F '#{pane_at_bottom}' '' 'select-pane -D'
-bind -T wincmd 'Up'    if -F '#{pane_at_top}'    '' 'select-pane -U'
-bind -T wincmd 'Right' if -F '#{pane_at_right}'  '' 'select-pane -R'
+# bind -T wincmd 'Left'  if -F '#{pane_at_left}'   '' 'select-pane -L'
+# bind -T wincmd 'Down'  if -F '#{pane_at_bottom}' '' 'select-pane -D'
+# bind -T wincmd 'Up'    if -F '#{pane_at_top}'    '' 'select-pane -U'
+# bind -T wincmd 'Right' if -F '#{pane_at_right}'  '' 'select-pane -R'
 # swap-pane
 bind -T wincmd H splitw -fhb \; swapp -t ! \; killp -t !
 bind -T wincmd L splitw -fh  \; swapp -t ! \; killp -t !
 bind -T wincmd J splitw -fv  \; swapp -t ! \; killp -t !
 bind -T wincmd K splitw -fvb \; swapp -t ! \; killp -t !
-bind -T wincmd 'S-Left'  splitw -fhb \; swapp -t ! \; killp -t !
-bind -T wincmd 'S-Down'  splitw -fh  \; swapp -t ! \; killp -t !
-bind -T wincmd 'S-Up'    splitw -fv  \; swapp -t ! \; killp -t !
-bind -T wincmd 'S-Right' splitw -fvb \; swapp -t ! \; killp -t !
