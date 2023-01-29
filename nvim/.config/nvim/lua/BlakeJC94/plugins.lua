@@ -46,6 +46,9 @@ plugins.interface = {
     --     'sindrets/diffview.nvim',
     --     requires = {'nvim-lua/plenary.nvim'},
     -- },
+    {
+        "Glench/Vim-Jinja2-Syntax",
+    },
     {   -- Gitgutter, floating hunks, and virtual text blames
         "lewis6991/gitsigns.nvim",
         requires = {'nvim-lua/plenary.nvim'},
