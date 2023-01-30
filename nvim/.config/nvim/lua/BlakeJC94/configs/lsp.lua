@@ -127,6 +127,7 @@ M.config_null_ls = function()
             null_ls.builtins.diagnostics.luacheck,
             null_ls.builtins.formatting.stylua,
             -- self.null_ls_juliaformatter(),
+            null_ls.builtins.formatting.rustfmt,
         },
     })
 end

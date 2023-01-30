@@ -46,6 +46,9 @@ plugins.interface = {
     --     'sindrets/diffview.nvim',
     --     requires = {'nvim-lua/plenary.nvim'},
     -- },
+    {   -- Notes
+        "renerocksai/telekasten.nvim"
+    },
     {
         "Glench/Vim-Jinja2-Syntax",
     },
