@@ -47,7 +47,8 @@ plugins.interface = {
     --     requires = {'nvim-lua/plenary.nvim'},
     -- },
     {   -- Notes
-        "renerocksai/telekasten.nvim"
+        "renerocksai/telekasten.nvim",
+        config = require("BlakeJC94.configs.interface").config_telekasten,
     },
     {
         "Glench/Vim-Jinja2-Syntax",

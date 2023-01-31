@@ -59,4 +59,21 @@ M.config_gitsigns = function()
     })
 end
 
+M.config_telekasten = function()
+    local tk_home = vim.fn.expand("~/journals")
+    require('telekasten').setup(
+        {
+            home = tk_home,
+            -- new_note_filename = "title-uuid",  -- BUG: telekasten.lua:669 gsub (uuid?)
+            tag_notation = ":tag:",
+            template_new_note = tk_home .. '/templates/new_note.md',
+            -- template_new_daily = tk_home .. '/templates/daily.md',  -- BUG: telekasten.lua:669 gsub (uuid?)
+            -- template_new_weekly= tk_home .. '/templates/weekly.md',  -- BUG: telekasten.lua:669 gsub (uuid?)
+            plug_into_calendar = false,
+            auto_set_filetype = false,
+            journal_auto_open = true,
+        }
+    )
+end
+
 return M
