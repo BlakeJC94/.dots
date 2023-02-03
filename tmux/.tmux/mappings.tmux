@@ -12,10 +12,16 @@ bind -T copy-mode-vi v send -X begin-selection
 bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
 
 # Disable <C-z>+<arrow> accidental resizing
-unbind -T prefix C-Up
-unbind -T prefix C-Down
 unbind -T prefix C-Left
+unbind -T prefix C-Down
+unbind -T prefix C-Up
 unbind -T prefix C-Right
+
+# Rebind arrows for navigation to disable repeatable bind
+bind Left  select-pane -L
+bind Down  select-pane -D
+bind Up    select-pane -U
+bind Right select-pane -R
 
 # Resize panes
 bind -n 'M-Left'  resize-pane -L 8
@@ -36,13 +42,6 @@ bind \; new-session ncspot \; rename-window ncspot \; rename-session spotify
 bind BSpace command-prompt "find-window '%%'"
 bind Enter choose-window
 bind Tab last-window
-
-# Windows (moreso just reminders about default bindings)
-# bind c new-window -c "#{pane_current_path}"
-# bind C new-window
-# bind , command-prompt -I "#W" "rename-window '%%'"
-# bind p previous-window
-# bind n next-window
 
 # Swap windows easily
 bind -r P swap-window -t -1 \; previous-window
