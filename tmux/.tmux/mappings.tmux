@@ -28,12 +28,6 @@ bind -n 'M-Left'  resize-pane -L 8
 bind -n 'M-Down'  resize-pane -D 4
 bind -n 'M-Up'    resize-pane -U 4
 bind -n 'M-Right' resize-pane -R 8
-# Swap panes
-bind 'S-Left'  splitw -fhb \; swapp -t ! \; killp -t !
-bind 'S-Down'  splitw -fh  \; swapp -t ! \; killp -t !
-bind 'S-Up'    splitw -fv  \; swapp -t ! \; killp -t !
-bind 'S-Right' splitw -fvb \; swapp -t ! \; killp -t !
-
 # Move panes
 bind 'S-Left'  splitw -fhb \; swapp -t ! \; killp -t !
 bind 'S-Down'  splitw -fh  \; swapp -t ! \; killp -t !
