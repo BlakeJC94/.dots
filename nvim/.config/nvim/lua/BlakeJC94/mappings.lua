@@ -53,9 +53,6 @@ local mappings = {
         ['[g'] = ':silent Gitsigns prev_hunk<CR>',
         -- Leader maps
         ['<Leader>gg'] = ':Git<CR>',
-        ['<Leader>gG'] = ':Git status<CR>',
-        ['<Leader>gc'] = ':Git commit | startinsert<CR>',
-        ['<Leader>gC'] = ':Git commit --amend<CR>',
         ['<Leader>gp'] = ':Gitsigns preview_hunk<CR>',
         ['<Leader>gs'] = ':w | Gitsigns stage_hunk<CR>',
         ['<Leader>gu'] = ':w | Gitsigns undo_stage_hunk<CR>',
@@ -67,9 +64,7 @@ local mappings = {
         ['<Leader>gb'] = function() require("gitsigns").blame_line({full=true}) end,
         ['<Leader>gB'] = ':GBrowse<CR>',
         ['<Leader>gd'] = ':Gvdiffsplit<CR>',
-        ['<Leader>gD'] = ':Gdiffsplit<CR>',
-        ['<Leader>gt'] = ':Git difftool<CR>',
-        ['<Leader>gT'] = ':Git mergetool<CR>',
+        ['<Leader>gD'] = ':Gvdiffsplit!<CR>',
         -- Packer maps
         ['<Leader>pp'] = ':exec "PackerSync" | echo "Syncing plugins"<CR>',
         ['<Leader>pi'] = ':exec "PackerInstall" | echo "Installing plugins"<CR>',
@@ -84,7 +79,7 @@ local mappings = {
         ['gd'] = function() vim.lsp.buf.definition() end,
         ['gD'] = function() vim.lsp.buf.declaration() end,
         ['gI'] = function() vim.lsp.buf.implementation() end,
-        ['gR'] = function() vim.lsp.buf.references() end,
+        ['gr'] = function() vim.lsp.buf.references() end,
         ['gy'] = function() vim.lsp.buf.type_definition() end,
         ['gw'] = function() vim.lsp.buf.document_symbol() end,
         -- LSP Leader bindings

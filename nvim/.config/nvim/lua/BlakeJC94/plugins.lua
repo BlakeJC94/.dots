@@ -40,6 +40,7 @@ plugins.interface = {
         requires = {
             "tpope/vim-rhubarb",
             "oguzbilgic/vim-gdiff",
+            "christoomey/vim-conflicted",
         },
     },
     -- {   -- TODO revisit this
