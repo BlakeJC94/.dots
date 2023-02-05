@@ -48,7 +48,8 @@ plugins.interface = {
     --     requires = {'nvim-lua/plenary.nvim'},
     -- },
     {
-        "BlakeJC94/neozettel",
+        -- "BlakeJC94/neozettel",
+        "~/Workspace/repos/neozettel",
     },
     {   -- Notes
         "renerocksai/telekasten.nvim",
