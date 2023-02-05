@@ -47,6 +47,9 @@ plugins.interface = {
     --     'sindrets/diffview.nvim',
     --     requires = {'nvim-lua/plenary.nvim'},
     -- },
+    {
+        "BlakeJC94/neozettel",
+    },
     {   -- Notes
         "renerocksai/telekasten.nvim",
         config = require("BlakeJC94.configs.interface").config_telekasten,
