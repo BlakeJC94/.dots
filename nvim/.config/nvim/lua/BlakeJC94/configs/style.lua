@@ -3,7 +3,7 @@ local M = {}
 
 M.configure_gruvbox = function()
     local gruvbox = require("gruvbox")
-    local palette = require('gruvbox.palette')
+    local palette = require('gruvbox.palette').colors
     local color_midpoint = require("BlakeJC94.functions").color_midpoint
 
     local bg_diff_delete = color_midpoint(palette.dark0_hard, palette.neutral_red,    10, 1)

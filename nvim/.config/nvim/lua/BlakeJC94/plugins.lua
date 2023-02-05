@@ -50,6 +50,7 @@ plugins.interface = {
     {
         -- "BlakeJC94/neozettel",
         "~/Workspace/repos/neozettel",
+        config = function() require("neozettel").setup() end,
     },
     {   -- Notes
         "renerocksai/telekasten.nvim",
