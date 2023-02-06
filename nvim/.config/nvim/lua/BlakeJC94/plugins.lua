@@ -50,7 +50,9 @@ plugins.interface = {
     {
         -- "BlakeJC94/neozettel",
         "~/Workspace/repos/neozettel",
-        config = function() require("neozettel").setup() end,
+        config = function()
+            require("neozettel").setup({journal_dir=vim.fn.expand("~/Workspace/repos/journal")})
+        end,
     },
     {   -- Notes
         "renerocksai/telekasten.nvim",
