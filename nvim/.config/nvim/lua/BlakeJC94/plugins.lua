@@ -51,7 +51,17 @@ plugins.interface = {
         -- "BlakeJC94/neozettel",
         "~/Workspace/repos/neozettel",
         config = function()
-            require("neozettel").setup({journal_dir=vim.fn.expand("~/Workspace/repos/journal")})
+                local note_dir = vim.fn.expand('~/Workspace/repos/journal')
+                require("neozettel").setup(
+                {
+                    note_dir = note_dir,
+                    journal_dirs = {
+                        day = note_dir .. '/daily',
+                        week = note_dir .. '/weekly',
+                        month = note_dir .. '/monthly',
+                    }
+                }
+            )
         end,
     },
     {   -- Notes
