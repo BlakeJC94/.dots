@@ -49,16 +49,18 @@ plugins.interface = {
     -- },
     {
         -- "BlakeJC94/neozettel",
-        "~/Workspace/repos/neozettel",
+        "~/Workspace/repos/field-notes.nvim",
         config = function()
-                local note_dir = vim.fn.expand('~/Workspace/repos/journal')
-                require("neozettel").setup(
+                local field_notes_path = vim.fn.expand('~/Workspace/repos/field-notes')
+                require("field_notes").setup(
                 {
-                    note_dir = note_dir,
-                    journal_dirs = {
-                        day = note_dir .. '/daily',
-                        week = note_dir .. '/weekly',
-                        month = note_dir .. '/monthly',
+                    field_notes_path = field_notes_path,
+                    notes_dir = 'notes',
+                    journal_dir = 'journal',
+                    journal_subdirs = {
+                        day = 'daily',
+                        week = 'weekly',
+                        month = 'monthly',
                     }
                 }
             )

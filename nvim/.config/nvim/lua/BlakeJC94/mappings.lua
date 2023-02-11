@@ -153,7 +153,7 @@ local mappings = {
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
-        ["<C-s>"] = { map = "<C-g>u<Esc>[s1z=`]a<C-g>u", opts = { remap = true } },
+        ["<C-s>"] = { map = "<C-g>u<Esc>[s1z=`]a<C-g>u", opts = { remap = false } },
         -- Stop accidentlly opening helkp in insert mode
         ["<F1>"] = "",
         -- Make <C-k> use lsp.hover, call twice to jump to hoverdoc

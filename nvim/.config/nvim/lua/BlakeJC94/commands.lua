@@ -23,15 +23,15 @@ commands['ToggleLL'] = function()
 end
 
 -- Open notes
-commands['Notes'] = function()
-    vim.cmd.lcd('~/Dropbox/Journals')
-    vim.cmd.edit('~/Dropbox/Journals')
-end
+-- commands['Notes'] = function()
+--     vim.cmd.lcd('~/Dropbox/Journals')
+--     vim.cmd.edit('~/Dropbox/Journals')
+-- end
 
-commands['Note'] = {
-    function(keys) functions.new_note(keys.args) end,
-    {force=true, nargs='?'}
-}
+-- commands['Note'] = {
+--     function(keys) functions.new_note(keys.args) end,
+--     {force=true, nargs='?'}
+-- }
 
 commands['PylintDisableLine'] = function()
     functions.pylint_disable_line()
