@@ -1,6 +1,12 @@
 local M = {}
 
-M.config = function()
+M.requires = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope-fzf-native.nvim",
+    "nvim-telescope/telescope-file-browser.nvim",
+}
+
+function M.config()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
 

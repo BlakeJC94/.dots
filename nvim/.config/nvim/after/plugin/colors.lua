@@ -34,5 +34,5 @@ function set_colors(color)
     end
 end
 
-set_colors()
+-- set_colors()
 

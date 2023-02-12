@@ -1,8 +1,4 @@
-local DEFAULT_MAP_OPTS = {remap = false, silent = true}
-
-vim.g.mapleader = " "
-
-local mappings = {
+local M = {
     [""] = {
         -- Prevent x and s from overriding what's in the clipboard
         ["x"] = '"_x',
@@ -179,27 +175,13 @@ local mappings = {
     },
 }
 
-
 for _, mod in pairs({ "S-", "A-" }) do
     for _, dir in pairs({ "Left", "Down", "Up", "Right" }) do
-        mappings[""]["<" .. mod .. dir .. ">"] = ""
+        M[""]["<" .. mod .. dir .. ">"] = ""
     end
 end
 for _, mark in pairs({ ".", ",", "!", "?", "(", ")", "[", "]", "{", "}", "<", ">", '"', "'"  }) do
-    mappings["i"][mark] = mark .. "<C-g>u"
+    M["i"][mark] = mark .. "<C-g>u"
 end
 
-local function set_mappings(mappings)
-    for mode, mode_mappings in pairs(mappings) do
-        for keys, mapping in pairs(mode_mappings) do
-            if (type(mapping) == "table") then
-                local opts = vim.tbl_extend('force', DEFAULT_MAP_OPTS, mapping.opts)
-                vim.keymap.set(mode, keys, mapping.map, opts)
-            else
-                vim.keymap.set(mode, keys, mapping, DEFAULT_MAP_OPTS)
-            end
-        end
-    end
-end
-set_mappings(mappings)
-return mappings
+return M

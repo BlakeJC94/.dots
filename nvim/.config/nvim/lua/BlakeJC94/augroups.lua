@@ -1,8 +1,8 @@
-local augroups = {}
+local M = {}
 
-local functions = require('BlakeJC94.functions')
+local functions = require('BlakeJC94.utils').functions
 
-augroups.base = {
+M.base = {
     {   -- resize vim splits
         events = {"VimResized"},
         pattern = {"*"},
@@ -43,7 +43,7 @@ augroups.base = {
     -- },
 }
 
-augroups.ft_extra = {
+M.ft_extra = {
     {   -- close cmdwin with q
         events = {"CmdWinEnter"},
         pattern = "*",
@@ -82,13 +82,13 @@ augroups.ft_extra = {
     },
 }
 
-augroups.style = {
+M.style = {
     {   -- toggle on insert colorcol cursorline
         events = { "InsertEnter" },
         pattern = "*",
         callback = function()
             local allowed = true
-            for _, v in pairs(require("BlakeJC94.globals").filetype_exclude) do
+            for _, v in pairs(require("BlakeJC94").filetype_exclude) do
                 if vim.bo.filetype == v then
                     allowed = false
                 end
@@ -106,7 +106,7 @@ augroups.style = {
         pattern = "*",
         callback = function()
             local allowed = true
-            for _, v in pairs(require("BlakeJC94.globals").filetype_exclude) do
+            for _, v in pairs(require("BlakeJC94").filetype_exclude) do
                 if vim.bo.filetype == v then
                     allowed = false
                 end
@@ -132,19 +132,4 @@ augroups.style = {
     },
 }
 
-local function set_augroups(augroups)
-    for name, augroup in pairs(augroups) do
-        local id = vim.api.nvim_create_augroup(name, {clear = true})
-        for _, autocmd in pairs(augroup) do
-            vim.api.nvim_create_autocmd(
-                autocmd.events,
-                {
-                    group = id,
-                    pattern = autocmd.pattern,
-                    callback = autocmd.callback,
-                }
-            )
-        end
-    end
-end
-set_augroups(augroups)
+return M

@@ -1,5 +1,3 @@
--- This module is for lua functions that can be used anywhere else in the configuration. Just use
--- `require('BlakeJC94.functions').function_name` wherever needed.
 local M = {}
 
 -- Generate new md file with auto-generated header and filename
@@ -246,4 +244,3 @@ M.pylint_disable_line = function()
 end
 
 return M
-
