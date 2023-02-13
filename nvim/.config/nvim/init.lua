@@ -7,5 +7,6 @@ require("BlakeJC94").setup({
     options  = true,
     commands = true,
     mappings = true,
+    leaders  = true,
     augroups = true,
 })

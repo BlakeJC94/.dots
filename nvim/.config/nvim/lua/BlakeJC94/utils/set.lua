@@ -1,16 +1,53 @@
+local function ensure_packer()
+    local packer_location = "/site/pack/packer/start/packer.nvim"
+    local packer_url = "https://github.com/wbthomason/packer.nvim"
+    local install_path = vim.fn.stdpath("data") .. packer_location
+
+    local packer_bootstrap = false
+    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+        vim.fn.system({ "git", "clone", "--depth", "1", packer_url, install_path })
+        vim.cmd.packadd("packer.nvim")
+        packer_bootstrap = true
+    end
+
+    return packer_bootstrap
+end
+
+local function assemble_packer_module(repo)
+    local repo_name = string.match(repo[1], "[^/]+$")
+    local config_name = string.gsub(repo_name, "[ %\\%/-.,=:;><]+", "_")
+
+    local status_ok, config = pcall(require, "BlakeJC94.configs." .. config_name)
+    if not status_ok then
+        return repo
+    end
+
+    repo = vim.tbl_extend("force", repo, config)
+    return repo
+end
+
+local function configure_packer(packer)
+    packer.init({
+        snapshot_path = vim.fn.stdpath("config") .. "/snapshots",
+        snapshot = "packer.json",
+        max_jobs = 16,
+    })
+    packer.reset()
+    packer.use({ "wbthomason/packer.nvim" })
+end
+
 local M = {}
 
 function M.addons(repos)
-    local pack = require("BlakeJC94.utils").pack
-    local packer_bootstrap = pack.ensure_packer()
+    local packer_bootstrap = ensure_packer()
     local status_ok, packer = pcall(require, "packer")
     if not status_ok then
         print("Warning: Packer not properly installed, skipping plugin loading.")
         return
     end
-    pack.configure_packer(packer)
+    configure_packer(packer)
     for _, repo in ipairs(repos) do
-        packer.use(pack.assemble_packer_module(repo))
+        packer.use(assemble_packer_module(repo))
     end
     packer.install()
     if packer_bootstrap then
@@ -44,7 +81,6 @@ end
 
 function M.mappings(mappings)
     local DEFAULT_MAP_OPTS = {remap = false, silent = true}
-    vim.g.mapleader = " "
     for mode, mode_mappings in pairs(mappings) do
         for keys, mapping in pairs(mode_mappings) do
             if (type(mapping) == "table") then
