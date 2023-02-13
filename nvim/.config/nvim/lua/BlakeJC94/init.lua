@@ -23,6 +23,7 @@ function M.setup(config)
 
     utils.add_undo_breakpoints_insert_mode_punctuation()
     utils.disable_arrow_keys()
+    utils.setup_goto_config()
 
     if config.scratchpad then require("BlakeJC94.scratchpad") end
 end

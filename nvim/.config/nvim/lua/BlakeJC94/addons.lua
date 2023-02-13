@@ -11,11 +11,6 @@ return {
     { "wellle/targets.vim" }, -- Many many more text objects
     { "Julian/vim-textobj-variable-segment" }, -- iv/av => Text objects for substrings in snake/camel/kebab case
     --- INTERFACE ---
-    { "tpope/vim-fugitive" }, -- The ultimate git plugin for Vim
-    { "tpope/vim-rhubarb" },
-    { "oguzbilgic/vim-gdiff" },
-    { "christoomey/vim-conflicted" },
-    { "sindrets/diffview.nvim" },
     { "~/Workspace/repos/field-notes.nvim" },
     { "Glench/Vim-Jinja2-Syntax" },
     { "lewis6991/gitsigns.nvim" }, -- Gitgutter, floating hunks, and virtual text blames
@@ -35,6 +30,12 @@ return {
     { "https://gitlab.com/yorickpeterse/nvim-pqf" }, -- Better quickfix list format
     { "nvim-lualine/lualine.nvim" }, -- Statusline
     { "lukas-reineke/indent-blankline.nvim" }, -- Indent guides
+    --- GIT ---
+    { "tpope/vim-fugitive" }, -- The ultimate git plugin for Vim
+    { "tpope/vim-rhubarb" },
+    { "oguzbilgic/vim-gdiff" },
+    { "christoomey/vim-conflicted" },
+    { "sindrets/diffview.nvim" },
     --- COMPLETION ---
     { "L3MON4D3/LuaSnip" }, -- Snippets
     { "hrsh7th/nvim-cmp" },
@@ -48,6 +49,8 @@ return {
     --- TELESCOPE ---
     { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
     { "nvim-telescope/telescope.nvim" }, -- Extensible Fuzzy finder
+    --- NEOTEST ---
+    -- { "nvim-neotest/neotest" },
     --- LSP ---
     { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
     { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right
@@ -55,4 +58,3 @@ return {
     { "jose-elias-alvarez/null-ls.nvim" }, -- Extra sources for LSP
     { "williamboman/mason.nvim" }, -- Installer for external tools
 }
-
