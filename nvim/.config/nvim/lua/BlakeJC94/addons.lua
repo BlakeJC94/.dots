@@ -50,7 +50,7 @@ return {
     { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
     { "nvim-telescope/telescope.nvim" }, -- Extensible Fuzzy finder
     --- NEOTEST ---
-    -- { "nvim-neotest/neotest" },
+    { "nvim-neotest/neotest" },
     --- LSP ---
     { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
     { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right

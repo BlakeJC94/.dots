@@ -15,7 +15,7 @@ end
 
 local function assemble_packer_module(repo)
     local repo_name = string.match(repo[1], "[^/]+$")
-    local config_name = string.gsub(repo_name, "[ %\\%/-.,=:;><]+", "_")
+    local config_name = require("BlakeJC94.utils").slugify(repo_name)
 
     local status_ok, config = pcall(require, "BlakeJC94.configs." .. config_name)
     if not status_ok then

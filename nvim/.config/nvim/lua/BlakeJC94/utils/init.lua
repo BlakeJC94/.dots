@@ -4,11 +4,7 @@ M.functions = require("BlakeJC94.utils.functions")
 M.set = require("BlakeJC94.utils.set")
 
 function M.slugify(input_string)
-    local output_string = string.lower(input_string)
-    output_string = string.gsub(output_string, "[ %[%]()%{%}%\\%/-.,=%'%\":;><]+", "_")
-    output_string = string.gsub(output_string, "^[_]+", "")
-    output_string = string.gsub(output_string, "[_]+$", "")
-    return output_string
+    return string.gsub(string.lower(input_string), "[ %\\%/-.,=:;><]+", "_")
 end
 
 -- TODO make private
@@ -40,6 +36,12 @@ local function goto_config(keys)
     -- print(vim.inspect(config_path))
 
     vim.cmd.edit(config_path)
+
+    local config_path_exists = vim.fn.filereadable(config_path)
+    if config_path_exists == 0 then
+        local lines = {"local M = {}", "", "", "", "return M"}
+        vim.api.nvim_buf_set_lines(0, 0, 0, true, lines)
+    end
 end
 
 function M.setup_goto_config()
