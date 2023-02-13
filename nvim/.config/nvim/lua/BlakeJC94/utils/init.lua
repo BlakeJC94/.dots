@@ -2,7 +2,6 @@ local M = {}
 
 M.functions = require("BlakeJC94.utils.functions")
 M.set = require("BlakeJC94.utils.set")
-M.pack = require("BlakeJC94.utils.pack")
 
 function M.add_undo_breakpoints_insert_mode_punctuation()
     local mappings = {["i"] = {}}
