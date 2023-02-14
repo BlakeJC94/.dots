@@ -26,6 +26,9 @@ return {
     { "mbbill/undotree" }, -- :UndotreeToggle
     --- STYLE ---
     { "ellisonleao/gruvbox.nvim" }, -- rose-pine and tokyonight and material.nvim look neat too
+    { "marko-cerovac/material.nvim" },
+    { "rose-pine/neovim" },
+    { "folke/tokyonight.nvim" },
     { "unblevable/quick-scope" }, -- Better f/t targets
     { "https://gitlab.com/yorickpeterse/nvim-pqf" }, -- Better quickfix list format
     { "nvim-lualine/lualine.nvim" }, -- Statusline
