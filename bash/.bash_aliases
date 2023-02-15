@@ -16,7 +16,7 @@ alias c='cd "$(find . -maxdepth 1 -type d | fzf)"'
 alias C='cd "$(find . -type d | fzf)"'
 # Quick project navigation command
 alias g='cd "$(find ~/Workspace/repos ~/Workspace/scratch/ -mindepth 1 -maxdepth 2 -type d -or -type l | fzf)"'
-alias G='tmux-sessionizer'
+alias t='tmux-sessionizer'
 alias a='tmux a'
 alias d='tmux detach'
 # Muscle memory
