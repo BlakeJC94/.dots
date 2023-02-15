@@ -21,6 +21,8 @@ alias a='tmux a'
 alias d='tmux detach'
 # Muscle memory
 alias q="exit"
+alias G="git"
+alias Git="git"
 
 # More aliases
 alias matlabcli="matlab -nodisplay"
