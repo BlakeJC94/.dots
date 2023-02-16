@@ -13,42 +13,42 @@ return {
         ["<Leader><Esc>"] = ":Telescope buffers<CR>", -- Buffers
         ["<Leader>q"] = ":ToggleQL<CR>", -- Toggle qflist
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
-        ["<Leader>i"] = ":bprev<CR>",
         ["<Leader>o"] = ":bnext<CR>",
         ["<Leader>;"] = ":edit $MYVIMRC | lcd %:p:h<CR>", -- Edit settings
         ["<Leader>:"] = ":source $MYVIMRC<CR>", -- Reload settings
-        ["<Leader>d"] = ":Neogen<CR>", -- Generate docs
-        ["<Leader>h"] = ":DocsViewToggle<CR>",
+        ["<Leader>d"] = ":lcd %:p:h<CR>",
+        ["<Leader>D"] = ":cd %:p:h<CR>",
+        ["<Leader>v"] = ":DocsViewToggle<CR>",
         ["<Leader>u"] = ":UndoTreeToggle<CR>",
+        ["<Leader>U"] = ":Neogen<CR>", -- Generate docs
         ["<Leader>x"] = require("ts-node-action").node_action,
-        -- Leader maps
-        ['<Leader>gg'] = ':Git<CR>',
-        ['<Leader>gp'] = ':Gitsigns preview_hunk<CR>',
-        ['<Leader>gs'] = ':w | Gitsigns stage_hunk<CR>',
-        ['<Leader>gu'] = ':w | Gitsigns undo_stage_hunk<CR>',
-        ['<Leader>gr'] = ':Gitsigns reset_hunk | w<CR>',
-        ['<Leader>gS'] = ':w | Gitsigns stage_buffer<CR>',
-        ['<Leader>gU'] = ':w | Gitsigns reset_buffer_index<CR>',
-        ['<Leader>gR'] = ':Gitsigns reset_buffer | w<CR>',
-        ['<Leader>gh'] = ':Gitsigns toggle_deleted<CR>',
-        ['<Leader>gb'] = function() require("gitsigns").blame_line({full=true}) end,
-        ['<Leader>gB'] = ':GBrowse<CR>',
-        ['<Leader>gd'] = ':Gvdiffsplit<CR>',
-        ['<Leader>gD'] = ':Gvdiffsplit!<CR>',
-        -- Packer maps
-        ['<Leader>pp'] = ':exec "PackerSync" | echo "Syncing plugins"<CR>',
-        ['<Leader>pi'] = ':exec "PackerInstall" | echo "Installing plugins"<CR>',
-        ['<Leader>pu'] = ':exec "PackerUpdate" | echo "Updating plugins.."<CR>',
-        ['<Leader>pc'] = ':exec "PackerCompile" | echo "Compiling plugins.."<CR>',
-        ['<Leader>pC'] = ':exec "PackerClean" | echo "Cleaning plugins.."<CR>',
-        ['<Leader>ps'] = ':exec "PackerStatus" | echo "Plugin status"<CR>',
         -- LSP Leader bindings
         ['<Leader>e'] = function() vim.diagnostic.open_float() end,        -- Show line diagnostics
         ['<Leader>E'] = function() vim.diagnostic.setloclist() end,        -- Show buffer diagnostics
         ['<Leader>='] = function() vim.lsp.buf.format() end,               -- Format buffer
         ['<Leader>r'] = function() vim.lsp.buf.rename() end,               -- Rename current symbol
+        ['<Leader>R'] = function() vim.lsp.buf.references() end,
         ['<Leader>k'] = function() vim.lsp.buf.signature_help() end,       -- Show signature help
         ['<Leader>a'] = function() vim.lsp.buf.code_action() end,          -- Do code action
+        -- Leader maps
+        ['<Leader>g'] = ':Git<CR>',
+        ['<Leader>hp'] = ':Gitsigns preview_hunk<CR>',
+        ['<Leader>hs'] = ':w | Gitsigns stage_hunk<CR>',
+        ['<Leader>hu'] = ':w | Gitsigns undo_stage_hunk<CR>',
+        ['<Leader>hr'] = ':Gitsigns reset_hunk | w<CR>',
+        ['<Leader>hS'] = ':w | Gitsigns stage_buffer<CR>',
+        ['<Leader>hU'] = ':w | Gitsigns reset_buffer_index<CR>',
+        ['<Leader>hR'] = ':Gitsigns reset_buffer | w<CR>',
+        ['<Leader>hh'] = ':Gitsigns toggle_deleted<CR>',
+        ['<Leader>hb'] = function() require("gitsigns").blame_line({full=true}) end,
+        ['<Leader>B'] = ':GBrowse<CR>',
+        -- Packer maps
+        ['<Leader>.p'] = ':exec "PackerSync" | echo "Syncing plugins"<CR>',
+        ['<Leader>.i'] = ':exec "PackerInstall" | echo "Installing plugins"<CR>',
+        ['<Leader>.u'] = ':exec "PackerUpdate" | echo "Updating plugins.."<CR>',
+        ['<Leader>.c'] = ':exec "PackerCompile" | echo "Compiling plugins.."<CR>',
+        ['<Leader>.C'] = ':exec "PackerClean" | echo "Cleaning plugins.."<CR>',
+        ['<Leader>.s'] = ':exec "PackerStatus" | echo "Plugin status"<CR>',
         -- Telescope mappings
         ['<Leader>ff'] = ":Telescope resume<CR>",                     -- Open last telescope
         ['<Leader>fF'] = ":Telescope<CR>",                            -- Find Telescopes

@@ -65,7 +65,7 @@ function M.config()
                 --     width = 60,
                 -- },
                 previewer = false,
-                hijack_netrw = true,
+                hijack_netrw = false,
                 path = "%:p:h",
                 grouped = true,
                 hidden = true,

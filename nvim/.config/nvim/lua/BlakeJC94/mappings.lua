@@ -33,7 +33,6 @@ return {
         ['gd'] = function() vim.lsp.buf.definition() end,
         ['gD'] = function() vim.lsp.buf.declaration() end,
         ['gI'] = function() vim.lsp.buf.implementation() end,
-        ['gr'] = function() vim.lsp.buf.references() end,
         ['gy'] = function() vim.lsp.buf.type_definition() end,
         ['gw'] = function() vim.lsp.buf.document_symbol() end,
     },

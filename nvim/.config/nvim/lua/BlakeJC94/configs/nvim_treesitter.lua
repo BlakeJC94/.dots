@@ -41,8 +41,8 @@ function M.config()
                 keymaps = {
                     ["af"] = "@function.outer",
                     ["if"] = "@function.inner",
-                    ["ao"] = "@class.outer",
-                    ["io"] = "@class.inner",
+                    ["ac"] = "@class.outer",
+                    ["ic"] = "@class.inner",
                 },
                 selection_modes = {
                     ["@parameter.outer"] = "v",
@@ -64,27 +64,23 @@ function M.config()
                 set_jumps = true, -- whether to set jumps in the jumplist
                 goto_next_start = {
                     ["]f"] = "@function.outer",
-                    ["]o"] = "@class.outer",
+                    ["]c"] = "@class.outer",
                     ["]p"] = "@parameter.outer",
-                    ["]a"] = "@attribute.outer",
                 },
                 goto_next_end = {
                     ["]F"] = "@function.outer",
-                    ["]O"] = "@class.outer",
+                    ["]C"] = "@class.outer",
                     ["]P"] = "@parameter.outer",
-                    ["]A"] = "@attribute.outer",
                 },
                 goto_previous_start = {
                     ["[f"] = "@function.outer",
-                    ["[o"] = "@class.outer",
+                    ["[c"] = "@class.outer",
                     ["[p"] = "@parameter.outer",
-                    ["[a"] = "@attribute.outer",
                 },
                 goto_previous_end = {
                     ["[F"] = "@function.outer",
-                    ["[O"] = "@class.outer",
+                    ["[C"] = "@class.outer",
                     ["[P"] = "@parameter.outer",
-                    ["[A"] = "@attribute.outer",
                 },
             },
         },
