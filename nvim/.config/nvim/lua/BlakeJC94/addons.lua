@@ -20,7 +20,7 @@ return {
     { "luukvbaal/stabilize.nvim" }, -- Stabilise split creation  TODO remove when merged in 0.9
     { "mrjones2014/smart-splits.nvim" }, -- smarter split resize functions
     { "norcalli/nvim-colorizer.lua" }, -- Colors Hex codes
-    { "RRethy/vim-illuminate" }, -- Subtle highlighting of instances of word under cursor
+    { "tzachar/local-highlight.nvim" },
     { "5long/pytest-vim-compiler" }, -- Link :make to pytest
     { "amrbashir/nvim-docs-view" }, -- :DocsViewToggle
     { "mbbill/undotree" }, -- :UndotreeToggle
