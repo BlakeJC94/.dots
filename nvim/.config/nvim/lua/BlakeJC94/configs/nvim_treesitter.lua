@@ -39,10 +39,12 @@ function M.config()
                 enable = true,
                 lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
                 keymaps = {
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner",
+                    ["aF"] = "@function.outer",
+                    ["iF"] = "@function.inner",
+                    ["aC"] = "@class.outer",
+                    ["iC"] = "@class.inner",
+                    ["aI"] = "@parameter.outer",
+                    ["iI"] = "@parameter.inner",
                 },
                 selection_modes = {
                     ["@parameter.outer"] = "v",
@@ -63,24 +65,14 @@ function M.config()
                 enable = true,
                 set_jumps = true, -- whether to set jumps in the jumplist
                 goto_next_start = {
-                    ["]f"] = "@function.outer",
-                    ["]c"] = "@class.outer",
-                    ["]p"] = "@parameter.outer",
-                },
-                goto_next_end = {
                     ["]F"] = "@function.outer",
                     ["]C"] = "@class.outer",
-                    ["]P"] = "@parameter.outer",
+                    ["]I"] = "@parameter.outer",
                 },
                 goto_previous_start = {
-                    ["[f"] = "@function.outer",
-                    ["[c"] = "@class.outer",
-                    ["[p"] = "@parameter.outer",
-                },
-                goto_previous_end = {
                     ["[F"] = "@function.outer",
                     ["[C"] = "@class.outer",
-                    ["[P"] = "@parameter.outer",
+                    ["[I"] = "@parameter.outer",
                 },
             },
         },

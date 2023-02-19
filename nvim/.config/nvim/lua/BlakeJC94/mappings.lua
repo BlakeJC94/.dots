@@ -24,11 +24,11 @@ return {
         -- Better opening of URLs and files
         ["gx"] = [[:silent execute '!xdg-open ' . shellescape(expand('<cfile>'), 1)<CR>]],
         -- Navigate git changes in file
-        [']g'] = ':silent Gitsigns next_hunk<CR>',
-        ['[g'] = ':silent Gitsigns prev_hunk<CR>',
+        [']h'] = ':silent Gitsigns next_hunk<CR>',
+        ['[h'] = ':silent Gitsigns prev_hunk<CR>',
         -- Navigate diagnostics
-        [']e'] = function() vim.diagnostic.goto_next() end,
-        ['[e'] = function() vim.diagnostic.goto_prev() end,
+        [']d'] = function() vim.diagnostic.goto_next() end,
+        ['[d'] = function() vim.diagnostic.goto_prev() end,
         -- LSP bindings
         ['gd'] = function() vim.lsp.buf.definition() end,
         ['gD'] = function() vim.lsp.buf.declaration() end,
@@ -37,9 +37,8 @@ return {
         ['gw'] = function() vim.lsp.buf.document_symbol() end,
     },
     n = {
-        -- Make Y and S behave like D and C
+        -- Make Y behave like D and C
         ["Y"] = "y$",
-        ["S"] = '"_c$',
         -- Better jumplist for large line steps (and step through visual lines with j/k)
         ["j"] = { map = [[(v:count > 5 ? 'm`' . v:count : 'g') . 'j']], opts = { expr = true } },
         ["k"] = { map = [[(v:count > 5 ? 'm`' . v:count : 'g') . 'k']], opts = { expr = true } },
@@ -49,15 +48,11 @@ return {
         ["gF"] = ":e <c-r><c-f><CR>",
         -- J doesn't move cursor
         ["J"] = "mzJ`z",
+        -- S splits line in half
+        ['S'] = 'i<CR><Esc>k:sil! keepp s/\\v +$//<CR>:noh<CR>==j^',
         -- Make {/} don't change the jumplist
         ["{"] = ":<C-u>keepjumps norm! {<CR>",
         ["}"] = ":<C-u>keepjumps norm! }<CR>",
-        -- Change selected word (forward/backwards), . to repeat
-        ["c*"] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``cgn",
-        ["c#"] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``cgN",
-        -- Delete selected word (forward/backwards), . to repeat
-        ["d*"] = "/\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgn",
-        ["d#"] = "?\\<<C-r>=expand('<cword>')<CR>\\>\\C<CR>``dgN",
         -- Make K use lsp.hover, call twice to jump to hoverdoc
         ['K'] = function() vim.lsp.buf.hover() end,
         -- Override spellchecker with telescope

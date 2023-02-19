@@ -25,6 +25,10 @@ function M.PylintDisableLine()
     functions.pylint_disable_line()
 end
 
+function M.Bonly()
+    vim.cmd('%bdelete|edit #|normal `"')
+end
+
 local function make_typo_command(cmd)
     local typo_function = function(keys)
         if keys.bang then cmd = cmd .. '!' end

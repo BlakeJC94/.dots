@@ -13,12 +13,12 @@ return {
         ["<Leader><Esc>"] = ":Telescope buffers<CR>", -- Buffers
         ["<Leader>q"] = ":ToggleQL<CR>", -- Toggle qflist
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
-        ["<Leader>o"] = ":bnext<CR>",
         ["<Leader>;"] = ":edit $MYVIMRC | lcd %:p:h<CR>", -- Edit settings
-        ["<Leader>:"] = ":source $MYVIMRC<CR>", -- Reload settings
+        ["<Leader>:"] = ":edit $MYVIMRC | lcd %:p:h | edit **/addons.lua <CR>", -- Edit addons
         ["<Leader>d"] = ":lcd %:p:h<CR>",
         ["<Leader>D"] = ":cd %:p:h<CR>",
         ["<Leader>v"] = ":DocsViewToggle<CR>",
+        ["<Leader>V"] = ":SymbolsOutline<CR>",
         ["<Leader>u"] = ":UndoTreeToggle<CR>",
         ["<Leader>U"] = ":Neogen<CR>", -- Generate docs
         ["<Leader>x"] = require("ts-node-action").node_action,
@@ -32,6 +32,7 @@ return {
         ['<Leader>a'] = function() vim.lsp.buf.code_action() end,          -- Do code action
         -- Leader maps
         ['<Leader>g'] = ':Git<CR>',
+        ['<Leader>B'] = ':GBrowse<CR>',
         ['<Leader>hp'] = ':Gitsigns preview_hunk<CR>',
         ['<Leader>hs'] = ':w | Gitsigns stage_hunk<CR>',
         ['<Leader>hu'] = ':w | Gitsigns undo_stage_hunk<CR>',
@@ -41,7 +42,6 @@ return {
         ['<Leader>hR'] = ':Gitsigns reset_buffer | w<CR>',
         ['<Leader>hh'] = ':Gitsigns toggle_deleted<CR>',
         ['<Leader>hb'] = function() require("gitsigns").blame_line({full=true}) end,
-        ['<Leader>B'] = ':GBrowse<CR>',
         -- Packer maps
         ['<Leader>.p'] = ':exec "PackerSync" | echo "Syncing plugins"<CR>',
         ['<Leader>.i'] = ':exec "PackerInstall" | echo "Installing plugins"<CR>',
@@ -49,6 +49,11 @@ return {
         ['<Leader>.c'] = ':exec "PackerCompile" | echo "Compiling plugins.."<CR>',
         ['<Leader>.C'] = ':exec "PackerClean" | echo "Cleaning plugins.."<CR>',
         ['<Leader>.s'] = ':exec "PackerStatus" | echo "Plugin status"<CR>',
+        ['<Leader>.a'] = ":GotoConfig<CR>",
+        ['<Leader>.S'] = ":source $MYVIMRC<CR>",
+        -- Clone mappings
+        ['<Leader>,p'] = 'yap}p',
+        ['<Leader>,P'] = 'yap{p',
         -- Telescope mappings
         ['<Leader>ff'] = ":Telescope resume<CR>",                     -- Open last telescope
         ['<Leader>fF'] = ":Telescope<CR>",                            -- Find Telescopes
@@ -69,6 +74,7 @@ return {
     },
     v = {
         -- Gitsigns stage_hunk visual mode
-        ["<Leader>gs"] = ":'<,'>Gitsigns stage_hunk<CR>"
+        ["<Leader>hs"] = ":'<,'>Gitsigns stage_hunk<CR>",
+        ["<Leader>C"] = ":lua require('refactoring').select_refactor()<CR>",
     },
 }

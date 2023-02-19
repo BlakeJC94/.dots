@@ -33,6 +33,13 @@ M.base = {
         pattern = "fugitive://*",
         callback = function() vim.bo.bufhidden = "delete" end,
     },
+    {
+        events = {"BufHidden"},
+        pattern = "*",
+        callback = function()
+            if not vim.fn.filereadable(vim.fn.expand('%')) then vim.cmd('bd!') end
+        end,
+    },
     -- {  -- TODO http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
     --     events = {"BufReadPost"},
     --     pattern = "fugitive://*",

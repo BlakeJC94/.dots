@@ -41,6 +41,7 @@ function M.config()
             MatchWord = { bg = palette.dark0 },
             MatchParenCur = { bg = palette.dark0 },
             MatchWordCur = { bg = palette.dark0 },
+            LocalHighlight = { bg = nil, fg = nil, underline = true },
         },
     })
 

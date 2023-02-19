@@ -5,7 +5,8 @@ local M = {
     ttimeoutlen   = 10,             -- Time (ms) between key sequences in terminal
     updatetime    = 300,            -- Time (ms) between swapfile writes
     virtualedit   = "block",        -- Allow cursor to move anywhere ('all', 'block', 'insert')
-    hidden        = false,          -- Allow buffers to be hidden without saving
+    hidden        = true,           -- Allow buffers to be hidden without saving
+    confirm       = true,
     mouse         = "",
     -- TABS AND INDENTS
     smartindent = true,  -- Enable better indenting

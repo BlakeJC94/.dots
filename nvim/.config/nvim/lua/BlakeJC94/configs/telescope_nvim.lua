@@ -4,6 +4,7 @@ M.requires = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-fzf-native.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
+    "otavioschwanck/telescope-alternate",
 }
 
 function M.config()
@@ -72,11 +73,22 @@ function M.config()
                 display_stat = false,
                 file_ignore_patterns = { "%/.git/", "%/__pycache__/" },
             },
+            ["telescope-alternate"] = {
+                mappings = {
+                    {
+                        "[^/]+(.*)/(.*).py",
+                        {
+                            { "tests/[1]/test_[2].p/test_[2]y", "Test" },
+                        },
+                    },
+                },
+            }
         },
     })
 
     telescope.load_extension("fzf")
     telescope.load_extension("file_browser")
+    telescope.load_extension("telescope-alternate")
 end
 
 return M

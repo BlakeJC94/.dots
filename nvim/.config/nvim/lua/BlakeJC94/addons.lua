@@ -60,4 +60,5 @@ return {
     { "ii14/lsp-command" }, -- :Lsp <cmd> => Command interface for LSP functions
     { "jose-elias-alvarez/null-ls.nvim" }, -- Extra sources for LSP
     { "williamboman/mason.nvim" }, -- Installer for external tools
+    { "simrat39/symbols-outline.nvim" },
 }

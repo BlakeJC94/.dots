@@ -39,7 +39,7 @@ local function goto_config(keys)
 
     local config_path_exists = vim.fn.filereadable(config_path)
     if config_path_exists == 0 then
-        local lines = {"local M = {}", "", "", "", "return M"}
+        local lines = {"local M = {}", "", "function M.config()", "", "end", "", "return M"}
         vim.api.nvim_buf_set_lines(0, 0, 0, true, lines)
     end
 end

@@ -11,7 +11,13 @@ function M.config()
                 day = 'daily',
                 week = 'weekly',
                 month = 'monthly',
-            }
+            },
+            journal_maps = {
+                left = "<Leader><Left>",
+                down = "<Leader><Down>",
+                up = "<Leader><Up>",
+                right = "<Leader><Right>",
+            },
         }
     )
 end
