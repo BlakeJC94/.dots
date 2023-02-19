@@ -5,7 +5,7 @@ return {
     { "tpope/vim-repeat" }, -- Better .-repeat actions
     { "tpope/vim-surround" }, -- cs] => Change surrounding brackets
     { "tpope/vim-commentary" }, -- gc<motion> => toggle comments
-    { "tpope/vim-unimpaired" }, -- gc<motion> => toggle comments
+    { "tpope/vim-unimpaired" },
     { "tommcdo/vim-lion" }, -- gl<obj><char> => align selection to <char>
     { "christoomey/vim-sort-motion" }, -- gs<object> => Sort operator across object
     { "wellle/targets.vim" }, -- Many many more text objects
