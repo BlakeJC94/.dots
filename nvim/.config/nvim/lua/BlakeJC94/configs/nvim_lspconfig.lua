@@ -45,12 +45,17 @@ function M.config()
     end
 
     for lsp, settings in pairs(lsp_settings) do
-        lspconfig[lsp].setup({
+        local config_spec = {
             on_attach = on_attach,
             capabilities = cmp_nvim_lsp.default_capabilities(),
             flags = { debounce_text_changes = 150 },
             settings = settings,
-        })
+        }
+        if lsp == "pyright" then
+            config_spec['cmd'] = { 'pyright-langserver', '--stdio' }
+        end
+
+        lspconfig[lsp].setup(config_spec)
     end
 
     vim.diagnostic.config({
