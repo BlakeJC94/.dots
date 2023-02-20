@@ -6,6 +6,8 @@ return {
     { "tpope/vim-surround" }, -- cs] => Change surrounding brackets
     { "tpope/vim-commentary" }, -- gc<motion> => toggle comments
     { "tpope/vim-unimpaired" },
+    { "tpope/vim-fugitive" }, -- The ultimate git plugin for Vim
+    { "tpope/vim-rhubarb" },
     { "tommcdo/vim-lion" }, -- gl<obj><char> => align selection to <char>
     { "christoomey/vim-sort-motion" }, -- gs<object> => Sort operator across object
     { "wellle/targets.vim" }, -- Many many more text objects
@@ -34,9 +36,6 @@ return {
     { "nvim-lualine/lualine.nvim" }, -- Statusline
     { "lukas-reineke/indent-blankline.nvim" }, -- Indent guides
     --- GIT ---
-    { "tpope/vim-fugitive" }, -- The ultimate git plugin for Vim
-    { "tpope/vim-rhubarb" },
-    { "oguzbilgic/vim-gdiff" },
     { "christoomey/vim-conflicted" },
     { "sindrets/diffview.nvim" },
     --- COMPLETION ---
@@ -57,7 +56,6 @@ return {
     --- LSP ---
     { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
     { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right
-    { "ii14/lsp-command" }, -- :Lsp <cmd> => Command interface for LSP functions
     { "jose-elias-alvarez/null-ls.nvim" }, -- Extra sources for LSP
     { "williamboman/mason.nvim" }, -- Installer for external tools
     { "simrat39/symbols-outline.nvim" },

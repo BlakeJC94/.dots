@@ -52,8 +52,8 @@ return {
         ['<Leader>.a'] = ":GotoConfig<CR>",
         ['<Leader>.S'] = ":source $MYVIMRC<CR>",
         -- Clone mappings
-        ['<Leader>,p'] = 'yap}p',
-        ['<Leader>,P'] = 'yap{p',
+        -- ['<Leader>,p'] = 'yap}p',
+        -- ['<Leader>,P'] = 'yap{p',
         -- Telescope mappings
         ['<Leader>ff'] = ":Telescope resume<CR>",                     -- Open last telescope
         ['<Leader>fF'] = ":Telescope<CR>",                            -- Find Telescopes

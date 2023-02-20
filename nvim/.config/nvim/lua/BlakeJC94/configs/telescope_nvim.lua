@@ -41,7 +41,7 @@ function M.config()
                     renamed = "",
                     unmerged = "",
                     untracked = "",
-                }
+                },
             },
             registers = {
                 theme = "ivy",
@@ -53,13 +53,13 @@ function M.config()
             },
         },
         extensions = {
-            fzf = {
+            ["fzf"] = {
                 fuzzy = true,
                 override_generic_sorter = true,
                 override_file_sorter = true,
                 case_mode = "smart_case",
             },
-            file_browser = {
+            ["file_browser"] = {
                 theme = "ivy",
                 borderchars = empty_borderchars,
                 -- layout_config = {
@@ -75,20 +75,24 @@ function M.config()
             },
             ["telescope-alternate"] = {
                 mappings = {
-                    {
-                        "[^/]+(.*)/(.*).py",
-                        {
-                            { "tests/[1]/test_[2].p/test_[2]y", "Test" },
-                        },
-                    },
+                    { "[^/]+(.*)/([^/]*).py", { { "tests[1]/test_[2].py", "Test", true } } },
+                    { "tests(.*)/test_(.*).py", { { "*[1]/[2].py", "Implementation", false } } },
                 },
-            }
+            },
         },
     })
 
     telescope.load_extension("fzf")
     telescope.load_extension("file_browser")
     telescope.load_extension("telescope-alternate")
+
+    vim.api.nvim_create_user_command(
+        "A",
+        function()
+            require("telescope").extensions["telescope-alternate"].alternate_file({label="Test"})
+        end,
+        { force = true }
+    )
 end
 
 return M

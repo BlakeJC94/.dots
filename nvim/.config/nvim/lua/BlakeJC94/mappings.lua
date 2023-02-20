@@ -26,6 +26,12 @@ return {
         -- Navigate git changes in file
         [']h'] = ':silent Gitsigns next_hunk<CR>',
         ['[h'] = ':silent Gitsigns prev_hunk<CR>',
+        -- Insert lines
+        ['[<CR>'] = 'mz:norm! O<CR>`z',
+        [']<CR>'] = 'mz:norm! o<CR>`z',
+        -- Yank and put current code block
+        ['[c'] = 'yap}p',
+        [']c'] = 'yap{p',
         -- Navigate diagnostics
         [']d'] = function() vim.diagnostic.goto_next() end,
         ['[d'] = function() vim.diagnostic.goto_prev() end,
