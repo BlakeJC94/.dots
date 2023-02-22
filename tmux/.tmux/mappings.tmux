@@ -35,7 +35,7 @@ bind 'S-Up'    splitw -fv  \; swapp -t ! \; killp -t !
 bind 'S-Right' splitw -fvb \; swapp -t ! \; killp -t !
 
 # Launchers
-bind t splitw -v ~/.local/bin/tmux-sessionizer
+bind T splitw -v ~/.local/bin/tmux-sessionizer
 bind Z source-file ~/.tmux.conf \; display-message 'Reloaded tmux config'
 bind \; new-session ncspot \; rename-window ncspot \; rename-session spotify
 bind BSpace command-prompt "find-window '%%'"
