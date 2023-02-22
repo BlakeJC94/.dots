@@ -21,6 +21,7 @@ return {
         ["<Leader>V"] = ":SymbolsOutline<CR>",
         ["<Leader>u"] = ":UndoTreeToggle<CR>",
         ["<Leader>U"] = ":Neogen<CR>", -- Generate docs
+        ["<Leader>J"] = ":J day<CR>",
         ["<Leader>x"] = require("ts-node-action").node_action,
         -- LSP Leader bindings
         ['<Leader>e'] = function() vim.diagnostic.open_float() end,        -- Show line diagnostics
