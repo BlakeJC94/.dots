@@ -36,3 +36,5 @@ EDF
 resample
 note
 __version__
+structs
+struct
