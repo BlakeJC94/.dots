@@ -67,6 +67,10 @@ return {
         -- Use unused arrow keys
         ["<Left>"] = {map="[", opts={remap=true}},
         ["<Right>"] = {map="]", opts={remap=true}},
+        ["<Up>"] = "zo",
+        ["<Down>"] = "zc",
+        -- C-s : Quickly guess correct spelling errors (undoable)
+        ["<C-s>"] = { map = "i<C-g>u<Esc>[s1z=`]", opts = { remap = false } },
     },
     v = {
         -- Maintain Visual Mode after >/</= actions
