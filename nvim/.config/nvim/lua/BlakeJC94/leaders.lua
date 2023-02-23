@@ -11,6 +11,7 @@ return {
         ["<Leader><BS>"] = ":Telescope find_files<CR>", -- File finder
         ["<Leader><Tab>"] = "<C-^>", -- Last file
         ["<Leader><Esc>"] = ":Telescope buffers<CR>", -- Buffers
+        ["<Leader><Leader>"] = "za",
         ["<Leader>q"] = ":ToggleQL<CR>", -- Toggle qflist
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
         ["<Leader>;"] = ":edit $MYVIMRC | lcd %:p:h<CR>", -- Edit settings
