@@ -23,6 +23,11 @@ M.base = {
         pattern = "*",
         callback = functions.create_dirs,
     },
+    {   -- Autoreload buffers when there's an external change to the file
+        events = { "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" },
+        pattern = "*",
+        callback = function() if vim.cmd.mode() ~= "c" then vim.cmd.checktime() end end,
+    },
     -- {
     --     events = {"BufHidden"},
     --     pattern = "*",

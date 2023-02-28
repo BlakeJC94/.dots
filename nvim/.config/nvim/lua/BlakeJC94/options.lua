@@ -6,6 +6,7 @@ local M = {
     updatetime    = 300,            -- Time (ms) between swapfile writes
     virtualedit   = "block",        -- Allow cursor to move anywhere ('all', 'block', 'insert')
     hidden        = true,           -- Allow buffers to be hidden without saving
+    autoread      = true,
     confirm       = true,
     mouse         = "",
     -- TABS AND INDENTS
