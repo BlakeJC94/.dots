@@ -16,6 +16,7 @@
     st = "!git status -sb"
     cleanbranch = "!git rm $(git ls-files -d)"
     hub = "!gh"
+    lg = "!git log --oneline -n 10"
 
 [color]
     ui = auto
