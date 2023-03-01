@@ -38,3 +38,5 @@ note
 __version__
 structs
 struct
+lua
+vimscript

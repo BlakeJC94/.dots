@@ -6,6 +6,7 @@ return {
     { "tpope/vim-surround" }, -- cs] => Change surrounding brackets
     { "tpope/vim-commentary" }, -- gc<motion> => toggle comments
     { "tpope/vim-unimpaired" },
+    { "tpope/vim-apathy" },
     { "tpope/vim-fugitive" }, -- The ultimate git plugin for Vim
     { "tpope/vim-rhubarb" },
     { "tommcdo/vim-lion" }, -- gl<obj><char> => align selection to <char>

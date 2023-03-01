@@ -40,8 +40,10 @@ return {
         ['gD'] = function() vim.lsp.buf.declaration() end,
         ['gI'] = function() vim.lsp.buf.implementation() end,
         ['gy'] = function() vim.lsp.buf.type_definition() end,
-        ['gr'] = function() vim.lsp.buf.references() end,
+        ['gR'] = function() vim.lsp.buf.references() end,
         ['gw'] = function() vim.lsp.buf.document_symbol() end,
+        -- Replace object
+        -- ["gr'"] = "vi'P",
     },
     n = {
         -- Make Y behave like D and C

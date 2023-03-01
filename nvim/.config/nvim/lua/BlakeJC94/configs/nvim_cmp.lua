@@ -48,7 +48,7 @@ function M.config()
         end
     end
 
-    vim.opt.completeopt = "menu,menuone,noselect"
+    vim.opt.completeopt = "menu,menuone,preview,noselect,noinsert"
     cmp.setup({
         formatting = { format = lspkind.cmp_format({ with_text = true, maxwidth = 50 }) },
         mapping = {

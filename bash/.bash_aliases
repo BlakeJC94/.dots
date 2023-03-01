@@ -29,3 +29,5 @@ alias Git="git"
 alias matlabcli="matlab -nodisplay"
 alias bat="batcat --theme=gruvbox-dark"
 alias less="less -R"
+
+pip-recompile () { [[ "$1" == "requirements"*".txt" ]] && head -n 5 "$1" | tail -n 1 | grep "#\s\s.*pip-compile" | sed 's/#\s\+//' | bash; }
