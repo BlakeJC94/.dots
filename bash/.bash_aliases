@@ -30,4 +30,4 @@ alias matlabcli="matlab -nodisplay"
 alias bat="batcat --theme=gruvbox-dark"
 alias less="less -R"
 
-pip-recompile () { [[ "$1" == "requirements"*".txt" ]] && head -n 5 "$1" | tail -n 1 | grep "#\s\s.*pip-compile" | sed 's/#\s\+//' | bash; }
+pip-recompile () { for i; do [[ "$i" == "requirements"*".txt" ]] && echo "==> Compiling $i" && grep "^#\s\{4\}pip-compile" "$i" | sed 's/#\s\+//' | bash; done; }
