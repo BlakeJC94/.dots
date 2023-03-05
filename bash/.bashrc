@@ -35,14 +35,15 @@ source $HOME/.bash/modules/tab_cycle.sh
 [ -f ~/.bash_profile ] && source ~/.bash_profile
 
 # TODO replace this with a for loop and source from repo
-source $HOME/.bash/modules/tmux.sh
+[ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
+[ -f ~/.bash/modules/tmux.sh ] && source $HOME/.bash/modules/tmux.sh
 
 source $HOME/.bash/modules/qt.sh
 source $HOME/.bash/modules/git.sh
 source $HOME/.bash/modules/tex.sh
 source $HOME/.bash/modules/nvm.sh
 source $HOME/.bash/modules/pyright.sh
-source $HOME/.bash/modules/pyenv.sh
+# source $HOME/.bash/modules/pyenv.sh
 source $HOME/.bash/modules/rust.sh
 source $HOME/.bash/modules/jill.sh
 

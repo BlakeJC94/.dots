@@ -6,7 +6,8 @@ DOTS="${HOME}"/.dots
 bash "${DOTS}"/.scripts/link.sh
 
 sudo bash "${DOTS}"/.scripts/sudo/apt.sh
-sudo bash "${DOTS}"/.scripts/sudo/pyenv.sh
+# sudo bash "${DOTS}"/.scripts/sudo/pyenv.sh
+bash "${DOTS}"/.scripts/asdf.sh
 bash "${DOTS}"/.scripts/rustup.sh
 bash "${DOTS}"/.scripts/nvm.sh
 bash "${DOTS}"/.scripts/jill.sh
