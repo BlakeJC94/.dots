@@ -43,10 +43,8 @@ source $HOME/.bash/modules/qt.sh
 [ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
 # source $HOME/.bash/modules/nvm.sh
 [ -f ~/.bash/modules/pyright.sh ] && source $HOME/.bash/modules/pyright.sh
-source $HOME/.bash/modules/rust.sh
-source $HOME/.bash/modules/jill.sh
 
-source $HOME/.bash/modules/fzf.sh
+[ -f ~/.bash/modules/fzf.sh ] && source $HOME/.bash/modules/fzf.sh
 [ -f ~/.bash/modules/fortune.sh ] && source $HOME/.bash/modules/fortune.sh
 
 # TODO make this private by sourcing a linker in other repo
