@@ -40,8 +40,8 @@ source $HOME/.bash/modules/qt.sh
 [ -f ~/.bash/modules/tmux.sh ] && source $HOME/.bash/modules/tmux.sh
 
 [ -f ~/.bash/modules/git.sh ] && source $HOME/.bash/modules/git.sh
-source $HOME/.bash/modules/tex.sh
-source $HOME/.bash/modules/nvm.sh
+[ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
+# source $HOME/.bash/modules/nvm.sh
 [ -f ~/.bash/modules/pyright.sh ] && source $HOME/.bash/modules/pyright.sh
 source $HOME/.bash/modules/rust.sh
 source $HOME/.bash/modules/jill.sh
