@@ -24,6 +24,7 @@ source $HOME/.bash/modules/color_prompt.sh
 source $HOME/.bash/modules/window_title.sh
 source $HOME/.bash/modules/completion.sh
 source $HOME/.bash/modules/tab_cycle.sh
+source $HOME/.bash/modules/qt.sh
 
 # Alias definitions.
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
@@ -38,18 +39,15 @@ source $HOME/.bash/modules/tab_cycle.sh
 [ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
 [ -f ~/.bash/modules/tmux.sh ] && source $HOME/.bash/modules/tmux.sh
 
-source $HOME/.bash/modules/qt.sh
-source $HOME/.bash/modules/git.sh
+[ -f ~/.bash/modules/git.sh ] && source $HOME/.bash/modules/git.sh
 source $HOME/.bash/modules/tex.sh
 source $HOME/.bash/modules/nvm.sh
-source $HOME/.bash/modules/pyright.sh
-# source $HOME/.bash/modules/pyenv.sh
+[ -f ~/.bash/modules/pyright.sh ] && source $HOME/.bash/modules/pyright.sh
 source $HOME/.bash/modules/rust.sh
 source $HOME/.bash/modules/jill.sh
 
 source $HOME/.bash/modules/fzf.sh
-source $HOME/.bash/modules/vim.sh
-source $HOME/.bash/modules/fortune.sh
+[ -f ~/.bash/modules/fortune.sh ] && source $HOME/.bash/modules/fortune.sh
 
 # TODO make this private by sourcing a linker in other repo
 [ -f ~/.bash/modules/aws-sso.sh ] && source ~/.bash/modules/aws-sso.sh
