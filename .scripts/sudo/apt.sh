@@ -2,6 +2,7 @@ apt-get update
 apt-get install -y \
     git \
     curl \
+    direnv \
     flatpak \
     tmux \
     jq \

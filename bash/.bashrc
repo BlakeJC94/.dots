@@ -38,6 +38,7 @@ source $HOME/.bash/modules/qt.sh
 # TODO replace this with a for loop and source from repo
 [ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
 [ -f ~/.bash/modules/tmux.sh ] && source $HOME/.bash/modules/tmux.sh
+[ -f ~/.bash/modules/direnv.sh ] && source $HOME/.bash/modules/direnv.sh
 
 [ -f ~/.bash/modules/git.sh ] && source $HOME/.bash/modules/git.sh
 [ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
