@@ -1,5 +1,12 @@
 [keybindings]
 "q" = "back"
+# "Ctrl+f" = "move pagedown"
+# "Ctrl+b" = "move pageup"
+# "Ctrl+d" = "move halfpagedown"
+# "Ctrl+u" = "move halfpageup"
+"d" = "noop"
+"D" = "noop"
+"x" = "delete"
 
 [theme]
 background = "black"

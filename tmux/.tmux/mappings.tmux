@@ -49,7 +49,7 @@ bind -r N swap-window -t +1 \; next-window
 
 # Vim-like wincmd table <C-z><C-w> (Or <C-z>w)
 bind w switch-client -T wincmd
-bind C-w switch-client -T wincmd
+bind -n M-w switch-client -T wincmd
 bind -T wincmd v split-window -h -c "#{pane_current_path}"
 bind -T wincmd s split-window -v -c "#{pane_current_path}"
 bind -T wincmd q kill-pane
