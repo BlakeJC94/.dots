@@ -40,3 +40,4 @@ structs
 struct
 lua
 vimscript
+i32
