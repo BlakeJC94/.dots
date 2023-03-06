@@ -9,8 +9,6 @@ function M.config()
     local lsp_settings = {
         pyright = {
             python = {
-                venvPath = os.getenv("PYENV_ROOT") .. "/versions",
-                venv = string.gsub(os.getenv("VIRTUAL_ENV") or "", "/%S+/", ""),
                 analysis = {
                     autoSearchPaths = true,
                     diagnosticMode = "workspace",
