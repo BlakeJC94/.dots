@@ -67,6 +67,8 @@ return {
         ["<Down>"] = "zj",
         -- C-s : Quickly guess correct spelling errors (undoable)
         ["<C-s>"] = { map = "i<C-g>u<Esc>[s1z=`]", opts = { remap = false } },
+        -- Replace operator
+        ['gr'] = "<Plug>(operator-replace)",
     },
     v = {
         -- Maintain Visual Mode after >/</= actions
@@ -76,9 +78,11 @@ return {
         -- Move visual block up or down (doesn't like cmdheight=0)
         ["J"] = ":'<,'>m '>+1 | norm gv<CR>",
         ["K"] = ":'<,'>m '<-2 | norm gv<CR>",
-        -- Swap p and P to I stop losing register contents by pasting over
+        -- Swap p and P to stop losing register contents by pasting over
         ["p"] = "P",
         ["P"] = "p",
+        -- Replace operator
+        ['gr'] = "<Plug>(operator-replace)",
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)

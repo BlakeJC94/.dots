@@ -12,6 +12,7 @@ return {
     { "tpope/vim-fugitive" }, -- The ultimate git plugin for Vim
     { "tommcdo/vim-lion" }, -- gl<obj><char> => align selection to <char>
     { "christoomey/vim-sort-motion" }, -- gs<object> => Sort operator across object
+    { "kana/vim-operator-replace" },
     { "wellle/targets.vim" }, -- Many many more text objects
     { "Julian/vim-textobj-variable-segment" }, -- iv/av => Text objects for substrings in snake/camel/kebab case
     --- INTERFACE ---
@@ -25,7 +26,7 @@ return {
     { "mbbill/undotree" }, -- :UndotreeToggle
     --- STYLE ---
     { "danilamihailov/beacon.nvim" }, -- Ping cursor location after jump
-    { "norcalli/nvim-colorizer.lua" }, -- Colors Hex codes
+    { "brenoprata10/nvim-highlight-colors" }, -- Colors Hex codes
     { "tzachar/local-highlight.nvim" },
     { "ellisonleao/gruvbox.nvim" }, -- rose-pine and tokyonight and material.nvim look neat too
     { "rose-pine/neovim" },

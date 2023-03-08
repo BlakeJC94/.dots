@@ -24,7 +24,9 @@ return {
         ["<Leader>u"] = ":UndoTreeToggle<CR>",
         ["<Leader>U"] = ":Neogen<CR>", -- Generate docs
         ["<Leader>J"] = ":J day<CR>",
-        ["<Leader>x"] = require("ts-node-action").node_action,
+        ["<Leader>x"] = function() require("ts-node-action").node_action() end,
+        ["<Leader>H"] = function() require("nvim-highlight-colors").toggle() end,
+        ["<Leader>o"] = function() require("copilot.panel").open() end,
         -- LSP Leader bindings
         ['<Leader>e'] = function() vim.diagnostic.open_float() end,        -- Show line diagnostics
         ['<Leader>E'] = function() vim.diagnostic.setloclist() end,        -- Show buffer diagnostics
@@ -54,9 +56,6 @@ return {
         ['<Leader>.s'] = ':exec "PackerStatus" | echo "Plugin status"<CR>',
         ['<Leader>.a'] = ":GotoConfig<CR>",
         ['<Leader>.S'] = ":source $MYVIMRC<CR>",
-        -- Clone mappings
-        -- ['<Leader>,p'] = 'yap}p',
-        -- ['<Leader>,P'] = 'yap{p',
         -- Telescope mappings
         ['<Leader>ff'] = ":Telescope resume<CR>",                     -- Open last telescope
         ['<Leader>fF'] = ":Telescope<CR>",                            -- Find Telescopes
@@ -78,6 +77,5 @@ return {
     v = {
         -- Gitsigns stage_hunk visual mode
         ["<Leader>hs"] = ":'<,'>Gitsigns stage_hunk<CR>",
-        ["<Leader>C"] = ":lua require('refactoring').select_refactor()<CR>",
     },
 }
