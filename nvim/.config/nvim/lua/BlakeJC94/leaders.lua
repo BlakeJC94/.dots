@@ -30,7 +30,7 @@ return {
         -- LSP Leader bindings
         ['<Leader>e'] = function() vim.diagnostic.open_float() end,        -- Show line diagnostics
         ['<Leader>E'] = function() vim.diagnostic.setloclist() end,        -- Show buffer diagnostics
-        ['<Leader>='] = function() vim.lsp.buf.format() end,               -- Format buffer
+        ['<Leader>='] = function() vim.lsp.buf.format({ timeout_ms = 5000 }) end,               -- Format buffer
         ['<Leader>r'] = function() vim.lsp.buf.rename() end,               -- Rename current symbol
         ['<Leader>R'] = function() vim.lsp.buf.references() end,
         ['<Leader>k'] = function() vim.lsp.buf.signature_help() end,       -- Show signature help
