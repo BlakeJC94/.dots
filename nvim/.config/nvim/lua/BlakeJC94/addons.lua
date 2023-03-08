@@ -8,6 +8,7 @@ return {
     { "tpope/vim-unimpaired" },
     { "tpope/vim-apathy" },
     { "tpope/vim-vinegar" },
+    { "tpope/vim-dispatch" },
     { "tpope/vim-fugitive" }, -- The ultimate git plugin for Vim
     { "tommcdo/vim-lion" }, -- gl<obj><char> => align selection to <char>
     { "christoomey/vim-sort-motion" }, -- gs<object> => Sort operator across object
@@ -20,7 +21,6 @@ return {
     { "ethanholz/nvim-lastplace" }, -- Jump to last place when opening a file
     { "luukvbaal/stabilize.nvim" }, -- Stabilise split creation  TODO remove when merged in 0.9
     { "mrjones2014/smart-splits.nvim" }, -- smarter split resize functions
-    { "5long/pytest-vim-compiler" }, -- Link :make to pytest
     { "amrbashir/nvim-docs-view" }, -- :DocsViewToggle
     { "mbbill/undotree" }, -- :UndotreeToggle
     --- STYLE ---
