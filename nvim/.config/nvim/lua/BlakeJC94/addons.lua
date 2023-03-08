@@ -15,7 +15,6 @@ return {
     { "Julian/vim-textobj-variable-segment" }, -- iv/av => Text objects for substrings in snake/camel/kebab case
     --- INTERFACE ---
     { "BlakeJC94/field-notes.nvim" },
-    { "Glench/Vim-Jinja2-Syntax" },
     { "lewis6991/gitsigns.nvim" }, -- Gitgutter, floating hunks, and virtual text blames
     { "jpalardy/vim-slime" }, -- <C-c><C-c> => Send code snippet to terminal
     { "ethanholz/nvim-lastplace" }, -- Jump to last place when opening a file
