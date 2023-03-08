@@ -31,6 +31,15 @@ function M.config()
         },
         indent = { enable = true },
         matchup = { enable = true },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = "g=",
+                node_incremental = "g+",
+                scope_incremental = "g|",
+                node_decremental = "g-",
+            },
+        },
     })
 end
 
