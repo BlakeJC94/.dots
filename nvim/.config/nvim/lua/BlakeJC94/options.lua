@@ -3,7 +3,6 @@ local M = {
     clipboard     = "unnamedplus",  -- Allows vim to use "+ for yanks, puts, and deletes
     timeoutlen    = 1000,           -- Time (ms) between key sequences
     ttimeoutlen   = 10,             -- Time (ms) between key sequences in terminal
-    updatetime    = 300,            -- Time (ms) between swapfile writes
     virtualedit   = "block",        -- Allow cursor to move anywhere ('all', 'block', 'insert')
     hidden        = true,           -- Allow buffers to be hidden without saving
     autoread      = true,

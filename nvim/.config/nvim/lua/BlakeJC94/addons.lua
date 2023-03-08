@@ -36,6 +36,7 @@ return {
     { "lukas-reineke/indent-blankline.nvim" }, -- Indent guides
     --- COMPLETION ---
     { "L3MON4D3/LuaSnip" }, -- Snippets
+    { "zbirenbaum/copilot.lua" },
     { "hrsh7th/nvim-cmp" },
     { "windwp/nvim-autopairs" }, -- Autoclose brakcets and quotes
     --- TREESITTER ---
@@ -46,8 +47,6 @@ return {
     --- TELESCOPE ---
     { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
     { "nvim-telescope/telescope.nvim" }, -- Extensible Fuzzy finder
-    --- NEOTEST ---
-    { "nvim-neotest/neotest" },
     --- LSP ---
     { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
     { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right

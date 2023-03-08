@@ -7,11 +7,12 @@ return {
         ['<Leader>N'] = ":+tabmove<CR>",
         ['<Leader>P'] = ":-tabmove<CR>",
         -- Leader maps
-        ["<Leader><CR>"] = ":Telescope file_browser<CR>", -- File browser
+        ["<Leader><CR>"] = ":Ex %:p:h<CR>", -- File browser
         ["<Leader><BS>"] = ":Telescope find_files<CR>", -- File finder
         ["<Leader><Tab>"] = "<C-^>", -- Last file
-        ["<Leader><Esc>"] = ":Telescope buffers<CR>", -- Buffers
         ["<Leader><Leader>"] = "za",
+        ["<Leader><Left>"] = "zc",
+        ["<Leader><Right>"] = "zo",
         ["<Leader>q"] = ":ToggleQL<CR>", -- Toggle qflist
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
         ["<Leader>;"] = ":edit $MYVIMRC | lcd %:p:h<CR>", -- Edit settings
