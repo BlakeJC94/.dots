@@ -7,11 +7,9 @@ return {
         ['<Leader>N'] = ":+tabmove<CR>",
         ['<Leader>P'] = ":-tabmove<CR>",
         -- Leader maps
-        ["<Leader><CR>"] = ":Telescope file_browser<CR>", -- File browser
+        ["<Leader><CR>"] = ":Ex %:p:h<CR>", -- File browser
         ["<Leader><BS>"] = ":Telescope find_files<CR>", -- File finder
         ["<Leader><Tab>"] = "<C-^>", -- Last file
-        ["<Leader><Esc>"] = ":Telescope buffers<CR>", -- Buffers
-        ["<Leader><Leader>"] = "za",
         ["<Leader>q"] = ":ToggleQL<CR>", -- Toggle qflist
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
         ["<Leader>;"] = ":edit $MYVIMRC | lcd %:p:h<CR>", -- Edit settings
@@ -23,7 +21,13 @@ return {
         ["<Leader>u"] = ":UndoTreeToggle<CR>",
         ["<Leader>U"] = ":Neogen<CR>", -- Generate docs
         ["<Leader>J"] = ":J day<CR>",
+        -- ["<Leader>C"] = require("nvim-highlight-colors").toggle,
         ["<Leader>x"] = require("ts-node-action").node_action,
+        -- ["<Leader>o"] = require("copilot.panel").open,
+        ["<Leader><Left>"] = "zc",
+        ["<Leader><Right>"] = "zo",
+        ["<Leader><Down>"] = "zj",
+        ["<Leader><Up>"] = "zk",
         -- LSP Leader bindings
         ['<Leader>e'] = function() vim.diagnostic.open_float() end,        -- Show line diagnostics
         ['<Leader>E'] = function() vim.diagnostic.setloclist() end,        -- Show buffer diagnostics
@@ -35,15 +39,15 @@ return {
         -- Leader maps
         ['<Leader>g'] = ':Git<CR>',
         ['<Leader>B'] = ':GBrowse<CR>',
-        ['<Leader>hp'] = ':Gitsigns preview_hunk<CR>',
-        ['<Leader>hs'] = ':w | Gitsigns stage_hunk<CR>',
-        ['<Leader>hu'] = ':w | Gitsigns undo_stage_hunk<CR>',
-        ['<Leader>hr'] = ':Gitsigns reset_hunk | w<CR>',
-        ['<Leader>hS'] = ':w | Gitsigns stage_buffer<CR>',
-        ['<Leader>hU'] = ':w | Gitsigns reset_buffer_index<CR>',
-        ['<Leader>hR'] = ':Gitsigns reset_buffer | w<CR>',
-        ['<Leader>hh'] = ':Gitsigns toggle_deleted<CR>',
-        ['<Leader>hb'] = function() require("gitsigns").blame_line({full=true}) end,
+        ['<Leader>cp'] = ':Gitsigns preview_hunk<CR>',
+        ['<Leader>cs'] = ':w | Gitsigns stage_hunk<CR>',
+        ['<Leader>cu'] = ':w | Gitsigns undo_stage_hunk<CR>',
+        ['<Leader>cr'] = ':Gitsigns reset_hunk | w<CR>',
+        ['<Leader>cS'] = ':w | Gitsigns stage_buffer<CR>',
+        ['<Leader>cU'] = ':w | Gitsigns reset_buffer_index<CR>',
+        ['<Leader>cR'] = ':Gitsigns reset_buffer | w<CR>',
+        ['<Leader>ch'] = ':Gitsigns toggle_deleted<CR>',
+        ['<Leader>cb'] = function() require("gitsigns").blame_line({full=true}) end,
         -- Packer maps
         ['<Leader>.p'] = ':exec "PackerSync" | echo "Syncing plugins"<CR>',
         ['<Leader>.i'] = ':exec "PackerInstall" | echo "Installing plugins"<CR>',
@@ -76,7 +80,6 @@ return {
     },
     v = {
         -- Gitsigns stage_hunk visual mode
-        ["<Leader>hs"] = ":'<,'>Gitsigns stage_hunk<CR>",
-        ["<Leader>C"] = ":lua require('refactoring').select_refactor()<CR>",
+        ["<Leader>cs"] = ":'<,'>Gitsigns stage_hunk<CR>",
     },
 }

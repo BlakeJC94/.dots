@@ -24,14 +24,10 @@ return {
         -- Better opening of URLs and files
         ["gx"] = [[:silent execute '!xdg-open ' . shellescape(expand('<cfile>'), 1)<CR>]],
         -- Navigate git changes in file
-        [']h'] = ':silent Gitsigns next_hunk<CR>',
-        ['[h'] = ':silent Gitsigns prev_hunk<CR>',
-        -- Insert lines
-        ['[<CR>'] = 'mz:norm! O<CR>`z',
-        [']<CR>'] = 'mz:norm! o<CR>`z',
-        -- Yank and put current code block
-        ['[c'] = 'yap}p',
-        [']c'] = 'yap{p',
+        [']c'] = ':silent Gitsigns next_hunk<CR>',
+        ['[c'] = ':silent Gitsigns prev_hunk<CR>',
+        -- Replace operator
+        ['gr'] = "<Plug>(operator-replace)",
         -- Navigate diagnostics
         [']d'] = function() vim.diagnostic.goto_next() end,
         ['[d'] = function() vim.diagnostic.goto_prev() end,
@@ -42,8 +38,6 @@ return {
         ['gy'] = function() vim.lsp.buf.type_definition() end,
         ['gR'] = function() vim.lsp.buf.references() end,
         ['gw'] = function() vim.lsp.buf.document_symbol() end,
-        -- Replace object
-        -- ["gr'"] = "vi'P",
     },
     n = {
         -- Make Y behave like D and C
@@ -69,8 +63,6 @@ return {
         -- Use unused arrow keys
         ["<Left>"] = {map="[", opts={remap=true}},
         ["<Right>"] = {map="]", opts={remap=true}},
-        ["<Up>"] = "zk",
-        ["<Down>"] = "zj",
         -- C-s : Quickly guess correct spelling errors (undoable)
         ["<C-s>"] = { map = "i<C-g>u<Esc>[s1z=`]", opts = { remap = false } },
     },
@@ -85,6 +77,8 @@ return {
         -- Swap p and P to I stop losing register contents by pasting over
         ["p"] = "P",
         ["P"] = "p",
+        -- ReplaceOperator
+        ['gr'] = "<Plug>(operator-replace)",
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)

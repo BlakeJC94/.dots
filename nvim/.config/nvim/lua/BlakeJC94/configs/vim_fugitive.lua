@@ -1,5 +1,10 @@
 local M = {}
 
+M.requirements = {
+    "christoomey/vim-conflicted",
+    "tpope/vim-rhubarb",
+}
+
 function M.config()
     local augroup = {
         {   -- Auto-refresh fugitive status window

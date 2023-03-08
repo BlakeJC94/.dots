@@ -1,10 +1,7 @@
 local M = {}
 
 M.requires = {
-    "nvim-treesitter/playground",
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    "andymass/vim-matchup", -- Extended motions for %
-    "phelipetls/jsonpath.nvim", -- JSON paths require"jsonpath".get()
+    "Glench/Vim-Jinja2-Syntax",  -- syntax highlighting by plugin until supported by TS
 }
 
 M.run = ":TSUpdate"
@@ -32,48 +29,13 @@ function M.config()
             end,
         },
         indent = { enable = true },
-        playground = { enable = true },
-        matchup = { enable = true },
-        textobjects = {
-            select = {
-                enable = true,
-                lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-                keymaps = {
-                    ["aF"] = "@function.outer",
-                    ["iF"] = "@function.inner",
-                    ["aC"] = "@class.outer",
-                    ["iC"] = "@class.inner",
-                    ["aI"] = "@parameter.outer",
-                    ["iI"] = "@parameter.inner",
-                },
-                selection_modes = {
-                    ["@parameter.outer"] = "v",
-                    ["@function.outer"] = "V",
-                    ["@class.outer"] = "V",
-                },
-            },
-            swap = {
-                enable = true,
-                swap_next = {
-                    ["<leader>s"] = "@parameter.inner",
-                },
-                swap_previous = {
-                    ["<leader>S"] = "@parameter.inner",
-                },
-            },
-            move = {
-                enable = true,
-                set_jumps = true, -- whether to set jumps in the jumplist
-                goto_next_start = {
-                    ["]F"] = "@function.outer",
-                    ["]C"] = "@class.outer",
-                    ["]I"] = "@parameter.outer",
-                },
-                goto_previous_start = {
-                    ["[F"] = "@function.outer",
-                    ["[C"] = "@class.outer",
-                    ["[I"] = "@parameter.outer",
-                },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = "g=",
+                node_incremental = "g+",
+                scope_incremental = "g|",
+                node_decremental = "g-",
             },
         },
     })

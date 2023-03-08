@@ -3,8 +3,6 @@ local M = {}
 M.requires = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-fzf-native.nvim",
-    "nvim-telescope/telescope-file-browser.nvim",
-    "otavioschwanck/telescope-alternate",
 }
 
 function M.config()
@@ -59,40 +57,10 @@ function M.config()
                 override_file_sorter = true,
                 case_mode = "smart_case",
             },
-            ["file_browser"] = {
-                theme = "ivy",
-                borderchars = empty_borderchars,
-                -- layout_config = {
-                --     width = 60,
-                -- },
-                previewer = false,
-                hijack_netrw = false,
-                path = "%:p:h",
-                grouped = true,
-                hidden = true,
-                display_stat = false,
-                file_ignore_patterns = { "%/.git/", "%/__pycache__/" },
-            },
-            ["telescope-alternate"] = {
-                mappings = {
-                    { "[^/]+(.*)/([^/]*).py", { { "tests[1]/test_[2].py", "Test", true } } },
-                    { "tests(.*)/test_(.*).py", { { "*[1]/[2].py", "Implementation", false } } },
-                },
-            },
         },
     })
 
     telescope.load_extension("fzf")
-    telescope.load_extension("file_browser")
-    telescope.load_extension("telescope-alternate")
-
-    vim.api.nvim_create_user_command(
-        "A",
-        function()
-            require("telescope").extensions["telescope-alternate"].alternate_file({label="Test"})
-        end,
-        { force = true }
-    )
 end
 
 return M

@@ -9,12 +9,12 @@ M.requires = {
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "hrsh7th/cmp-cmdline",
     "saadparwaiz1/cmp_luasnip",
-    -- "amarakon/nvim-cmp-buffer-lines",
+    -- "zbirenbaum/copilot.lua",
+    -- "zbirenbaum/copilot-cmp",
 }
 
 function M.config()
     local cmp = require("cmp")
-    local map = cmp.mapping
     local lspkind = require("lspkind")
 
     local function has_words_before()
@@ -48,9 +48,10 @@ function M.config()
         end
     end
 
+    local map = cmp.mapping
     vim.opt.completeopt = "menu,menuone,preview,noselect,noinsert"
     cmp.setup({
-        formatting = { format = lspkind.cmp_format({ with_text = true, maxwidth = 50 }) },
+        -- formatting = { format = lspkind.cmp_format({ with_text = true, maxwidth = 50 }) },
         mapping = {
             ["<Up>"] = map(map.select_prev_item(), { "i", "c" }),
             ["<Down>"] = map(map.select_next_item(), { "i", "c" }),
@@ -58,8 +59,9 @@ function M.config()
             ["<S-Down>"] = map.scroll_docs(4),
             ["<Tab>"] = map(cmp_tab, { "i", "s", "c" }),
             ["<S-Tab>"] = map(cmp_s_tab, { "i", "s", "c" }),
+            ["<C-c>"] = map.abort(),
             ["<CR>"] = map.confirm({
-                behavior = cmp.ConfirmBehavior.Insert,
+                behavior = cmp.ConfirmBehavior.Select,
                 select = true,
             }),
         },
@@ -72,6 +74,7 @@ function M.config()
         sources = {
             { name = "nvim_lsp_signature_help" },
             { name = "nvim_lsp" },
+            { name = "copilot" },
             { name = "path" },
             {
                 name = "buffer",
