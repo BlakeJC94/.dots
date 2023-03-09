@@ -8,7 +8,7 @@ return {
         ['<Leader>P'] = ":-tabmove<CR>",
         -- Leader maps
         ["<Leader><CR>"] = ":Ex %:p:h<CR>", -- File browser
-        ["<Leader><BS>"] = ":Telescope find_files<CR>", -- File finder
+        ["<Leader><BS>"] = ":FzfLua files<CR>", -- File finder
         ["<Leader><Tab>"] = "<C-^>", -- Last file
         ["<Leader><Leader>"] = "za",
         ["<Leader><Left>"] = "zc",
@@ -56,23 +56,23 @@ return {
         ['<Leader>.s'] = ':exec "PackerStatus" | echo "Plugin status"<CR>',
         ['<Leader>.a'] = ":GotoConfig<CR>",
         ['<Leader>.S'] = ":source $MYVIMRC<CR>",
-        -- Telescope mappings
-        ['<Leader>ff'] = ":Telescope resume<CR>",                     -- Open last telescope
-        ['<Leader>fF'] = ":Telescope<CR>",                            -- Find Telescopes
-        ['<Leader>fb'] = ":Telescope buffers<CR>",                    -- Switch between buffers
-        ['<Leader>fr'] = ":Telescope registers<CR>",                  -- Switch between buffers
-        ['<Leader>fo'] = ":Telescope oldfiles<CR>",                   -- Recently changed files
-        ['<Leader>f/'] = ":Telescope current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
-        ['<Leader>fg'] = ":Telescope live_grep<CR>",                  -- Jumping with livegrep
-        ['<Leader>fh'] = ":Telescope help_tags<CR>",
-        ['<Leader>fH'] = ":Telescope man_pages<CR>",
-        ['<Leader>fc'] = ":Telescope highlights<CR>",
-        ['<Leader>fG'] = ":Telescope git_status<CR>",
-        ['<Leader>fq'] = ":Telescope quickfix<CR>",
-        ['<Leader>fl'] = ":Telescope loclist<CR>",
-        ['<Leader>fs'] = ":Telescope spell_suggest<CR>",
-        ['<Leader>fv'] = ":Telescope lsp_document_symbols<CR>",
-        ['<Leader>fV'] = ":Telescope lsp_workspace_symbols<CR>",
+        -- Fzf mappings
+        ['<Leader>ff'] = ":FzfLua resume<CR>",                     -- Open last telescope
+        ['<Leader>fF'] = ":FzfLua<CR>",                            -- Find Telescopes
+        ['<Leader>fb'] = ":FzfLua buffers<CR>",                    -- Switch between buffers
+        ['<Leader>fr'] = ":FzfLua registers<CR>",                  -- Switch between buffers
+        ['<Leader>fo'] = ":FzfLua oldfiles<CR>",                   -- Recently changed files
+        ['<Leader>f/'] = ":FzfLua current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
+        ['<Leader>fg'] = ":FzfLua live_grep<CR>",                  -- Jumping with livegrep
+        ['<Leader>fh'] = ":FzfLua help_tags<CR>",
+        ['<Leader>fH'] = ":FzfLua man_pages<CR>",
+        ['<Leader>fc'] = ":FzfLua highlights<CR>",
+        ['<Leader>fG'] = ":FzfLua git_status<CR>",
+        ['<Leader>fq'] = ":FzfLua quickfix<CR>",
+        ['<Leader>fl'] = ":FzfLua loclist<CR>",
+        ['<Leader>fs'] = ":FzfLua spell_suggest<CR>",
+        ['<Leader>fv'] = ":FzfLua lsp_document_symbols<CR>",
+        ['<Leader>fV'] = ":FzfLua lsp_workspace_symbols<CR>",
     },
     v = {
         -- Gitsigns stage_hunk visual mode

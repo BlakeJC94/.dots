@@ -45,9 +45,10 @@ return {
     { "danymat/neogen" }, -- Generate docstrings
     { "lewis6991/nvim-treesitter-context" }, -- Pop-up for context
     { "ckolkey/ts-node-action" },
-    --- TELESCOPE ---
-    { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-    { "nvim-telescope/telescope.nvim" }, -- Extensible Fuzzy finder
+    --- FZF ---
+    { 'ibhagwan/fzf-lua' },
+    -- { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+    -- { "nvim-telescope/telescope.nvim" }, -- Extensible Fuzzy finder
     --- LSP ---
     { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
     { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right
