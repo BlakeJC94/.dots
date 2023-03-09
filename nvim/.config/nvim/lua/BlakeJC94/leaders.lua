@@ -19,14 +19,13 @@ return {
         ["<Leader>:"] = ":edit $MYVIMRC | lcd %:p:h | edit **/addons.lua <CR>", -- Edit addons
         ["<Leader>d"] = ":lcd %:p:h<CR>",
         ["<Leader>D"] = ":cd %:p:h<CR>",
-        ["<Leader>v"] = ":DocsViewToggle<CR>",
-        ["<Leader>V"] = ":SymbolsOutline<CR>",
+        ["<Leader>v"] = ":SymbolsOutline<CR>",
         ["<Leader>u"] = ":UndoTreeToggle<CR>",
         ["<Leader>U"] = ":Neogen<CR>", -- Generate docs
         ["<Leader>J"] = ":J day<CR>",
         ["<Leader>x"] = function() require("ts-node-action").node_action() end,
-        ["<Leader>H"] = function() require("nvim-highlight-colors").toggle() end,
-        ["<Leader>o"] = function() require("copilot.panel").open() end,
+        ["<Leader>o"] = ":Copilot suggestion toggle_auto_trigger<CR>",
+        ["<Leader>O"] = ":Copilot panel open<CR>",
         -- LSP Leader bindings
         ['<Leader>e'] = function() vim.diagnostic.open_float() end,        -- Show line diagnostics
         ['<Leader>E'] = function() vim.diagnostic.setloclist() end,        -- Show buffer diagnostics
@@ -57,13 +56,14 @@ return {
         ['<Leader>.a'] = ":GotoConfig<CR>",
         ['<Leader>.S'] = ":source $MYVIMRC<CR>",
         -- Fzf mappings
-        ['<Leader>ff'] = ":FzfLua resume<CR>",                     -- Open last telescope
-        ['<Leader>fF'] = ":FzfLua<CR>",                            -- Find Telescopes
-        ['<Leader>fb'] = ":FzfLua buffers<CR>",                    -- Switch between buffers
+        ['<Leader>ff'] = ":FzfLua resume<CR>",
+        ['<Leader>fF'] = ":FzfLua<CR>",
+        ['<Leader>fb'] = ":FzfLua buffers<CR>",
         ['<Leader>fr'] = ":FzfLua registers<CR>",                  -- Switch between buffers
-        ['<Leader>fo'] = ":FzfLua oldfiles<CR>",                   -- Recently changed files
-        ['<Leader>f/'] = ":FzfLua current_buffer_fuzzy_find<CR>",  -- Jumping with fuzzyfind
-        ['<Leader>fg'] = ":FzfLua live_grep<CR>",                  -- Jumping with livegrep
+        ['<Leader>fo'] = ":FzfLua oldfiles cwd_only=true<CR>",     -- Recently changed files
+        ['<Leader>fO'] = ":FzfLua oldfiles<CR>",                   -- Recently changed files
+        ['<Leader>f/'] = ":FzfLua lgrep_curbuf<CR>",
+        ['<Leader>fg'] = ":FzfLua live_grep_native<CR>",                  -- Jumping with livegrep
         ['<Leader>fh'] = ":FzfLua help_tags<CR>",
         ['<Leader>fH'] = ":FzfLua man_pages<CR>",
         ['<Leader>fc'] = ":FzfLua highlights<CR>",

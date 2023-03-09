@@ -11,11 +11,10 @@ function M.config()
             python = {
                 analysis = {
                     autoSearchPaths = true,
-                    diagnosticMode = "workspace",
                     useLibraryCodeForTypes = true,
+                    diagnosticMode = "workspace",
                     typeCheckingMode = "basic",
                     diagnosticSeverityOverrides = {
-                        -- reportGeneralTypeIssues = "warning",
                         reportGeneralTypeIssues = "none",
                         reportOptionalMemberAccess = "none",
                         reportOptionalSubscript = "none",

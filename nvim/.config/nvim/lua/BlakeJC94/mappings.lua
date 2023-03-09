@@ -36,8 +36,6 @@ return {
         ['gy'] = function() vim.lsp.buf.type_definition() end,
         ['gR'] = function() vim.lsp.buf.references() end,
         ['gw'] = function() vim.lsp.buf.document_symbol() end,
-        -- Replace object
-        -- ["gr'"] = "vi'P",
     },
     n = {
         -- Make Y behave like D and C
@@ -58,8 +56,8 @@ return {
         ["}"] = ":<C-u>keepjumps norm! }<CR>",
         -- Make K use lsp.hover, call twice to jump to hoverdoc
         ['K'] = function() vim.lsp.buf.hover() end,
-        -- Override spellchecker with telescope
-        ['z='] = {map=[[v:count ? v:count . 'z=' : ':Telescope spell_suggest<CR>']], opts={expr=true}},
+        -- Override spellchecker
+        ['z='] = {map=[[v:count ? v:count . 'z=' : ':FzfLua spell_suggest<CR>']], opts={expr=true}},
         -- Use unused arrow keys
         ["<Left>"] = {map="[", opts={remap=true}},
         ["<Right>"] = {map="]", opts={remap=true}},

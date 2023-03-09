@@ -22,7 +22,6 @@ return {
     { "ethanholz/nvim-lastplace" }, -- Jump to last place when opening a file
     { "luukvbaal/stabilize.nvim" }, -- Stabilise split creation  TODO remove when merged in 0.9
     { "mrjones2014/smart-splits.nvim" }, -- smarter split resize functions
-    { "amrbashir/nvim-docs-view" }, -- :DocsViewToggle
     { "mbbill/undotree" }, -- :UndotreeToggle
     --- STYLE ---
     { "danilamihailov/beacon.nvim" }, -- Ping cursor location after jump
@@ -32,7 +31,6 @@ return {
     { "rose-pine/neovim" },
     { "folke/tokyonight.nvim" },
     { "unblevable/quick-scope" }, -- Better f/t targets
-    { "https://gitlab.com/yorickpeterse/nvim-pqf" }, -- Better quickfix list format
     { "nvim-lualine/lualine.nvim" }, -- Statusline
     { "lukas-reineke/indent-blankline.nvim" }, -- Indent guides
     --- COMPLETION ---
@@ -42,13 +40,11 @@ return {
     { "windwp/nvim-autopairs" }, -- Autoclose brakcets and quotes
     --- TREESITTER ---
     { "nvim-treesitter/nvim-treesitter" }, -- TreeSitter plugin configuration
-    { "danymat/neogen" }, -- Generate docstrings
     { "lewis6991/nvim-treesitter-context" }, -- Pop-up for context
+    { "danymat/neogen" }, -- Generate docstrings
     { "ckolkey/ts-node-action" },
     --- FZF ---
     { 'ibhagwan/fzf-lua' },
-    -- { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-    -- { "nvim-telescope/telescope.nvim" }, -- Extensible Fuzzy finder
     --- LSP ---
     { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
     { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right

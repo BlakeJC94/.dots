@@ -28,13 +28,13 @@ M.base = {
         pattern = "*",
         callback = function() if vim.cmd.mode() ~= "c" then vim.cmd.checktime() end end,
     },
-    -- {
-    --     events = {"BufHidden"},
-    --     pattern = "*",
-    --     callback = function()
-    --         if not vim.fn.filereadable(vim.fn.expand('%')) then vim.cmd('bd!') end
-    --     end,
-    -- },
+    {
+        events = {"BufHidden"},
+        pattern = "*",
+        callback = function()
+            if not vim.fn.filereadable(vim.fn.expand('%')) then vim.cmd('bd!') end
+        end,
+    },
     -- {  -- TODO http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
     --     events = {"BufReadPost"},
     --     pattern = "fugitive://*",
@@ -56,7 +56,7 @@ M.ft_extra = {
     },
     {   -- set info buffer opts
         events = {"FileType"},
-        pattern = {"qf", "help", "fugitive", "man", "gitcommit"},
+        pattern = {"qf", "help", "fugitive", "man", "gitcommit", "Outline"},
         callback = function()
             functions.set_quit_with_q()
             vim.opt_local.spell = false
@@ -70,8 +70,8 @@ M.ft_extra = {
         events = {"FileType"},
         pattern = "help",
         callback = function()
-            vim.cmd.wincmd('L')
-            vim.cmd('vert resize 90')
+            -- vim.cmd.wincmd('L')
+            -- vim.cmd('vert resize 90')
             vim.opt_local.formatoptions:remove('t')
         end,
     },

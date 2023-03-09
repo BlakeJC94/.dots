@@ -38,7 +38,7 @@ local M = {
     showmatch      = true,       -- Highlight matching brackets
     wrap           = false,      -- Soft-wrap long lines and use breakindent opts
     linebreak      = true,       -- Only split/wrap long lines after words
-    breakindent    = true,       -- Indent soft-wrapped lines
+    breakindent    = false,      -- Indent soft-wrapped lines
     breakindentopt = {list=-1},  -- Options for breakindent
     showbreak      = '› ',     -- Text to print at breakindent
     -- FOLDS
@@ -56,7 +56,7 @@ local M = {
     cmdheight  = 1,     -- Set height of command window
     wildignore = {'*.pyc', '**/.git/*', '**/data/*'},
     -- TOP MARGIN
-    showtabline = 0,  -- Display tab line (0, never, 1 auto, 2 always)
+    showtabline = 1,  -- Display tab line (0, never, 1 auto, 2 always)
 }
 
 return M

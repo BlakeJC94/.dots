@@ -42,6 +42,7 @@ function M.config()
             MatchParenCur = { bg = palette.dark0 },
             MatchWordCur = { bg = palette.dark0 },
             LocalHighlight = { bg = nil, fg = nil, underline = true },
+            SymbolsOutline = { bg = nil, fg = palette.neutral_blue },
         },
     })
 
