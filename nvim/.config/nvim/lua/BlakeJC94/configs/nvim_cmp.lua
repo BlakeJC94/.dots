@@ -5,6 +5,7 @@ M.requires = {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
+    "lukas-reineke/cmp-under-comparator",
     "kdheepak/cmp-latex-symbols",
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "hrsh7th/cmp-cmdline",
@@ -91,6 +92,18 @@ function M.config()
             },
             { name = "luasnip" },
             { name = "latex_symbols" },
+        },
+        sorting = {
+            comparators = {
+                cmp.config.compare.offset,
+                cmp.config.compare.exact,
+                cmp.config.compare.score,
+                require "cmp-under-comparator".under,
+                cmp.config.compare.kind,
+                cmp.config.compare.sort_text,
+                cmp.config.compare.length,
+                cmp.config.compare.order,
+            },
         },
     })
     cmp.setup.cmdline(":", {

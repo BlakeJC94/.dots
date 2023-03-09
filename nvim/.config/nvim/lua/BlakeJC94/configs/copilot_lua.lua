@@ -11,12 +11,12 @@ function M.config()
             enabled = true,
             auto_refresh = true,
             keymap = {
-                accept = "<C-;>",
-                accept_word = "<M-.>",
-                accept_line = "<M-,>",
-                next = "<C-.>",
-                prev = "<C-,>",
-                dismiss = "<C-l>",
+                accept = "<M-CR>",
+                accept_word = "<M-;>",
+                accept_line = false,
+                next = "<M-.>",
+                prev = "<M-,>",
+                dismiss = "<M-l>",
             },
         },
         panel = {
@@ -36,4 +36,3 @@ end
 
 
 return M
-

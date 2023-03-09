@@ -67,6 +67,8 @@ return {
         ["<C-s>"] = { map = "i<C-g>u<Esc>[s1z=`]", opts = { remap = false } },
         -- Replace operator
         ['gr'] = "<Plug>(operator-replace)",
+        -- Splitjoin
+        ['gS'] = ":TSJToggle<CR>",
     },
     v = {
         -- Maintain Visual Mode after >/</= actions
