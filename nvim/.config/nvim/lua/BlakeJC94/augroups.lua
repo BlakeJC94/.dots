@@ -62,17 +62,19 @@ M.ft_extra = {
             vim.opt_local.spell = false
             vim.opt_local.colorcolumn = {}
             vim.opt_local.foldlevel = 99
+            vim.opt_local.formatoptions:remove('t')
             -- restore default K action on help pages
             vim.keymap.set('n', 'K', ":h <C-r>=expand('<cword>')<CR><CR>", {silent=true, buffer=true})
         end,
     },
     {   -- help vert split
-        events = {"FileType"},
-        pattern = "help",
+        events = {"BufWinEnter"},
+        pattern = "*.txt",
         callback = function()
-            -- vim.cmd.wincmd('L')
-            -- vim.cmd('vert resize 90')
-            vim.opt_local.formatoptions:remove('t')
+            if vim.o.filetype == "help" then
+                vim.cmd.wincmd('L')
+                vim.cmd('vert resize 90')
+            end
         end,
     },
     {   -- md makeprg pandoc

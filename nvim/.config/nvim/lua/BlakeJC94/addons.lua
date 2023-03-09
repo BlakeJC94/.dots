@@ -17,6 +17,7 @@ return {
     { "Julian/vim-textobj-variable-segment" }, -- iv/av => Text objects for substrings in snake/camel/kebab case
     --- INTERFACE ---
     { "BlakeJC94/field-notes.nvim" },
+    { 'ibhagwan/fzf-lua' },
     { "lewis6991/gitsigns.nvim" }, -- Gitgutter, floating hunks, and virtual text blames
     { "jpalardy/vim-slime" }, -- <C-c><C-c> => Send code snippet to terminal
     { "ethanholz/nvim-lastplace" }, -- Jump to last place when opening a file
@@ -33,6 +34,12 @@ return {
     { "unblevable/quick-scope" }, -- Better f/t targets
     { "nvim-lualine/lualine.nvim" }, -- Statusline
     { "lukas-reineke/indent-blankline.nvim" }, -- Indent guides
+    --- LSP ---
+    { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
+    { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right
+    { "jose-elias-alvarez/null-ls.nvim" }, -- Extra sources for LSP
+    { "williamboman/mason.nvim" }, -- Installer for external tools
+    { "simrat39/symbols-outline.nvim" },
     --- COMPLETION ---
     { "L3MON4D3/LuaSnip" }, -- Snippets
     { "zbirenbaum/copilot.lua" },
@@ -43,12 +50,4 @@ return {
     { "lewis6991/nvim-treesitter-context" }, -- Pop-up for context
     { "danymat/neogen" }, -- Generate docstrings
     { "ckolkey/ts-node-action" },
-    --- FZF ---
-    { 'ibhagwan/fzf-lua' },
-    --- LSP ---
-    { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
-    { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right
-    { "jose-elias-alvarez/null-ls.nvim" }, -- Extra sources for LSP
-    { "williamboman/mason.nvim" }, -- Installer for external tools
-    { "simrat39/symbols-outline.nvim" },
 }
