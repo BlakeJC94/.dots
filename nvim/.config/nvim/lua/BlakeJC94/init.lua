@@ -47,8 +47,8 @@ M.filetype_include = {
     "vim",
 }
 
-
-M.lsp_settings = {
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+M.lsp_sources = {
     pyright = {
         python = {
             analysis = {
@@ -76,6 +76,21 @@ M.lsp_settings = {
     julials = {},
     bashls = {},
     rust_analyzer = {},
+}
+
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+M.null_ls_sources = {
+    formatting = {
+        black = {},
+        jq = {},
+        stylua = {},
+        rustfmt = {},
+    },
+    diagnostics = {
+        pylint = {},
+        luacheck = {},
+    },
 }
 
 return M

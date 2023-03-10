@@ -6,14 +6,14 @@ function M.config()
     local lspconfig = require("lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-    local lsp_settings = require("BlakeJC94").lsp_settings
+    local lsp_sources = require("BlakeJC94").lsp_sources
 
     local function on_attach()
         -- Enable completion triggered by <c-x><c-o>
         vim.api.nvim_buf_set_option(0, "omnifunc", "v:lua.vim.lsp.omnifunc")
     end
 
-    for lsp, settings in pairs(lsp_settings) do
+    for lsp, settings in pairs(lsp_sources) do
         local config_spec = {
             on_attach = on_attach,
             capabilities = cmp_nvim_lsp.default_capabilities(),
