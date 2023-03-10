@@ -90,7 +90,7 @@ M.null_ls_sources = {
         rustfmt = {},
     },
     diagnostics = {
-        pylint = {},
+        pylint = { prefer_local = ".venv/bin" },
         luacheck = {},
     },
 }
