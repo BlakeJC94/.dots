@@ -1,7 +1,7 @@
 return {
     [""] = {
         -- Vim Tab controls
-        ['<Leader>c'] = ':tabedit %<CR>',
+        ['<Leader>t'] = ':tabedit %<CR>',
         ['<Leader>n'] = ":tabnext<CR>",
         ['<Leader>p'] = ":tabnext<CR>",
         ['<Leader>N'] = ":+tabmove<CR>",

@@ -47,4 +47,35 @@ M.filetype_include = {
     "vim",
 }
 
+
+M.lsp_settings = {
+    pyright = {
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace",
+                typeCheckingMode = "basic",
+                diagnosticSeverityOverrides = {
+                    reportGeneralTypeIssues = "none",
+                    reportOptionalMemberAccess = "none",
+                    reportOptionalSubscript = "none",
+                    reportPrivateImportUsage = "none",
+                },
+            },
+        },
+    },
+    lua_ls = {
+        Lua = {
+            runtime = { version = "LuaJIT" },
+            diagnostics = { globals = { "vim" } },
+            workspace = { library = vim.api.nvim_get_runtime_file("", true), checkThirdParty = false },
+            telemetry = { enable = false },
+        },
+    },
+    julials = {},
+    bashls = {},
+    rust_analyzer = {},
+}
+
 return M

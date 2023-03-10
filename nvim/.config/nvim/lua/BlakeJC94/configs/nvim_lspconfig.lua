@@ -6,35 +6,7 @@ function M.config()
     local lspconfig = require("lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-    local lsp_settings = {
-        pyright = {
-            python = {
-                analysis = {
-                    autoSearchPaths = true,
-                    useLibraryCodeForTypes = true,
-                    diagnosticMode = "workspace",
-                    typeCheckingMode = "basic",
-                    diagnosticSeverityOverrides = {
-                        reportGeneralTypeIssues = "none",
-                        reportOptionalMemberAccess = "none",
-                        reportOptionalSubscript = "none",
-                        reportPrivateImportUsage = "none",
-                    },
-                },
-            },
-        },
-        lua_ls = {
-            Lua = {
-                runtime = { version = "LuaJIT" },
-                diagnostics = { globals = { "vim" } },
-                workspace = { library = vim.api.nvim_get_runtime_file("", true), checkThirdParty = false },
-                telemetry = { enable = false },
-            },
-        },
-        julials = {},
-        bashls = {},
-        rust_analyzer = {},
-    }
+    local lsp_settings = require("BlakeJC94").lsp_settings
 
     local function on_attach()
         -- Enable completion triggered by <c-x><c-o>

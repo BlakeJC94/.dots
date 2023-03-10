@@ -33,6 +33,7 @@ return {
     { "folke/tokyonight.nvim" },
     { "unblevable/quick-scope" }, -- Better f/t targets
     { "nvim-lualine/lualine.nvim" }, -- Statusline
+    { "alvarosevilla95/luatab.nvim" },
     { "lukas-reineke/indent-blankline.nvim" }, -- Indent guides
     --- LSP ---
     { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
