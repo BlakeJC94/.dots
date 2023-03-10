@@ -51,22 +51,23 @@ M.filetype_include = {
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 M.lsp_sources = {
-    pyright = {
-        python = {
-            analysis = {
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                diagnosticMode = "workspace",
-                typeCheckingMode = "basic",
-                diagnosticSeverityOverrides = {
-                    reportGeneralTypeIssues = "none",
-                    reportOptionalMemberAccess = "none",
-                    reportOptionalSubscript = "none",
-                    reportPrivateImportUsage = "none",
-                },
-            },
-        },
-    },
+    -- pyright = {
+    --     python = {
+    --         analysis = {
+    --             autoSearchPaths = true,
+    --             useLibraryCodeForTypes = true,
+    --             diagnosticMode = "workspace",
+    --             typeCheckingMode = "basic",
+    --             diagnosticSeverityOverrides = {
+    --                 reportGeneralTypeIssues = "none",
+    --                 reportOptionalMemberAccess = "none",
+    --                 reportOptionalSubscript = "none",
+    --                 reportPrivateImportUsage = "none",
+    --             },
+    --         },
+    --     },
+    -- },
+    ruff_lsp = {},
     lua_ls = {
         Lua = {
             runtime = { version = "LuaJIT" },
@@ -90,7 +91,7 @@ M.null_ls_sources = {
         rustfmt = {},
     },
     diagnostics = {
-        pylint = { prefer_local = ".venv/bin" },
+        -- pylint = { prefer_local = ".venv/bin" },
         luacheck = {},
     },
 }

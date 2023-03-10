@@ -1,0 +1,3 @@
+# https://beta.ruff.rs/docs/settings
+line-length = 100
+exclude = [".venv"]
