@@ -19,11 +19,30 @@ local function assemble_packer_module(repo)
 
     local status_ok, config = pcall(require, "BlakeJC94.configs." .. config_name)
     if not status_ok then
+        if vim.fn.filereadable(vim.fn.stdpath("config") .. "/lua/BlakeJC94/configs/" .. config_name .. ".lua") == 1 then
+            local msg = "WARN: issue loading additional config for " .. repo_name .. " (cont Y/n)? "
+            if vim.fn.input(msg) == "n" then
+                error("abort")
+            end
+        end
         return repo
     end
 
+
     repo = vim.tbl_extend("force", repo, config)
-    return repo
+    local repo_processed = {repo[1]}
+    local packer_keys = {
+        "disable", "as", "installer", "updater", "after", "rtp", "opt", "bufread", "branch", "tag", "commit",
+        "lock", "run", "requires", "config", "rocks", "cmd", "ft", "keys", "event", "fn", "cond",
+        "setup", "module", "module_pattern",
+    }
+    for _, k in ipairs(packer_keys) do
+        if repo[k] then
+            repo_processed[k] = repo[k]
+        end
+    end
+
+    return repo_processed
 end
 
 local function configure_packer(packer)
