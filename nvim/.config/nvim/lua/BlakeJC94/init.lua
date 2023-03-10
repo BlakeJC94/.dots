@@ -25,6 +25,8 @@ function M.setup(config)
     utils.disable_arrow_keys()
     utils.setup_goto_config()
 
+    vim.g.python3_host_prog = vim.fn.expand("~/.asdf/shims/python3")
+
     if config.scratchpad then require("BlakeJC94.scratchpad") end
 end
 

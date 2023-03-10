@@ -14,6 +14,8 @@ set -g renumber-windows on
 # More responsive ESC
 set -sg escape-time 20
 
+set -g focus-events on
+
 # Use login shell (sources bashrc)
 set-option -g default-shell "/usr/bin/bash"
 set-option -g default-command bash

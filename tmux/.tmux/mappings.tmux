@@ -64,6 +64,7 @@ bind -T wincmd K splitw -fvb \; swapp -t ! \; killp -t !
 unbind t
 bind T splitw -v ~/.local/bin/tmux-sessionizer
 bind Z source-file ~/.tmux.conf \; display-message 'Reloaded tmux config'
+bind X new-window -c ~/.dots \; split-window -h -c "#{pane_current_path}" vim ~/.dots/README.md +'cd %:p:h'
 bind \; new-session -s spotify ncspot \; rename-window ncspot
 bind BSpace command-prompt "find-window '%%'"
 bind Enter choose-window

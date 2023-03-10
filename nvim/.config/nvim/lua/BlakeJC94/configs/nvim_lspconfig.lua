@@ -1,6 +1,8 @@
 local M = {}
 
-M.requires = { "hrsh7th/cmp-nvim-lsp" }
+M.requires = {
+    "hrsh7th/cmp-nvim-lsp",
+}
 
 function M.config()
     local lspconfig = require("lspconfig")

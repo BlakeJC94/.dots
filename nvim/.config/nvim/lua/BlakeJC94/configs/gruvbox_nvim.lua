@@ -43,6 +43,8 @@ function M.config()
             MatchWordCur = { bg = palette.dark0 },
             LocalHighlight = { bg = nil, fg = nil, underline = true },
             SymbolsOutline = { bg = nil, fg = palette.neutral_blue },
+            healthSuccess = { bg = palette.bright_green, fg = palette.dark0_hard },
+            healthError = { bg = palette.bright_red, fg = palette.dark0_hard },
         },
     })
 
