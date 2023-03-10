@@ -84,7 +84,7 @@ M.lsp_sources = {
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
 M.null_ls_sources = {
     formatting = {
-        black = {},
+        black = { timeout = 5000 },
         jq = {},
         stylua = {},
         rustfmt = {},
