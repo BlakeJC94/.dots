@@ -4,6 +4,7 @@ M.requires = {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     "williamboman/mason-lspconfig",
     "jay-babu/mason-null-ls.nvim",
+    "jay-babu/mason-nvim-dap.nvim",
 }
 
 function M.config()
@@ -23,6 +24,12 @@ function M.config()
         for source, _ in pairs(handlers) do
             ensure_installed[#ensure_installed+1] = null_ls_to_mason(source)
         end
+    end
+
+    local dap_sources = require("BlakeJC94").dap_sources
+    local dap_to_mason = require("mason-nvim-dap.mappings.source").nvim_dap_to_package
+    for source, _ in pairs(dap_sources) do
+        ensure_installed[#ensure_installed+1] = dap_to_mason[source]
     end
 
     require("mason-tool-installer").setup({ensure_installed = ensure_installed})

@@ -44,11 +44,10 @@ function M.config()
 
     require("dap-python").setup("python", {})
 
-    dap.adapters.python = {
-        type = "executable",
-        command = vim.g.python3_host_prog,
-        args = { "-m", "debugpy.adapter" },
-    }
+    local sources = require("BlakeJC94").dap_sources
+    for k, v in pairs(sources) do
+        dap.adapters[k] = v
+    end
 
     local augroup = vim.api.nvim_create_augroup
     local autocmd = vim.api.nvim_create_autocmd

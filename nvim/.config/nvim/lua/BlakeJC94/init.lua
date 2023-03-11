@@ -96,4 +96,13 @@ M.null_ls_sources = {
     },
 }
 
+-- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
+M.dap_sources = {
+    python = {
+        type = "executable",
+        command = vim.g.python3_host_prog,
+        args = { "-m", "debugpy.adapter" },
+    },
+}
+
 return M
