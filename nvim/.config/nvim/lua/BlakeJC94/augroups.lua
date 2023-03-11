@@ -56,7 +56,7 @@ M.ft_extra = {
     },
     {   -- set info buffer opts
         events = {"FileType"},
-        pattern = {"qf", "help", "fugitive", "man", "gitcommit", "Outline"},
+        pattern = {"qf", "help", "fugitive", "man", "gitcommit", "Outline", "lspinfo"},
         callback = function()
             functions.set_quit_with_q()
             vim.opt_local.spell = false
@@ -65,6 +65,17 @@ M.ft_extra = {
             vim.opt_local.formatoptions:remove('t')
             -- restore default K action on help pages
             vim.keymap.set('n', 'K', ":h <C-r>=expand('<cword>')<CR><CR>", {silent=true, buffer=true})
+        end,
+    },
+    {   -- set info buffer opts
+        events = {"FileType"},
+        pattern = {"dapui_scopes", "dapui_breakpoints", "dapui_stacks", "dapui_watches",
+            "dap-repl", "dapui_console",
+        },
+        callback = function()
+            vim.opt_local.spell = false
+            vim.opt_local.colorcolumn = {}
+            vim.opt_local.foldlevel = 99
         end,
     },
     {   -- help vert split

@@ -47,9 +47,9 @@ local M = {
     fillchars  = {fold=' ', eob=' '},  -- Replace dots with spaces in fold head
     foldtext   = 'v:lua.require("BlakeJC94.utils").functions.custom_fold_text()',
     -- LEFT MARGIN
-    number         = true,  -- Show line numbers
-    relativenumber = true,  -- Show rel/abs line numbers
-    signcolumn     = 'no',  -- Set sign column
+    number         = true,      -- Show line numbers
+    relativenumber = true,      -- Show rel/abs line numbers
+    signcolumn     = 'number',  -- Set sign column
     -- BOTTOM MARGIN
     laststatus = 3,     -- Show global status line
     showcmd    = true,  -- Show command in bottom right

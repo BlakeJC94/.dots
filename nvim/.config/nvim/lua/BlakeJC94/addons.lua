@@ -24,17 +24,7 @@ return {
     { "luukvbaal/stabilize.nvim" }, -- Stabilise split creation  TODO remove when merged in 0.9
     { "mrjones2014/smart-splits.nvim" }, -- smarter split resize functions
     { "mbbill/undotree" }, -- :UndotreeToggle
-    --- STYLE ---
-    { "danilamihailov/beacon.nvim" }, -- Ping cursor location after jump
-    { "brenoprata10/nvim-highlight-colors" }, -- Colors Hex codes
-    { "tzachar/local-highlight.nvim" },
-    { "ellisonleao/gruvbox.nvim" }, -- rose-pine and tokyonight and material.nvim look neat too
-    { "rose-pine/neovim" },
-    { "folke/tokyonight.nvim" },
-    { "unblevable/quick-scope" }, -- Better f/t targets
-    { "nvim-lualine/lualine.nvim" }, -- Statusline
-    { "alvarosevilla95/luatab.nvim" },
-    { "lukas-reineke/indent-blankline.nvim" }, -- Indent guides
+    { "mfussenegger/nvim-dap" },
     --- LSP ---
     { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
     { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right
@@ -52,4 +42,15 @@ return {
     { "danymat/neogen" }, -- Generate docstrings
     { "ckolkey/ts-node-action" },
     { 'Wansmer/treesj' },
+    --- STYLE ---
+    { "danilamihailov/beacon.nvim" }, -- Ping cursor location after jump
+    { "brenoprata10/nvim-highlight-colors" }, -- Colors Hex codes
+    { "tzachar/local-highlight.nvim" },
+    { "ellisonleao/gruvbox.nvim" }, -- rose-pine and tokyonight and material.nvim look neat too
+    { "rose-pine/neovim" },
+    { "folke/tokyonight.nvim" },
+    { "unblevable/quick-scope" }, -- Better f/t targets
+    { "nvim-lualine/lualine.nvim" }, -- Statusline
+    { "alvarosevilla95/luatab.nvim" },
+    { "lukas-reineke/indent-blankline.nvim" }, -- Indent guides
 }

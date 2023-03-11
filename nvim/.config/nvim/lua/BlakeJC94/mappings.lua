@@ -92,7 +92,7 @@ return {
         -- Make <C-k> use lsp.hover, call twice to jump to hoverdoc
         ['<C-k>'] = function() vim.lsp.buf.hover() end,
         -- C-r C-r : See registers with telescope
-        ['<C-r><C-r>'] = "<cmd>Telescope registers<CR>",
+        ['<C-r><C-r>'] = "<cmd>FzfLua registers<CR>",
     },
     o = {
         -- Custom text object: "around everything"

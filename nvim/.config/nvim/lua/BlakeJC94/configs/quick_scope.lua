@@ -12,11 +12,17 @@ function M.config()
     local augroup = vim.api.nvim_create_augroup
     local autocmd = vim.api.nvim_create_autocmd
     autocmd(
-        {"ColorScheme"},
+        {"FileType"},
         {
-            group = augroup("quick_scope_colors", {clear = true}),
-            pattern = "*",
-            callback = set_quickscope_colors,
+            group = augroup("dap_ui_opts", {clear = true}),
+            pattern = {"dapui_scopes", "dapui_breakpoints", "dapui_stacks", "dapui_watches",
+                "dap-repl", "dapui_console",
+            },
+            callback = function()
+                vim.opt_local.spell = false
+                vim.opt_local.colorcolumn = {}
+                vim.opt_local.foldlevel = 99
+            end,
         }
     )
 
