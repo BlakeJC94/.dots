@@ -10,7 +10,7 @@
     primebranch = "!git symbolic-ref --short HEAD"
     hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
     clonetree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git fetch origin && git worktree add $(git primebranch) && cd $(git primebranch) && git pullup' -
-    sync = "!git add . && git commit -m 'sync' && git push"
+    acp = "!git add . && git commit -m 'sync' && git push"
     branches = "!git branch -a"
     merged = "!git branch --merged"
     st = "!git status -sb"
