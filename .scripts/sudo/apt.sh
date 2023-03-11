@@ -1,6 +1,7 @@
 apt-get update
 apt-get install -y \
     git \
+    git-extras \
     curl \
     direnv \
     flatpak \
