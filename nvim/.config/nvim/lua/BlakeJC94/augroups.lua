@@ -67,17 +67,6 @@ M.ft_extra = {
             vim.keymap.set('n', 'K', ":h <C-r>=expand('<cword>')<CR><CR>", {silent=true, buffer=true})
         end,
     },
-    {   -- set info buffer opts
-        events = {"FileType"},
-        pattern = {"dapui_scopes", "dapui_breakpoints", "dapui_stacks", "dapui_watches",
-            "dap-repl", "dapui_console",
-        },
-        callback = function()
-            vim.opt_local.spell = false
-            vim.opt_local.colorcolumn = {}
-            vim.opt_local.foldlevel = 99
-        end,
-    },
     {   -- help vert split
         events = {"BufWinEnter"},
         pattern = "*.txt",
