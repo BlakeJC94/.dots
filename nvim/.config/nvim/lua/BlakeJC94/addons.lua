@@ -15,6 +15,7 @@ return {
     { "kana/vim-operator-replace" },
     { "wellle/targets.vim" }, -- Many many more text objects
     { "Julian/vim-textobj-variable-segment" }, -- iv/av => Text objects for substrings in snake/camel/kebab case
+    {"mipmip/vim-scimark"},
     --- INTERFACE ---
     { "BlakeJC94/field-notes.nvim", branch = "dev" },
     { 'ibhagwan/fzf-lua' },
