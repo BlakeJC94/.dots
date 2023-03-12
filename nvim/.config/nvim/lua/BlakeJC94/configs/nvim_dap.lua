@@ -4,6 +4,7 @@ M.requires = {
     "theHamsta/nvim-dap-virtual-text",
     "rcarriga/nvim-dap-ui",
     "mfussenegger/nvim-dap-python",
+    "jbyuki/one-small-step-for-vimkind",
 }
 
 M.event = "BufReadPre"
@@ -43,30 +44,53 @@ function M.config()
     end
 
     require("dap-python").setup("python", {})
+    require('dap-python').test_runner = "pytest"
 
-    local sources = require("BlakeJC94").dap_sources
-    for k, v in pairs(sources) do
-        dap.adapters[k] = v
+    dap.adapters.python = {
+        type = "executable",
+        command = vim.g.python3_host_prog,
+        args = { "-m", "debugpy.adapter" },
+    }
+
+    dap.adapters.nlua = function(callback, config)
+        callback({ type = 'server', host = config.host, port = config.port })
     end
+
+    dap.configurations.lua = {
+        {
+            type = 'nlua',
+            request = 'attach',
+            name = "Attach to running Neovim instance",
+            host = function()
+                local value = vim.fn.input('Host [127.0.0.1]: ')
+                if value ~= "" then
+                    return value
+                end
+                return '127.0.0.1'
+            end,
+            port = function()
+                local val = tonumber(vim.fn.input('Port: ', "8086"))
+                assert(val, "Please provide a port number")
+                return val
+            end,
+        }
+    }
+
 
     local augroup = vim.api.nvim_create_augroup
     local autocmd = vim.api.nvim_create_autocmd
-    autocmd(
-        {"BufEnter"},
-        {
-            group = augroup("dap_ui_opts", {clear = true}),
-            pattern = {"DAP*"},
-            -- pattern = {"dapui_scopes", "dapui_breakpoints", "dapui_stacks", "dapui_watches",
-            --     "dap-repl", "dapui_console",
-            -- },
-            callback = function()
-                vim.opt_local.spell = false
-                vim.opt_local.colorcolumn = {}
-                vim.opt_local.foldlevel = 99
-            end,
-        }
-    )
-
+    autocmd({ "BufEnter" }, {
+        group = augroup("dap_ui_opts", { clear = true }),
+        pattern = { "DAP*,dap-*" },
+        -- pattern = {"dapui_scopes", "dapui_breakpoints", "dapui_stacks", "dapui_watches",
+        --     "dap-repl", "dapui_console",
+        -- },
+        callback = function()
+            vim.opt_local.spell = false
+            vim.opt_local.colorcolumn = {}
+            vim.opt_local.foldlevel = 99
+        end,
+    })
 end
 
 return M

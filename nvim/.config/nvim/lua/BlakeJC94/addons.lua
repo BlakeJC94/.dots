@@ -31,6 +31,7 @@ return {
     { "jose-elias-alvarez/null-ls.nvim" }, -- Extra sources for LSP
     { "williamboman/mason.nvim" }, -- Installer for external tools
     { "simrat39/symbols-outline.nvim" },
+    { "ray-x/lsp_signature.nvim" },
     --- COMPLETION ---
     { "L3MON4D3/LuaSnip" }, -- Snippets
     { "zbirenbaum/copilot.lua" },
