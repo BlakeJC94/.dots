@@ -18,6 +18,12 @@ function M.config()
                 up = "<Leader><Up>",
                 right = "<Leader><Right>",
             },
+            auto_add_links_to_journal = {
+                day = true,
+                week = false,
+                month = false,
+            },
+            journal_link_anchor = "## Field notes",
         }
     )
 end
