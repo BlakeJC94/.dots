@@ -9,6 +9,7 @@ apt-get install -y \
     jq \
     tree \
     bat \
+    fd-find \
     colorize \
     fortune \
     fzf \
@@ -25,14 +26,6 @@ apt-get install -y \
     tldr \
     g++
 
-# Configure flatpak if needed
-flatpak_xdg=/var/lib/flatpak/exports/share
-if ! [[ "$XDG_DATA_DIRS" =~ (^|:)"${flatpak_xdg}"(:|$) ]]
-then
-    XDG_DATA_DIRS="${flatpak_xdg}:$XDG_DATA_DIRS"
-fi
-
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 if [ -x "$(command -v snap)" ]; then
     snap remove firefox

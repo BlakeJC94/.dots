@@ -17,6 +17,8 @@
     cleanbranch = "!git rm $(git ls-files -d)"
     hub = "!gh"
     lg = "!git log --oneline -n 10"
+	last = log -1 HEAD --stat
+	zoot = "!f() { git add -A && git commit -m \"$@\" && git pull --rebase && git push; }; f"
 
 [color]
     ui = auto

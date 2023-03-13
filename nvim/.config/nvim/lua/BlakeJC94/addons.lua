@@ -18,6 +18,7 @@ return {
     {"mipmip/vim-scimark"},
     --- INTERFACE ---
     { "BlakeJC94/field-notes.nvim", branch = "dev" },
+    -- { "~/Workspace/repos/field-notes.nvim" },
     { 'ibhagwan/fzf-lua' },
     { "lewis6991/gitsigns.nvim" }, -- Gitgutter, floating hunks, and virtual text blames
     { "jpalardy/vim-slime" }, -- <C-c><C-c> => Send code snippet to terminal

@@ -8,6 +8,9 @@ function M.config()
         previewers = {
             man = { cmd = "man %s | col -bx" },
         },
+        grep = {
+            rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden",
+        },
         highlights = {
             actions = {
                 ["default"] = function(selected)  -- TODO open PR for this action
@@ -29,6 +32,7 @@ function M.config()
             },
         }
     }
+
 end
 
 return M
