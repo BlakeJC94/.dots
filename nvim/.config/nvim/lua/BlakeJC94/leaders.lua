@@ -11,8 +11,6 @@ return {
         ["<Leader><BS>"] = ":FzfLua files<CR>", -- File finder
         ["<Leader><Tab>"] = "<C-^>", -- Last file
         ["<Leader><Leader>"] = "za",
-        ["<Leader><Left>"] = "zc",
-        ["<Leader><Right>"] = "zo",
         ["<Leader>q"] = ":ToggleQL<CR>", -- Toggle qflist
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
         ["<Leader>;"] = ":edit $MYVIMRC | lcd %:p:h<CR>", -- Edit settings
@@ -23,6 +21,7 @@ return {
         ["<Leader>u"] = ":UndoTreeToggle<CR>",
         ["<Leader>U"] = ":Neogen<CR>", -- Generate docs
         ["<Leader>J"] = ":J day<CR>",
+        -- ["<Leader>t"] = ":make -k %:p:t:r<CR>"
         ["<Leader>x"] = function() require("ts-node-action").node_action() end,
         ["<Leader>o"] = ":echo 'Toggling Copilot trigger' | Copilot suggestion toggle_auto_trigger<CR>",
         ["<Leader>O"] = ":Copilot panel open<CR>",

@@ -41,6 +41,7 @@ local M = {
     breakindent    = false,      -- Indent soft-wrapped lines
     breakindentopt = {list=-1},  -- Options for breakindent
     showbreak      = '› ',     -- Text to print at breakindent
+    tagfunc        = "v:lua.vim.lsp.tagfunc",
     -- FOLDS
     foldmethod = 'indent',             -- Auto-create folds by indent levels
     foldlevel  = 0,                    -- Close all folds when opening file
