@@ -34,8 +34,7 @@ return {
         ['<Leader>k'] = function() vim.lsp.buf.signature_help() end,       -- Show signature help
         ['<Leader>a'] = function() vim.lsp.buf.code_action() end,          -- Do code action
         -- Leader maps
-        ['<Leader>g'] = ':Git<CR>',
-        ['<Leader>h'] = ':GBrowse<CR>',
+        ['<Leader>c'] = ':Git<CR>',
         ['<Leader>cp'] = ':Gitsigns preview_hunk<CR>',
         ['<Leader>cs'] = ':Gitsigns stage_hunk<CR>',
         ['<Leader>cu'] = ':Gitsigns undo_stage_hunk<CR>',
