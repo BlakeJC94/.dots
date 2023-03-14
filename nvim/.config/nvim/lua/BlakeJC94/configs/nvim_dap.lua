@@ -43,8 +43,8 @@ function M.config()
         dapui.close()
     end
 
-    require("dap-python").setup("python", {})
-    require('dap-python').test_runner = "pytest"
+    require("dap-python").setup("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python", { console = 'internalConsole' })
+    -- require('dap-python').test_runner = "pytest"
 
     dap.adapters.python = {
         type = "executable",
