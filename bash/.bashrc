@@ -48,6 +48,4 @@ source $HOME/.bash/modules/qt.sh
 [ -f ~/.bash/modules/fzf.sh ] && source $HOME/.bash/modules/fzf.sh
 [ -f ~/.bash/modules/fortune.sh ] && source $HOME/.bash/modules/fortune.sh
 
-# TODO make this private by sourcing a linker in other repo
-[ -f ~/.bash/modules/aws-sso.sh ] && source ~/.bash/modules/aws-sso.sh
-[ -f ~/.bash/modules/seerflow.sh ] && source ~/.bash/modules/seerflow.sh
+[ -f ~/.bash_profile_work.sh ] && source ~/.bash_profile_work.sh
