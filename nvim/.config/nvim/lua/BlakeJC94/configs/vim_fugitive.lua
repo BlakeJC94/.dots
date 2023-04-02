@@ -6,7 +6,6 @@ M.requires = {
 }
 
 
-
 function M.config()
     local augroup = {
         {   -- Auto-refresh fugitive status window
@@ -14,10 +13,19 @@ function M.config()
             pattern = "*",
             callback = function() vim.fn["fugitive#ReloadStatus"]() end,
         },
-        {   -- Auto-remove fugitive buffers when closed
+        {   -- Make fugitive buffers into unmodifiable scratch buffers and update buffer name
             events = {"BufReadPost"},
             pattern = "fugitive://*",
-            callback = function() vim.bo.bufhidden = "delete" end,
+            callback = function()
+                vim.bo.bufhidden = "delete"
+                vim.bo.buftype = "nofile"
+                vim.bo.modifiable = false
+                local buffer_name = vim.apu.nvim_buf_get_name(0)
+                local commit_hash = string.match(buffer_name, "%.git//([^/]+)/")
+                commit_hash = table.concat({"[", commit_hash:sub(1,8), "]"})
+                local new_buffer_name = table.concat({vim.fn.basename(buffer_name), commit_hash}, " ")
+                vim.api.nvim_buf_set_name(0, new_buffer_name)
+            end,
         },
     }
 

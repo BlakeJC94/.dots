@@ -44,6 +44,8 @@ return {
         ['<Leader>cR'] = ':Gitsigns reset_buffer<CR>',
         ['<Leader>ch'] = ':Gitsigns toggle_deleted<CR>',
         ['<Leader>cb'] = function() require("gitsigns").blame_line({full=true}) end,
+        ['<Leader>cf'] = ":diffget //2<CR>",  -- select left changes
+        ['<Leader>cj'] = ":diffget //3<CR>",  -- select right changes
         -- Packer maps
         ['<Leader>.p'] = ':exec "PackerSync" | echo "Syncing plugins"<CR>',
         ['<Leader>.i'] = ':exec "PackerInstall" | echo "Installing plugins"<CR>',
