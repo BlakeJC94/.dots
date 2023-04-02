@@ -38,10 +38,9 @@ local M = {
     showmatch      = true,       -- Highlight matching brackets
     wrap           = false,      -- Soft-wrap long lines and use breakindent opts
     linebreak      = true,       -- Only split/wrap long lines after words
-    breakindent    = false,      -- Indent soft-wrapped lines
+    breakindent    = true,       -- Indent soft-wrapped lines
     breakindentopt = {list=-1},  -- Options for breakindent
-    showbreak      = '› ',     -- Text to print at breakindent
-    tagfunc        = "v:lua.vim.lsp.tagfunc",
+    showbreak      = nil ,     -- Text to print at breakindent
     -- FOLDS
     foldmethod = 'indent',             -- Auto-create folds by indent levels
     foldlevel  = 0,                    -- Close all folds when opening file

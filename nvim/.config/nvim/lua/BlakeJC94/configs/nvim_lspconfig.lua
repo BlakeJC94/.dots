@@ -7,6 +7,7 @@ M.requires = {
 local function on_attach()
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(0, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    vim.api.nvim_buf_set_option(0, "tagfunc", "v:lua.vim.lsp.tagfunc")
 end
 
 function M.config()
