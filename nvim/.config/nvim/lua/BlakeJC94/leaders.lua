@@ -23,7 +23,7 @@ return {
         ["<Leader>J"] = ":J day<CR>",
         -- ["<Leader>t"] = ":make -k %:p:t:r<CR>"
         ["<Leader>x"] = function() require("ts-node-action").node_action() end,
-        ["<Leader>o"] = ":echo 'Toggling Copilot trigger' | Copilot suggestion toggle_auto_trigger<CR>",
+        -- ["<Leader>o"] = ":echo 'Toggling Copilot trigger' | Copilot suggestion toggle_auto_trigger<CR>",
         ["<Leader>O"] = ":Copilot panel open<CR>",
         -- LSP Leader bindings
         ['<Leader>e'] = function() vim.diagnostic.open_float() end,        -- Show line diagnostics
