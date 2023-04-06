@@ -1,6 +1,7 @@
 local M = {
     -- MAIN INPUT/OUTPUT
     clipboard     = "unnamedplus",  -- Allows vim to use "+ for yanks, puts, and deletes
+    timeout       = false,          -- Allow timing out halfway into a mapping
     timeoutlen    = 1000,           -- Time (ms) between key sequences
     ttimeoutlen   = 10,             -- Time (ms) between key sequences in terminal
     virtualedit   = "block",        -- Allow cursor to move anywhere ('all', 'block', 'insert')

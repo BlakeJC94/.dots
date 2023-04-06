@@ -14,14 +14,6 @@ function M.config()
             style = 'minimal',
             relative = 'cursor',
         },
-        -- _signs_staged_enable = true,
-    })
-
-    vim.api.nvim_create_autocmd('User', {
-        pattern = 'GitSignsUpdate',
-        callback = function()
-            vim.fn["fugitive#ReloadStatus"]()
-        end
     })
 end
 

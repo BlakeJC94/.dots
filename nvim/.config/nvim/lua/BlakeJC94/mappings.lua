@@ -36,6 +36,11 @@ return {
         ['gy'] = function() vim.lsp.buf.type_definition() end,
         ['gR'] = function() vim.lsp.buf.references() end,
         ['gw'] = function() vim.lsp.buf.document_symbol() end,
+        -- Unimpaired
+        ["[a"] = {map=':try | exec "norm \\<Plug>(unimpaired-prev)" | endtry | args<CR>', opts={remap=true}},
+        ["]a"] = {map=':try | exec "norm \\<Plug>(unimpaired-next)" | endtry | args<CR>', opts={remap=true}},
+        ["[A"] = {map=':try | exec "norm \\<Plug>(unimpaired-first)" | endtry | args<CR>', opts={remap=true}},
+        ["]A"] = {map=':try | exec "norm \\<Plug>(unimpaired-last)" | endtry | args<CR>', opts={remap=true}},
     },
     n = {
         -- Make Y behave like D and C
@@ -61,8 +66,8 @@ return {
         -- Use unused arrow keys
         ["<Left>"] = {map="[", opts={remap=true}},
         ["<Right>"] = {map="]", opts={remap=true}},
-        ["<Up>"] = "zk",
-        ["<Down>"] = "zj",
+        ["<Up>"] = {map="[", opts={remap=true}},
+        ["<Down>"] = {map="]", opts={remap=true}},
         -- C-s : Quickly guess correct spelling errors (undoable)
         ["<C-s>"] = { map = "i<C-g>u<Esc>[s1z=`]", opts = { remap = false } },
         -- Replace operator

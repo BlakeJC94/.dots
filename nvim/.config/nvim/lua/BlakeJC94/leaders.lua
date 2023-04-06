@@ -11,6 +11,9 @@ return {
         ["<Leader><BS>"] = ":FzfLua files<CR>", -- File finder
         ["<Leader><Tab>"] = "<C-^>", -- Last file
         ["<Leader><Leader>"] = "za",
+        ["<Leader>aa"] = ":argument | args<CR>",
+        ["<Leader>ax"] = ":argdelete | args<CR>",
+        ["<Leader>as"] = ":argadd | args<CR>",
         ["<Leader>q"] = ":ToggleQL<CR>", -- Toggle qflist
         ["<Leader>l"] = ":ToggleLL<CR>", -- Toggle loclist
         ["<Leader>;"] = ":edit $MYVIMRC | lcd %:p:h<CR>", -- Edit settings
@@ -32,16 +35,10 @@ return {
         ['<Leader>r'] = function() vim.lsp.buf.rename() end,               -- Rename current symbol
         ['<Leader>R'] = function() vim.lsp.buf.references() end,
         ['<Leader>k'] = function() vim.lsp.buf.signature_help() end,       -- Show signature help
-        ['<Leader>a'] = function() vim.lsp.buf.code_action() end,          -- Do code action
+        ['<Leader>A'] = function() vim.lsp.buf.code_action() end,          -- Do code action
         -- Leader maps
         ['<Leader>cc'] = ':Git<CR>',
         ['<Leader>cp'] = ':Gitsigns preview_hunk<CR>',
-        ['<Leader>cs'] = ':Gitsigns stage_hunk<CR>',
-        ['<Leader>cu'] = ':Gitsigns undo_stage_hunk<CR>',
-        ['<Leader>cr'] = ':Gitsigns reset_hunk<CR>',
-        ['<Leader>cS'] = ':Gitsigns stage_buffer<CR>',
-        ['<Leader>cU'] = ':Gitsigns reset_buffer_index<CR>',
-        ['<Leader>cR'] = ':Gitsigns reset_buffer<CR>',
         ['<Leader>ch'] = ':Gitsigns toggle_deleted<CR>',
         ['<Leader>cb'] = function() require("gitsigns").blame_line({full=true}) end,
         ['<Leader>cf'] = ":diffget //2<CR>",  -- select left changes
@@ -75,6 +72,7 @@ return {
         ['<Leader>fs'] = ":FzfLua spell_suggest<CR>",
         ['<Leader>fv'] = ":FzfLua lsp_document_symbols<CR>",
         ['<Leader>fV'] = ":FzfLua lsp_workspace_symbols<CR>",
+        ['<Leader>fa'] = ":FzfLua args<CR>",
         -- debugger
         ["<Leader>bb"] = function() require('dap').toggle_breakpoint() end, -- Toggle Breakpoint
         ["<Leader>bB"] = function() require('dap').set_breakpoint(vim.fn.input '[Condition] > ') end, -- Conditional Breakpoint

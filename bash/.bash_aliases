@@ -20,6 +20,8 @@ alias t='tmux'
 alias T='tmux-sessionizer'
 alias a='tmux a'
 alias d='tmux detach'
+# Quick arglist filler for vim
+alias vimm='vim $(find -type f -not -path '\''*/\.git/*'\'' -printf '\''%P\n'\'' | fzf -m | tr '\'' '\'' _)'
 # Muscle memory
 alias q="exit"
 alias G="git"
