@@ -8,7 +8,7 @@ return {
         ["n"] = "nzv",
         ["N"] = "Nzv",
         -- Remap q and Q to stop polluting registers accidentally!
-        ["q"] = "gq",
+        ["q"] = "gw",
         ["Q"] = "q",
         -- Fkey maps
         ["<F1>"] = { map = ":setl relativenumber!<CR>:setl relativenumber?<CR>", opts = { silent = false } },
@@ -35,7 +35,7 @@ return {
         ['gI'] = function() vim.lsp.buf.implementation() end,
         ['gy'] = function() vim.lsp.buf.type_definition() end,
         ['gR'] = function() vim.lsp.buf.references() end,
-        ['gw'] = function() vim.lsp.buf.document_symbol() end,
+        ['g='] = function() vim.lsp.buf.format() end,
         -- Unimpaired
         ["[a"] = {map=':try | exec "norm \\<Plug>(unimpaired-previous)" | endtry | args<CR>', opts={remap=true}},
         ["]a"] = {map=':try | exec "norm \\<Plug>(unimpaired-next)"     | endtry | args<CR>', opts={remap=true}},

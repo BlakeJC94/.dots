@@ -20,7 +20,7 @@ return {
         ["<Leader>:"] = ":edit $MYVIMRC | lcd %:p:h | edit **/addons.lua <CR>", -- Edit addons
         ["<Leader>d"] = ":lcd %:p:h<CR>",
         ["<Leader>D"] = ":cd %:p:h<CR>",
-        ["<Leader>v"] = ":SymbolsOutline<CR>",
+        ["<Leader>V"] = ":SymbolsOutline<CR>",
         ["<Leader>u"] = ":UndoTreeToggle<CR>",
         ["<Leader>U"] = ":Neogen<CR>", -- Generate docs
         ["<Leader>J"] = ":J day<CR>",
@@ -36,6 +36,7 @@ return {
         ['<Leader>R'] = function() vim.lsp.buf.references() end,
         ['<Leader>k'] = function() vim.lsp.buf.signature_help() end,       -- Show signature help
         ['<Leader>A'] = function() vim.lsp.buf.code_action() end,          -- Do code action
+        ['<Leader>v'] = function() vim.lsp.buf.document_symbol() end,
         -- Leader maps
         ['<Leader>cc'] = ':Git<CR>',
         ['<Leader>cp'] = ':Gitsigns preview_hunk<CR>',
@@ -95,9 +96,7 @@ return {
         ["<Leader>br"] = function() require('dap').repl.toggle() end, -- Toggle Repl
     },
     v = {
-        -- Gitsigns stage_hunk visual mode
-        ["<Leader>hs"] = ":'<,'>Gitsigns stage_hunk<CR>",
         -- Debugger eval
-        ['<Leader>be'] = function() require('dapui').eval() end  -- Evaluate
+        ['<Leader>be'] = function() require('dapui').eval() end,  -- Evaluate
     },
 }
