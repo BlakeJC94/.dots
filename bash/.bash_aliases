@@ -33,4 +33,10 @@ alias bat="batcat --theme=gruvbox-dark"
 alias less="less -R"
 alias fd="fdfind"
 
+# venv bullshit
+alias vnv-new="python -m venv .venv"
+alias vnv-up="source .venv/bin/activate"
+alias vnv-down="deactivate"
+alias pip-purge="pip uninstall -y -r <(pip freeze)"
+
 pip-recompile () { for i; do [[ "$i" == "requirements"*".txt" ]] && echo "==> Compiling $i" && grep "^#\s\{4\}pip-compile" "$i" | sed 's/#\s\+//' | bash; done; }

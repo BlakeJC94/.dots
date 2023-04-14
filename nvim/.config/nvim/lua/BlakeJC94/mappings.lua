@@ -37,10 +37,10 @@ return {
         ['gR'] = function() vim.lsp.buf.references() end,
         ['gw'] = function() vim.lsp.buf.document_symbol() end,
         -- Unimpaired
-        ["[a"] = {map=':try | exec "norm \\<Plug>(unimpaired-prev)" | endtry | args<CR>', opts={remap=true}},
-        ["]a"] = {map=':try | exec "norm \\<Plug>(unimpaired-next)" | endtry | args<CR>', opts={remap=true}},
-        ["[A"] = {map=':try | exec "norm \\<Plug>(unimpaired-first)" | endtry | args<CR>', opts={remap=true}},
-        ["]A"] = {map=':try | exec "norm \\<Plug>(unimpaired-last)" | endtry | args<CR>', opts={remap=true}},
+        ["[a"] = {map=':try | exec "norm \\<Plug>(unimpaired-previous)" | endtry | args<CR>', opts={remap=true}},
+        ["]a"] = {map=':try | exec "norm \\<Plug>(unimpaired-next)"     | endtry | args<CR>', opts={remap=true}},
+        ["[A"] = {map=':try | exec "norm \\<Plug>(unimpaired-first)"    | endtry | args<CR>', opts={remap=true}},
+        ["]A"] = {map=':try | exec "norm \\<Plug>(unimpaired-last)"     | endtry | args<CR>', opts={remap=true}},
     },
     n = {
         -- Make Y behave like D and C
