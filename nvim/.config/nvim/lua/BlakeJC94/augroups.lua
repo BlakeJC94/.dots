@@ -99,7 +99,7 @@ M.style = {
             end
             if allowed then
                 vim.opt_local.cursorline = true
-                vim.opt_local.relativenumber = false
+                -- vim.opt_local.relativenumber = false
                 textwidth = require("BlakeJC94.options").textwidth
                 vim.opt_local.colorcolumn = { textwidth + 1, textwidth + 2 }
             end
@@ -117,7 +117,7 @@ M.style = {
             end
             if allowed then
                 vim.opt_local.cursorline = false
-                vim.opt_local.relativenumber = true
+                -- vim.opt_local.relativenumber = true
                 vim.opt_local.colorcolumn = {}
             end
         end,
