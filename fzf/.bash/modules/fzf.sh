@@ -1,6 +1,6 @@
 # init fzf
-if [[ "$(command -v fzf)" ]]; then
-    source /usr/share/doc/fzf/examples/key-bindings.bash
+if [[ "$(command -v fzf-share)" ]]; then
+    source "$(fzf-share)/key-bindings.bash"
 fi
 
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'

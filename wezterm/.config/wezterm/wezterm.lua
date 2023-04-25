@@ -36,7 +36,6 @@ end)
 return {
     font = wezterm.font("JetBrains Mono"),
     font_size = 14,
-    default_prog = { "/usr/bin/bash" },
     colors = {
         foreground = "#ebdbb2",
         background = "#1d2021",

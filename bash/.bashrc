@@ -19,6 +19,10 @@ shopt -s globstar
 # Disable <C-s>/<C-q> from pausing/resuming input to terminal
 stty -ixon
 
+# Add local bins to path
+export PATH_LOCAL_BIN="${HOME}/.local/bin"
+[[ ":$PATH:" != *":${PATH_LOCAL_BIN}:"* ]] && PATH="${PATH_LOCAL_BIN}:${PATH}"
+
 source $HOME/.bash/modules/history.sh
 source $HOME/.bash/modules/color_prompt.sh
 source $HOME/.bash/modules/window_title.sh
@@ -31,9 +35,6 @@ source $HOME/.bash/modules/qt.sh
 
 # Run twolfson/sexy-bash-prompt
 [ -f ~/.bash_prompt ] && source ~/.bash_prompt
-
-# Source bash_profile if present
-[ -f ~/.bash_profile ] && source ~/.bash_profile
 
 # TODO replace this with a for loop and source from repo
 [ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh

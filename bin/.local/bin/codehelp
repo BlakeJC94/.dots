@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # shellcheck shell=bash
 
 # Print a formatted quote with programming advice and cache it to system for a user-deined amount
