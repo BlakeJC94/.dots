@@ -26,6 +26,8 @@ alias vimm='vim $(find -type f -not -path '\''*/\.git/*'\'' -printf '\''%P\n'\''
 alias q="exit"
 alias G="git"
 alias Git="git"
+alias vim="nvim"
+alias vm="vim"
 
 # More aliases
 alias matlabcli="matlab -nodisplay"

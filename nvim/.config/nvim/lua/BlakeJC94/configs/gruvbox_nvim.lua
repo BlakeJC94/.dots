@@ -26,7 +26,12 @@ function M.config()
         undercurl = true,
         underline = true,
         bold = true,
-        italic = false,
+        italic = {
+            strings = false,
+            comments = true,
+            operators = false,
+            folds = false,
+        },
         invert_selection = false,
         invert_signs = false,
         invert_tabline = false,

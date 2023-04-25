@@ -15,7 +15,7 @@ return {
     { "kana/vim-operator-replace" },
     { "wellle/targets.vim" }, -- Many many more text objects
     { "Julian/vim-textobj-variable-segment" }, -- iv/av => Text objects for substrings in snake/camel/kebab case
-    {"mipmip/vim-scimark"},
+    { "mipmip/vim-scimark" },
     --- INTERFACE ---
     -- { "~/Workspace/repos/field-notes.nvim" },
     { "BlakeJC94/field-notes.nvim", branch = "dev" },
@@ -36,7 +36,7 @@ return {
     { "ray-x/lsp_signature.nvim" },
     --- COMPLETION ---
     { "L3MON4D3/LuaSnip" }, -- Snippets
-    { "zbirenbaum/copilot.lua" },
+    -- { "zbirenbaum/copilot.lua" },
     { "hrsh7th/nvim-cmp" },
     { "windwp/nvim-autopairs" }, -- Autoclose brakcets and quotes
     --- TREESITTER ---
