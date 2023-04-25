@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Enable 256 color support
 set -g default-terminal "tmux-256color"
@@ -17,7 +17,7 @@ set -sg escape-time 20
 set -g focus-events on
 
 # Use login shell (sources bashrc)
-set-option -g default-shell "/usr/bin/bash"
+#set-option -g default-shell "/usr/bin/env bash"
 set-option -g default-command bash
 
 # Mouse stuff

@@ -14,7 +14,7 @@ popd
 
 # restore backup bashrc if needed
 bashrc="${HOME}"/.bashrc
-if ! [ -f "${bashrc}" ]; then
+if ! [ -f "${bashrc}" ] && [ -f ${BACKUP_BASHRC} ]; then
     printf '%s\n' "Restoring backup ${BACKUP_BASHRC} to ${bashrc}"
     mv "${BACKUP_BASHRC}" "${bashrc}"
 fi
