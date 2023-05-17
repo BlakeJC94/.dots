@@ -1,3 +1,5 @@
-julia latest
-nodejs 10.24.1
+julia 1.8.5
+nodejs lts
 python 3.9.15
+luajit 2.0.5--2.4.4
+rust 1.69.0

@@ -28,13 +28,19 @@ source $HOME/.bash/modules/color_prompt.sh
 source $HOME/.bash/modules/window_title.sh
 source $HOME/.bash/modules/completion.sh
 source $HOME/.bash/modules/tab_cycle.sh
-source $HOME/.bash/modules/qt.sh
+# source $HOME/.bash/modules/qt.sh
+
 
 # Alias definitions.
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 
 # Run twolfson/sexy-bash-prompt
 [ -f ~/.bash_prompt ] && source ~/.bash_prompt
+
+
+# TODO put into module
+[ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ] && source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 
 # TODO replace this with a for loop and source from repo
 [ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
