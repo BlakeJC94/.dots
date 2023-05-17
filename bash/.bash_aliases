@@ -27,7 +27,7 @@ alias q="exit"
 alias G="git"
 alias Git="git"
 alias vim="nvim"
-alias vm="vim"
+alias vm="/usr/bin/vim"
 
 # More aliases
 alias matlabcli="matlab -nodisplay"
