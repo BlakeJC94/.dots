@@ -49,7 +49,7 @@ return {
     },
     enable_tab_bar = false,
     window_decorations = "RESIZE",
-    window_close_confirmation = "AlwaysPrompt",
+    window_close_confirmation = "NeverPrompt",
     skip_close_confirmation_for_processes_named = { "bash" },
     audible_bell = "Disabled",
     disable_default_key_bindings = true,
