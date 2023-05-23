@@ -23,7 +23,6 @@ return {
     { "lewis6991/gitsigns.nvim" }, -- Gitgutter, floating hunks, and virtual text blames
     { "jpalardy/vim-slime" }, -- <C-c><C-c> => Send code snippet to terminal
     { "ethanholz/nvim-lastplace" }, -- Jump to last place when opening a file
-    { "luukvbaal/stabilize.nvim" }, -- Stabilise split creation  TODO remove when merged in 0.9
     { "mrjones2014/smart-splits.nvim" }, -- smarter split resize functions
     { "mbbill/undotree" }, -- :UndotreeToggle
     { "mfussenegger/nvim-dap" },
