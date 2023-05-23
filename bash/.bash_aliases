@@ -41,4 +41,7 @@ alias vnv-up="source .venv/bin/activate"
 alias vnv-down="deactivate"
 alias pip-purge="pip uninstall -y -r <(pip freeze)"
 
+# Flatpak
+alias wezterm="flatpak run org.wezfurlong.wezterm"
+
 pip-recompile () { for i; do [[ "$i" == "requirements"*".txt" ]] && echo "==> Compiling $i" && grep "^#\s\{4\}pip-compile" "$i" | sed 's/#\s\+//' | bash; done; }
