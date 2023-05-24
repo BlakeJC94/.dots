@@ -17,8 +17,8 @@ return {
     { "Julian/vim-textobj-variable-segment" }, -- iv/av => Text objects for substrings in snake/camel/kebab case
     { "mipmip/vim-scimark" },
     --- INTERFACE ---
-    { "~/Workspace/repos/field-notes.nvim" },
-    -- { "BlakeJC94/field-notes.nvim", branch = "dev" },
+    -- { "~/Workspace/repos/field-notes.nvim" },
+    { "BlakeJC94/field-notes.nvim", branch = "dev" },
     { 'ibhagwan/fzf-lua' },
     { "lewis6991/gitsigns.nvim" }, -- Gitgutter, floating hunks, and virtual text blames
     { "jpalardy/vim-slime" }, -- <C-c><C-c> => Send code snippet to terminal
