@@ -10,6 +10,8 @@ return {
         -- Remap q and Q to stop polluting registers accidentally!
         ["q"] = "gw",
         ["Q"] = "q",
+        -- Better opening of URLs and files
+        ["gx"] = [[:silent execute '!xdg-open ' . shellescape(expand('<cfile>'), 1)<CR>]],
         -- Fkey maps
         ["<F1>"] = { map = ":setl relativenumber!<CR>:setl relativenumber?<CR>", opts = { silent = false } },
         ["<F2>"] = { map = ":setl number!<CR>:setl number?<CR>", opts = { silent = false } },
@@ -21,14 +23,6 @@ return {
         ["<C-Up>"] = function() require("smart-splits").resize_up(4) end,
         ["<C-Down>"] = function() require("smart-splits").resize_down(4) end,
         ["<C-Right>"] = function() require("smart-splits").resize_right(8) end,
-        -- Better opening of URLs and files
-        ["gx"] = [[:silent execute '!xdg-open ' . shellescape(expand('<cfile>'), 1)<CR>]],
-        -- Navigate git changes in file
-        [']c'] = ':silent Gitsigns next_hunk<CR>',
-        ['[c'] = ':silent Gitsigns prev_hunk<CR>',
-        -- Navigate diagnostics
-        [']d'] = function() vim.diagnostic.goto_next() end,
-        ['[d'] = function() vim.diagnostic.goto_prev() end,
         -- LSP bindings
         ['gd'] = function() vim.lsp.buf.definition() end,
         ['gD'] = function() vim.lsp.buf.declaration() end,
@@ -36,6 +30,12 @@ return {
         ['gy'] = function() vim.lsp.buf.type_definition() end,
         ['gR'] = function() vim.lsp.buf.references() end,
         ['g='] = function() vim.lsp.buf.format() end,
+        -- Navigate git changes in file
+        [']c'] = ':silent Gitsigns next_hunk<CR>',
+        ['[c'] = ':silent Gitsigns prev_hunk<CR>',
+        -- Navigate diagnostics
+        [']d'] = function() vim.diagnostic.goto_next() end,
+        ['[d'] = function() vim.diagnostic.goto_prev() end,
         -- Unimpaired
         ["[a"] = {map=':try | exec "norm \\<Plug>(unimpaired-previous)" | endtry | args<CR>', opts={remap=true}},
         ["]a"] = {map=':try | exec "norm \\<Plug>(unimpaired-next)"     | endtry | args<CR>', opts={remap=true}},
@@ -70,8 +70,6 @@ return {
         ["<Down>"] = {map="]", opts={remap=true}},
         -- C-s : Quickly guess correct spelling errors (undoable)
         ["<C-s>"] = { map = "i<C-g>u<Esc>[s1z=`]", opts = { remap = false } },
-        -- Replace operator
-        ['gr'] = "<Plug>(operator-replace)",
         -- Splitjoin
         ['gS'] = ":TSJToggle<CR>",
     },
@@ -86,33 +84,15 @@ return {
         -- Swap p and P to stop losing register contents by pasting over
         ["p"] = "P",
         ["P"] = "p",
-        -- Replace operator
-        ['gr'] = "<Plug>(operator-replace)",
     },
     i = {
         -- C-s : Quickly guess correct spelling errors (undoable)
         ["<C-s>"] = { map = "<C-g>u<Esc>[s1z=`]a<C-g>u", opts = { remap = false } },
-        -- Stop accidentlly opening helkp in insert mode
+        -- Stop accidentally opening help in insert mode
         ["<F1>"] = "",
         -- Make <C-k> use lsp.hover, call twice to jump to hoverdoc
         ['<C-k>'] = function() vim.lsp.buf.hover() end,
         -- C-r C-r : See registers with telescope
         ['<C-r><C-r>'] = "<cmd>FzfLua registers<CR>",
-    },
-    o = {
-        -- Custom text object: "around everything"
-        ["ae"] = "<Cmd>normal! ggVG<CR>",
-        ["ie"] = "<Cmd>normal! ggVG<CR>",
-        -- Use unused arrow keys
-        ["<Left>"] = {map="[", opts={remap=true}},
-        ["<Right>"] = {map="]", opts={remap=true}},
-    },
-    x = {
-        -- Custom text object: "around everything"
-        ["ae"] = "gg0oG$",
-        ["ie"] = "gg0oG$",
-        -- Use unused arrow keys
-        ["<Left>"] = {map="[", opts={remap=true}},
-        ["<Right>"] = {map="]", opts={remap=true}},
     },
 }

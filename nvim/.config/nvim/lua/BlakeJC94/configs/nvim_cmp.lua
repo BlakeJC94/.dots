@@ -9,7 +9,6 @@ M.requires = {
     "kdheepak/cmp-latex-symbols",
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "hrsh7th/cmp-cmdline",
-    "saadparwaiz1/cmp_luasnip",
 }
 
 local function has_words_before()
@@ -19,11 +18,8 @@ end
 
 local function cmp_tab(fallback)
     local cmp = require("cmp")
-    local luasnip = require("luasnip")
     if cmp.visible() then
         cmp.select_next_item()
-    elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
     elseif has_words_before() then
         cmp.complete()
     else
@@ -33,11 +29,8 @@ end
 
 local function cmp_s_tab(fallback)
     local cmp = require("cmp")
-    local luasnip = require("luasnip")
     if cmp.visible() then
         cmp.select_prev_item()
-    elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
     else
         fallback()
     end
@@ -65,13 +58,7 @@ function M.config()
             }),
         },
         preselect = cmp.PreselectMode.None,
-        snippet = {
-            expand = function(args)
-                require("luasnip").lsp_expand(args.body)
-            end,
-        },
         sources = {
-            -- { name = "nvim_lsp_signature_help" },
             { name = "nvim_lsp" },
             { name = "path" },
             {
@@ -90,7 +77,6 @@ function M.config()
                     end,
                 },
             },
-            { name = "luasnip" },
             { name = "latex_symbols" },
         },
         sorting = {

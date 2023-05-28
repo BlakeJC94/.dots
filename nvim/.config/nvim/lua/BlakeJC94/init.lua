@@ -25,8 +25,6 @@ function M.setup(config)
     utils.disable_arrow_keys()
     utils.setup_goto_config()
 
-    -- vim.g.python3_host_prog = vim.fn.expand("~/.asdf/shims/python3")
-
     if config.scratchpad then require("BlakeJC94.scratchpad") end
 end
 
@@ -93,15 +91,6 @@ M.null_ls_sources = {
     diagnostics = {
         -- pylint = { prefer_local = ".venv/bin" },
         luacheck = {},
-    },
-}
-
--- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
-M.dap_sources = {
-    python = {
-        type = "executable",
-        command = vim.g.python3_host_prog,
-        args = { "-m", "debugpy.adapter" },
     },
 }
 

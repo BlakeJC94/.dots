@@ -6,16 +6,10 @@ return {
     { "tpope/vim-surround" }, -- cs] => Change surrounding brackets
     { "tpope/vim-commentary" }, -- gc<motion> => toggle comments
     { "tpope/vim-unimpaired" },
-    { "tpope/vim-apathy" },
-    { "tpope/vim-vinegar" },
     { "tpope/vim-dispatch" },
     { "tpope/vim-fugitive" }, -- The ultimate git plugin for Vim
     { "tommcdo/vim-lion" }, -- gl<obj><char> => align selection to <char>
-    { "christoomey/vim-sort-motion" }, -- gs<object> => Sort operator across object
-    { "kana/vim-operator-replace" },
-    { "wellle/targets.vim" }, -- Many many more text objects
-    { "Julian/vim-textobj-variable-segment" }, -- iv/av => Text objects for substrings in snake/camel/kebab case
-    { "mipmip/vim-scimark" },
+    { "chrisgrieser/nvim-various-textobjs" },
     --- INTERFACE ---
     -- { "~/Workspace/repos/field-notes.nvim" },
     { "BlakeJC94/field-notes.nvim", branch = "dev" },
@@ -25,7 +19,6 @@ return {
     { "ethanholz/nvim-lastplace" }, -- Jump to last place when opening a file
     { "mrjones2014/smart-splits.nvim" }, -- smarter split resize functions
     { "mbbill/undotree" }, -- :UndotreeToggle
-    { "mfussenegger/nvim-dap" },
     --- LSP ---
     { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
     { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right
@@ -34,24 +27,19 @@ return {
     { "simrat39/symbols-outline.nvim" },
     { "ray-x/lsp_signature.nvim" },
     --- COMPLETION ---
-    { "L3MON4D3/LuaSnip" }, -- Snippets
-    -- { "zbirenbaum/copilot.lua" },
+    { "zbirenbaum/copilot.lua" },
     { "hrsh7th/nvim-cmp" },
     { "windwp/nvim-autopairs" }, -- Autoclose brakcets and quotes
     --- TREESITTER ---
     { "nvim-treesitter/nvim-treesitter" }, -- TreeSitter plugin configuration
-    { "lewis6991/nvim-treesitter-context" }, -- Pop-up for context
+    { "nvim-treesitter/nvim-treesitter-context" }, -- Pop-up for context
     { "danymat/neogen" }, -- Generate docstrings
-    { "ckolkey/ts-node-action" },
     { 'Wansmer/treesj' },
     --- STYLE ---
     { "danilamihailov/beacon.nvim" }, -- Ping cursor location after jump
     { "brenoprata10/nvim-highlight-colors" }, -- Colors Hex codes
     { "tzachar/local-highlight.nvim" },
-    { "ellisonleao/gruvbox.nvim" }, -- rose-pine and tokyonight and material.nvim look neat too
-    { "rose-pine/neovim" },
-    { "folke/tokyonight.nvim" },
-    { "unblevable/quick-scope" }, -- Better f/t targets
+    { "ellisonleao/gruvbox.nvim" },
     { "nvim-lualine/lualine.nvim" }, -- Statusline
     { "alvarosevilla95/luatab.nvim" },
     { "lukas-reineke/indent-blankline.nvim" }, -- Indent guides
