@@ -265,7 +265,72 @@ function M.toggle_local_list()
 end
 
 
+function M.resize_vim_splits()
+    vim.cmd.wincmd("=")
+end
 
+function M.replace_tabs_with_spaces()
+    vim.cmd.retab()
+end
 
+function M.reload_buffer()
+    if vim.cmd.mode() ~= "c" then vim.cmd.checktime() end
+end
+
+function M.remove_nonfile_buffer()
+    if not vim.fn.filereadable(vim.fn.expand("%")) then
+        vim.cmd("bd!")
+    end
+end
+
+function M.set_info_buffer_opts()
+    vim.opt_local.spell = false
+    vim.opt_local.colorcolumn = {}
+    vim.opt_local.foldlevel = 99
+    vim.opt_local.formatoptions:remove("t")
+    -- restore default K action on help pages
+    vim.keymap.set("n", "K", ":h <C-r>=expand('<cword>')<CR><CR>", { silent = true, buffer = true })
+end
+
+function M.help_vert_split()
+    if vim.o.filetype == "help" then
+        vim.cmd.wincmd("L")
+        vim.cmd("vert resize 90")
+    end
+end
+
+function M.highlight_yanks()
+    vim.highlight.on_yank({ timeout = 700 })
+end
+
+function M.toggle_insert_target_on()
+    local allowed = true
+    for _, v in pairs(require("BlakeJC94").filetype_exclude) do
+        if vim.bo.filetype == v then
+            allowed = false
+        end
+    end
+    if allowed then
+        vim.opt_local.cursorline = true
+        -- vim.opt_local.relativenumber = false
+        local textwidth = vim.api.nvim_buf_get_option(0, "textwidth")
+        vim.opt_local.colorcolumn = { textwidth + 1, textwidth + 2 }
+    end
+end
+
+-- TODO rfc
+function M.toggle_insert_target_off()
+    local allowed = true
+    for _, v in pairs(require("BlakeJC94").filetype_exclude) do
+        if vim.bo.filetype == v then
+            allowed = false
+        end
+    end
+    if allowed then
+        vim.opt_local.cursorline = false
+        -- vim.opt_local.relativenumber = true
+        vim.opt_local.colorcolumn = {}
+    end
+end
 
 return M

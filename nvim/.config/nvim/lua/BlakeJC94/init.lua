@@ -15,7 +15,7 @@ function M.setup(config)
     if config.options then options.set() end
     if config.commands then commands.set() end
     if config.mappings then mappings.set() end
-    if config.augroups then utils.set.augroups(augroups) end
+    if config.augroups then augroups.set() end
 
     utils.setup_goto_config()
 
