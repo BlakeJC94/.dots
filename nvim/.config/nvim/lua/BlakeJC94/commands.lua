@@ -1,32 +1,19 @@
--- This file is for creating new vim commands
 local functions = require('BlakeJC94.utils').functions
+local opts = {force = true}
 
-local M = {}
+-- TODO add directly to mapping
+-- TODO concat all commands as a large list then set?
+local commands = {
+    {"ToggleQL", functions.toggle_quickfix_list, opts},
+    {"ToggleLL", functions.toggle_local_list, opts},
+    {"PylintDisableLine", functions.pylint_disable_line, opts},
+    {"Bonly", functions.close_all_except_selected_buffer, opts},
+}
 
--- Toggle display of quickfix list
-function M.ToggleQL()
-    if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix') == 0 then
-        vim.cmd.copen()
-    else
-        vim.cmd.cclose()
+local function set_commands(cmds)
+    for _, cmd in pairs(cmds) do
+        vim.api.nvim_create_user_command(unpack(cmd))
     end
-end
-
--- Toggle display of location list
-function M.ToggleLL()
-    if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.loclist') == 0 then
-        vim.cmd.lopen()
-    else
-        vim.cmd.lclose()
-    end
-end
-
-function M.PylintDisableLine()
-    functions.pylint_disable_line()
-end
-
-function M.Bonly()
-    vim.cmd('%bdelete|edit #|normal `"')
 end
 
 local function make_typo_command(cmd)
@@ -34,10 +21,25 @@ local function make_typo_command(cmd)
         if keys.bang then cmd = cmd .. '!' end
         vim.cmd(string.lower(cmd) .. ' ' .. keys.args)
     end
-    return {typo_function, {force=true, bang=true, nargs='*', complete='file'}}
+    return {cmd, typo_function, {force=true, bang=true, nargs='*', complete='file'}}
 end
 
-local typos = { "E" , "W" , "Wq", "WQ", "Wa", "WA", "Q" , "Qa", "QA" }
-for _, v in pairs(typos) do M[v] = make_typo_command(v) end
+local function set_typo_commands()
+    local typos = { "E" , "W" , "Wq", "WQ", "Wa", "WA", "Q" , "Qa", "QA" }
+
+    local typo_commands = {}
+    for _, v in pairs(typos) do
+        typo_commands[#typo_commands + 1] = make_typo_command(v)
+    end
+
+    set_commands(typo_commands)
+end
+
+local M = {}
+
+function M.set()
+    set_commands(commands)
+    set_typo_commands()
+end
 
 return M

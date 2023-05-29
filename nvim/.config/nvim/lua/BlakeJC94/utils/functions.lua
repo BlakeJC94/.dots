@@ -243,4 +243,29 @@ M.pylint_disable_line = function()
     append_pylint_flags(current_buf_nr, current_line, pylint_disable_string, pylint_flags)
 end
 
+
+function M.close_all_except_selected_buffer()
+    vim.cmd('%bdelete|edit #|normal `"')
+end
+
+function M.toggle_quickfix_list()
+    if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix') == 0 then
+        vim.cmd.copen()
+    else
+        vim.cmd.cclose()
+    end
+end
+
+function M.toggle_local_list()
+    if #vim.fn.filter(vim.fn.getwininfo(), 'v:val.loclist') == 0 then
+        vim.cmd.lopen()
+    else
+        vim.cmd.lclose()
+    end
+end
+
+
+
+
+
 return M

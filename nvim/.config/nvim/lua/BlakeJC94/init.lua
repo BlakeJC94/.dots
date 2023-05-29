@@ -13,12 +13,10 @@ function M.setup(config)
 
     if config.addons then utils.set.addons(addons) end
     if config.options then options.set() end
-    if config.commands then utils.set.commands(commands) end
+    if config.commands then commands.set() end
     if config.mappings then mappings.set() end
     if config.augroups then utils.set.augroups(augroups) end
 
-    -- utils.add_undo_breakpoints_insert_mode_punctuation()
-    -- utils.disable_arrow_keys()
     utils.setup_goto_config()
 
     if config.scratchpad then require("BlakeJC94.scratchpad") end
