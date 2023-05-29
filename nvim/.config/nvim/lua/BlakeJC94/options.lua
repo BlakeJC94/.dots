@@ -1,4 +1,4 @@
-local M = {
+local options = {
     -- MAIN INPUT/OUTPUT
     clipboard     = "unnamedplus",  -- Allows vim to use "+ for yanks, puts, and deletes
     timeout       = false,          -- Allow timing out halfway into a mapping
@@ -59,5 +59,11 @@ local M = {
     -- TOP MARGIN
     showtabline = 1,  -- Display tab line (0, never, 1 auto, 2 always)
 }
+
+local M = {}
+
+M.set = function()
+    for k, v in pairs(options) do vim.opt[k] = v end
+end
 
 return M
