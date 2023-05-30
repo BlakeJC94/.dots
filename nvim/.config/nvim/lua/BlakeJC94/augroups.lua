@@ -1,4 +1,4 @@
-local functions = require("BlakeJC94.utils").functions
+local functions = require("BlakeJC94.functions")
 
 local augroups = {}
 

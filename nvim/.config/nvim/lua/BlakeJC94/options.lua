@@ -46,7 +46,7 @@ local options = {
     foldmethod = 'indent',             -- Auto-create folds by indent levels
     foldlevel  = 0,                    -- Close all folds when opening file
     fillchars  = {fold=' ', eob=' '},  -- Replace dots with spaces in fold head
-    foldtext   = 'v:lua.require("BlakeJC94.utils").functions.custom_fold_text()',
+    foldtext   = 'v:lua.require("BlakeJC94.functions").custom_fold_text()',
     -- LEFT MARGIN
     number         = true,      -- Show line numbers
     relativenumber = true,      -- Show rel/abs line numbers

@@ -1,9 +1,5 @@
 local M = {}
 
-M.cmd = "Copilot"
-
-M.event = "InsertEnter"
-
 function M.config()
 
     require("copilot").setup({

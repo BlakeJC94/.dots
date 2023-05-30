@@ -6,18 +6,14 @@ local commands = require("BlakeJC94.commands")
 local mappings = require("BlakeJC94.mappings")
 local augroups = require("BlakeJC94.augroups")
 
-local utils = require("BlakeJC94.utils")
-
 function M.setup(config)
     config = config or {}
 
-    if config.addons then utils.set.addons(addons) end
+    if config.addons then addons.set() end
     if config.options then options.set() end
     if config.commands then commands.set() end
     if config.mappings then mappings.set() end
     if config.augroups then augroups.set() end
-
-    utils.setup_goto_config()
 
     if config.scratchpad then require("BlakeJC94.scratchpad") end
 end

@@ -5,7 +5,7 @@ M.requires = { "rktjmp/lush.nvim" }
 function M.config()
     local gruvbox = require("gruvbox")
     local palette = require("gruvbox.palette").colors
-    local color_midpoint = require("BlakeJC94.utils").functions.color_midpoint
+    local color_midpoint = require("BlakeJC94.functions").color_midpoint
 
     local bg_diff_delete = color_midpoint(palette.dark0_hard, palette.neutral_red, 10, 1)
     local bg_diff_add = color_midpoint(palette.dark0_hard, palette.neutral_green, 10, 1)
