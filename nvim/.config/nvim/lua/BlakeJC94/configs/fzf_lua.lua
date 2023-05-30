@@ -35,5 +35,34 @@ function M.config()
 
 end
 
+local opts = { silent = true }
+M.mappings = {
+    -- Override spellchecker
+    { "n", "z=", [[v:count ? v:count . 'z=' : ':FzfLua spell_suggest<CR>']], { expr = true } },
+    -- C-r C-r : See registers with fzf
+    { "i", "<C-r><C-r>", "<cmd>FzfLua registers<CR>"},
+    -- Fzf mappings
+    {"n", '<Leader>ff',":FzfLua resume<CR>"},
+    {"n", '<Leader>fF',":FzfLua<CR>"},
+    {"n", '<Leader>fb',":FzfLua buffers<CR>"},
+    {"n", '<Leader>fr',":FzfLua registers<CR>"},                  -- Switch between buffers
+    {"n", '<Leader>fo',":FzfLua oldfiles cwd_only=true<CR>"},     -- Recently changed files
+    {"n", '<Leader>fO',":FzfLua oldfiles<CR>"},                   -- Recently changed files
+    {"n", '<Leader>f/',":FzfLua lgrep_curbuf<CR>"},
+    {"n", '<Leader>fg',":FzfLua live_grep_native<CR>"},                   -- Jumping with livegrep
+    {"n", '<Leader>fh',":FzfLua help_tags<CR>"},
+    {"n", '<Leader>fH',":FzfLua man_pages<CR>"},
+    {"n", '<Leader>fc',":FzfLua highlights<CR>"},
+    {"n", '<Leader>fj',":FzfLua jumps<CR>"},
+    {"n", '<Leader>fJ',":FzfLua changes<CR>"},
+    {"n", '<Leader>fG',":FzfLua git_status<CR>"},
+    {"n", '<Leader>fq',":FzfLua quickfix<CR>"},
+    {"n", '<Leader>fl',":FzfLua loclist<CR>"},
+    {"n", '<Leader>fs',":FzfLua spell_suggest<CR>"},
+    {"n", '<Leader>fv',":FzfLua lsp_document_symbols<CR>"},
+    {"n", '<Leader>fV',":FzfLua lsp_workspace_symbols<CR>"},
+    {"n", '<Leader>fa',":FzfLua args<CR>"},
+}
+
 return M
 

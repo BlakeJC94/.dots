@@ -42,5 +42,9 @@ function M.config()
     end
 end
 
+M.mappings = {
+    {"n", '<Leader>cc',':Git<CR>'},
+}
+
 return M
 
