@@ -45,22 +45,25 @@ function M.config()
 end
 
 M.mappings = {
-    { "n", "]d", function() vim.diagnostic.goto_next() end},
-    { "n", "[d", function() vim.diagnostic.goto_prev() end},
-    { "n", "gd", function() vim.lsp.buf.definition() end},
-    { "n", "gD", function() vim.lsp.buf.declaration() end},
-    { "n", "gI", function() vim.lsp.buf.implementation() end},
-    { "n", "gy", function() vim.lsp.buf.type_definition() end},
-    { "n", "gR", function() vim.lsp.buf.references() end},
-    { "n", "g=", function() vim.lsp.buf.format() end},
-    {"n", '<Leader>e',function() vim.diagnostic.open_float() end},        -- Show line diagnostics
-    {"n", '<Leader>E',function() vim.diagnostic.setloclist() end},        -- Show buffer diagnostics
-    {"n", '<Leader>=',function() vim.lsp.buf.format({ timeout_ms = 5000 }) end},               -- Format buffer
-    {"n", '<Leader>r',function() vim.lsp.buf.rename() end},               -- Rename current symbol
-    {"n", '<Leader>R',function() vim.lsp.buf.references() end},
-    {"n", '<Leader>k',function() vim.lsp.buf.signature_help() end},       -- Show signature help
-    {"n", '<Leader>A',function() vim.lsp.buf.code_action() end},          -- Do code action
-    {"n", '<Leader>v',function() vim.lsp.buf.document_symbol() end},
+    { "n", "]d", function() vim.diagnostic.goto_next() end },
+    { "n", "[d", function() vim.diagnostic.goto_prev() end },
+    { "n", "gd", function() vim.lsp.buf.definition() end },
+    { "n", "gD", function() vim.lsp.buf.declaration() end },
+    { "n", "gI", function() vim.lsp.buf.implementation() end },
+    { "n", "gy", function() vim.lsp.buf.type_definition() end },
+    { "n", "gR", function() vim.lsp.buf.references() end },
+    { "n", "g=", function() vim.lsp.buf.format() end },
+    { "n", '<Leader>e', function() vim.diagnostic.open_float() end },        -- Show line diagnostics
+    { "n", '<Leader>E', function() vim.diagnostic.setloclist() end },        -- Show buffer diagnostics
+    { "n", '<Leader>=', function() vim.lsp.buf.format({ timeout_ms = 5000  }) end},               -- Format buffer
+    { "n", '<Leader>r', function() vim.lsp.buf.rename() end },               -- Rename current symbol
+    { "n", '<Leader>R', function() vim.lsp.buf.references() end },
+    { "n", '<Leader>k', function() vim.lsp.buf.signature_help() end },       -- Show signature help
+    { "n", '<Leader>A', function() vim.lsp.buf.code_action() end },          -- Do code action
+    { "n", '<Leader>v', function() vim.lsp.buf.document_symbol() end },
+    -- Make K (<C-k> for insert mode) use lsp.hover, call twice to jump to hoverdoc
+    { "n", "K", function() vim.lsp.buf.hover() end},
+    { "i", "<C-k>", function() vim.lsp.buf.hover() end},
 }
 
 return M

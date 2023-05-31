@@ -20,7 +20,7 @@ function M.config()
         bold = true,
         italic = {
             strings = false,
-            comments = true,
+            comments = false,
             operators = false,
             folds = false,
         },

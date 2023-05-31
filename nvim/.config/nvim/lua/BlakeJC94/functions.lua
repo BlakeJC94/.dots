@@ -333,6 +333,10 @@ function M.toggle_insert_target_off()
     end
 end
 
+function M.slugify(input_string)
+    return string.gsub(string.lower(input_string), "[ %\\%/-.,=:;><]+", "_")
+end
+
 function M.goto_config(keys)
     local addons_file = "lua/BlakeJC94/addons.lua"
     local addons_filepath = table.concat({ vim.fs.dirname(vim.fn.expand("$MYVIMRC")), addons_file }, "/")

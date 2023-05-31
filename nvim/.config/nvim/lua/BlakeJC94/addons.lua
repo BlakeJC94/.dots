@@ -8,6 +8,7 @@ local repos = {
     { "tpope/vim-unimpaired" },
     { "tpope/vim-dispatch" },
     { "tpope/vim-fugitive" }, -- The ultimate git plugin for Vim
+    { "tpope/vim-sleuth" },
     { "tommcdo/vim-lion" }, -- gl<obj><char> => align selection to <char>
     { "chrisgrieser/nvim-various-textobjs" },
     --- INTERFACE ---
@@ -16,15 +17,14 @@ local repos = {
     { "lewis6991/gitsigns.nvim" }, -- Gitgutter, floating hunks, and virtual text blames
     { "jpalardy/vim-slime" }, -- <C-c><C-c> => Send code snippet to terminal
     { "ethanholz/nvim-lastplace" }, -- Jump to last place when opening a file
-    { "mrjones2014/smart-splits.nvim" }, -- smarter split resize functions
     { "mbbill/undotree" }, -- :UndotreeToggle
     --- LSP ---
     { "neovim/nvim-lspconfig" }, -- LSP Engine configuration
-    { "Mofiqul/trld.nvim" }, -- display diagnostic status in top right
+    { "ray-x/lsp_signature.nvim" },
+    { "Mofiqul/trld.nvim" }, -- display diagnostic message in top right
     { "jose-elias-alvarez/null-ls.nvim" }, -- Extra sources for LSP
     { "williamboman/mason.nvim" }, -- Installer for external tools
     { "simrat39/symbols-outline.nvim" },
-    { "ray-x/lsp_signature.nvim" },
     --- COMPLETION ---
     { "zbirenbaum/copilot.lua", cmd = "Copilot", event = "InsertEnter" },
     { "hrsh7th/nvim-cmp" },
@@ -35,13 +35,11 @@ local repos = {
     { "danymat/neogen" }, -- Generate docstrings
     { "Wansmer/treesj" },
     --- STYLE ---
-    { "danilamihailov/beacon.nvim" }, -- Ping cursor location after jump
-    { "brenoprata10/nvim-highlight-colors" }, -- Colors Hex codes
-    { "tzachar/local-highlight.nvim" },
     { "ellisonleao/gruvbox.nvim" },
-    { "nvim-lualine/lualine.nvim" }, -- Statusline
-    { "alvarosevilla95/luatab.nvim" },
-    { "lukas-reineke/indent-blankline.nvim" }, -- Indent guides
+    { "danilamihailov/beacon.nvim" }, -- Ping cursor location after jump
+    { "tzachar/local-highlight.nvim" },
+    { "brenoprata10/nvim-highlight-colors" }, -- Colors Hex codes
+    { "nvimdev/indentmini.nvim" },
 }
 
 local function ensure_packer()
@@ -59,13 +57,9 @@ local function ensure_packer()
     return packer_bootstrap
 end
 
-local function slugify(input_string)
-    return string.gsub(string.lower(input_string), "[ %\\%/-.,=:;><]+", "_")
-end
-
 local function assemble_packer_module(repo)
     local repo_name = string.match(repo[1], "[^/]+$")
-    local config_name = slugify(repo_name)
+    local config_name = require("BlakeJC94.functions").slugify(repo_name)
 
     local status_ok, config = pcall(require, "BlakeJC94.configs." .. config_name)
     if not status_ok then

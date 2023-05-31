@@ -1,5 +1,10 @@
 local M = {}
 
+M.requires = {
+    "nvim-tree/nvim-web-devicons",
+}
+
+
 function M.config()
     require'fzf-lua'.setup {
         winopts = {
@@ -35,7 +40,6 @@ function M.config()
 
 end
 
-local opts = { silent = true }
 M.mappings = {
     -- Override spellchecker
     { "n", "z=", [[v:count ? v:count . 'z=' : ':FzfLua spell_suggest<CR>']], { expr = true } },
