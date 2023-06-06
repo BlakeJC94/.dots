@@ -11,14 +11,14 @@ local mappings = {
     -- gV: Visually select last pasted block (like gv)
     { "n", "gV", "`[v`]" },
     -- gF: create new file at filename over cursor
-    { "n", "gF", ":e <c-r><c-f><CR>" },
+    { "n", "gF", "<cmd>e <c-r><c-f><CR>" },
     -- J doesn't move cursor
     { "n", "J", "mzJ`z" },
     -- S splits line in half
     { "n", "S", "i<CR><Esc>k:sil! keepp s/\\v +$//<CR>:noh<CR>==j^" },
     -- Make {/} don't change the jumplist
-    { "n", "{", ":<C-u>keepjumps norm! {<CR>" },
-    { "n", "}", ":<C-u>keepjumps norm! }<CR>" },
+    { "n", "{", "<cmd><C-u>keepjumps norm! {<CR>" },
+    { "n", "}", "<cmd><C-u>keepjumps norm! }<CR>" },
     -- Prevent x and s from overriding what's in the clipboard
     { "n", "x", '"_x' },
     { "n", "X", '"_X' },
@@ -77,17 +77,17 @@ local mappings = {
     { "n", "<Leader><BS>", ":FzfLua files<CR>" }, -- File finder
     { "n", "<Leader><Tab>", "<C-^>" }, -- Last file
     { "n", "<Leader><Leader>", "za" },
-    { "n", "<Leader>W", ":pwd<CR>" },
+    { "n", "<Leader>W", "<cmd>pwd<CR>" },
     { "n", "<Leader>q", functions.toggle_quickfix_list },
     { "n", "<Leader>l", functions.toggle_local_list },
-    { "n", "<Leader>;", ":edit $MYVIMRC | lcd %:p:h<CR>" }, -- Edit settings
-    { "n", "<Leader>:", ":edit $MYVIMRC | lcd %:p:h | edit **/addons.lua <CR>" }, -- Edit addons
-    { "n", "<Leader>d", ":lcd %:p:h<CR>" },
-    { "n", "<Leader>D", ":cd %:p:h<CR>" },
-    { "n", "<Leader>u", ":UndoTreeToggle<CR>" },
-    { "n", "<Leader>S", ":J day<CR>" },
-    { "n", "<Leader>J", ":TSJToggle<CR>" },
-    { "n", "<Leader>C", ":make -k %:p:t:r<CR>" },
+    { "n", "<Leader>;", "<cmd>edit $MYVIMRC | lcd %:p:h<CR>" }, -- Edit settings
+    { "n", "<Leader>:", "<cmd>edit $MYVIMRC | lcd %:p:h | edit **/addons.lua <CR>" }, -- Edit addons
+    { "n", "<Leader>d", "<cmd>lcd %:p:h | lpwd<CR>" },
+    { "n", "<Leader>D", "<cmd>cd %:p:h | pwd<CR>" },
+    { "n", "<Leader>u", "<cmd>UndoTreeToggle<CR>" },
+    { "n", "<Leader>S", "<cmd>J day<CR>" },
+    { "n", "<Leader>J", "<cmd>TSJToggle<CR>" },
+    { "n", "<Leader>C", "<cmd>make -k %:p:t:r<CR>" },
 }
 
 local set_mappings = function(maps)
