@@ -8,10 +8,11 @@
     pullup = "!git pull --set-upstream origin $(git symbolic-ref --short HEAD)"
     primebranch = "!git symbolic-ref --short HEAD"
     hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
-    clonetree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git fetch origin && git worktree add $(git primebranch) && cd $(git primebranch) && git pullup' -
+    clonetree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" git fetch origin && git worktree add $(git primebranch) && cd $(git primebranch) && git pullup' -
     st = "!git status -sb"
     hub = "!gh"
     lg = "!git log --oneline"
+    sync = "!git add . && git commit -m 'sync' && git push"
     last = log -1 HEAD --stat
     zoot = "!f() { git add -A && git commit -m \"$@\" && git pull --rebase && git push; }; f"
     lz = "!f() { git add -A && git commit -m \"sync\" && git pull --rebase && git push; }; f"
@@ -78,7 +79,3 @@
 
 [help]
     autocorrect = 15
-
-[remote "origin"]
-    ; fetch = +refs/heads/*:refs/remotes/origin/*
-    fetch = +refs/heads/*:refs/heads/*

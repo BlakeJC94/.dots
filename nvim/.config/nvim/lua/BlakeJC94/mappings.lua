@@ -77,7 +77,7 @@ local mappings = {
     { "n", "<Leader><BS>", ":FzfLua files<CR>" }, -- File finder
     { "n", "<Leader><Tab>", "<C-^>" }, -- Last file
     { "n", "<Leader><Leader>", "za" },
-    { "n", "<Leader>w", ":pwd<CR>" },
+    { "n", "<Leader>W", ":pwd<CR>" },
     { "n", "<Leader>q", functions.toggle_quickfix_list },
     { "n", "<Leader>l", functions.toggle_local_list },
     { "n", "<Leader>;", ":edit $MYVIMRC | lcd %:p:h<CR>" }, -- Edit settings
@@ -129,6 +129,7 @@ M.set = function()
     set_mappings(require("BlakeJC94.configs.nvim_lspconfig").mappings)
     set_mappings(require("BlakeJC94.configs.vim_fugitive").mappings)
     set_mappings(require("BlakeJC94.configs.vim_unimpaired").mappings)
+    set_mappings(require("BlakeJC94.configs.wiki_vim").mappings)
 
     add_undo_breakpoints_insert_mode_punctuation()
     disable_shift_alt_arrow_keys()

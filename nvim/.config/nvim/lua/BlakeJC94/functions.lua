@@ -334,7 +334,13 @@ function M.toggle_insert_target_off()
 end
 
 function M.slugify(input_string)
-    return string.gsub(string.lower(input_string), "[ %\\%/-.,=:;><]+", "_")
+    local _
+    local output_string = input_string
+    output_string = string.lower(output_string)
+    output_string, _ = string.gsub(output_string, '[ _%[%]()%{%}%\\%-.,=%\'%\":;><`]+', '_')
+    output_string, _ = string.gsub(output_string, '^[_]+', '')
+    output_string, _ = string.gsub(output_string, '[_]+$', '')
+    return output_string
 end
 
 function M.goto_config(keys)

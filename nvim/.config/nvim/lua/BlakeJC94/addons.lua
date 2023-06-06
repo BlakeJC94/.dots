@@ -9,8 +9,9 @@ local repos = {
     { "tpope/vim-dispatch" },
     { "tpope/vim-fugitive" }, -- The ultimate git plugin for Vim
     { "tpope/vim-sleuth" },
-    { "tommcdo/vim-lion" }, -- gl<obj><char> => align selection to <char>
-    { "chrisgrieser/nvim-various-textobjs" },
+    { "junegunn/vim-easy-align" }, -- ga<obj><char> => align selection to <char>
+    { "Julian/vim-textobj-variable-segment" },
+    { "lervag/wiki.vim" },
     --- INTERFACE ---
     { "BlakeJC94/field-notes.nvim", branch = "dev" },
     { "ibhagwan/fzf-lua" },
