@@ -36,8 +36,8 @@ local mappings = {
     { "v", ">", ">gv" },
     { "v", "=", "=gv" },
     -- Move visual block up or down (doesn't like cmdheight=0)
-    { "v", "J", ":'<,'>m '>+1 | norm gv<CR>" },
-    { "v", "K", ":'<,'>m '<-2 | norm gv<CR>" },
+    -- { "v", "J", ":'<,'>m '>+1 | norm gv<CR>" },
+    -- { "v", "K", ":'<,'>m '<-2 | norm gv<CR>" },
     -- Swap p and P to stop losing register contents by pasting over
     { "v", "p", "P" },
     { "v", "P", "p" },

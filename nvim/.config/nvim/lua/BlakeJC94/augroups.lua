@@ -26,7 +26,8 @@ augroups.ft_extra = {
             callback = functions.set_info_buffer_opts,
         },
     },
-    { "BufWinEnter", { pattern = "*.txt", callback = functions.help_vert_split } },
+    { "FileType", { pattern = "markdown", callback = function() vim.opt.wrap = true end} },
+    { "FileType", { pattern = "help", callback = functions.help_vert_split } },
 }
 
 
