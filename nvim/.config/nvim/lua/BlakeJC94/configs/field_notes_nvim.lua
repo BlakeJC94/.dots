@@ -24,6 +24,7 @@ function M.config()
                 month = false,
             },
             journal_link_anchor = "## Field notes",
+            index_name='_index_',
         }
     )
 end
