@@ -14,7 +14,7 @@ local mappings = {
     { "n", "gF", "<cmd>e <c-r><c-f><CR>" },
     -- J doesn't move cursor
     { "n", "J", "mzJ`z" },
-    -- S splits line in half
+    -- S splits line at cursor
     { "n", "S", "i<CR><Esc>k:sil! keepp s/\\v +$//<CR>:noh<CR>==j^" },
     -- Make {/} don't change the jumplist
     { "n", "{", "<cmd><C-u>keepjumps norm! {<CR>" },
@@ -30,14 +30,11 @@ local mappings = {
     { "n", "q", "gw" },
     { "n", "Q", "q" },
     -- Better opening of URLs and files
-    { "n", "gx", [[:silent execute '!xdg-open ' . shellescape(expand('<cfile>'), 1)<CR>]] },
+    { "n", "gx", [[<cmd>silent execute '!xdg-open ' . shellescape(expand('<cfile>'), 1)<CR>]] },
     -- Maintain Visual Mode after >/</= actions
     { "v", "<", "<gv" },
     { "v", ">", ">gv" },
     { "v", "=", "=gv" },
-    -- Move visual block up or down (doesn't like cmdheight=0)
-    -- { "v", "J", ":'<,'>m '>+1 | norm gv<CR>" },
-    -- { "v", "K", ":'<,'>m '<-2 | norm gv<CR>" },
     -- Swap p and P to stop losing register contents by pasting over
     { "v", "p", "P" },
     { "v", "P", "p" },
