@@ -8,7 +8,7 @@ M.mappings = {
 }
 
 function M.config()
-    vim.g.wiki_root = '~/Workspace/repos/field-notes'
+    vim.g.wiki_root = '~/Workspace/repos/field-notes/notes'
     vim.g.wiki_index_name = '_index_'
     vim.g.wiki_mappings_use_defaults = 'local'
     vim.g.wiki_link_creation = {
