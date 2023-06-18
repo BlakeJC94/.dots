@@ -31,6 +31,7 @@ augroups.ft_extra = {
         callback = function()
             vim.wo.wrap = true
             vim.cmd([[setl breakindentopt=list:-1]])
+            vim.cmd([[setl formatoptions-=tc]])
             vim.wo.foldmethod = "expr"
             vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
         end,

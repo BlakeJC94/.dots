@@ -79,7 +79,7 @@ local mappings = {
     { "n", "<Leader>l", functions.toggle_local_list },
     { "n", "<Leader>;", "<cmd>edit $MYVIMRC | lcd %:p:h<CR>" }, -- Edit settings
     { "n", "<Leader>:", "<cmd>edit $MYVIMRC | lcd %:p:h | edit **/addons.lua <CR>" }, -- Edit addons
-    { "n", "<Leader>d", "<cmd>lcd %:p:h | lpwd<CR>" },
+    { "n", "<Leader>d", "<cmd>lcd %:p:h | pwd<CR>" },
     { "n", "<Leader>D", "<cmd>cd %:p:h | pwd<CR>" },
     { "n", "<Leader>u", "<cmd>UndoTreeToggle<CR>" },
     { "n", "<Leader>S", "<cmd>J day<CR>" },
