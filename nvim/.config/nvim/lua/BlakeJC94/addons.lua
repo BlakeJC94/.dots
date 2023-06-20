@@ -13,7 +13,8 @@ local repos = {
     { "Julian/vim-textobj-variable-segment" },
     { "lervag/wiki.vim" },
     --- INTERFACE ---
-    { "BlakeJC94/field-notes.nvim", branch = "dev" },
+    { "~/Workspace/repos/field-notes.nvim" },
+    -- { "BlakeJC94/field-notes.nvim", branch = "dev" },
     { "ibhagwan/fzf-lua" },
     { "lewis6991/gitsigns.nvim" }, -- Gitgutter, floating hunks, and virtual text blames
     { "jpalardy/vim-slime" }, -- <C-c><C-c> => Send code snippet to terminal

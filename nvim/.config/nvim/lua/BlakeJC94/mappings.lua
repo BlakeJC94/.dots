@@ -17,8 +17,8 @@ local mappings = {
     -- S splits line at cursor
     { "n", "S", "i<CR><Esc>k:sil! keepp s/\\v +$//<CR>:noh<CR>==j^" },
     -- Make {/} don't change the jumplist
-    { "n", "{", "<cmd><C-u>keepjumps norm! {<CR>" },
-    { "n", "}", "<cmd><C-u>keepjumps norm! }<CR>" },
+    { "n", "{", ":<C-u>keepjumps norm! {<CR>" },
+    { "n", "}", ":<C-u>keepjumps norm! }<CR>" },
     -- Prevent x and s from overriding what's in the clipboard
     { "n", "x", '"_x' },
     { "n", "X", '"_X' },

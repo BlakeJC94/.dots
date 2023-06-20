@@ -52,7 +52,7 @@ local options = {
     relativenumber = true,      -- Show rel/abs line numbers
     signcolumn     = 'number',  -- Set sign column
     -- BOTTOM MARGIN
-    statusline = "%<%f %h%m%r%{FugitiveStatusline()}%=%{get(b:,'gitsigns_status','')}%-14.(%l,%c%V%) %P",
+    statusline = "%<%f %h%m%r%{FugitiveStatusline()}%=%{get(b:,'gitsigns_status','')} %-14.(%l,%c%V%) %P",
     laststatus = 2,     -- Show status line mode
     showcmd    = true,  -- Show command in bottom right
     cmdheight  = 1,     -- Set height of command window
