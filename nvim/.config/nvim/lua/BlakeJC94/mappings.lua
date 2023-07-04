@@ -122,6 +122,7 @@ M.set = function()
 
     set_mappings(mappings)
     set_mappings(require("BlakeJC94").packer_mappings)
+    set_mappings(require("BlakeJC94.configs.gitsigns_nvim").mappings)
     set_mappings(require("BlakeJC94.configs.fzf_lua").mappings)
     set_mappings(require("BlakeJC94.configs.nvim_lspconfig").mappings)
     set_mappings(require("BlakeJC94.configs.vim_fugitive").mappings)

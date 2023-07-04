@@ -7,7 +7,6 @@ function M.config()
         signcolumn = false,
         numhl      = true,
         linehl     = false,
-        keymaps    = {}, -- Keymaps set in mappings.lua
         current_line_blame = true,
         preview_config = {
             border = 'none',

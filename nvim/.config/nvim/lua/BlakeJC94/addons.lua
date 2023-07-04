@@ -25,7 +25,7 @@ local repos = {
     { "ray-x/lsp_signature.nvim" },
     { "Mofiqul/trld.nvim" }, -- display diagnostic message in top right
     { "jose-elias-alvarez/null-ls.nvim" }, -- Extra sources for LSP
-    { "williamboman/mason.nvim" }, -- Installer for external tools
+    -- { "williamboman/mason.nvim" }, -- Installer for external tools
     { "simrat39/symbols-outline.nvim" },
     --- COMPLETION ---
     { "zbirenbaum/copilot.lua", cmd = "Copilot", event = "InsertEnter" },

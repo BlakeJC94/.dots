@@ -55,7 +55,7 @@ M.mappings = {
     { "n", "g=", function() vim.lsp.buf.format() end },
     { "n", '<Leader>e', function() vim.diagnostic.open_float() end },        -- Show line diagnostics
     { "n", '<Leader>E', function() vim.diagnostic.setloclist() end },        -- Show buffer diagnostics
-    { "n", '<Leader>=', function() vim.lsp.buf.format({ timeout_ms = 5000  }) end},               -- Format buffer
+    { "n", '<Leader>=', function() vim.lsp.buf.format({ timeout_ms = 10000  }) end},               -- Format buffer
     { "n", '<Leader>r', function() vim.lsp.buf.rename() end },               -- Rename current symbol
     { "n", '<Leader>R', function() vim.lsp.buf.references() end },
     { "n", '<Leader>k', function() vim.lsp.buf.signature_help() end },       -- Show signature help
