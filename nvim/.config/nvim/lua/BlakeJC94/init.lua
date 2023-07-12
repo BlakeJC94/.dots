@@ -55,7 +55,6 @@ M.lsp_sources = {
             },
         },
     },
-    ruff_lsp = {},
     lua_ls = {
         Lua = {
             runtime = { version = "LuaJIT" },

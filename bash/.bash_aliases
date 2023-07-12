@@ -28,6 +28,7 @@ alias G="git"
 alias Git="git"
 alias vim="nvim"
 alias vm="/usr/bin/vim"
+alias envy="source ~/.local/bin/envy"
 
 # More aliases
 alias matlabcli="matlab -nodisplay"
