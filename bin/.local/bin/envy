@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+DEFAULT_VENV=".venv"
+
 usage() {
     cat 1>&2 <<EOF
 envy
@@ -31,8 +33,11 @@ EOF
 
 main() {
 
-    local venv_name
-    venv_name=${1:-.venv}
+    local requested_new
+    requested_new=0
+
+    local arg_idx
+    arg_idx=1
 
     for arg in "$@"; do
         case "$arg" in
@@ -41,8 +46,7 @@ main() {
                 return 0
                 ;;
             --new)
-                new_venv ${venv_name}
-                return 0
+                requested_new=1
                 ;;
             *)
                 while getopts :hn sub_arg "$arg"; do
@@ -52,8 +56,7 @@ main() {
                             return 0
                             ;;
                         n)
-                            new_venv ${venv_name}
-                            return 0
+                            requested_new=1
                             ;;
                         *)
                             ;;
@@ -61,6 +64,7 @@ main() {
                 done
                 ;;
         esac
+        arg_idx=$(( ${arg_idx} + 1 ))
     done
 
     # Check envy var and exit subshell
@@ -68,6 +72,18 @@ main() {
         echo "Already set venv (${VIRTUAL_ENV}), exit to deactivate."
         exit 0
     fi
+
+    local venv_name
+
+    # Create new venv if requested
+    if [ "${requested_new}" -eq 1 ]; then
+        venv_name="${2:-${DEFAULT_VENV}}"
+        new_venv "${venv_name}"
+        return 0
+    fi
+
+    # Otherwise search upwards for the selected venv
+    venv_name=${1:-${DEFAULT_VENV}}
 
     local selected_dir
     local venv_dir
@@ -96,7 +112,15 @@ main() {
 }
 
 new_venv() {
-    python -m venv ${venv_name}
+    local venv_name
+    venv_name=${1:-${DEFAULT_VENV}}
+    if [ ! -d "$(pwd)/${venv_name}" ]; then
+        echo "Creating and activating venv (${venv_name}) in current dir"
+        python -m venv ${venv_name}
+    else
+        echo "Activating venv (${venv_name}) in current dir"
+    fi
+    venv_subshell ${venv_name}
 }
 
 venv_subshell() {
