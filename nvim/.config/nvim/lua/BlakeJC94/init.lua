@@ -76,11 +76,12 @@ M.null_ls_sources = {
         jq = {},
         stylua = {},
         rustfmt = {},
-        sqlfluff = { extra_args = { "--dialect", "postgres" }, timeout = 10000 },
+        sqlfluff = { extra_args = { "--dialect", "redshift" }, timeout = 10000 },
     },
     diagnostics = {
         -- pylint = { prefer_local = ".venv/bin" },
         luacheck = {},
+        ruff = {},
     },
 }
 
