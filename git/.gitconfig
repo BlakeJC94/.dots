@@ -14,7 +14,6 @@
     lg = "!git log --oneline"
     sync = "!git add . && git commit -m 'sync' && git push"
     last = log -1 HEAD --stat
-    lz = "!f() { git add -A && git commit -m \"sync\" && git pull --rebase && git push; }; f"
 
 [color]
     ui = auto

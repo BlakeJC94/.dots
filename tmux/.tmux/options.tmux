@@ -31,7 +31,7 @@ set-option -g status-interval 1
 
 # Set tab names to auto-refresh to base dir names
 set-option -g automatic-rename on
-set-option -g automatic-rename-format "#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD || basename #{pane_current_path})"
+set-option -g automatic-rename-format "#((git -C #{pane_current_path} rev-parse --show-toplevel --abbrev-ref HEAD 2>/dev/null || echo #{s|/home/blake|~|:pane_current_path}) | sed 's|.*/||' | paste -s -d ':' | sed '/^$/d')"
 
 # Window separators
 set-option -wg window-status-separator " "
