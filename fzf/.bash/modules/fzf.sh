@@ -1,7 +1,16 @@
-# init fzf
-if [[ "$(command -v fzf-share)" ]]; then
-    source "$(fzf-share)/key-bindings.bash"
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == */home/linuxbrew/.linuxbrew/opt/fzf/bin* ]]; then
+  PATH="${PATH:+${PATH}:}/home/linuxbrew/.linuxbrew/opt/fzf/bin"
 fi
+
+# Auto-completion
+# ---------------
+[[ $- == *i* ]] && source "/home/linuxbrew/.linuxbrew/opt/fzf/shell/completion.bash" 2> /dev/null
+
+# Key bindings
+# ------------
+source "/home/linuxbrew/.linuxbrew/opt/fzf/shell/key-bindings.bash"
 
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color fg:#ebdbb2,bg:#1d2021,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
