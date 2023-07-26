@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [ -d /home/linuxbrew/.linuxbrew/etc/bash_completion.d ]; then
+    for i in /home/linuxbrew/.linuxbrew/etc/bash_completion.d/*; do
+        source $i
+    done
+fi
+
 [ -f ~/.tmux-completion.bash ] && source ~/.tmux-completion.bash
 [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
 [ -f ~/.asdf/completions/asdf.bash ] && source ~/.asdf/completions/asdf.bash

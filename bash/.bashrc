@@ -40,9 +40,7 @@ source $HOME/.bash/modules/tab_cycle.sh
 
 # TODO put into module
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ] && source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 
-# TODO replace this with a for loop and source from repo
 [ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
 [ -f ~/.bash/modules/flatpak.sh ] && source $HOME/.bash/modules/flatpak.sh
 [ -f ~/.bash/modules/tmux.sh ] && source $HOME/.bash/modules/tmux.sh
