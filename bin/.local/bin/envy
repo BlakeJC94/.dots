@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-DEFAULT_VENV=".venv"
-
 usage() {
     cat 1>&2 <<EOF
 envy
 Subshell spawner for Python
 
-This utility searched the current directory for a virtual environment
+This utility searches the current directory for a virtual environment
 in the current directory, travels up the directory tree (up to the
 users home directory) until a virtual env is found, then spawns a
 subshell that sources '.bashrc' and the virtual environment (and sets
@@ -17,13 +15,17 @@ By default, searches for a virtual environment called '.venv', can be
 specified in the first argument.
 
 If a virtual environment is not found, a new virtual environment is
-created at the current directory and a subshell is invoked.
+created at the current directory and a subshell sourcing the new venv
+is invoked.
+
+Different venvs can be targeted/created via first positional arg (e.g.
+look for '.venv-foo' by using 'envy foo').
 
 USAGE:
-    codehelp [OPTIONS] [NAME]
+    envy [OPTIONS] [NAME]
 
 ARGS:
-    NAME              Virtual env to search/create (default: '.venv')
+    NAME            Virtual env suffix to search/create (default: '')
 
 OPTIONS:
     -h, --help                                     Show documentation
@@ -77,13 +79,13 @@ main() {
 
     # Create new venv if requested
     if [ "${requested_new}" -eq 1 ]; then
-        venv_name="${2:-${DEFAULT_VENV}}"
+        venv_name=${2}
         new_venv "${venv_name}"
         return 0
     fi
 
     # Otherwise search upwards for the selected venv
-    venv_name=${1:-${DEFAULT_VENV}}
+    venv_name=${1}
 
     local selected_dir
     local venv_dir
@@ -93,7 +95,7 @@ main() {
         # Don't activate venvs in /home/user, or any dirs that that are less than this depth
         if [ $(dir_depth "${selected_dir}") -le 2 ]; then break; fi
 
-        venv_dir="${selected_dir}/${venv_name}"
+        venv_dir="${selected_dir}/$(venv_prefix ${venv_name})"
         if [ -d "${venv_dir}" ]; then
             echo "Found ${venv_dir}"
             break
@@ -101,19 +103,19 @@ main() {
         selected_dir=$(dirname ${selected_dir})
     done
 
-    if [ -z "${venv_dir}" ]; then
+    if ! [ -d "${venv_dir}" ]; then
         echo "Couldn't find a venv named ${venv_name}, creating one in current directory"
         new_venv ${venv_name}
-        venv_dir="$(pwd)/${venv_name}"
+    else
+        venv_subshell "${venv_dir}"
     fi
 
-    venv_subshell "${venv_dir}"
     return 0
 }
 
 new_venv() {
     local venv_name
-    venv_name=${1:-${DEFAULT_VENV}}
+    venv_name=$(venv_prefix ${1})
     if [ ! -d "$(pwd)/${venv_name}" ]; then
         echo "Creating and activating venv (${venv_name}) in current dir"
         python -m venv ${venv_name}
@@ -121,6 +123,12 @@ new_venv() {
         echo "Activating venv (${venv_name}) in current dir"
     fi
     venv_subshell ${venv_name}
+}
+
+venv_prefix() {
+    local venv_prefix
+    venv_prefix=".venv"
+    ( [ -z "${1}" ] && echo "${venv_prefix}" ) || echo "${venv_prefix}-${1}"
 }
 
 venv_subshell() {

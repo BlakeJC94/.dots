@@ -17,6 +17,7 @@
     last = log -1 HEAD --stat
     vim = "!nvim $(git diff --name-only)"
     dif = "!git diff --stat"
+    forget = "!git reset --hard HEAD"
 
 [color]
     ui = auto
