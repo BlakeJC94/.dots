@@ -30,16 +30,10 @@ alias vim="nvim"
 alias vm="/usr/bin/vim"
 
 # More aliases
-alias matlabcli="matlab -nodisplay"
 alias bat="batcat --theme=gruvbox-dark"
 alias less="less -R"
-alias fd="fdfind"
-
-# venv bullshit
-alias vnv-new="python -m venv .venv"
-alias vnv-up="source .venv/bin/activate"
-alias vnv-down="deactivate"
-alias pip-purge="pip uninstall -y -r <(pip freeze)"
+alias setclip="xclip -selection c"
+alias getclip="xclip -selection c -o"
 
 # Flatpak
 alias wezterm="flatpak run org.wezfurlong.wezterm"
