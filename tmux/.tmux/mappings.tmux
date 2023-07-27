@@ -2,70 +2,69 @@
 
 # Remap tmux leader
 unbind C-b
-set -g prefix C-z
-bind z send-keys C-z
+set -g prefix C-Space
 
-# Copy mode <C-z><C-z>
-bind C-z copy-mode
+# Copy mode <C-Space><Space>
+bind Space copy-mode
 bind -T copy-mode-vi i send -X cancel
 bind -T copy-mode-vi v send -X begin-selection
 bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
 
-# Disable <C-z>+<arrow> accidental resizing
-unbind -T prefix C-Left
-unbind -T prefix C-Down
-unbind -T prefix C-Up
-unbind -T prefix C-Right
+# Goto last pane <C-space><C-space>
+bind C-Space select-pane -l
+# Goto last tab <C-space><Tab>
+bind Tab last-window
+# Navigate tree <C-space><CR>
+bind Enter choose-tree
+# Jump to session <C-space><BSpace>
+bind BSpace splitw -v ~/.local/bin/tmux-sessionizer
 
-# Rebind arrows for navigation to disable repeatable bind
-bind Left  select-pane -L
-bind Down  select-pane -D
-bind Up    select-pane -U
-bind Right select-pane -R
+# Source config <C-Space><S-Space>
+bind S-Space source-file ~/.tmux.conf \; display-message 'Reloaded tmux config'
+# Spotify session <C-space>;
+bind \; new-session -s spotify ncspot \; rename-window ncspot
+
+# Splits <C-Space>s, <C-Space>v
+bind s split-window -v -c "#{pane_current_path}"
+bind v split-window -h -c "#{pane_current_path}"
+# Close pane <C-space>q
+bind q kill-pane  # TODO replace default q
+# Maximise pane <C-space>o
+bind o resize-pane -Z  # TODO replace default o
+# Move pane to new window <C-Space>T
+bind T break-pane
+# Vim-like navigate panes <C-Space>h/j/k/l
+bind h       if -F '#{pane_at_left}'   '' 'select-pane -L'
+bind j       if -F '#{pane_at_bottom}' '' 'select-pane -D'
+bind k       if -F '#{pane_at_top}'    '' 'select-pane -U'
+bind l       if -F '#{pane_at_right}'  '' 'select-pane -R'  # TODO replace default l
+# Vim-like move panes <C-Space>H/J/K/L
+bind H splitw -fhb \; swapp -t ! \; killp -t !
+bind L splitw -fh  \; swapp -t ! \; killp -t !
+bind J splitw -fv  \; swapp -t ! \; killp -t !
+bind K splitw -fvb \; swapp -t ! \; killp -t !  # TODO replace default L
 
 # Resize panes
 bind -n 'M-Left'  resize-pane -L 8
 bind -n 'M-Down'  resize-pane -D 4
 bind -n 'M-Up'    resize-pane -U 4
 bind -n 'M-Right' resize-pane -R 8
-# Move panes
-bind 'S-Left'  splitw -fhb \; swapp -t ! \; killp -t !
-bind 'S-Down'  splitw -fh  \; swapp -t ! \; killp -t !
-bind 'S-Up'    splitw -fv  \; swapp -t ! \; killp -t !
-bind 'S-Right' splitw -fvb \; swapp -t ! \; killp -t !
 
 # Swap windows easily
 bind -r P swap-window -t -1 \; previous-window
 bind -r N swap-window -t +1 \; next-window
 
-# Vim-like wincmd table <C-z><C-w> (Or <C-z>w)
-bind w switch-client -T wincmd
-bind -n M-w switch-client -T wincmd
-bind -T wincmd v split-window -h -c "#{pane_current_path}"
-bind -T wincmd s split-window -v -c "#{pane_current_path}"
-bind -T wincmd q kill-pane
-bind -T wincmd o resize-pane -Z
-bind -T wincmd T break-pane
-bind -T wincmd p select-pane -t '!'
-bind -T wincmd h       if -F '#{pane_at_left}'   '' 'select-pane -L'
-bind -T wincmd j       if -F '#{pane_at_bottom}' '' 'select-pane -D'
-bind -T wincmd k       if -F '#{pane_at_top}'    '' 'select-pane -U'
-bind -T wincmd l       if -F '#{pane_at_right}'  '' 'select-pane -R'
-bind -T wincmd Left    if -F '#{pane_at_left}'   '' 'select-pane -L'
-bind -T wincmd Down    if -F '#{pane_at_bottom}' '' 'select-pane -D'
-bind -T wincmd Up      if -F '#{pane_at_top}'    '' 'select-pane -U'
-bind -T wincmd Right   if -F '#{pane_at_right}'  '' 'select-pane -R'
-bind -T wincmd H splitw -fhb \; swapp -t ! \; killp -t !
-bind -T wincmd L splitw -fh  \; swapp -t ! \; killp -t !
-bind -T wincmd J splitw -fv  \; swapp -t ! \; killp -t !
-bind -T wincmd K splitw -fvb \; swapp -t ! \; killp -t !
+# Disable <C-space>+<arrow> accidental resizing
+unbind -T prefix C-Left
+unbind -T prefix C-Down
+unbind -T prefix C-Up
+unbind -T prefix C-Right
 
-# Launchers
+# Disable clock-mode (seriously why is this a default bind?)
 unbind t
-bind T splitw -v ~/.local/bin/tmux-sessionizer
-bind Z source-file ~/.tmux.conf \; display-message 'Reloaded tmux config'
-bind X new-window -c ~/.dots \; split-window -h -c "#{pane_current_path}" vim ~/.dots/README.md +'cd %:p:h'
-bind \; new-session -s spotify ncspot \; rename-window ncspot
-bind BSpace command-prompt "find-window '%%'"
-bind Enter choose-window
-bind Tab last-window
+
+# Rebind arrows for navigation to disable repeatable bind
+bind Left  select-pane -L
+bind Down  select-pane -D
+bind Up    select-pane -U
+bind Right select-pane -R
