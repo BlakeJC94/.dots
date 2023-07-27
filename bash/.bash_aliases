@@ -15,7 +15,8 @@ alias mkdir="mkdir -pv"  # Make parent dirs verbosely
 alias c='cd "$(find . -maxdepth 1 -type d | fzf)"'
 alias C='cd "$(find . -type d | fzf)"'
 # Quick project navigation command
-alias g='cd "$(find ~/Workspace/repos ~/Workspace/scratch/ -mindepth 1 -maxdepth 2 -type d -or -type l | fzf)"'
+# alias g='cd "$(find ~/Workspace/repos ~/Workspace/scratch/ -mindepth 1 -maxdepth 2 -type d -or -type l | fzf)"'
+alias g='cd "$(find ~/Workspace/repos -type d -name .git -exec dirname {} \; | fzf)"'
 alias t='tmux'
 alias T='tmux-sessionizer'
 alias a='tmux a'
