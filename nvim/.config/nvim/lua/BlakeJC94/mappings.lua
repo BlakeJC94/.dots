@@ -74,17 +74,13 @@ local mappings = {
     { "n", "<Leader><BS>", ":FzfLua files<CR>" }, -- File finder
     { "n", "<Leader><Tab>", "<C-^>" }, -- Last file
     { "n", "<Leader><Leader>", "za" },
-    { "n", "<Leader>W", "<cmd>pwd<CR>" },
     { "n", "<Leader>q", functions.toggle_quickfix_list },
     { "n", "<Leader>l", functions.toggle_local_list },
     { "n", "<Leader>;", "<cmd>edit $MYVIMRC | lcd %:p:h<CR>" }, -- Edit settings
     { "n", "<Leader>:", "<cmd>edit $MYVIMRC | lcd %:p:h | edit **/addons.lua <CR>" }, -- Edit addons
-    { "n", "<Leader>d", "<cmd>lcd %:p:h | pwd<CR>" },
-    { "n", "<Leader>D", "<cmd>cd %:p:h | pwd<CR>" },
-    { "n", "<Leader>u", "<cmd>UndoTreeToggle<CR>" },
-    { "n", "<Leader>S", "<cmd>J day<CR>" },
+    { "n", "<Leader>u", "<cmd>UndotreeToggle<CR>" },
     { "n", "<Leader>J", "<cmd>TSJToggle<CR>" },
-    { "n", "<Leader>C", "<cmd>make -k %:p:t:r<CR>" },
+    { "n", "<Leader>m", "<cmd>make -k %:p:t:r<CR>" },
 }
 
 local set_mappings = function(maps)

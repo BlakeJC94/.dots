@@ -59,7 +59,7 @@ set -g window-active-style bg="#{dark0_hard}"
 set -g window-style bg="#{dark0_hard}"
 
 # Pane border
-set-option -g pane-border-lines double
+set-option -g pane-border-lines heavy
 set-option -g pane-active-border-style bg="#{dark0_hard}",fg="#{light4}"
 set-option -g pane-border-style bg="#{dark0_hard}",fg="#{dark1}"
 
