@@ -132,12 +132,12 @@ M.custom_fold_text = function()
     local line = vim.fn.getline(vim.v.foldstart)
 
     local indent_str = string.rep(" ", vim.fn.indent(vim.v.foldstart - 1))
-    local fold_str = indent_str .. line .. string.rep(" ", 100)
+    local fold_str = indent_str .. line .. string.rep(" ", vim.bo.textwidth)
 
     local fold_size = vim.v.foldend - vim.v.foldstart + 1
     local fold_size_str = " (" .. fold_size .. ") "
 
-    return string.sub(fold_str, 0, 100 - #fold_size_str) .. fold_size_str
+    return string.sub(fold_str, 0, vim.bo.textwidth - #fold_size_str) .. fold_size_str
 end
 
 M.count_words = function()
@@ -306,7 +306,7 @@ end
 function M.toggle_insert_target_on()
     local allowed = true
     for _, v in pairs(require("BlakeJC94").filetype_exclude) do
-        if vim.bo.filetype == v then
+        if vim.bo.filetype == v or vim.bo.filetype == "markdown" then
             allowed = false
         end
     end
@@ -322,7 +322,7 @@ end
 function M.toggle_insert_target_off()
     local allowed = true
     for _, v in pairs(require("BlakeJC94").filetype_exclude) do
-        if vim.bo.filetype == v then
+        if vim.bo.filetype == v or vim.bo.filetype == "markdown" then
             allowed = false
         end
     end
