@@ -37,6 +37,7 @@ augroups.ft_extra = {
         end,
     } },
     { "FileType", { pattern = "help", callback = functions.help_vert_split } },
+    { "FileType", { pattern = "python", callback = functions.set_formatopt_r } },
 }
 
 local M = {}

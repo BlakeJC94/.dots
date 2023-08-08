@@ -374,4 +374,8 @@ function M.goto_config(keys)
     end
 end
 
+function M.set_formatopt_r()
+    vim.bo.formatoptions = vim.bo.formatoptions .. 'r'
+end
+
 return M
