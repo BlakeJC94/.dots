@@ -41,12 +41,24 @@
 [core]
     excludesfile = /.gitignore
     editor = "nvim"
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    syntax-theme = gruvbox-dark
+    side-by-side = true
+    line-numbers = true
+    ; light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 
 [credential]
     helper = cache --timeout=3600
 
 [diff]
     tool = nvimdiff
+    colorMoved = default
 
 [difftool]
     prompt = false
@@ -57,6 +69,7 @@
 
 [merge]
     tool = nfugitive
+    conflictstyle = diff3
 
 [mergetool]
     prompt = true

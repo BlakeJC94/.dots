@@ -73,3 +73,6 @@ dirs
 docstring
 accessor
 backend
+semver
+SNS
+ECR

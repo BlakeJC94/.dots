@@ -31,7 +31,6 @@ alias vim="nvim"
 alias vm="/usr/bin/vim"
 
 # More aliases
-alias bat="batcat --theme=gruvbox-dark"
 alias less="less -R"
 alias setclip="xclip -selection c"
 alias getclip="xclip -selection c -o"
