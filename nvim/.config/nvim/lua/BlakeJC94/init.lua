@@ -81,19 +81,23 @@ M.null_ls_sources = {
     diagnostics = {
         -- pylint = { prefer_local = ".venv/bin" },
         luacheck = {},
-        ruff = {},
+        ruff = {
+            diagnostics_postprocess = function(diagnostic)
+                diagnostic.severity = vim.diagnostic.severity.HINT
+            end,
+        },
     },
 }
 
 M.packer_mappings = {
-    {"n", '<Leader>..',':exec "PackerSync" | echo "Syncing plugins"<CR>'},
-    {"n", '<Leader>.i',':exec "PackerInstall" | echo "Installing plugins"<CR>'},
-    {"n", '<Leader>.u',':exec "PackerUpdate" | echo "Updating plugins.."<CR>'},
-    {"n", '<Leader>.c',':exec "PackerCompile" | echo "Compiling plugins.."<CR>'},
-    {"n", '<Leader>.C',':exec "PackerClean" | echo "Cleaning plugins.."<CR>'},
-    {"n", '<Leader>.s',':exec "PackerStatus" | echo "Plugin status"<CR>'},
-    {"n", '<Leader>.a',":GotoConfig<CR>"},
-    {"n", '<Leader>.S',":source $MYVIMRC<CR>"},
+    { "n", "<Leader>..", ':exec "PackerSync" | echo "Syncing plugins"<CR>' },
+    { "n", "<Leader>.i", ':exec "PackerInstall" | echo "Installing plugins"<CR>' },
+    { "n", "<Leader>.u", ':exec "PackerUpdate" | echo "Updating plugins.."<CR>' },
+    { "n", "<Leader>.c", ':exec "PackerCompile" | echo "Compiling plugins.."<CR>' },
+    { "n", "<Leader>.C", ':exec "PackerClean" | echo "Cleaning plugins.."<CR>' },
+    { "n", "<Leader>.s", ':exec "PackerStatus" | echo "Plugin status"<CR>' },
+    { "n", "<Leader>.a", ":GotoConfig<CR>" },
+    { "n", "<Leader>.S", ":source $MYVIMRC<CR>" },
 }
 
 return M
