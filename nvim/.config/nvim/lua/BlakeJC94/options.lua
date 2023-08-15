@@ -32,6 +32,7 @@ local options = {
     shortmess     = vim.o.shm .. "I",  -- Disable into message
     termguicolors = true,              -- Wider colorscheme support
     background    = 'dark',            -- Background mode
+    guicursor     = "",                -- Cursor
     -- LINE DISPLAY
     scrolloff      = 999,        -- N lines to keep visible above/below cursor
     sidescrolloff  = 8,          -- N columns to keep visible left/right of cursor

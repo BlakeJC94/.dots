@@ -16,6 +16,8 @@ function M.setup(config)
     if config.augroups then augroups.set() end
 
     if config.scratchpad then require("BlakeJC94.scratchpad") end
+
+    vim.g.netrw_altfile = 1
 end
 
 M.filetype_exclude = {

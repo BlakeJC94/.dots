@@ -124,6 +124,7 @@ M.set = function()
     set_mappings(require("BlakeJC94.configs.vim_fugitive").mappings)
     set_mappings(require("BlakeJC94.configs.vim_unimpaired").mappings)
     set_mappings(require("BlakeJC94.configs.wiki_vim").mappings)
+    set_mappings(require("BlakeJC94.configs.vim_slime").mappings)
 
     add_undo_breakpoints_insert_mode_punctuation()
     disable_shift_alt_arrow_keys()

@@ -3,6 +3,7 @@
     email = blakejamescook@gmail.com
     username = BlakeJC94
 
+; TODO Putt more involved aliases into scripts
 [alias]
     pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
     pullup = "!git pull --set-upstream origin $(git symbolic-ref --short HEAD)"
@@ -18,6 +19,7 @@
     vim = "!nvim $(git diff --name-only)"
     dif = "!git diff --stat"
     forget = "!git reset --hard HEAD"
+    review = "!$(git hub pr list | fzf | cut -f 3) && mkdir -p review && ! [ -z ${branch} ] && git worktree add --track -b ${branch} review/${branch} origin/${branch}"
 
 [color]
     ui = auto
