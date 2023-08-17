@@ -19,7 +19,7 @@
     vim = "!nvim $(git diff --name-only)"
     dif = "!git diff --stat"
     forget = "!git reset --hard HEAD"
-    review = "!$(git hub pr list | fzf | cut -f 3) && ! [ -z ${branch} ] && mkdir -p review && git worktree add --track -b ${branch} review/${branch} origin/${branch}"
+    review = "!git fetch && $(git hub pr list | fzf | cut -f 3) && ! [ -z ${branch} ] && mkdir -p review && git worktree add review/${branch} ${branch}"
     foo = "!foo=$1 && echo FOO ${foo} BAR ${foo} BAZ"
     dev = !sh -c 'branch=$1 && ! [ -z ${branch} ] && mkdir -p dev && git worktree add dev/${branch} ${branch}' -
 
