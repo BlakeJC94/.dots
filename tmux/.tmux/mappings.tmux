@@ -30,6 +30,7 @@ bind s split-window -v -c "#{pane_current_path}"
 bind v split-window -h -c "#{pane_current_path}"
 # Close pane <C-z>q
 bind q kill-pane
+bind Q kill-window
 # Maximise pane <C-z>o
 bind o resize-pane -Z
 # Move pane to new window <C-z>T

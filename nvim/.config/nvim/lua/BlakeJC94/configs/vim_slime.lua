@@ -7,6 +7,7 @@ M.mappings = {
     {"n", "<C-c><C-c>", "<Plug>SlimeCellsSendAndGoToNext" },
     {"n", "<C-c>j", "<Plug>SlimeCellsNext" },
     {"n", "<C-c>k", "<Plug>SlimeCellsPrev" },
+    {"x","<C-c><C-c>", "<Plug>SlimeRegionSend" },
 }
 
 function M.config()

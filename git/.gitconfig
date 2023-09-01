@@ -21,7 +21,7 @@
     forget = "!git reset --hard HEAD"
     review = "!git fetch && $(git hub pr list | fzf | cut -f 3) && ! [ -z ${branch} ] && mkdir -p review && git worktree add review/${branch} ${branch}"
     foo = "!foo=$1 && echo FOO ${foo} BAR ${foo} BAZ"
-    dev = !sh -c 'branch=$1 && ! [ -z ${branch} ] && mkdir -p dev && git worktree add dev/${branch} ${branch}' -
+    dev = !sh -c 'branch=$1 && ! [ -z ${branch} ] && git branch ${branch} && mkdir -p dev && git worktree add dev/${branch} ${branch}' -
 
 [color]
     ui = auto
