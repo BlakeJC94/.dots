@@ -1,271 +1,78 @@
-" Sane-er defaults for Vim
-" ========================
-" This has been written to not include any plugins at all. But if I had to chose a couple of
-" 'essential' ones, this would be my shortlist:
-"   * 'tpope/vim-commentary'
-"   * 'tpope/vim-surround'
-"   * 'tpope/vim-fugitive'
-"   * 'tpope/vim-repeat'
-"   * 'wellle/targets.vim'
-" Other really nice minimal plugins:
-"   * 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"   * 'junegunn/fzf.vim'
-"   * 'tpope/vim-rsi'
-"   * 'tommcdo/vim-lion'
-"   * 'kana/vim-textobj-user'
-"   * 'Julian/vim-textobj-variable-segment'
+"" BlakeJC94s Vim configuration
+"""""""""""""""""""""""""""""""
 
-" Main input/output
-" -----------------
+"" PLUGINS
+source ~/.vim/plugs.vim
 
-set encoding=utf-8  " Default file encoding
-set nocompatible    " Ignore Vi compatibility
-syntax on           " Syntax highlighting
+"" MAIN INPUT/OUTPUT
+set clipboard=unnamedplus  " Allows vim to use "+ for yanks, puts, and deletes
+set notimeout              " Allow timing out halfway into a mapping
+set virtualedit=block      " Cursor freedom ('all', 'block', 'insert')
+set hidden                 " Allow buffers to be hidden without saving
+set confirm                " Ask user about unsaved buffers instead of error
 
-set noerrorbells  " Silence error sounds
-set shortmess-=I  " Disable landing page message
-
-set ttyfast        " Fast redrawing
-set lazyredraw     " Only redraw when needed
-set synmaxcol=200  " Limit syntax highlighting to a number of columns
-
-set nrformats-=octal  " Prevent <C-a>/<C-x> from interpreting numbers as octals
-
-" Tabs and indents
-" ----------------
-
-set autoindent   " Autoindent according to previous line
-set smartindent  " Extended auto-indent behaviours
-
+"" TABS AND INDENTS
+set smartindent    " Enable better indenting
 set tabstop=4      " Number of space chars for each tab char
 set softtabstop=4  " Number of space chars to insert on pressing tab
 set shiftwidth=4   " Number of space chars used when auto-indenting
+set expandtab      " Replace tabs with spaces when indenting with </>
 
-set expandtab   " Replace tabs with spaces when using >/< operations
-set shiftround  " Round to `shiftwidth` when indenting
-retab           " Replace all tabs with spaces when opening document
-
-" Searching
-" ---------
-
-set incsearch  " Jump to matches while typing
+"" SEARCHING
+set ignorecase " Ignore cases in search patterns
+set smartcase  " Use case-sensitve search when an uppercase letter is used
 set hlsearch   " Highlight matches
+set incsearch  " Highlight matches while typing
 
-set ignorecase smartcase  " Case-sensitive only with upper-case chars
+"" BACKUPS AND SPELLING
+set noswapfile              " Allow swap files
+set nobackup                " Allow creation of backup files
+set spell                   " Built-in spell-checker
+set undofile                " Create global undofile
+set undodir=~/.vim/undodir  " Location of undofiles
 
-set wrapscan  " Always wrap searches around after end of file
+"" WINDOW DISPLAY
+set splitbelow       " Open splits below
+set splitright       " Open vsplits on right
+set shortmess+=I     " Disable into message
+set guicursor=       " Cursor
 
-" Backups
-" -------
+"" LINE DISPLAY
+set scrolloff=999           " N lines to keep visible above/below cursor
+set sidescrolloff=8         " N columns to keep visible left/right of cursor
+set textwidth=100           " Margin for text input
+set showmatch               " Highlight matching brackets
+set nowrap                  " Soft-wrap long lines and use breakindent opts
+set linebreak               " Only split/wrap long lines after words
+set breakindent             " Indent soft-wrapped lines
+set breakindentopt=list:-1  " Options for breakindent
+set showbreak=              " Text to print at breakindent
 
-set noswapfile nobackup  " Stop polluting directories with `.swp` files
+"" FOLDS
+set fillchars=fold:\ ,eob:\ ,vert:┃
+set foldmethod=indent  " Auto-create folds by indent levels
+set foldlevel=0        " Close all folds when opening file
+set foldtext=functions#MyFoldText()
 
-set undofile  " Set persistent undo
-set undodir=~/.vim/undodir
+"" LEFT MARGIN
+set number             " Show line numbers
+set relativenumber     " Show rel/abs line numbers
+set signcolumn=yes     " Set sign column
 
-" Window display
-" --------------
-
-set splitbelow splitright  " split/vsplit opens buffers below/right
-
-set scrolloff=8      " N lines to keep visible above/below cursor
-set sidescrolloff=8  " N columns to keep visible left/right cursor
-
-set textwidth=99   " Margin for text input
-set linebreak      " Only split long lines after words
-set nowrap         " Don't soft-wrap long lines
-
-set breakindent     " Indent soft-wrapped lines
-set showbreak=›››\  " Character to show on breakindent
-
-set showmatch  " Highlight matching brackets
-
-" Margin display
-" --------------
-
-set number relativenumber  " Show rel/abs linenumbers
-
-set laststatus=2  " Always show status line
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)
-
-set showmode      " Show current mode in status bar
-set showcmd       " Show commands in bottom right
-set cmdheight=2   " Height for Vim command mode
-
-set wildmenu wildmode=list:longest,full         " Show tab autocomplete options as menu
-set wildignore=*.pyc,**/.git/*                  " Set ignores for autocomplete
+"" BOTTOM MARGIN
 set completeopt=menu,menuone,noinsert,noselect  " Autocomplete options
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+set wildmenu
+set wildmode=list:longest,full  " Show tab autocomplete options as menu
+set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+set laststatus=2  " Show status line mode
+set showcmd       " Show command in bottom right
+set cmdheight=1   " Set height of command window
+set wildignore+=**/.git/*,**/data/*
 
-" Folding
-" -------
+"" TOP MARGIN
+set showtabline=1  " Display tab line (0, never, 1 auto, 2 always)
 
-set foldenable         " Enable automatic fold creation
-set foldmethod=indent  " Fold based on indent level
-set foldlevel=1        " Level of folds to auto-open
 
-" Mappings
-" --------
+" TODO mappings in .vim/plugins
+" TODO autocommands in .vim/plugins
 
-" F-key maps:
-" `<F1>` ==> Toggle relative line numbers
-" `<F2>` ==> Toggle line numbers
-" `<F3>` ==> Toggle softwrap
-noremap <F1> :setl relativenumber!<CR>:setl relativenumber?<CR>
-noremap <F2> :setl number!<CR>:setl number?<CR>
-noremap <F3> :setl wrap!<CR>:setl wrap?<CR>
-
-" Disable arrow keys (get good at `h`/`j`/`k`/`l`!)
-noremap <Left>  <Nop>
-noremap <Down>  <Nop>
-noremap <Up>    <Nop>
-noremap <Right> <Nop>
-
-" Prevent `x`/`s` from overriding clipboard
-noremap x "_x
-noremap X "_x
-noremap s "_s
-
-" Open folds when flicking through search matches with `n`/`N`
-noremap n nzv
-noremap N Nzv
-
-" Make `Y` and `S` behave like `D` and `C`
-nnoremap Y y$
-nnoremap S "_c$
-
-" `J` doesn't move cursor
-nnoremap J mzJ`z
-
-" Make `{` and `}` not change the jumplist
-nnoremap { :<C-u>keepjumps norm! {<CR>
-nnoremap } :<C-u>keepjumps norm! }<CR>
-
-" Change selected word (forward/backwards), `.` to repeat
-nnoremap c* /\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``cgn
-nnoremap c# ?\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``cgN
-" Delete selected word (forward/backwards), `.` to repeat
-nnoremap d* /\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``dgn
-nnoremap d# ?\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``dgN
-
-" Visually select last pasted regions with `gV`
-nnoremap gV `[v`]
-
-" Maintain Visual mode after `>`/`<`/`=`
-vmap < <gv
-vmap > >gv
-vmap = =gv
-
-" `J`/`K` ==> Move visual block up/down
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-" Stop `p`/`P` from overriding unnamed register in visual mode
-vnoremap p pgvy
-vnoremap P Pgvy
-
-" Make `<C-w>`/`<C-u>` actions insert mode undoable with `u`
-inoremap <C-U> <C-G>u<C-U>
-inoremap <C-W> <C-G>u<C-W>
-
-" Expand `%%` as current filename in command mode
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-
-" Leader mappings
-" ---------------
-
-" <Leader> is <Space>
-let mapleader = "\<Space>"
-
-" <Leader><Tab> ==> Last file (like alt-tab for vim)
-noremap <Leader><Tab> <C-^>
-
-" <Leader>n ==> Start new file
-" <Leader>N ==> Start new session (close all files)
-noremap <Leader>n :enew \| echo '[New file]'<CR>
-noremap <Leader>N :bufdo bdel \| enew \| echo '[New session]'<CR>
-
-" <Leader>d ==> Change window directory to current file directory
-" <Leader>D ==> Change session directory to current file directory
-noremap <Leader>d :lcd %:p:h \| echo 'Changed local dir to ' . getcwd()<CR>
-noremap <Leader>D :cd %:p:h \| echo 'Changed dir to ' . getcwd()<CR>
-
-" Split and window navigation maps
-" --------------------------------
-
-" <C-Arrow> ==> Resize window
-noremap <C-Left>  :vert resize -8<CR>
-noremap <C-Down>  :resize -8<CR>
-noremap <C-Up>    :resize 8<CR>
-noremap <C-Right> :vert resize 8<CR>
-
-" Tab controls (<Leader> = <C-z> if in term window)
-" <Leader>t ==> open new tab
-" <Leader>. ==> go to next tab
-" <Leader>, ==> go to previous tab
-" <Leader>> ==> move tab right
-" <Leader>< ==> move tab left
-noremap <Leader>t :tabedit %<CR>
-noremap <Leader>. :tabnext<CR>
-noremap <Leader>, :tabprev<CR>
-noremap <Leader>> :+tabmove<CR>
-noremap <Leader>< :-tabmove<CR>
-noremap <C-z>t <C-w>N:tabedit %<CR>
-noremap <C-z>. <C-w>N:tabnext<CR>
-noremap <C-z>, <C-w>N:tabprev<CR>
-noremap <C-z>> <C-w>N:+tabmove<CR>
-noremap <C-z>< <C-w>N:-tabmove<CR>
-
-" <Leader>c ==> Toggle quickfix menu
-" <Leader>l ==> Toggle local quickfix menu
-noremap <Leader>c :ToggleQL<CR>
-noremap <Leader>l :ToggleLL<CR>
-
-" Navigate quickfix entries
-noremap ]c :cnext<CR>
-noremap [c :cprev<CR>
-noremap ]l :lnext<CR>
-noremap [l :lprev<CR>
-
-" Commands
-" --------
-
-command! TrimSpaces let g:tmp = winsaveview() | keeppatterns %s/\s\+$//e | call winrestview(g:tmp)
-command! ToggleQL exec empty(filter(getwininfo(), 'v:val.quickfix')) ? "copen" : "cclose"
-command! ToggleLL exec empty(filter(getwininfo(), 'v:val.loclist')) ? "lopen" : "lclose"
-
-augroup base
-    autocmd!
-    " equally resize windows when terminal is resized
-    autocmd VimResized * wincmd =
-    " replace tabs with spaces
-    autocmd BufWritePre * retab
-    " autoremove whitespace
-    autocmd BufWritePre * TrimSpaces
-    " create nested directories if needed when creating files
-    autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
-    " Save last cursor position in a file
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "norm! g'\"" | endif
-augroup END
-
-augroup style
-    autocmd!
-    " toggle cursorline and colorcolumn when entering/exiting insert mode
-    autocmd InsertEnter * setl cursorline nornu cc=100,101
-    autocmd InsertLeave * setl nocursorline rnu cc=
-augroup END
-
-augroup ft_extra
-    autocmd!
-    " Make cmdwindows close with q
-    autocmd CmdwinEnter * nnoremap <buffer> q :q<CR>
-    " help/cmd win/qf list: Press q to close and disable spellcheck
-    autocmd FileType qf,help,fugitive nnoremap <buffer> q :q<CR>
-    autocmd FileType qf,help,fugitive setlocal nospell
-    autocmd FileType qf,help,fugitive setlocal colorcolumn=
-    " Always open help in vertical split
-    autocmd FileType help wincmd L | vert resize 90
-    autocmd FileType help setl fo-=t
-    " Make *.bash files highlight properly
-    autocmd BufNewFile,Bufread *.bash set syntax=sh
-augroup END
