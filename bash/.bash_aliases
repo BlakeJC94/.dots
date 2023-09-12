@@ -24,8 +24,8 @@ alias vimm='vim $(find -type f -not -path '\''*/\.git/*'\'' -printf '\''%P\n'\''
 alias q="exit"
 alias G="git"
 alias Git="git"
-alias vim="nvim"
-alias vm="/usr/bin/vim"
+# alias vim="nvim"
+# alias vm="/usr/bin/vim"
 
 # More aliases
 alias less="less -R"

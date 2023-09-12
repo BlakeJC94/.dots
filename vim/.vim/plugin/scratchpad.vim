@@ -6,7 +6,7 @@ endfunction
 
 function! ScratchMain()
   let val = Foo()
-  return val
+  echo val
 endfunction
 
 command ScratchMain :call ScratchMain()

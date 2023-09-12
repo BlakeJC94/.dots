@@ -51,6 +51,7 @@ Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
 " Personal wiki  TODO Add function to add git pages
 Plug 'https://github.com/lervag/wiki.vim'
+Plug 'https://github.com/lervag/wiki-ft.vim'
 " Send lines to tmux
 Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/klafyvel/vim-slime-cells'

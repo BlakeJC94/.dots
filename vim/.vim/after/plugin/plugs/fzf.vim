@@ -21,4 +21,5 @@ nnoremap <leader>fo <cmd>HistoryCwd<CR>
 nnoremap <leader>fO <cmd>History<CR>
 nnoremap <leader>fh <cmd>Helptags<CR>
 nnoremap <leader>fg <cmd>Rg<CR>
+nnoremap <Leader>fw <cmd>WikiPages<cr>
 

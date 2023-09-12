@@ -62,3 +62,8 @@ function! functions#Slugify(string)
   let output = substitute(output, '_\+$', '', 'g')
   return output
 endfunction
+
+function! functions#DebugSyntax()
+  let s = synID(line('.'), col('.'), 1)
+  echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
+endfunction
