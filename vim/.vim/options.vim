@@ -1,0 +1,69 @@
+"" MAIN INPUT/OUTPUT
+set clipboard=unnamedplus  " Allows vim to use "+ for yanks, puts, and deletes
+set notimeout              " Allow timing out halfway into a mapping
+set virtualedit=block      " Cursor freedom ('all', 'block', 'insert')
+set hidden                 " Allow buffers to be hidden without saving
+set confirm                " Ask user about unsaved buffers instead of error
+set mouse=                 " Set mouse options
+
+"" TABS AND INDENTS
+set smartindent    " Enable better indenting
+set tabstop=4      " Number of space chars for each tab char
+set softtabstop=4  " Number of space chars to insert on pressing tab
+set shiftwidth=4   " Number of space chars used when auto-indenting
+set expandtab      " Replace tabs with spaces when indenting with </>
+
+"" SEARCHING
+set ignorecase " Ignore cases in search patterns
+set smartcase  " Use case-sensitve search when an uppercase letter is used
+set hlsearch   " Highlight matches
+set incsearch  " Highlight matches while typing
+
+"" BACKUPS AND SPELLING
+set spell       " Built-in spell-checker
+set noswapfile  " Allow swap files
+set nobackup    " Allow creation of backup files
+set undofile    " Create global undofile
+exec 'set undodir=~/.' . (has('nvim') ? 'n' : '') . 'vim/undodir'
+
+"" WINDOW DISPLAY
+set splitbelow       " Open splits below
+set splitright       " Open vsplits on right
+set shortmess+=I     " Disable into message
+set shortmess-=S     " Show search matches count
+set guicursor=       " Cursor
+
+"" LINE DISPLAY
+set scrolloff=999           " N lines to keep visible above/below cursor
+set sidescrolloff=8         " N columns to keep visible left/right of cursor
+set textwidth=100           " Margin for text input
+set showmatch               " Highlight matching brackets
+set nowrap                  " Soft-wrap long lines and use breakindent opts
+set linebreak               " Only split/wrap long lines after words
+set breakindent             " Indent soft-wrapped lines
+set breakindentopt=list:-1  " Options for breakindent
+set showbreak=              " Text to print at breakindent
+
+"" FOLDS
+set fillchars=fold:\ ,eob:\ ,vert:┃
+set foldmethod=indent  " Auto-create folds by indent levels
+set foldlevel=0        " Close all folds when opening file
+set foldtext=functions#MyFoldText()
+
+"" LEFT MARGIN
+set number             " Show line numbers
+set relativenumber     " Show rel/abs line numbers
+set signcolumn=yes     " Set sign column
+
+"" BOTTOM MARGIN
+set completeopt=menu,menuone,noinsert,noselect  " Autocomplete options
+set wildmenu
+set wildmode=list:longest,full  " Show tab autocomplete options as menu
+set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+set laststatus=2  " Show status line mode
+set showcmd       " Show command in bottom right
+set cmdheight=1   " Set height of command window
+set wildignore+=**/.git/*,**/data/*
+
+"" TOP MARGIN
+set showtabline=1  " Display tab line (0, never, 1 auto, 2 always)
