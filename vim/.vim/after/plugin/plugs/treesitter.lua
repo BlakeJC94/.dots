@@ -1,16 +1,13 @@
-local M = {}
-
-M.requires = {
-    "andymass/vim-matchup", -- Extended motions for %
-    "Glench/Vim-Jinja2-Syntax",
-}
-
-M.run = ":TSUpdate"
-
-function M.config()
+local function config()
     local treesitter_configs = require("nvim-treesitter.configs")
-    local filetype_include = require("BlakeJC94").filetype_include
-    local additional_parsers = {
+    local ensure_installed = {
+        "bash",
+        "julia",
+        "lua",
+        "python",
+        "r",
+        "rust",
+        "vim",
         "comment",
         "markdown",
         "markdown_inline",
@@ -19,7 +16,7 @@ function M.config()
     }
 
     treesitter_configs.setup({
-        ensure_installed = vim.list_extend(filetype_include, additional_parsers),
+        ensure_installed = ensure_installed,
         sync_install = false,
         highlight = {
             enable = true,
@@ -29,8 +26,6 @@ function M.config()
                 end
             end,
         },
-        indent = { enable = true },
-        matchup = { enable = true },
         incremental_selection = {
             enable = true,
             keymaps = {
@@ -43,4 +38,4 @@ function M.config()
     })
 end
 
-return M
+config()

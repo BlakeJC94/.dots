@@ -55,15 +55,13 @@ Plug 'https://github.com/klafyvel/vim-slime-cells'
 Plug 'http://github.com/mbbill/undotree'
 " Remember last place when opening file
 Plug 'https://github.com/farmergreg/vim-lastplace'
+Plug 'https://github.com/airblade/vim-gitgutter'
 
 "" LANGUAGES
+Plug 'https://github.com/dense-analysis/ale'
 if has('nvim')
-  " Lsp configuration
-  Plug 'https://github.com/neovim/nvim-lspconfig'
   " Better syntax highlighting for a bunch of langs
-  Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
-else
-  Plug 'https://github.com/dense-analysis/ale'
+  Plug 'https://github.com/nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 endif
 " Pytest compiler option
 Plug 'https://github.com/5long/pytest-vim-compiler'
@@ -77,7 +75,7 @@ Plug 'https://github.com/Raimondi/delimitMate'
 
 "" STYLE
 " Colorscheme
-Plug 'https://github.com/morhetz/gruvbox'
+Plug 'https://github.com/gruvbox-community/gruvbox'
 " Highlight word under cursor
 Plug 'https://github.com/itchyny/vim-cursorword'
 " Indent guides
@@ -87,4 +85,5 @@ Plug 'https://github.com/machakann/vim-highlightedyank'
 
 call plug#end()
 
-" TODO dispatch pytest compiler
+" Setings that need to be set before running plugins
+let g:ale_completion_enabled = 1

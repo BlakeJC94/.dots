@@ -10,6 +10,7 @@ set notimeout              " Allow timing out halfway into a mapping
 set virtualedit=block      " Cursor freedom ('all', 'block', 'insert')
 set hidden                 " Allow buffers to be hidden without saving
 set confirm                " Ask user about unsaved buffers instead of error
+set mouse=
 
 "" TABS AND INDENTS
 set smartindent    " Enable better indenting
@@ -25,11 +26,11 @@ set hlsearch   " Highlight matches
 set incsearch  " Highlight matches while typing
 
 "" BACKUPS AND SPELLING
-set noswapfile              " Allow swap files
-set nobackup                " Allow creation of backup files
-set spell                   " Built-in spell-checker
-set undofile                " Create global undofile
-set undodir=~/.vim/undodir  " Location of undofiles
+set spell       " Built-in spell-checker
+set noswapfile  " Allow swap files
+set nobackup    " Allow creation of backup files
+set undofile    " Create global undofile
+exec 'set undodir=~/.' . (has('nvim') ? 'n' : '') . 'vim/undodir'
 
 "" WINDOW DISPLAY
 set splitbelow       " Open splits below
@@ -71,8 +72,3 @@ set wildignore+=**/.git/*,**/data/*
 
 "" TOP MARGIN
 set showtabline=1  " Display tab line (0, never, 1 auto, 2 always)
-
-
-" TODO mappings in .vim/plugins
-" TODO autocommands in .vim/plugins
-
