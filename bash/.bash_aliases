@@ -13,7 +13,15 @@ alias mkdir="mkdir -pv"  # Make parent dirs verbosely
 alias c='cd "$(find . -maxdepth 1 -type d | fzf)"'
 alias C='cd "$(find . -type d | fzf)"'
 # Quick project navigation command
+<<<<<<< Updated upstream
 alias g='cd "$(fd .git$ ~/Workspace/ -H -d 4 -x dirname {} \; | fzf)"'
+||||||| constructed merge base
+# alias g='cd "$(find ~/Workspace/repos ~/Workspace/scratch/ -mindepth 1 -maxdepth 2 -type d -or -type l | fzf)"'
+alias g='cd "$(fd .git$ ~/Workspace/ -H -d 4 -x dirname {} \; | fzf)"'
+=======
+# alias g='cd "$(find ~/Workspace/repos ~/Workspace/scratch/ -mindepth 1 -maxdepth 2 -type d -or -type l | fzf)"'
+alias g='cd "$(fd .git$ ~/Workspace/repos/ -H -d 5 -x dirname {} \; | fzf)"'
+>>>>>>> Stashed changes
 alias t='tmux'
 alias T='tmux-sessionizer'
 alias a='tmux a'
