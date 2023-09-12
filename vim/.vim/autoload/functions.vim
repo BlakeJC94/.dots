@@ -57,8 +57,8 @@ endfunction
 function! functions#Slugify(string)
   let output = a:string
   let output = tolower(output)
-  let output = substitute(output, '[ \[\]()\{\}\\-.,=\'\":;><`]+', '_', 'g')
-  let output = substitute(output, '^[_]+', '', 'g')
-  let output = substitute(output, '[_]+$', '', 'g')
+  let output = substitute(output, '\W\+', '_', 'g')
+  let output = substitute(output, '^_\+', '', 'g')
+  let output = substitute(output, '_\+$', '', 'g')
   return output
 endfunction
