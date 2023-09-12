@@ -10,7 +10,7 @@ set notimeout              " Allow timing out halfway into a mapping
 set virtualedit=block      " Cursor freedom ('all', 'block', 'insert')
 set hidden                 " Allow buffers to be hidden without saving
 set confirm                " Ask user about unsaved buffers instead of error
-set mouse=
+set mouse=                 " Set mouse options
 
 "" TABS AND INDENTS
 set smartindent    " Enable better indenting
@@ -36,6 +36,7 @@ exec 'set undodir=~/.' . (has('nvim') ? 'n' : '') . 'vim/undodir'
 set splitbelow       " Open splits below
 set splitright       " Open vsplits on right
 set shortmess+=I     " Disable into message
+set shortmess-=S     " Show search matches count
 set guicursor=       " Cursor
 
 "" LINE DISPLAY

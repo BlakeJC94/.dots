@@ -3,9 +3,7 @@ alias myip='curl http://ifconfig.me/ip'
 alias bc='bc -l'
 alias meminfo='free -m -l -t'
 alias psmem='ps auxf | sort -nr -k 4'
-alias psmem10='ps auxf | sort -nr -k 4 | head -10'
 alias pscpu='ps auxf | sort -nr -k 3'
-alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 alias cpuinfo='lscpu'
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 alias wget='wget -c'  # Resume wget by default
@@ -15,7 +13,6 @@ alias mkdir="mkdir -pv"  # Make parent dirs verbosely
 alias c='cd "$(find . -maxdepth 1 -type d | fzf)"'
 alias C='cd "$(find . -type d | fzf)"'
 # Quick project navigation command
-# alias g='cd "$(find ~/Workspace/repos ~/Workspace/scratch/ -mindepth 1 -maxdepth 2 -type d -or -type l | fzf)"'
 alias g='cd "$(fd .git$ ~/Workspace/ -H -d 4 -x dirname {} \; | fzf)"'
 alias t='tmux'
 alias T='tmux-sessionizer'
@@ -31,7 +28,6 @@ alias vim="nvim"
 alias vm="/usr/bin/vim"
 
 # More aliases
-alias bat="bat --theme gruvbox-dark"
 alias less="less -R"
 alias setclip="xclip -selection c"
 alias getclip="xclip -selection c -o"

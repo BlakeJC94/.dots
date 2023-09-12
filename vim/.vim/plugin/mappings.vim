@@ -17,6 +17,12 @@ nnoremap S i<CR><Esc>k:sil! keepp s/\\v +$//<CR>:noh<CR>==j^
 " Make {/} don't change the jumplist
 nnoremap { :<C-u>keepjumps norm! {<CR>
 nnoremap } :<C-u>keepjumps norm! }<CR>
+" Change selected word (forward/backwards), `.` to repeat
+nnoremap c* /\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``cgn
+nnoremap c# ?\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``cgN
+" Delete selected word (forward/backwards), `.` to repeat
+nnoremap d* /\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``dgn
+nnoremap d# ?\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``dgN
 " Prevent x and s from overriding what's in the clipboard
 nnoremap x "_x
 nnoremap X "_X
@@ -39,6 +45,8 @@ vnoremap P p
 " C-s : Quickly guess correct spelling errors (undoable)
 inoremap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u
 nnoremap <C-s> i<C-g>u<Esc>[s1z=`]
+" Expand `%%` as current filename in command mode
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " Stop accidentally opening help in insert mode
 inoremap <F1> <nop>
 " Use unused arrow keys
@@ -71,6 +79,8 @@ nnoremap <Leader>as <cmd>argadd <bar> args<CR>
 "" LEADER MAPS
 nnoremap <Leader><CR> <cmd>Ex %:p:h<CR>
 nnoremap <Leader><Tab> <C-^>
+nnoremap <Leader>. <cmd>lcd %:p:h \| echo 'Changed local dir to ' . getcwd()<CR>
+nnoremap <Leader>, <cmd>cd %:p:h \| echo 'Changed dir to ' . getcwd()<CR>
 nnoremap <Leader>q <cmd>call functions#ToggleQuickFix()<CR>
 nnoremap <Leader>l <cmd>exec functions#ToggleLocation()<CR>
 nnoremap <Leader>; <cmd>edit $MYVIMRC <bar> lcd %:p:h<CR>

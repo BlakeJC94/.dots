@@ -51,7 +51,7 @@ function! functions#SetInfoBufferOpts()
   setl nospell
   setl foldlevel=99
   setl fo-=t
-  nnoremap <buffer> K <cmd>h <C-r>=expand('<cword>')<CR><CR>
+  nnoremap <buffer> K :h <C-r>=expand('<cword>')<CR><CR>
 endfunction
 
 function! functions#Slugify(string)
