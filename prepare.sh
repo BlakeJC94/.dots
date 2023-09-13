@@ -5,6 +5,7 @@ sudo apt-get update
 # General tools
 sudo apt-get install -y \
     flatpak \
+    vim-gtk \
     wget \
     curl \
     git \
