@@ -46,7 +46,7 @@ Plug 'https://github.com/kana/vim-textobj-user'
 Plug 'https://github.com/Julian/vim-textobj-variable-segment'
 
 "" INTERFACE
-" Fzf <3 Vim TODO CwdHistory implementation
+" Fzf <3 Vim
 Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
 " Personal wiki  TODO Add function to add git pages
@@ -58,6 +58,7 @@ Plug 'https://github.com/klafyvel/vim-slime-cells'
 Plug 'http://github.com/mbbill/undotree'
 " Remember last place when opening file
 Plug 'https://github.com/farmergreg/vim-lastplace'
+" Gitsigns in signcolumn
 Plug 'https://github.com/mhinz/vim-signify'
 " Tab completion
 Plug 'https://github.com/ervandew/supertab'

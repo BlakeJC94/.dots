@@ -1,3 +1,8 @@
+if has_key(get(g:, 'plugs', {}), 'ale') == 0
+  finish
+endif
+
+
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
       \'python': ['pyright', 'ruff'],

@@ -32,6 +32,8 @@ set splitright       " Open vsplits on right
 set shortmess+=I     " Disable into message
 set shortmess-=S     " Show search matches count
 set guicursor=       " Cursor
+set background=dark  " Tell Vim what the background color should be
+set termguicolors    " Use gui colors in the terminal
 
 "" LINE DISPLAY
 set scrolloff=999           " N lines to keep visible above/below cursor
@@ -67,3 +69,12 @@ set wildignore+=**/.git/*,**/data/*
 
 "" TOP MARGIN
 set showtabline=1  " Display tab line (0, never, 1 auto, 2 always)
+
+
+" Fix for termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+" Wezterm undercurl fix
+let &t_Cs = "\e[4:3m"
+let &t_Ce = "\e[4:0m"

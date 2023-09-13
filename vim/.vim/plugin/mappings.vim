@@ -50,10 +50,10 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " Stop accidentally opening help in insert mode
 inoremap <F1> <nop>
 " Use unused arrow keys
-nnoremap <Left> [
-nnoremap <Right> ]
-nnoremap <Up> [
-nnoremap <Down> ]
+nmap <Left> [
+nmap <Right> ]
+nmap <Up> [
+nmap <Down> ]
 " Fkey maps
 nnoremap <F1> <cmd>setl relativenumber!<CR><cmd>setl relativenumber?<CR>
 nnoremap <F2> <cmd>setl number!<CR><cmd>setl number?<CR>
