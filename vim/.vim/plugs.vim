@@ -94,3 +94,5 @@ call plug#end()
 " Setings that need to be set before running plugins
 let g:ale_completion_enabled = 1
 let g:ale_hover_cursor = 0
+
+let g:indent_guides_enable_on_vim_startup = 0

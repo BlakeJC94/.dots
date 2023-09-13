@@ -42,7 +42,7 @@ endfunction
 
 function! functions#ToggleInsertTarget()
   let cols_str = string(&textwidth+1) . ',' . string(&textwidth+2)
-  execute 'setl colorcolumn=' . (&colorcolumn == "" ? cols_str : "")
+  execute 'setl colorcolumn=' . ((&colorcolumn == "" && &fo =~ 't') ? cols_str : "")
   execute 'setl ' . (&cursorline == 0 ? "cursorline" : "nocursorline")
 endfunction
 
