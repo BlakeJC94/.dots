@@ -16,5 +16,10 @@ let g:gruvbox_italic = 1
 let g:invert_selection = 0
 let g:gruvbox_contrast_dark = 'hard'
 
+" Gruvbox overrides
+autocmd ColorScheme * hi link CellBoundary SpecialComment
+" exec 'hi SyntasticErrorSign guifg=red ctermfg=red ' . (has("gui_running")? 'guibg=':'ctermbg=') . synIDattr(hlID('SignColumn'),'bg')
+
 " Schedule colorscheme change
-autocmd VimEnter * colorscheme gruvbox
+" autocmd VimEnter * colorscheme gruvbox
+colorscheme gruvbox

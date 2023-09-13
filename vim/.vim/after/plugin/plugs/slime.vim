@@ -12,11 +12,12 @@ let g:slime_dont_ask_default = 1
 let g:slime_bracketed_paste = 1
 let g:slime_no_mappings = 0
 
-" nnoremap <C-c>c     <Plug>SlimeConfig
-" nnoremap <C-c><C-c> <Plug>SlimeCellsSendAndGoToNext
-" nnoremap <C-c>j     <Plug>SlimeCellsNext
-" nnoremap <C-c>k     <Plug>SlimeCellsPrev
-" xnoremap <C-c><C-c> <Plug>SlimeRegionSend
+
+nmap <C-c>c     <Plug>SlimeConfig
+nmap <C-c><C-c> <Plug>SlimeCellsSendAndGoToNext
+nmap <C-c>j     <Plug>SlimeCellsNext
+nmap <C-c>k     <Plug>SlimeCellsPrev
+xmap <C-c><C-c> <Plug>SlimeRegionSend
 
 augroup clear_slime
   autocmd!
