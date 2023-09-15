@@ -44,13 +44,16 @@ Plug 'https://github.com/junegunn/vim-easy-align'
 " Sub-word text object (`iv`, `av`)
 Plug 'https://github.com/kana/vim-textobj-user'
 Plug 'https://github.com/Julian/vim-textobj-variable-segment'
+" Open files from CLI with `vim <file>:<line:<col>` syuntax
+Plug 'https://github.com/bogado/file-line'
 
 "" INTERFACE
 " Fzf <3 Vim
 Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
-" Personal wiki  TODO Add function to add git pages
+" Personal wiki
 Plug 'https://github.com/lervag/wiki.vim'
+Plug 'https://github.com/lervag/lists.vim'
 " Send lines to tmux
 Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/klafyvel/vim-slime-cells'

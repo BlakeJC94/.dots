@@ -8,7 +8,7 @@ let g:gruvbox_contrast_dark = 'hard'
 
 function ColorMyGruvbox()
     if has_key(get(g:, 'plugs', {}), 'gruvbox') == 0
-      finish
+        finish
     endif
 
     set background=dark
@@ -16,7 +16,8 @@ function ColorMyGruvbox()
 
     colorscheme gruvbox
     hi link CellBoundary SpecialComment
+    hi link pythonSpaceError Normal
+    hi Folded guibg=#282828
 endfunction
 
 autocmd VimEnter * call ColorMyGruvbox()
-
