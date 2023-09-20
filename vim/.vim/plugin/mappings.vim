@@ -61,10 +61,10 @@ nnoremap <F3> <cmd>setl wrap!<CR><cmd>setl wrap?<CR>
 nnoremap <F4> <cmd>setl spell!<CR><cmd>setl spell?<CR>
 nnoremap <F6> <cmd>wincmd =<CR>
 " Resize split maps
-nnoremap <C-Left>  <cmd>wincmd 8<<CR>
-nnoremap <C-Up>    <cmd>wincmd 4+<CR>
-nnoremap <C-Down>  <cmd>wincmd 4-<CR>
-nnoremap <C-Right> <cmd>wincmd 8><CR>
+nnoremap <C-Left>  <cmd>8wincmd <<CR>
+nnoremap <C-Up>    <cmd>4wincmd +<CR>
+nnoremap <C-Down>  <cmd>4wincmd -<CR>
+nnoremap <C-Right> <cmd>8wincmd ><CR>
 " Vim Tab controls
 nnoremap <Leader>t <cmd>tabedit %<CR>
 nnoremap <Leader>n <cmd>tabnext<CR>
