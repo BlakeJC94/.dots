@@ -13,6 +13,19 @@ let g:ale_fixers = {
 let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_use_neovim_diagnostics_api = 0
 
+let g:ale_python_pyright_config = {
+      \'autoSearchPaths': v:false,
+      \'useLibraryCodeForTypes': v:false,
+      \'diagnosticMode': "openFilesOnly",
+      \'typeCheckingMode': "basic",
+      \'diagnosticSeverityOverrides': {
+        \'reportGeneralTypeIssues': "none",
+        \'reportOptionalMemberAccess': "none",
+        \'reportOptionalSubscript': "none",
+        \'reportPrivateImportUsage': "none",
+        \},
+      \}
+
 highlight link ALEErrorSign SpellBad
 highlight link ALEWarningSign SpellCap
 
