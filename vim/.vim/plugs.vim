@@ -100,3 +100,10 @@ let g:ale_completion_enabled = 1
 let g:ale_hover_cursor = 0
 
 let g:indent_guides_enable_on_vim_startup = 0
+
+let g:loaded_netrwPlugin = 1
+let g:loaded_netrw = 1
+let g:loaded_netrwSettings = 1
+let g:loaded_netrwFileHandlers = 1
+let g:loaded_netrw_gitignore = 1
+

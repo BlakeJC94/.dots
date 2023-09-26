@@ -36,7 +36,7 @@ endfunction
 function! functions#CreateDirs()
   let dir = expand('<afile>:p:h')
   if isdirectory(dir) == 0 && dir !~ ':'
-    mkdir(dir, 'p')
+    call mkdir(dir, 'p')
   endif
 endfunction
 

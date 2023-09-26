@@ -1,1 +1,1 @@
-nmap <buffer> <BS> <Plug>VinegarUp
+" nmap <buffer> <BS> <Plug>VinegarUp

@@ -18,11 +18,11 @@ nnoremap S i<CR><Esc>k:sil! keepp s/\\v +$//<CR>:noh<CR>==j^
 nnoremap { :<C-u>keepjumps norm! {<CR>
 nnoremap } :<C-u>keepjumps norm! }<CR>
 " Change selected word (forward/backwards), `.` to repeat
-nnoremap c* /\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``cgn
-nnoremap c# ?\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``cgN
+nnoremap c* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``cgn
+nnoremap c# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``cgN
 " Delete selected word (forward/backwards), `.` to repeat
-nnoremap d* /\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``dgn
-nnoremap d# ?\\<<C-r>=expand(<cword>)<CR>\\>\\C<CR>``dgN
+nnoremap d* /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
+nnoremap d# ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 " Prevent x and s from overriding what's in the clipboard
 nnoremap x "_x
 nnoremap X "_X
@@ -77,7 +77,7 @@ nnoremap <Leader>ax <cmd>argdelete <bar> args<CR>
 nnoremap <Leader>as <cmd>argadd <bar> args<CR>
 
 "" LEADER MAPS
-nnoremap <Leader><CR> <cmd>Ex %:p:h<CR>
+" nnoremap <Leader><CR> <cmd>Ex %:p:h<CR>
 nnoremap <Leader><Tab> <C-^>
 nnoremap <Leader>. <cmd>lcd %:p:h \| echo 'Changed local dir to ' . getcwd()<CR>
 nnoremap <Leader>, <cmd>cd %:p:h \| echo 'Changed dir to ' . getcwd()<CR>
