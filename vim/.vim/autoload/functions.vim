@@ -67,3 +67,10 @@ function! functions#DebugSyntax()
   let s = synID(line('.'), col('.'), 1)
   echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
 endfunction
+
+function! functions#VSetSearch(cmdtype)
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+  let @s = temp
+endfunction

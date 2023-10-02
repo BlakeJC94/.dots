@@ -49,6 +49,9 @@ nnoremap <C-s> i<C-g>u<Esc>[s1z=`]
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " Stop accidentally opening help in insert mode
 inoremap <F1> <nop>
+" Operation for */# in visual mode
+xnoremap * :<C-u>call functions#VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call functions#VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 " Use unused arrow keys
 nmap <Left> [
 nmap <Right> ]
