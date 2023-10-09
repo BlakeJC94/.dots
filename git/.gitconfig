@@ -15,7 +15,7 @@
     hub = "!gh"
     lg = "!git log --oneline"
     lgst = "!git log --name-status --oneline"
-    sync = "!git add . && git commit -m 'sync by $(whoami) from $(hostname) at $(date)' && git push"
+    sync = "!git add . && git commit -m \"sync by $(whoami) from $(hostname) at $(date)\" && git push"
     last = log -1 HEAD --stat
     vim = "!nvim $(git diff --name-only)"
     dif = "!git diff --stat"
