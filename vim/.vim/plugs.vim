@@ -37,8 +37,8 @@ Plug 'https://github.com/tpope/vim-sleuth'
 " The Ultimate `:Git` plugin
 Plug 'https://github.com/tpope/vim-rhubarb'
 Plug 'https://github.com/tpope/vim-fugitive'
-" Conflict resolution (`:Conflicted`, `dgu`/`dgl` mappings)
-Plug 'https://github.com/christoomey/vim-conflicted'
+" Conflict highlighting and resolution (`:Conflicted`, `co`/`ct` mappings)
+Plug 'https://github.com/rhysd/conflict-marker.vim'
 " Easily align selection (`<ga><obj><char>`)
 Plug 'https://github.com/junegunn/vim-easy-align'
 " Sub-word text object (`iv`, `av`)
@@ -65,6 +65,8 @@ Plug 'https://github.com/farmergreg/vim-lastplace'
 Plug 'https://github.com/mhinz/vim-signify'
 " Tab completion
 Plug 'https://github.com/ervandew/supertab'
+" Context window
+Plug 'https://github.com/wellle/context.vim'
 
 "" LANGUAGES
 Plug 'https://github.com/dense-analysis/ale'
