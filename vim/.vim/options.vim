@@ -1,10 +1,12 @@
 "" MAIN INPUT/OUTPUT
 set clipboard=unnamedplus  " Allows vim to use "+ for yanks, puts, and deletes
 set notimeout              " Allow timing out halfway into a mapping
+set ttimeoutlen=10         " Length of time for timing out on keycodes
 set virtualedit=block      " Cursor freedom ('all', 'block', 'insert')
 set hidden                 " Allow buffers to be hidden without saving
 set confirm                " Ask user about unsaved buffers instead of error
 set mouse=                 " Set mouse options
+set lazyredraw             " Only redraw on changes
 
 "" TABS AND INDENTS
 set smartindent    " Enable better indenting

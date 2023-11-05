@@ -1,4 +1,5 @@
 # TODO Check for sudo
+# TODO deb-get
 
 sudo apt-get update
 
