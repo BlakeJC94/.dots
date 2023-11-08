@@ -5,9 +5,13 @@
 # grep: match `slack-desktop`
 # xargs: send link to wget command
 
-wget -q https://slack.com/downloads/instructions/ubuntu -O - \
+wget -q https://wezfurlong.org/wezterm/install/linux.html -O - \
     | tr "\t\r\n'" '   "' \
     | grep -i -o '<a[^>]\+href[ ]*=[ \t]*"\(ht\|f\)tps\?:[^"]\+"' \
     | sed -e 's/^.*"\([^"]\+\)".*$/\1/g' \
-    | grep 'slack-desktop' \
-    | xargs wget -O slack-desktop-latest.deb
+    | grep 'Ubuntu22.04.deb' \
+    | grep -v 'nightly' \
+    | xargs wget -O wezterm-latest.deb
+
+
+
