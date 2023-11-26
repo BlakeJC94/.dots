@@ -21,5 +21,7 @@ augroup config_vim_fugitive
   au BufWritePre,FileWritePre * call fugitive#ReloadStatus()
   " Fugitive buffers as scratch buffers
   au BufReadPost fugitive://* call SetFugitiveScratch()
+  " q to exit Fugitive
+  au BufReadPost fugitive://* nnoremap <buffer> q <cmd>q<CR>
 augroup END
 

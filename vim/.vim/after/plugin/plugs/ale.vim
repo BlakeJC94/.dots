@@ -54,3 +54,7 @@ nnoremap <Leader>R <cmd>ALEFileRename<cr>
 nnoremap K <cmd>ALEHover<cr>
 inoremap <C-k> <cmd>ALEHover<cr>
 
+augroup ale_help
+  autocmd!
+  autocmd FileType ale-preview.message set foldlevel=99
+augroup END

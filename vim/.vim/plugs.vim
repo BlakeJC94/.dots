@@ -20,6 +20,8 @@ Plug 'https://github.com/tpope/vim-sensible'
 Plug 'https://github.com/tpope/vim-rsi'
 " Unix commands
 Plug 'https://github.com/tpope/vim-eunuch'
+" Better netrw
+Plug 'https://github.com/tpope/vim-vinegar'
 " Better dot-repeat action
 Plug 'https://github.com/tpope/vim-repeat'
 " Surrounding char actions (`cs<char><char>`, `ds<char>`, `ys<motion><char>`)
@@ -83,9 +85,9 @@ call plug#end()
 let g:ale_completion_enabled = 1
 let g:ale_hover_cursor = 0
 
-let g:loaded_netrwPlugin = 1
-let g:loaded_netrw = 1
-let g:loaded_netrwSettings = 1
-let g:loaded_netrwFileHandlers = 1
-let g:loaded_netrw_gitignore = 1
+" let g:loaded_netrwPlugin = 1
+" let g:loaded_netrw = 1
+" let g:loaded_netrwSettings = 1
+" let g:loaded_netrwFileHandlers = 1
+" let g:loaded_netrw_gitignore = 1
 
