@@ -81,3 +81,8 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " Wezterm undercurl fix
 let &t_Cs = "\e[4:3m"
 let &t_Ce = "\e[4:0m"
+
+" Ripgrep <3
+if executable('rg')
+  let &grepprg = 'rg --vimgrep $*'
+endif

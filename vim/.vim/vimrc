@@ -4,5 +4,5 @@
 "" PLUGINS
 source ~/.vim/plugs.vim
 
-"" PLUGINS
+"" OPTIONS
 source ~/.vim/options.vim
