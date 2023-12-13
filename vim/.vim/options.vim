@@ -7,6 +7,7 @@ set hidden                 " Allow buffers to be hidden without saving
 set confirm                " Ask user about unsaved buffers instead of error
 set mouse=                 " Set mouse options
 set lazyredraw             " Only redraw on changes
+set updatetime=100         " Faster update times
 
 "" TABS AND INDENTS
 set smartindent    " Enable better indenting
