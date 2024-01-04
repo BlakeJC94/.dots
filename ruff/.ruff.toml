@@ -1,4 +1,5 @@
 # https://beta.ruff.rs/docs/settings
 line-length = 100
 exclude = [".venv"]
+ignore = ["PLR2004"]
 select = ["PL", "I", "F"]

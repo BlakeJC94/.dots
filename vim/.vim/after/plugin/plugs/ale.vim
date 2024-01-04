@@ -21,13 +21,13 @@ let g:ale_python_pyright_config = {
       \'python': {
         \'autoSearchPaths': v:false,
         \'useLibraryCodeForTypes': v:false,
-        \'diagnosticMode': "openFilesOnly",
-        \'typeCheckingMode': "basic",
+        \'diagnosticMode': 'openFilesOnly',
+        \'typeCheckingMode': 'basic',
         \'diagnosticSeverityOverrides': {
-          \'reportGeneralTypeIssues': "none",
-          \'reportOptionalMemberAccess': "none",
-          \'reportOptionalSubscript': "none",
-          \'reportPrivateImportUsage': "none",
+          \'reportGeneralTypeIssues': 'warning',
+          \'reportOptionalMemberAccess': 'warning',
+          \'reportOptionalSubscript': 'warning',
+          \'reportPrivateImportUsage': 'warning',
           \},
         \},
       \}

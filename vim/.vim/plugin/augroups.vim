@@ -5,7 +5,7 @@ augroup base
   autocmd BufWritePre * call functions#TrimSpaces()
   autocmd BufWritePre,FileWritePre * call functions#CreateDirs()
   " autocmd InsertEnter,InsertLeave * call functions#ToggleInsertTarget()
-  autocmd FileType help,man call functions#SetInfoBufferOpts()
+  autocmd FileType help,man,git,ale-info call functions#SetInfoBufferOpts()
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "norm! g'\"" | endif
 augroup END
 
