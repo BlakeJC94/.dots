@@ -28,3 +28,4 @@ init
 docstrings
 pylint
 f'Region
+callables
