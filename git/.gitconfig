@@ -3,7 +3,7 @@
     email = blakejamescook@gmail.com
     username = BlakeJC94
 
-; TODO Putt more involved aliases into scripts
+; TODO Put more involved aliases into scripts
 [alias]
     pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
     pullup = "!git pull --set-upstream origin $(git symbolic-ref --short HEAD)"
