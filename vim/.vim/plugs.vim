@@ -39,8 +39,8 @@ Plug 'https://github.com/tpope/vim-rhubarb'
 Plug 'https://github.com/tpope/vim-fugitive'
 " Conflict highlighting and resolution (`co`/`ct` mappings)
 Plug 'https://github.com/rhysd/conflict-marker.vim'
-" Easily align selection (`<ga><obj><char>`)
-Plug 'https://github.com/junegunn/vim-easy-align'
+" Easily align selection (`<gl><obj><char>`)
+Plug 'https://github.com/tommcdo/vim-lion'
 " Sub-word text object (`iv`, `av`)
 Plug 'https://github.com/kana/vim-textobj-user'
 Plug 'https://github.com/Julian/vim-textobj-variable-segment'
