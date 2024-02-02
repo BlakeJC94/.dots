@@ -40,8 +40,8 @@ vnoremap < <gv
 vnoremap > >gv
 vnoremap = =gv
 " Swap p and P to stop losing register contents by pasting over
-vnoremap p P
-vnoremap P p
+vnoremap P "_dp
+vnoremap p "_dP
 " C-s : Quickly guess correct spelling errors (undoable)
 inoremap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u
 nnoremap <C-s> i<C-g>u<Esc>[s1z=`]
