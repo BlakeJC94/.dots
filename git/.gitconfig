@@ -100,4 +100,4 @@
 [help]
     autocorrect = 15
 [init]
-	defaultBranch = main
+    defaultBranch = main

@@ -5,7 +5,7 @@ endif
 
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
-      \'python': ['pyright', 'ruff'],
+      \'python': ['ruff'],
       \'julia': ['languageserver'],
       \}
 let g:ale_fixers = {
@@ -36,23 +36,13 @@ let g:ale_python_pyright_config = {
 highlight link ALEErrorSign SpellBad
 highlight link ALEWarningSign SpellCap
 
-nnoremap ]d <cmd>ALENextWrap<cr>
-nnoremap [d <cmd>ALEPreviousWrap<cr>
-nnoremap ]D <cmd>ALEFirst<cr>
-nnoremap [D <cmd>ALELast<cr>
+nnoremap ]D <cmd>ALENextWrap<cr>
+nnoremap [D <cmd>ALEPreviousWrap<cr>
+" nnoremap ]D <cmd>ALEFirst<cr>
+" nnoremap [D <cmd>ALELast<cr>
 
-nnoremap gd <cmd>ALEGoToDefinition<cr>
-nnoremap gy <cmd>ALEGoToTypeDefinition<cr>
-nnoremap gR <cmd>ALEFindReferences<cr>
-
-nnoremap <Leader>d <cmd>ALEDetail<cr>
 nnoremap <Leader>D <cmd>ALEPopulateLocList<cr>
 nnoremap <Leader>= <cmd>ALEFix<cr>
-nnoremap <Leader>r <cmd>ALERename<cr>
-nnoremap <Leader>R <cmd>ALEFileRename<cr>
-
-nnoremap K <cmd>ALEHover<cr>
-inoremap <C-k> <cmd>ALEHover<cr>
 
 augroup ale_help
   autocmd!

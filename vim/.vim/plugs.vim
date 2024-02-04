@@ -62,6 +62,10 @@ Plug 'https://github.com/farmergreg/vim-lastplace'
 Plug 'https://github.com/mhinz/vim-signify'
 
 "" LANGUAGES
+Plug 'https://github.com/prabirshrestha/asyncomplete.vim'
+Plug 'https://github.com/prabirshrestha/asyncomplete-lsp.vim'
+Plug 'https://github.com/machakann/vim-lsp-julia'
+Plug 'https://github.com/prabirshrestha/vim-lsp'
 Plug 'https://github.com/dense-analysis/ale'
 Plug 'https://github.com/sheerun/vim-polyglot'
 " Pytest compiler option

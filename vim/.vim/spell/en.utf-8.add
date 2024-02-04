@@ -43,3 +43,6 @@ dataclass
 Matias
 Walkthrough
 resamples
+worktrees
+worktree
+bugfix
