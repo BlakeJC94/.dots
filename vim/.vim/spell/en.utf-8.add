@@ -53,3 +53,6 @@ timesteps
 idx
 WIP
 unstaged
+numpy
+PyTorch
+EC2
