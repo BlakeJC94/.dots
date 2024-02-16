@@ -4,7 +4,8 @@
 # flatpak install flathub us.zoom.Zoom
 # flatpak install flathub io.mpv.Mpv
 
-# brew
+# brew (interactive sudo)
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew bundle --global install  # update pins w/ `$ brew bundle --global dump -f`
 
@@ -23,9 +24,9 @@ bash -c "./install.sh JetBrainsMono"
 popd
 
 # key
-[ -f ~/.ssh/id_ed25519.pub ] || ssh-keygen -t ed25519 -C "blakejamescook@gmail.com"
-cat ~/.ssh/id_ed25519.pub | xclip -selection c
-echo "--------"
-echo "PASTE PUBKEY FROM CLIPBOARD TO:"
-echo "https://github.com/settings/ssh/new"
-echo "--------"
+# [ -f ~/.ssh/id_ed25519.pub ] || ssh-keygen -t ed25519 -C "blakejamescook@gmail.com"
+# cat ~/.ssh/id_ed25519.pub | xclip -selection c
+# echo "--------"
+# echo "PASTE PUBKEY FROM CLIPBOARD TO:"
+# echo "https://github.com/settings/ssh/new"
+# echo "--------"

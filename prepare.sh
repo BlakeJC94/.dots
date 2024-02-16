@@ -21,7 +21,7 @@ sudo apt-get install -y \
     xclip \
     unclutter-xfixes
 
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Python deps
 sudo apt-get install -y \
@@ -40,10 +40,10 @@ sudo apt-get install -y \
     liblzma-dev
 
 # LuaJIT deps
-sudo apt-get install -y \
-    linux-headers-$(uname -r) \
-    build-essential \
-    libreadline-dev
+# sudo apt-get install -y \
+#     linux-headers-$(uname -r) \
+#     build-essential \
+#     libreadline-dev
 
 # Brew deps
 sudo apt-get install -y \
@@ -53,5 +53,3 @@ sudo apt-get install -y \
     file \
     git
 
-# Install brew (sudo)
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
