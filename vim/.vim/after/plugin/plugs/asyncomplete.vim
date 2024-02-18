@@ -12,3 +12,11 @@ inoremap <silent><expr> <TAB>
   \ asyncomplete#force_refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+autocmd User asyncomplete_setup call asyncomplete#register_source(
+  \ asyncomplete#sources#unicodesymbol#get_source_options({
+  \   'name': 'unicodesymbol',
+  \   'whitelist': ['julia'],
+  \   'completor': function('asyncomplete#sources#unicodesymbol#completor'),
+  \ }))
+

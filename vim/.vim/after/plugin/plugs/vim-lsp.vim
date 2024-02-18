@@ -36,7 +36,7 @@ augroup lsp_install
     au!
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-    autocmd FileType julia call lsp_julia#update()
+    " autocmd FileType julia call lsp_julia#update()
 augroup END
 
 

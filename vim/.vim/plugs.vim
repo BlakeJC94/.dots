@@ -64,10 +64,12 @@ Plug 'https://github.com/mhinz/vim-signify'
 "" LANGUAGES
 Plug 'https://github.com/prabirshrestha/asyncomplete.vim'
 Plug 'https://github.com/prabirshrestha/asyncomplete-lsp.vim'
+Plug 'https://github.com/machakann/asyncomplete-unicodesymbol.vim'
 Plug 'https://github.com/machakann/vim-lsp-julia'
 Plug 'https://github.com/prabirshrestha/vim-lsp'
 Plug 'https://github.com/dense-analysis/ale'
 Plug 'https://github.com/sheerun/vim-polyglot'
+Plug 'https://github.com/JuliaEditorSupport/julia-vim'
 " Pytest compiler option
 Plug 'https://github.com/5long/pytest-vim-compiler'
 
