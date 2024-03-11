@@ -42,6 +42,7 @@ source $HOME/.bash/modules/tab_cycle.sh
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 [ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
+[ -f ~/.bash/modules/rye.sh ] && source $HOME/.bash/modules/rye.sh
 [ -f ~/.bash/modules/flatpak.sh ] && source $HOME/.bash/modules/flatpak.sh
 [ -f ~/.bash/modules/tmux.sh ] && source $HOME/.bash/modules/tmux.sh
 
