@@ -1,8 +1,9 @@
 augroup base
   autocmd!
   autocmd VimResized * wincmd =
-  autocmd BufWritePre * retab
+  autocmd BufWritePre * if index(['make'], &ft) < 0 | retab | endif
   autocmd BufWritePre * call functions#TrimSpaces()
+  autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
   autocmd BufWritePre,FileWritePre * call functions#CreateDirs()
   " autocmd InsertEnter,InsertLeave * call functions#ToggleInsertTarget()
   autocmd FileType help,man,git,ale-info,fugitive call functions#SetInfoBufferOpts()

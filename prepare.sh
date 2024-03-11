@@ -18,6 +18,7 @@ sudo apt-get install -y \
     zathura \
     fortune \
     stow \
+    drawing \
     xclip \
     unclutter-xfixes
 
