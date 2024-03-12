@@ -1,0 +1,5 @@
+[behavior]
+# When set to `true` enables experimental support of uv as a replacement
+# for pip-tools. Learn more about uv here: https://github.com/astral-sh/uv
+use-uv = true
+
