@@ -37,6 +37,7 @@ set shortmess-=S     " Show search matches count
 set guicursor=       " Cursor
 set background=dark  " Tell Vim what the background color should be
 set termguicolors    " Use gui colors in the terminal
+set errorformat+=%f  " Parse `find`/`fd` results in the quickfix list
 
 "" LINE DISPLAY
 set scrolloff=999           " N lines to keep visible above/below cursor
@@ -84,5 +85,7 @@ let &t_Ce = "\e[4:0m"
 
 " Ripgrep <3
 if executable('rg')
-  let &grepprg = 'rg --vimgrep $*'
+  " let &grepprg = 'rg --vimgrep $*'
+  set grepprg=rg\ --vimgrep\ --smart-case
+  set grepformat=%f:%l:%c:%m
 endif

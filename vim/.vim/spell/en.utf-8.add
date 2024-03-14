@@ -134,3 +134,4 @@ matplotlib
 gpu
 dataloaders
 overfit
+showlegend

@@ -4,15 +4,27 @@ endif
 
 
 "" Mappings
-nnoremap <Leader>cc <cmd>Git<CR>
+nnoremap <Leader>c <cmd>call ToggleGstatus()<CR>
+vnoremap <leader>b :GBrowse! main:%<cr>
 
 "" Functions
-function SetFugitiveScratch()
+function SetFugitiveScratch() abort
   setl bufhidden=delete
   setl buftype=nofile
   setl nomodifiable
   " TODO Set buffer name as commit hash?
 endfun
+
+function! ToggleGstatus() abort
+    for l:winnr in range(1, winnr('$'))
+        if !empty(getwinvar(l:winnr, 'fugitive_status'))
+            execute l:winnr.'close'
+        else
+            Git
+        endif
+    endfor
+endfunction
+
 
 "" Autocommands
 augroup config_vim_fugitive

@@ -5,7 +5,7 @@ endif
 let g:signify_sign_change = '~'
 
 "" Mappings
-nnoremap <Leader>ch <cmd>SignifyHunk<CR>
+nnoremap <Leader>C <cmd>SignifyHunkDiff<CR>
 
 augroup config_vim_fugitive
   au!

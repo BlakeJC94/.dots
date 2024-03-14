@@ -1,13 +1,24 @@
 augroup base
   autocmd!
   autocmd VimResized * wincmd =
+  autocmd BufWritePre,FileWritePre * call functions#CreateDirs()
+  autocmd FileType help,man,git,ale-info,fugitive call functions#SetInfoBufferOpts()
+augroup END
+
+augroup jump_to_last_change_on_open
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "norm! g'\"" | endif
+augroup END
+
+augroup spaces_and_tabs_on_save
+  autocmd!
   autocmd BufWritePre * if index(['make'], &ft) < 0 | retab | endif
   autocmd BufWritePre * call functions#TrimSpaces()
-  autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
-  autocmd BufWritePre,FileWritePre * call functions#CreateDirs()
-  " autocmd InsertEnter,InsertLeave * call functions#ToggleInsertTarget()
-  autocmd FileType help,man,git,ale-info,fugitive call functions#SetInfoBufferOpts()
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "norm! g'\"" | endif
+augroup END
+
+augroup auto_open_quickfix
+ autocmd!
+ autocmd QuickFixCmdPost cexpr cwindow
 augroup END
 
 augroup speed_up_syntax

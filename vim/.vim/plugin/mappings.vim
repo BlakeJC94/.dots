@@ -68,16 +68,6 @@ nnoremap <C-Left>  <cmd>8wincmd <<CR>
 nnoremap <C-Up>    <cmd>4wincmd +<CR>
 nnoremap <C-Down>  <cmd>4wincmd -<CR>
 nnoremap <C-Right> <cmd>8wincmd ><CR>
-" Vim Tab controls
-nnoremap <Leader>t <cmd>tabedit %<CR>
-nnoremap <Leader>n <cmd>tabnext<CR>
-nnoremap <Leader>p <cmd>tabnext<CR>
-nnoremap <Leader>N <cmd>+tabmove<CR>
-nnoremap <Leader>P <cmd>-tabmove<CR>
-" Vim arglist commands
-nnoremap <Leader>aa <cmd>argument <bar> args<CR>
-nnoremap <Leader>ax <cmd>argdelete <bar> args<CR>
-nnoremap <Leader>as <cmd>argadd <bar> args<CR>
 
 "" LEADER MAPS
 " nnoremap <Leader><CR> <cmd>Ex %:p:h<CR>
@@ -89,3 +79,4 @@ nnoremap <Leader>l <cmd>exec functions#ToggleLocation()<CR>
 nnoremap <Leader>; <cmd>edit ~/.vim/vimrc <bar> lcd %:p:h<CR>
 nnoremap <Leader>: <cmd>edit ~/.vim/plugs.vim <bar> lcd %:p:h<CR>
 nnoremap <Leader>m <cmd>make -k %:p:t:r<CR>
+nnoremap <Leader>g :grep <cword> . <cr>

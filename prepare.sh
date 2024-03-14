@@ -1,11 +1,7 @@
-# TODO Check for sudo
-# TODO deb-get
-
 sudo apt-get update
 
 # General tools
 sudo apt-get install -y \
-    flatpak \
     vim-gtk \
     wget \
     curl \
@@ -21,8 +17,6 @@ sudo apt-get install -y \
     drawing \
     xclip \
     unclutter-xfixes
-
-# flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Python deps
 sudo apt-get install -y \
