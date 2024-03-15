@@ -70,12 +70,13 @@ nnoremap <C-Down>  <cmd>4wincmd -<CR>
 nnoremap <C-Right> <cmd>8wincmd ><CR>
 
 "" LEADER MAPS
-" nnoremap <Leader><CR> <cmd>Ex %:p:h<CR>
+nnoremap <special> <Leader><BS> :Fd ""<Left>
+nnoremap <special> <Leader><CR> :Grep ""<Left>
 nnoremap <Leader><Tab> <C-^>
 nnoremap <Leader>. <cmd>lcd %:p:h \| echo 'Changed local dir to ' . getcwd()<CR>
 nnoremap <Leader>, <cmd>cd %:p:h \| echo 'Changed dir to ' . getcwd()<CR>
 nnoremap <Leader>q <cmd>call functions#ToggleQuickFix()<CR>
 nnoremap <Leader>l <cmd>exec functions#ToggleLocation()<CR>
 nnoremap <Leader>; <cmd>edit ~/.vim/vimrc <bar> lcd %:p:h<CR>
-nnoremap <Leader>m <cmd>make -k %:p:t:r<CR>
+nnoremap <Leader>m <cmd>Make -k %:p:t:r<CR>
 nnoremap <Leader>g <cmd>Grep <cword> . <cr>

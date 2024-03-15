@@ -18,34 +18,23 @@ let g:polyglot_disabled = ['markdown']
 " Load plugins
 call plug#begin(expand(dir . '/plugged'))
 
+"" ENHANCEMENTS
+Plug 'https://github.com/tpope/vim-sensible'    " Sane defaults
+Plug 'https://github.com/tpope/vim-rsi'         " Readline shortcuts for insert mode
+Plug 'https://github.com/tpope/vim-eunuch'      " Unix commands
+Plug 'https://github.com/tpope/vim-vinegar'     " Better netrw
+Plug 'https://github.com/tpope/vim-repeat'      " Better dot-repeat action
+Plug 'https://github.com/tpope/vim-surround'    " Surrounds (`cs<ch><ch>`, `ys<motion><char>`)
+Plug 'https://github.com/tpope/vim-commentary'  " Toggle comments (`gc<motion>`)
+Plug 'https://github.com/tpope/vim-unimpaired'  " Extra `[`, `]` mappings
+Plug 'https://github.com/tpope/vim-dispatch'    " Asynchronous `:Make` command
+Plug 'https://github.com/tpope/vim-sleuth'      " Auto-detect indent in file
+Plug 'https://github.com/tpope/vim-fugitive'    " The Ultimate `:Git` plugin (`<leader>c`)
+Plug 'https://github.com/tpope/vim-rhubarb'     " GitHub integration for `:GBrowse` (`<leader>b`)
+
 "" ACTIONS
-" Sane defaults
-Plug 'https://github.com/tpope/vim-sensible'
-" Readline shortcuts for insert mode
-Plug 'https://github.com/tpope/vim-rsi'
-" Unix commands
-Plug 'https://github.com/tpope/vim-eunuch'
-" Better netrw
-Plug 'https://github.com/tpope/vim-vinegar'
-" Better dot-repeat action
-Plug 'https://github.com/tpope/vim-repeat'
-" Surrounding char actions (`cs<char><char>`, `ds<char>`, `ys<motion><char>`)
-Plug 'https://github.com/tpope/vim-surround'
-" Toggle comments (`gc<motion>`)
-Plug 'https://github.com/tpope/vim-commentary'
-" Extra `[`, `]` mappings
-Plug 'https://github.com/tpope/vim-unimpaired'
-" Asynchronous `:Make` command
-Plug 'https://github.com/tpope/vim-dispatch'
-" Auto-detect indent in file
-Plug 'https://github.com/tpope/vim-sleuth'
-" The Ultimate `:Git` plugin (toggle with `<leader>c`)
-Plug 'https://github.com/tpope/vim-rhubarb'
-Plug 'https://github.com/tpope/vim-fugitive'
 " Conflict highlighting and resolution (`co`/`ct` mappings)
 Plug 'https://github.com/rhysd/conflict-marker.vim'
-" Easily align selection (`<gl><obj><char>`)
-" Plug 'https://github.com/tommcdo/vim-lion'
 " Sub-word text object (`iv`, `av`)
 Plug 'https://github.com/kana/vim-textobj-user'
 Plug 'https://github.com/Julian/vim-textobj-variable-segment'
@@ -53,20 +42,13 @@ Plug 'https://github.com/Julian/vim-textobj-variable-segment'
 Plug 'https://github.com/kana/vim-textobj-entire'
 
 "" INTERFACE
-" Fzf <3 Vim
-Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'https://github.com/junegunn/fzf.vim'
-" Personal wiki
-" Plug 'https://github.com/lervag/wiki.vim'
-" Send lines to tmux
+" Gitsigns in signcolumn (and diff hunks popups `<Leader>C`)
+Plug 'https://github.com/mhinz/vim-signify'
+" Send lines to tmux (`<C-c><C-c>`)
 Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/klafyvel/vim-slime-cells'
 " Show undotree (`:UndotreeToggle`)
 Plug 'http://github.com/mbbill/undotree'
-" Remember last place when opening file
-" Plug 'https://github.com/farmergreg/vim-lastplace'
-" Gitsigns in signcolumn (and diff hunks popups `<Leader>C`)
-Plug 'https://github.com/mhinz/vim-signify'
 
 "" COMPLETION
 " Autocomplete
@@ -77,17 +59,20 @@ Plug 'https://github.com/prabirshrestha/asyncomplete-file.vim'
 Plug 'https://github.com/machakann/asyncomplete-unicodesymbol.vim'
 " Tab completion
 Plug 'https://github.com/ervandew/supertab'
-" Autoclose brackets
+" Auto-close brackets
 Plug 'https://github.com/Raimondi/delimitMate'
 
 "" LANGUAGES
-Plug 'https://github.com/machakann/vim-lsp-julia'
+" Lsp servers
 Plug 'https://github.com/prabirshrestha/vim-lsp'
+Plug 'https://github.com/machakann/vim-lsp-julia'
+" Fixers and linters
 Plug 'https://github.com/dense-analysis/ale'
-Plug 'https://github.com/JuliaEditorSupport/julia-vim'
+" Syntax files
 Plug 'https://github.com/sheerun/vim-polyglot'
-" Better markdown support
+" Easily align selection (`:Tabularize /<char>`)
 Plug 'https://github.com/godlygeek/tabular'
+" Better markdown support
 Plug 'https://github.com/preservim/vim-markdown'
 " Pytest compiler option
 Plug 'https://github.com/5long/pytest-vim-compiler'
@@ -99,5 +84,3 @@ Plug 'https://github.com/gruvbox-community/gruvbox'
 Plug 'https://github.com/machakann/vim-highlightedyank'
 
 call plug#end()
-
-

@@ -54,6 +54,13 @@ function! functions#SetInfoBufferOpts()
   nnoremap <buffer> K :h <C-r>=expand('<cword>')<CR><CR>
 endfunction
 
+function! functions#SetScratchBuffer() abort
+  setl bufhidden=delete
+  setl buftype=nofile
+  setl nomodifiable
+  " TODO Set buffer name as commit hash?
+endfun
+
 function! functions#Slugify(string)
   let output = a:string
   let output = tolower(output)

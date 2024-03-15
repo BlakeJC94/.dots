@@ -30,8 +30,8 @@ set undofile    " Create global undofile
 exec 'set undodir=~/.' . (has('nvim') ? 'n' : '') . 'vim/undodir'
 
 "" WINDOW DISPLAY
-set splitbelow       " Open splits below
-set splitright       " Open vsplits on right
+" set splitbelow       " Open splits below
+" set splitright       " Open vsplits on right
 set shortmess+=I     " Disable into message
 set shortmess-=S     " Show search matches count
 set guicursor=       " Cursor
