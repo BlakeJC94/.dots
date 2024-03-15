@@ -85,7 +85,6 @@ let &t_Ce = "\e[4:0m"
 
 " Ripgrep <3
 if executable('rg')
-  " let &grepprg = 'rg --vimgrep $*'
   set grepprg=rg\ --vimgrep\ --smart-case
   set grepformat=%f:%l:%c:%m
 endif

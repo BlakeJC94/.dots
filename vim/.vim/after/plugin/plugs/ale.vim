@@ -28,3 +28,8 @@ augroup ale_help
   autocmd!
   autocmd FileType ale-preview.message set foldlevel=99
 augroup END
+
+augroup ale_fix_refold
+    autocmd!
+    autocmd User ALEFixPost norm zx
+augroup END

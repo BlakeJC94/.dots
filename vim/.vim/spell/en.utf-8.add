@@ -135,3 +135,11 @@ gpu
 dataloaders
 overfit
 showlegend
+augroups
+filetype
+ftplugin
+autoload
+vimscript
+toml
+pyproject
+pdb

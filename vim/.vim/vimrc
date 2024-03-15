@@ -8,3 +8,21 @@ source ~/.vim/plugs.vim
 
 "" OPTIONS
 source ~/.vim/options.vim
+
+"" Other configurations:
+" * ~/.vim/plugin/abbrev.vim
+" * ~/.vim/plugin/augroups.vim
+" * ~/.vim/plugin/commands.vim
+" * ~/.vim/plugin/mappings.vim
+
+"" Filetype-specific overrides:
+" * ~/.vim/ftplugin
+
+"" Custom functions:
+" * ~/.vim/autoload/functions.vim
+
+"" Plugin configs:
+" * ~/.vim/after/plugin/plugs
+
+"" Vimscript playground:
+" * ~/.vim/plugin/scratchpad.vim
