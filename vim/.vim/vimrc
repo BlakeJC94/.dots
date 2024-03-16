@@ -10,19 +10,19 @@ source ~/.vim/plugs.vim
 source ~/.vim/options.vim
 
 "" Other configurations:
-" * ~/.vim/plugin/abbrev.vim
-" * ~/.vim/plugin/augroups.vim
-" * ~/.vim/plugin/commands.vim
-" * ~/.vim/plugin/mappings.vim
-
-"" Filetype-specific overrides:
-" * ~/.vim/ftplugin
+" ~/.vim/plugin/abbrev.vim
+" ~/.vim/plugin/augroups.vim
+" ~/.vim/plugin/commands.vim
+" ~/.vim/plugin/mappings.vim
 
 "" Custom functions:
-" * ~/.vim/autoload/functions.vim
+" ~/.vim/autoload/functions.vim
+
+"" Filetype-specific overrides:
+" ~/.vim/ftplugin
 
 "" Plugin configs:
-" * ~/.vim/after/plugin/plugs
+" ~/.vim/after/plugin/plugs
 
 "" Vimscript playground:
-" * ~/.vim/plugin/scratchpad.vim
+" ~/.vim/plugin/scratchpad.vim

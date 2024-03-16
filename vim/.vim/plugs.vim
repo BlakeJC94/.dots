@@ -42,13 +42,16 @@ Plug 'https://github.com/Julian/vim-textobj-variable-segment'
 Plug 'https://github.com/kana/vim-textobj-entire'
 
 "" INTERFACE
+" Fzf <3 Vim
+Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'https://github.com/junegunn/fzf.vim'
 " Gitsigns in signcolumn (and diff hunks popups `<Leader>C`)
 Plug 'https://github.com/mhinz/vim-signify'
 " Send lines to tmux (`<C-c><C-c>`)
 Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/klafyvel/vim-slime-cells'
-" Show undotree (`:UndotreeToggle`)
-Plug 'http://github.com/mbbill/undotree'
+" Show undotree (`:UndotreeToggle` or `<Leader>u`)
+Plug 'https://github.com/mbbill/undotree'
 
 "" COMPLETION
 " Autocomplete

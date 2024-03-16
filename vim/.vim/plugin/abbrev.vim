@@ -13,3 +13,5 @@ cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'Gre
 cnoreabbrev <expr> fd (getcmdtype() ==# ':' && getcmdline() ==# 'fd') ? 'Fd' : 'fd'
 cnoreabbrev <expr> make (getcmdtype() ==# ':' && getcmdline() ==# 'make') ? 'Make' : 'make'
 cnoreabbrev <expr> git (getcmdtype() ==# ':' && getcmdline() ==# 'git') ? 'Git' : 'git'
+cnoreabbrev <expr> rg (getcmdtype() ==# ':' && getcmdline() ==# 'rg') ? 'Rg' : 'rg'
+cnoreabbrev <expr> find (getcmdtype() ==# ':' && getcmdline() ==# 'find') ? 'Find' : 'find'

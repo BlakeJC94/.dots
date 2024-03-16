@@ -13,6 +13,8 @@ let g:ale_fixers = {
 let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_use_neovim_diagnostics_api = 0
 
+let g:ale_python_isort_options = '--sp ~/.isort.cfg'
+
 highlight link ALEErrorSign SpellBad
 highlight link ALEWarningSign SpellCap
 
