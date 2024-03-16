@@ -5,17 +5,21 @@ endif
 
 "" Mappings
 nnoremap <Leader>c <cmd>call ToggleGstatus()<CR>
-vnoremap <leader>b :GBrowse! main:%<cr>
+vnoremap <leader>b :GBrowse!<CR>
 
 "" Functions
 function! ToggleGstatus() abort
+    let l:foo = 0
     for l:winnr in range(1, winnr('$'))
         if !empty(getwinvar(l:winnr, 'fugitive_status'))
             execute l:winnr.'close'
-        else
-            Git
+            let l:foo = 1
+            break
         endif
     endfor
+    if l:foo == 0
+        Git
+    endif
 endfunction
 
 "" Autocommands
