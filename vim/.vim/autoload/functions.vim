@@ -81,3 +81,59 @@ function! functions#VSetSearch(cmdtype)
   let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
   let @s = temp
 endfunction
+
+
+function functions#GetGitDir()
+  if len(system("command -v git")) == 0
+    return ""
+  endif
+  let l:git_dir = split(system(join(["git", "-C", expand("%:p:h"),  "rev-parse",  "--git-dir"], " ")), '\n')[0]
+  if l:git_dir[0:5] == "fatal:"
+    return ""
+  endif
+  return l:git_dir
+endfunction
+
+
+let g:field_notes_dir = "~/Workspace/repos/field-notes/notes"
+
+function! functions#StartNote(...) abort
+  let l:title = join(a:000, " ")
+
+  if len(l:title) == 0
+    let l:git_dir = functions#GetGitDir()
+    if len(l:git_dir) > 0
+      " Branch
+      let l:project_path = finddir('.git/..', expand('%:p:h') . ';')
+      let l:project_name = split(l:project_path, '/')[-1]
+      let l:branch_name = split(system(join(["git", "-C", expand("%:p:h"), "branch", "--show-current", "--quiet"], " ")), '\n')[0]
+    else
+      " Dir
+      let l:project_parent_dirs = split(getcwd(), '/')
+      let l:project_name = l:project_parent_dirs[-2]
+      let l:branch_name = l:project_parent_dirs[-1]
+    endif
+    let l:project_name = substitute(l:project_name, '^\.\+', '', 'g')
+    let l:branch_name = substitute(l:branch_name, '^\.\+', '', 'g')
+    let l:title = join([l:project_name, l:branch_name], ": ")
+  endif
+
+  let l:filename = functions#Slugify(l:title) . ".md"
+  let l:filepath = join([g:field_notes_dir, l:filename], '/')
+
+  let l:heading = substitute(l:title, '^', '# ', '')
+  let l:heading = substitute(l:heading, '$', '\n\n', '')
+
+  if !filereadable(expand(l:filepath))
+    call writefile(split(l:heading, '\n', 1), expand(l:filepath))
+    echo join(["Created new file", l:filepath], " : ")
+  endif
+
+  return l:filepath
+
+  " save current file and open target
+  exec join(['split', l:filepath], " ")
+  exec join(['lcd', g:field_notes_dir], " ")
+  norm! G
+  echo expand("%")
+endfunction
