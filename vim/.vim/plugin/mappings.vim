@@ -81,5 +81,6 @@ nnoremap <Leader>m <cmd>Make -k %:p:t:r<CR>
 nnoremap <Leader>G <cmd>Grep <cword> . <cr>
 nnoremap <special> <Leader>g :Grep ''<Left>
 nnoremap <Leader>w <C-w>
-" nnoremap <Leader>n <cmd>split ...
+nnoremap <Leader>ww <C-w><C-w>
+nnoremap <Leader>n <cmd>Note<CR>
 nnoremap <Leader>N <cmd>split \| edit ~/Workspace/repos/field-notes/notes \| lcd %:p:h<CR>
