@@ -9,4 +9,4 @@ command! -nargs=* Find cexpr system('fd ' . expand(<q-args>))
 command! -nargs=* -complete=file_in_path Grep cexpr system(&grepprg . ' ' . expand(<q-args>))
 command! -nargs=* -complete=file_in_path Rg cexpr system(&grepprg . ' ' . expand(<q-args>))
 
-command! -nargs=* Note exec '<mods> split ' . functions#StartNote(<q-args>) | pwd
+command! -nargs=* Note exec '<mods> silent split ' . functions#StartNote(<q-args>) | exec 'lcd ' . expand("%:p:h") | echo expand("%:p")

@@ -130,10 +130,4 @@ function! functions#StartNote(...) abort
   endif
 
   return l:filepath
-
-  " save current file and open target
-  exec join(['split', l:filepath], " ")
-  exec join(['lcd', g:field_notes_dir], " ")
-  norm! G
-  echo expand("%")
 endfunction
