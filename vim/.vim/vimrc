@@ -9,6 +9,9 @@ source ~/.vim/plugs.vim
 "" OPTIONS
 source ~/.vim/options.vim
 
+"" LEADER MAPS
+source ~/.vim/leader.vim
+
 "" Other configurations:
 " ~/.vim/plugin/abbrev.vim
 " ~/.vim/plugin/augroups.vim

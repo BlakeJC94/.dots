@@ -83,7 +83,7 @@ function! functions#VSetSearch(cmdtype)
 endfunction
 
 
-function functions#GetGitDir()
+function! functions#GetGitDir()
   if len(system("command -v git")) == 0
     return ""
   endif
@@ -94,6 +94,13 @@ function functions#GetGitDir()
   return l:git_dir
 endfunction
 
+" Settings that need to be set before running plugins
+function! functions#setPreVars()
+  let g:ale_disable_lsp = 1
+  let g:ale_completion_enabled = 1
+  let g:ale_hover_cursor = 0
+  let g:polyglot_disabled = ['markdown']
+endfunction
 
 let g:field_notes_dir = "~/Workspace/repos/field-notes/notes"
 

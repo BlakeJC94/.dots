@@ -1,6 +1,3 @@
-let mapleader = "\<Space>"
-
-
 " Make Y behave like D and C
 nnoremap Y y$
 " Better jumplist for large line steps (and step through visual lines with j/k)
@@ -9,7 +6,7 @@ nnoremap <expr> k (v:count > 5 ? 'm`' . v:count : 'g') . 'k'
 " gV: Visually select last pasted block (like gv)
 nnoremap gV `[v`]
 " gF: create new file at filename over cursor
-nnoremap gF <cmd>e <c-r><c-f><CR>
+nnoremap gF :e <c-r><c-f><CR>
 " J doesn't move cursor
 nnoremap J mzJ`z
 " S splits line at cursor
@@ -40,8 +37,8 @@ vnoremap < <gv
 vnoremap > >gv
 vnoremap = =gv
 " Swap p and P to stop losing register contents by pasting over
-vnoremap P "_dp
-vnoremap p "_dP
+vnoremap p "_dp
+vnoremap P "_dP
 " C-s : Quickly guess correct spelling errors (undoable)
 inoremap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u
 nnoremap <C-s> i<C-g>u<Esc>[s1z=`]
@@ -68,19 +65,3 @@ nnoremap <C-Left>  <cmd>8wincmd <<CR>
 nnoremap <C-Up>    <cmd>4wincmd +<CR>
 nnoremap <C-Down>  <cmd>4wincmd -<CR>
 nnoremap <C-Right> <cmd>8wincmd ><CR>
-
-"" LEADER MAPS
-nnoremap <special> <Leader><CR> :Fd ''<Left>
-nnoremap <Leader><Tab> <C-^>
-nnoremap <Leader>. <cmd>lcd %:p:h \| echo 'Changed local dir to ' . getcwd()<CR>
-nnoremap <Leader>, <cmd>cd %:p:h \| echo 'Changed dir to ' . getcwd()<CR>
-nnoremap <Leader>q <cmd>call functions#ToggleQuickFix()<CR>
-nnoremap <Leader>l <cmd>exec functions#ToggleLocation()<CR>
-nnoremap <Leader>; <cmd>edit ~/.vim/vimrc <bar> lcd %:p:h<CR>
-nnoremap <Leader>m <cmd>Make -k %:p:t:r<CR>
-nnoremap <Leader>G <cmd>Grep <cword> . <cr>
-nnoremap <special> <Leader>g :Grep ''<Left>
-nnoremap <Leader>w <C-w>
-nnoremap <Leader>ww <C-w><C-w>
-nnoremap <Leader>n <cmd>Note<CR>
-nnoremap <Leader>N <cmd>split \| edit ~/Workspace/repos/field-notes/notes \| lcd %:p:h<CR>

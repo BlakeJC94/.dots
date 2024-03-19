@@ -4,9 +4,6 @@ endif
 
 let g:signify_sign_change = '~'
 
-"" Mappings
-nnoremap <Leader>C <cmd>SignifyHunkDiff<CR>
-
 augroup config_vim_fugitive
   au!
   " Auto-refresh gitsigns when updating git state via fugitive.vim
