@@ -11,7 +11,7 @@ vnoremap <leader>b :GBrowse!<CR>
 function! ToggleGstatus() abort
     let l:foo = 0
     for l:winnr in range(1, winnr('$'))
-        if !empty(getwinvar(l:winnr, 'fugitive_status'))
+        if !empty(getwinvar(l:winnr, 'fugitive_status')) && getwinvar(l:winnr, '&ft') == 'fugitive'
             execute l:winnr.'close'
             let l:foo = 1
             break
