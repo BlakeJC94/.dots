@@ -79,6 +79,8 @@ Plug 'https://github.com/5long/pytest-vim-compiler'
 "" STYLE
 " Colorscheme
 Plug 'https://github.com/gruvbox-community/gruvbox'
+Plug 'rose-pine/vim', { 'as': 'rose_pine' }
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 " Highlight yanked txt
 Plug 'https://github.com/machakann/vim-highlightedyank'
 
