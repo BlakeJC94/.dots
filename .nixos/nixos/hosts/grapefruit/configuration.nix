@@ -59,6 +59,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
@@ -109,7 +110,16 @@
   systemd.services."autovt@tty1".enable = false;
 
   # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Install firefox.
+  programs.firefox.enable = true;
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Install nvidia driver
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
