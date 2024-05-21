@@ -1,6 +1,6 @@
 augroup base
   autocmd!
-  autocmd VimResized * wincmd =
+  " autocmd VimResized * wincmd =
   autocmd BufWritePre,FileWritePre * call functions#CreateDirs()
   autocmd FileType help,man,git,ale-info,fugitive,netrw call functions#SetInfoBufferOpts()
 augroup END
