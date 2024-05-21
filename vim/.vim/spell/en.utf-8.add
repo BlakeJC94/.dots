@@ -170,6 +170,11 @@ pdrda
 ann
 batchmean
 Kmax
+heatmap
+tol
+coords
+tuh
+edf
 overrep
 src
 hms

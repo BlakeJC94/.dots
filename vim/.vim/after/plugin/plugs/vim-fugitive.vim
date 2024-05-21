@@ -27,9 +27,7 @@ augroup config_vim_fugitive
   au!
   " Auto-refresh status
   au BufWritePre,FileWritePre * call fugitive#ReloadStatus()
-  " Fugitive buffers as scratch buffers
-  au BufReadPost fugitive://* call functions#SetScratchBuffer()
-  " q to exit Fugitive
-  au BufReadPost fugitive://* nnoremap <buffer> q <cmd>q<CR>
+  " Autostart insert mode when committing
+  au BufEnter COMMIT_EDITMSG startinsert
 augroup END
 

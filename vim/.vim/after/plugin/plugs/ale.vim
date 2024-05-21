@@ -8,7 +8,7 @@ let g:ale_linters = {
       \'julia': ['languageserver'],
       \}
 let g:ale_fixers = {
-      \'python': ['black', 'isort'],
+      \'python': ['ruff_format', 'isort'],
       \}
 let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_use_neovim_diagnostics_api = 0
