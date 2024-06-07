@@ -13,3 +13,5 @@ $ cd ~/.dots
 $ sudo bash prepare.sh
 $ bash install.sh
 ```
+
+Scripts for various applications are found in `./.install-scripts`
