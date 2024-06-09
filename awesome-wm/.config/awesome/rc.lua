@@ -1,15 +1,24 @@
-layouts =
-{
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.bottom,
-    -- awful.layout.suit.max,
-    -- awful.layout.suit.floating,
-    -- awful.layout.suit.tile.left,
-    -- awful.layout.suit.tile.top,
-    -- awful.layout.suit.fair,
-    -- awful.layout.suit.fair.horizontal,
-    -- awful.layout.suit.spiral,
-    -- awful.layout.suit.spiral.dwindle,
-    -- awful.layout.suit.max.fullscreen,
-    -- awful.layout.suit.magnifier
-}
+-- If Lua Rocks is installed, make sure that packages installed through it are
+-- found (e.g. lgi). If LuaRocks is not installed, do nothing.
+pcall(require, "luarocks.loader")
+
+require("main.error-handling")
+
+-- Themes define colours, icons, font and wallpapers.
+require("main.theme")
+
+-- This is used later as the default terminal and editor to run.
+terminal = "x-terminal-emulator"
+editor = os.getenv("EDITOR") or "editor"
+editor_cmd = terminal .. " -e " .. editor
+
+-- Default modkey.
+modkey = "Mod4"
+
+require("main.layouts")
+require("main.menu")
+require("main.wibar")
+require("main.binds-mouse")
+require("main.binds-keys")
+require("main.rules")
+require("main.signals")

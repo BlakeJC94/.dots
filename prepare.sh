@@ -35,7 +35,7 @@ sudo apt-get install -y \
     liblzma-dev
 
 # Zoom dependecies
-sudo apt install libxcb-xinerama0 libxcb-xtest0 libxcb-cursor0
+sudo apt-get install -y libxcb-xinerama0 libxcb-xtest0 libxcb-cursor0
 
 # Brew deps
 sudo apt-get install -y \

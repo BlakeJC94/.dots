@@ -65,7 +65,7 @@ set signcolumn=yes     " Set sign column
 set completeopt=menu,menuone,noinsert,noselect  " Autocomplete options
 set wildmenu
 set wildmode=list:longest,full  " Show tab autocomplete options as menu
-set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set laststatus=2  " Show status line mode
 set showcmd       " Show command in bottom right
 set cmdheight=1   " Set height of command window
@@ -88,3 +88,10 @@ if executable('rg')
   set grepprg=rg\ --vimgrep\ --smart-case
   set grepformat=%f:%l:%c:%m
 endif
+
+" Git status in statusline
+if has_key(get(g:, 'plugs', {}), 'vim-fugitive') == 1
+  set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+endif
+
+
