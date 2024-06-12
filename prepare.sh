@@ -1,3 +1,8 @@
+
+# Save keybinds:
+# dconf dump / | sed -n '/\[org.gnome.desktop.wm.keybindings/,/^$/p' > .keybindings.ini
+dconf load / < ~/.keybindings.ini
+
 sudo apt-get update
 
 # General tools
