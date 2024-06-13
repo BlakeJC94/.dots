@@ -37,20 +37,9 @@ source $HOME/.bash/modules/tab_cycle.sh
 # Run twolfson/sexy-bash-prompt
 [ -f ~/.bash_prompt ] && source ~/.bash_prompt
 
-
-# TODO put into module
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 [ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
-[ -f ~/.bash/modules/rye.sh ] && source $HOME/.bash/modules/rye.sh
-[ -f ~/.bash/modules/flatpak.sh ] && source $HOME/.bash/modules/flatpak.sh
-[ -f ~/.bash/modules/tmux.sh ] && source $HOME/.bash/modules/tmux.sh
-
-[ -f ~/.bash/modules/git.sh ] && source $HOME/.bash/modules/git.sh
 [ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
-[ -f ~/.bash/modules/pyright.sh ] && source $HOME/.bash/modules/pyright.sh
-
 [ -f ~/.bash/modules/fzf.sh ] && source $HOME/.bash/modules/fzf.sh
 [ -f ~/.bash/modules/fortune.sh ] && source $HOME/.bash/modules/fortune.sh
-
-[ -f ~/.bash_profile_work.sh ] && source ~/.bash_profile_work.sh
