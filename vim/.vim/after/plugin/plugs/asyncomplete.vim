@@ -13,14 +13,14 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
-autocmd User asyncomplete_setup call asyncomplete#register_source(
+call asyncomplete#register_source(
   \ asyncomplete#sources#unicodesymbol#get_source_options({
   \   'name': 'unicodesymbol',
   \   'whitelist': ['julia'],
   \   'completor': function('asyncomplete#sources#unicodesymbol#completor'),
   \ }))
 
-autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
     \ 'name': 'buffer',
     \ 'allowlist': ['*'],
     \ 'blocklist': ['go'],
@@ -30,7 +30,7 @@ autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#s
     \  },
     \ }))
 
-autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
     \ 'name': 'file',
     \ 'allowlist': ['*'],
     \ 'priority': 10,
