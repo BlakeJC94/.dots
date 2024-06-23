@@ -18,12 +18,12 @@ let g:ale_use_neovim_diagnostics_api = 0
 highlight link ALEErrorSign SpellBad
 highlight link ALEWarningSign SpellCap
 
-nnoremap ]d <cmd>ALENextWrap<cr>
-nnoremap [d <cmd>ALEPreviousWrap<cr>
-nnoremap ]D <cmd>ALEFirst<cr>
-nnoremap [D <cmd>ALELast<cr>
+nnoremap ]e <cmd>ALENextWrap<cr>
+nnoremap [e <cmd>ALEPreviousWrap<cr>
+nnoremap ]E <cmd>ALEFirst<cr>
+nnoremap [E <cmd>ALELast<cr>
 
-nnoremap <Leader>L <cmd>ALEPopulateLocList<cr>
+nnoremap <Leader>E <cmd>ALEPopulateLocList<cr>
 nnoremap <Leader>= <cmd>ALEFix<cr>
 
 augroup ale_help

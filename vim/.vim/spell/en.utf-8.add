@@ -199,3 +199,6 @@ baz
 str
 fp
 coords
+cuda
+txt
+utf
