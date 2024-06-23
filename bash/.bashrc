@@ -43,3 +43,5 @@ source $HOME/.bash/modules/tab_cycle.sh
 [ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
 [ -f ~/.bash/modules/fzf.sh ] && source $HOME/.bash/modules/fzf.sh
 [ -f ~/.bash/modules/fortune.sh ] && source $HOME/.bash/modules/fortune.sh
+
+[ -f ~/.bash_profile_work.sh ] && source $HOME/.bash_profile_work.sh
