@@ -3,7 +3,7 @@ bash link.sh
 
 # Save keybinds:
 # dconf dump / | sed -n '/\[org.gnome.desktop.wm.keybindings/,/^$/p' > .keybindings.ini
-dconf load / < ~/.keybindings.ini
+# dconf load / < ~/.keybindings.ini
 
 # brew (interactive sudo)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
