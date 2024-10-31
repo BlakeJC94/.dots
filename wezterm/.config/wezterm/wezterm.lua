@@ -14,9 +14,11 @@ local palette = {
     highlight_high = '#524f67',
 }
 
+local is_mac = ((io.popen('uname -s','r'):read('*l')):lower()):match("darwin")
+
 return {
     font = wezterm.font("JetBrains Mono"),
-    font_size = 14,
+    font_size = 18,
     -- colors = {
     --     foreground = palette.text,
     --     background = palette.base,
@@ -67,12 +69,13 @@ return {
         brights = { "#928374", "#fb4934", "#b8bb26", "#fabc2f", "#83a598", "#d3849b", "#8ec07c", "#ebdbb2" },
     },
     enable_tab_bar = false,
-    window_decorations = "RESIZE",
+    -- window_decorations = "RESIZE",
     window_close_confirmation = "NeverPrompt",
-    skip_close_confirmation_for_processes_named = { "bash" },
+    skip_close_confirmation_for_processes_named = { "bash", "zsh" },
     audible_bell = "Disabled",
     disable_default_key_bindings = true,
     keys = {
+        { key = "q", mods = "CTRL|SHIFT", action = wezterm.action.CloseCurrentTab { confirm = false } },
         { key = "n", mods = "CTRL|SHIFT", action = wezterm.action.SpawnWindow },
         { key = "c", mods = "CTRL|SHIFT", action = { CopyTo = "Clipboard" } },
         { key = "v", mods = "CTRL|SHIFT", action = { PasteFrom = "Clipboard" } },
@@ -81,7 +84,7 @@ return {
         { key = "0", mods = "CTRL|SHIFT", action = wezterm.action.ResetFontSize },
         { key = "f", mods = "CTRL|SHIFT", action = wezterm.action.ToggleFullScreen },
     },
-    term = "wezterm",
+    -- term = "wezterm",
     warn_about_missing_glyphs = false,
     hide_mouse_cursor_when_typing = false,
 }
