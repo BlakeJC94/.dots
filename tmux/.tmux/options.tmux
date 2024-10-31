@@ -6,6 +6,8 @@ set -g default-terminal "xterm-256color"
 set -as terminal-features ",gnome*:RGB"
 #set -as terminal-overrides ",gnome*:Tc"
 set -ag terminal-overrides ",xterm-256color:Tc"
+set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
+set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colors
 # tmux colors
 
 # Free up index 0 to move tabs to front
@@ -21,7 +23,7 @@ set -g focus-events on
 
 # Use login shell (sources bashrc)
 #set-option -g default-shell "/usr/bin/env bash"
-set-option -g default-command bash
+# set-option -g default-command bash
 
 # Mouse stuff
 set -g mouse off
