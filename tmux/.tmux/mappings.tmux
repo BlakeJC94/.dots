@@ -9,7 +9,9 @@ bind z send-keys C-z
 bind Space copy-mode
 bind -T copy-mode-vi i send -X cancel
 bind -T copy-mode-vi v send -X begin-selection
-bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
+if-shell "uname | grep -q Darwin" "bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'pbcopy'" "bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -in -selection clipboard'"
+# bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
+# bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'pbcopy'
 
 # Goto last pane <C-z><C-z>
 bind C-z select-pane -l
