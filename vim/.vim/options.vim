@@ -1,5 +1,10 @@
 "" MAIN INPUT/OUTPUT
-set clipboard=unnamedplus  " Allows vim to use "+ for yanks, puts, and deletes
+" Allows vim to use "+ for yanks, puts, and deletes
+if system('uname') =~ "Darwin"
+  set clipboard=unnamed
+else
+  set clipboard=unnamedplus
+endif
 set notimeout              " Allow timing out halfway into a mapping
 set ttimeoutlen=10         " Length of time for timing out on keycodes
 set virtualedit=block      " Cursor freedom ('all', 'block', 'insert')
