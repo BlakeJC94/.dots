@@ -132,7 +132,14 @@ venv_prefix() {
 }
 
 venv_subshell() {
-    bash --init-file <(echo "source ${1}/bin/activate; export ENVY=1" | cat ~/.bashrc -) -i
+    if [[ "$SHELL" == */bash ]]; then
+        bash --init-file <(echo "source ${1}/bin/activate; export ENVY=1" | cat ~/.bashrc -) -i
+    elif [[ "$SHELL" == */zsh ]]; then
+        zsh -i -c "source ${1}/bin/activate; export ENVY=1; exec zsh"
+    else
+        echo "Only supports bash and zsh"
+        exit 1
+    fi
 }
 
 dir_depth() {
