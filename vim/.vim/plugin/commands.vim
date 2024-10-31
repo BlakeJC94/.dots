@@ -10,3 +10,4 @@ command! -nargs=* -complete=file_in_path Grep cexpr system(&grepprg . ' ' . expa
 command! -nargs=* -complete=file_in_path Rg cexpr system(&grepprg . ' ' . expand(<q-args>))
 
 command! -nargs=* Note exec '<mods> silent split ' . functions#StartNote(<q-args>) | exec 'lcd ' . expand("%:p:h") | echo expand("%:p")
+command! -nargs=* Notes exec '<mods> silent split ~/Workspace/repos/field-notes/notes' | exec 'silent lcd ' . expand("%:p:h")
