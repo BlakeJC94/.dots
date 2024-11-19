@@ -49,6 +49,10 @@ alias q="exit"
 alias G="git"
 alias Git="git"
 
+[ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
+[ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
+[ -f ~/.bash/modules/fzf.sh ] && source $HOME/.bash/modules/fzf.sh
+[ -f ~/.bash/modules/fortune.sh ] && source $HOME/.bash/modules/fortune.sh
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/blake/.google-cloud-sdk/path.zsh.inc' ]; then . '/Users/blake/.google-cloud-sdk/path.zsh.inc'; fi
