@@ -3,6 +3,7 @@
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export DISABLE_MAGIC_FUNCTIONS=true
 
 if [ -d "${ZSH}" ]; then
     source $HOME/.zsh/oh_my_zsh.zsh
