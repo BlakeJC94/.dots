@@ -69,10 +69,10 @@ Plug 'https://github.com/machakann/vim-lsp-julia'
 Plug 'https://github.com/dense-analysis/ale'
 " Syntax files
 Plug 'https://github.com/sheerun/vim-polyglot'
+" Better markdown support
+"Plug 'https://github.com/preservim/vim-markdown'
 " Easily align selection (`:Tabularize /<char>`)
 Plug 'https://github.com/godlygeek/tabular'
-" Better markdown support
-Plug 'https://github.com/preservim/vim-markdown'
 " Pytest compiler option
 Plug 'https://github.com/5long/pytest-vim-compiler'
 
