@@ -9,6 +9,8 @@ let g:ale_linters = {
       \}
 let g:ale_fixers = {
       \'python': ['ruff_format', 'isort'],
+      \'htmldjango': ['html-beautify'],
+      \'html': ['html-beautify'],
       \}
 let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_use_neovim_diagnostics_api = 0
