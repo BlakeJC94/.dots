@@ -8,7 +8,7 @@ let g:ale_linters = {
       \'julia': ['languageserver'],
       \}
 let g:ale_fixers = {
-      \'python': ['ruff_format', 'isort'],
+      \'python': ['ruff_format', 'ruff'],
       \'htmldjango': ['html-beautify'],
       \'html': ['html-beautify'],
       \}

@@ -61,4 +61,5 @@ if [ -f '/Users/blake/.google-cloud-sdk/path.zsh.inc' ]; then . '/Users/blake/.g
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/blake/.google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/blake/.google-cloud-sdk/completion.zsh.inc'; fi
 
-command -v montuflow > /dev/null && eval `montuflow -- --completion`
+command -v montuflow > /dev/null && source <(montuflow -- --completion)
+command -v uv > /dev/null && source <(uv --generate-shell-completion zsh)
