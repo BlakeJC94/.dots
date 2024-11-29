@@ -49,6 +49,10 @@ inoremap <F1> <nop>
 " Operation for */# in visual mode
 xnoremap * :<C-u>call functions#VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call functions#VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+" C-q : Code fence
+inoremap <C-q> <cmd>exec 'norm! i```<C-o>O```<Space>' \| startinsert<CR>
+" C-v : Code block
+inoremap <C-v> <cmd>exec 'norm! i%%<C-o><Plug>CommentaryLine<C-o>A ' \| startinsert<CR>
 " Use unused arrow keys
 nmap <Left> [
 nmap <Right> ]

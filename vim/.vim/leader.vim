@@ -1,9 +1,5 @@
 let mapleader = "\<Space>"
 
-" Macros
-nnoremap <Leader>` <cmd>exec 'norm! i```<C-o>O```' \| startinsert<CR>
-nnoremap <Leader>% <cmd>exec 'norm! i%%<C-o><Plug>CommentaryLine<C-o>A ' \| startinsert<CR>
-
 " Find/Grep/Make
 nnoremap <special> <Leader><CR> :Fd ''<Left>
 nnoremap <Leader>G <cmd>Grep <cword> . <cr>
