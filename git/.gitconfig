@@ -3,6 +3,9 @@
     email = blakejamescook@gmail.com
     username = BlakeJC94
 
+[includeIf "gitdir:~/Workspace/repos/work/"]
+    path = ~/.gitconfig-montu
+
 ; TODO Put more involved aliases into scripts
 [alias]
     pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
