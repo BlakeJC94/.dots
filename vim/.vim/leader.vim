@@ -1,10 +1,7 @@
 let mapleader = "\<Space>"
 
-" Find/Grep/Make
+" Fd
 nnoremap <special> <Leader><CR> :Fd ''<Left>
-nnoremap <Leader>G <cmd>Grep <cword> . <cr>
-nnoremap <special> <Leader>g :Grep ''<Left>
-nnoremap <Leader>m <cmd>Make -k %:p:t:r<CR>
 
 " Windows and dirs
 nnoremap <Leader><Tab> <C-^>

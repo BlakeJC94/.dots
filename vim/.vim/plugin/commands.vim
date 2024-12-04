@@ -7,7 +7,6 @@ command! -nargs=* Cexpr cexpr system(expand(<q-args>))
 command! -nargs=* Fd cexpr system('fd ' . expand(<q-args>))
 command! -nargs=* Find cexpr system('fd ' . expand(<q-args>))
 command! -nargs=* -complete=file_in_path Grep cexpr system(&grepprg . ' ' . expand(<q-args>))
-command! -nargs=* -complete=file_in_path Rg cexpr system(&grepprg . ' ' . expand(<q-args>))
 
 command! -nargs=* Note exec '<mods> silent split ' . functions#StartNote(<q-args>) | exec 'lcd ' . expand("%:p:h") | echo expand("%:p")
 command! -nargs=* Notes exec '<mods> silent split ~/Workspace/repos/field-notes/notes' | exec 'silent lcd ' . expand("%:p:h")
