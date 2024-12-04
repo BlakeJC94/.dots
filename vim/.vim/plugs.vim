@@ -36,11 +36,19 @@ Plug 'https://github.com/kana/vim-textobj-user'
 Plug 'https://github.com/Julian/vim-textobj-variable-segment'
 " Entire buffer textobj
 Plug 'https://github.com/kana/vim-textobj-entire'
+" Easily align selection (`:Tabularize /<char>`)
+Plug 'https://github.com/godlygeek/tabular'
+" Test
+Plug 'https://github.com/vim-test/vim-test'
 
 "" INTERFACE
 " Fzf <3 Vim
 Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
+" Ripgrep
+Plug 'https://github.com/jremmen/vim-ripgrep'
+" Edit quickfix items in quickfix list
+Plug 'https://github.com/stefandtw/quickfix-reflector.vim'
 " Gitsigns in signcolumn (and diff hunks popups `<Leader>C`)
 Plug 'https://github.com/mhinz/vim-signify'
 " Send lines to tmux (`<C-c><C-c>`)
@@ -48,6 +56,8 @@ Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/klafyvel/vim-slime-cells'
 " Show undotree (`:UndotreeToggle` or `<Leader>u`)
 Plug 'https://github.com/mbbill/undotree'
+" AI plugin
+Plug 'https://github.com/madox2/vim-ai'
 
 "" COMPLETION
 " Autocomplete
@@ -69,10 +79,6 @@ Plug 'https://github.com/machakann/vim-lsp-julia'
 Plug 'https://github.com/dense-analysis/ale'
 " Syntax files
 Plug 'https://github.com/sheerun/vim-polyglot'
-" AI plugin
-Plug 'https://github.com/madox2/vim-ai'
-" Easily align selection (`:Tabularize /<char>`)
-Plug 'https://github.com/godlygeek/tabular'
 " Pytest compiler option
 Plug 'https://github.com/5long/pytest-vim-compiler'
 
@@ -85,3 +91,7 @@ Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'https://github.com/machakann/vim-highlightedyank'
 
 call plug#end()
+
+
+
+let g:rg_command = 'rg --vimgrep --hidden'
