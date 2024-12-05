@@ -40,6 +40,8 @@ Plug 'https://github.com/kana/vim-textobj-entire'
 Plug 'https://github.com/godlygeek/tabular'
 " Test
 Plug 'https://github.com/vim-test/vim-test'
+" docs
+Plug 'https://github.com/romainl/vim-devdocs'
 
 "" INTERFACE
 " Fzf <3 Vim
