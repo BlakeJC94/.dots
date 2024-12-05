@@ -1,5 +1,5 @@
 let s:vim_ai_endpoint_url = "http://localhost:11434/v1/chat/completions"
-let s:vim_ai_model = "llama3.2"
+let s:vim_ai_model = "qwen2.5-coder:14b"
 let s:vim_ai_temperature = 0.3
 
 let s:vim_ai_chat_config = #{
@@ -38,5 +38,9 @@ let g:vim_ai_chat = s:vim_ai_chat_config
 let g:vim_ai_complete = s:vim_ai_edit_config
 let g:vim_ai_edit = s:vim_ai_edit_config
 
-
-
+" complete text on the current line or in visual selection
+nnoremap <leader>a :AI<CR>
+xnoremap <leader>a :AI<CR>
+" trigger chat
+xnoremap <leader>A :AIChat<CR>
+nnoremap <leader>A :AIChat<CR>

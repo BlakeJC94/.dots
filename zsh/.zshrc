@@ -59,6 +59,10 @@ alias q="exit"
 alias G="git"
 alias Git="git"
 
+mcdir () { mkdir "$1" && cd "$_" }
+joke () { curl https://icanhazdadjoke.com/; echo "" }
+shitcommit () { curl https:///whatthecommit.com/index.txt; echo "" }
+
 [ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
 [ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
 [ -f ~/.bash/modules/fzf.sh ] && source $HOME/.bash/modules/fzf.sh

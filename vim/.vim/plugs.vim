@@ -51,6 +51,9 @@ Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/stefandtw/quickfix-reflector.vim'
 " Gitsigns in signcolumn (and diff hunks popups `<Leader>C`)
 Plug 'https://github.com/mhinz/vim-signify'
+" Fugitive enhancements
+Plug 'https://github.com/sodapopcan/vim-twiggy'
+Plug 'https://github.com/junegunn/gv.vim'
 " Send lines to tmux (`<C-c><C-c>`)
 Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/klafyvel/vim-slime-cells'
@@ -91,7 +94,3 @@ Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'https://github.com/machakann/vim-highlightedyank'
 
 call plug#end()
-
-
-
-let g:rg_command = 'rg --vimgrep --hidden'

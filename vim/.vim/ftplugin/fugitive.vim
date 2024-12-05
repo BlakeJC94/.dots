@@ -5,5 +5,8 @@ nnoremap <buffer> q <cmd>q<CR>
 nnoremap <buffer> p :Git pull
 nnoremap <buffer> P :Git push
 
+" <Tab> to explore branches
+nnoremap <buffer> <tab> <cmd>Twiggy<CR>
+
 " Fugitive buffers as scratch buffers
 call functions#SetScratchBuffer()
