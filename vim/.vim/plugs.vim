@@ -86,6 +86,8 @@ Plug 'https://github.com/dense-analysis/ale'
 Plug 'https://github.com/sheerun/vim-polyglot'
 " Pytest compiler option
 Plug 'https://github.com/5long/pytest-vim-compiler'
+" Sync spellfiles
+Plug 'https://github.com/micarmst/vim-spellsync'
 
 "" STYLE
 " Colorscheme
