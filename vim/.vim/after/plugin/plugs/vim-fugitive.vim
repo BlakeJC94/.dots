@@ -26,8 +26,6 @@ endfunction
 augroup config_vim_fugitive
   au!
   " Auto-refresh status
-  au BufWritePre,FileWritePre * call fugitive#ReloadStatus()
-  " Autostart insert mode when committing
-  au BufEnter COMMIT_EDITMSG startinsert
+  au WinEnter,BufWritePre,FileWritePre * call fugitive#ReloadStatus()
 augroup END
 
