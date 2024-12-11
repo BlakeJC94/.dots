@@ -1,5 +1,5 @@
 inoreabbrev <buffer> BB BREAKING CHANGE:
-nnoremap    <silent> <buffer> <CR>  <sid>commit_type()<CR>
+nnoremap    <silent> <buffer> <CR>  i<C-r>=<sid>commit_type()<CR>
 
 fun! s:commit_type()
   if !(line('.') ==# 1 && col('.') ==# 1)

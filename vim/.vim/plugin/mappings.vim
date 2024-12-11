@@ -42,6 +42,13 @@ vnoremap P "_dP
 " C-s : Quickly guess correct spelling errors (undoable)
 inoremap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u
 nnoremap <C-s> i<C-g>u<Esc>[s1z=`]
+" Opposite of J
+nnoremap gJ :<C-u>call functions#BreakHere()<CR>
+" Sort motion
+nmap <silent> gS :set opfunc=functions#Sort<CR>g@
+vmap <silent> gS :sort<CR>
+" <C-w><Space>: Terminal normal mode
+tnoremap <C-w><Space> <C-w>N
 " Expand `%%` as current filename in command mode
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " Stop accidentally opening help in insert mode
