@@ -8,8 +8,5 @@ nnoremap <buffer> P :Git push
 " <Tab> to explore branches
 nnoremap <buffer> <tab> <cmd>Twiggy<CR>
 
-" CC to fire up commitizen
-nnoremap <buffer> CC :term ++close cz commit<CR>
-
 " Fugitive buffers as scratch buffers
 call functions#SetScratchBuffer()
