@@ -18,10 +18,13 @@ function ColorMyGruvbox()
     hi link CellBoundary SpecialComment
     hi link pythonSpaceError Normal
     hi Folded guibg=#282828
+    hi link MessageWindow GruvboxFg0
     hi clear StatusLineTerm
     hi clear StatusLineTermNC
     hi link StatusLineTerm StatusLine
     hi link StatusLineTermNC StatusLineNC
+
 endfunction
 
-autocmd VimEnter * call ColorMyGruvbox()
+call ColorMyGruvbox()
+autocmd ColorScheme gruvbox call ColorMyGruvbox()
