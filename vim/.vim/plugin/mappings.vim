@@ -3,9 +3,9 @@ nnoremap Y y$
 " Better jumplist for large line steps (and step through visual lines with j/k)
 nnoremap <expr> j (v:count > 5 ? 'm`' . v:count : 'g') . 'j'
 nnoremap <expr> k (v:count > 5 ? 'm`' . v:count : 'g') . 'k'
-" gV: Visually select last pasted block (like gv)
+"> gV: Visually select last pasted block (like gv)
 nnoremap gV `[v`]
-" gF: create new file at filename over cursor
+"> gF: create new file at filename over cursor
 nnoremap gF :e <c-r><c-f><CR>
 " J doesn't move cursor
 nnoremap J mzJ`z

@@ -54,7 +54,7 @@ Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/stefandtw/quickfix-reflector.vim'
 "> Popup hunk diffs with `<Leader>C`
 Plug 'https://github.com/mhinz/vim-signify'
-"> Use Twiggy to manage branches in Fugitive with `<Leader>b`
+"> Use Twiggy to manage branches in Fugitive with `<Tab>` in status window
 Plug 'https://github.com/sodapopcan/vim-twiggy'
 "> Show commit hist with `:GV`, show current file history with `:GV!`
 Plug 'https://github.com/junegunn/gv.vim'

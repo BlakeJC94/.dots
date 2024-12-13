@@ -8,4 +8,10 @@ function! ScratchMain()
   echo val
 endfunction
 
+autocmd Filetype markdown,liquid,text
+            \ syn region markdownLink matchgroup=markdownLinkDelimiter
+            \ start="(" end=")" keepend contained conceal contains=markdownUrl
+autocmd Filetype markdown,liquid,text
+            \ syn match markdownExt /{[.:#][^}]*}/ conceal contains=ALL
+
 command ScratchMain :call ScratchMain()

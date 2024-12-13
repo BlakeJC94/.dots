@@ -1,0 +1,7 @@
+model: ollama:qwen2.5-coder:14b
+stream: false
+clients:
+  - type: openai-compatible
+    name: ollama
+    api_base: http://localhost:11434/v1
+    api_key: null

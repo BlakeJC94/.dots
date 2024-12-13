@@ -172,5 +172,4 @@ function! functions#RandomVimdirTip()
 
   let l:random_index = rand() % (len(l:result))
   return l:result[l:random_index]
-
 endfunction
