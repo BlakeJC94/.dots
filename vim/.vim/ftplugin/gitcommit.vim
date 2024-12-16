@@ -1,6 +1,7 @@
 inoreabbrev <buffer> BB BREAKING CHANGE:
 nnoremap    <silent> <buffer> <CR>  i<C-r>=<sid>commit_type()<CR>
 
+" git diff-tree -r HEAD --no-commit-id --numstat | sed 's/{.*=> \(.*\)}/\1/' | awk '{print $1+$2,"\t",$3}' | sort -k1nr | head -1 | cut -f 2 | sed -E 's/^[[:blank:]]*//'
 fun! s:commit_type()
   if !(line('.') ==# 1 && col('.') ==# 1)
     return ''
