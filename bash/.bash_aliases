@@ -24,7 +24,3 @@ alias Git="git"
 # More aliases
 alias setclip="xclip -selection c"
 alias getclip="xclip -selection c -o"
-
-mcdir () { mkdir "$1" && cd "$_" }
-
-pip-recompile () { for i; do [[ "$i" == "requirements"*".txt" ]] && echo "==> Compiling $i" && grep "^#\s\{4\}pip-compile" "$i" | sed 's/#\s\+//' | bash; done; }
