@@ -25,6 +25,7 @@ call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options
     \ 'allowlist': ['*'],
     \ 'blocklist': ['go'],
     \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ 'events': ['TextChanged','InsertLeave','BufWinEnter','BufWritePost'],
     \ 'config': {
     \    'max_buffer_size': 5000000,
     \  },
