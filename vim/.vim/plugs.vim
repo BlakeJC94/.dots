@@ -19,7 +19,6 @@ call plug#begin(expand(dir . '/plugged'))
 Plug 'https://github.com/tpope/vim-sensible'    " Sane defaults
 Plug 'https://github.com/tpope/vim-rsi'         " Readline shortcuts for insert mode
 Plug 'https://github.com/tpope/vim-eunuch'      " Unix commands
-Plug 'https://github.com/tpope/vim-vinegar'     " Better netrw
 Plug 'https://github.com/tpope/vim-repeat'      " Better dot-repeat action
 Plug 'https://github.com/tpope/vim-surround'    " Surrounds (`cs<ch><ch>`, `ys<motion><char>`) <>
 Plug 'https://github.com/tpope/vim-commentary'  " Toggle comments (`gc<motion>`) <>
@@ -52,11 +51,14 @@ Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/jremmen/vim-ripgrep'
 " Edit quickfix items in quickfix list with `quickfix-reflector` <>
 Plug 'https://github.com/stefandtw/quickfix-reflector.vim'
+" Better filesystem navigation
+Plug 'https://github.com/justinmk/vim-dirvish'
+Plug 'https://github.com/bounceme/remote-viewer'
 " Popup hunk diffs with `<Leader>C` <>
 Plug 'https://github.com/mhinz/vim-signify'
 " Use <CR> in the commit window for conventional commits <>
-" Plug 'https://github.com/BlakeJC94/vim-convict'
-Plug '~/Workspace/repos/vim-convict'
+Plug 'https://github.com/BlakeJC94/vim-convict'
+" Plug '~/Workspace/repos/vim-convict'
 " Use Twiggy to manage branches in Fugitive with `<Tab>` in status window <>
 Plug 'https://github.com/sodapopcan/vim-twiggy'
 " Show commit hist with `:GV`, show current file history with `:GV!` <>
@@ -70,6 +72,8 @@ Plug 'https://github.com/BlakeJC94/vim-slime-cells', {'branch': 'fix-terminal-mo
 Plug 'https://github.com/mbbill/undotree'
 " AI plugin (`<Leader>A` or `:AI [prompt]`) <>
 Plug 'https://github.com/madox2/vim-ai'
+" Disable highlighting after search automatically
+Plug 'https://github.com/romainl/vim-cool'
 
 "" COMPLETION
 " Autocomplete

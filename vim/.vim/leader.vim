@@ -13,6 +13,9 @@ nnoremap <Leader>; <cmd>edit ~/.vim/vimrc <bar> lcd %:p:h<CR>
 nnoremap <Leader>w <C-w>
 nnoremap <Leader>ww <C-w><C-w>
 
+" Buffers
+nnoremap <Leader>b :ls<CR>:b<Space>
+
 " Notes
 nnoremap <Leader>n <cmd>Note<CR>
 nnoremap <Leader>N <cmd>split \| edit ~/Workspace/repos/field-notes/notes \| lcd %:p:h<CR>
