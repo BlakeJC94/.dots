@@ -148,28 +148,3 @@ endfunction
 function! functions#Sort(type, ...)
     '[,']sort
 endfunction
-
-
-function! functions#RandomVimdirTip()
-  let l:pat = '\">\\s*'
-  let l:result = []
-
-  let l:filepaths = [expand("$MYVIMRC")]
-  for globpat in [ '$MYVIMDIR/*.vim', '$MYVIMDIR/plugin/**/*.vim', '$MYVIMDIR/ftplugin/**/*.vim', '$MYVIMDIR/after/**/*.vim']
-    let l:filepaths = l:filepaths + glob(globpat, 1, 1)
-  endfor
-
-  for filepath in l:filepaths
-    if filereadable(filepath)
-      let l:lines = readfile(filepath)
-      let l:result = l:result + map(filter(l:lines, 'v:val =~# "' . l:pat . '"'), 'substitute(v:val, "^.*' . l:pat . '", "", "")')
-    endif
-  endfor
-
-  if empty(l:result)
-    return ''
-  endif
-
-  let l:random_index = rand() % (len(l:result))
-  return l:result[l:random_index]
-endfunction

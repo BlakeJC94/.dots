@@ -3,13 +3,13 @@ nnoremap Y y$
 " Better jumplist for large line steps (and step through visual lines with j/k)
 nnoremap <expr> j (v:count > 5 ? 'm`' . v:count : 'g') . 'j'
 nnoremap <expr> k (v:count > 5 ? 'm`' . v:count : 'g') . 'k'
-"> gV: Visually select last pasted block (like gv)
+" gV: Visually select last pasted block (like gv)
 nnoremap gV `[v`]
-"> gF: create new file at filename over cursor
+" gF: create new file at filename over cursor
 nnoremap gF :e <c-r><c-f><CR>
 " J doesn't move cursor
 nnoremap J mzJ`z
-" S splits line at cursor
+" S splits line at cursor <>
 nnoremap S i<CR><Esc>k:sil! keepp s/\\v +$//<CR>:noh<CR>==j^
 " Make {/} don't change the jumplist
 nnoremap { :<C-u>keepjumps norm! {<CR>
@@ -30,22 +30,23 @@ nnoremap N Nzv
 " Remap q and Q to stop polluting registers accidentally!
 nnoremap q gw
 nnoremap Q q
+" <Tab> : Jump to open/close bracket in normal mode
+nnoremap <Tab> %
 " Better opening of URLs and files
 nnoremap gx <cmd>silent execute 'Start open ' . shellescape(expand('<cfile>'), 1)<CR>
 " Maintain Visual Mode after >/</= actions
 vnoremap < <gv
-vnoremap > >gv
 vnoremap = =gv
+vnoremap > >gv
 " Swap p and P to stop losing register contents by pasting over
 vnoremap p "_dp
 vnoremap P "_dP
 " C-s : Quickly guess correct spelling errors (undoable)
 inoremap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u
 nnoremap <C-s> i<C-g>u<Esc>[s1z=`]
-" Opposite of J
-nnoremap gJ :<C-u>call functions#BreakHere()<CR>
-" Sort motion
+" gS : Sort motion in normal mode <>
 nmap <silent> gS :set opfunc=functions#Sort<CR>g@
+" gS : Sort action in visual mode <>
 vmap <silent> gS :sort<CR>
 " <C-w><Space>: Terminal normal mode
 tnoremap <C-w><Space> <C-w>N
@@ -56,9 +57,9 @@ inoremap <F1> <nop>
 " Operation for */# in visual mode
 xnoremap * :<C-u>call functions#VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call functions#VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
-" C-q : Code fence
+" C-q : Code fence in insert mode <>
 inoremap <C-q> <cmd>exec 'norm! i```<C-o>O```<Space>' \| startinsert<CR>
-" C-v : Code block
+" C-v : Code block in insert mode <>
 inoremap <C-v> <cmd>exec 'norm! i%%<C-o><Plug>CommentaryLine<C-o>A ' \| startinsert<CR>
 " Use unused arrow keys
 nmap <Left> [

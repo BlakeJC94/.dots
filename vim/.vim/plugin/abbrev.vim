@@ -17,8 +17,8 @@ cnoreabbrev <expr> git (getcmdtype() ==# ':' && getcmdline() ==# 'git') ? 'Git' 
 cnoreabbrev <expr> rg (getcmdtype() ==# ':' && getcmdline() ==# 'rg') ? 'Rg' : 'rg'
 cnoreabbrev <expr> find (getcmdtype() ==# ':' && getcmdline() ==# 'find') ? 'Find' : 'find'
 
-iabbrev <expr> ,d strftime('%Y-%m-%d')
-iabbrev <expr> ,t strftime('%Y-%m-%dT%T%z')[:21] . ':00'
+iabbrev <expr> @@d strftime('%Y-%m-%d')
+iabbrev <expr> @@t strftime('%Y-%m-%dT%T%z')[:21] . ':00'
 inoreabbrev <expr> ,u system('uuidgen')->trim()->tolower()
 
 inoreabbrev rbm # TODO: remove before merging
