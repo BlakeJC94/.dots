@@ -79,7 +79,7 @@ Plug 'https://github.com/romainl/vim-cool'
 " Autocomplete
 Plug 'https://github.com/prabirshrestha/asyncomplete.vim'
 Plug 'https://github.com/prabirshrestha/asyncomplete-lsp.vim'
-Plug 'https://github.com/prabirshrestha/asyncomplete-buffer.vim'
+Plug 'https://github.com/prabirshrestha/asyncomplete-buffer.vim', {'commit': 'b8f00ea'}
 Plug 'https://github.com/prabirshrestha/asyncomplete-file.vim'
 Plug 'https://github.com/machakann/asyncomplete-unicodesymbol.vim'
 " Tab completion

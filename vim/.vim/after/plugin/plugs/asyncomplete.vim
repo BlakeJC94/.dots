@@ -13,25 +13,30 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
-call asyncomplete#register_source(
+autocmd User asyncomplete_setup call asyncomplete#register_source(
   \ asyncomplete#sources#unicodesymbol#get_source_options({
   \   'name': 'unicodesymbol',
   \   'whitelist': ['julia'],
   \   'completor': function('asyncomplete#sources#unicodesymbol#completor'),
   \ }))
 
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
     \ 'name': 'buffer',
     \ 'allowlist': ['*'],
-    \ 'blocklist': ['go'],
+    \ 'blocklist': [],
     \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ 'events': ['TextChanged','InsertLeave','BufWinEnter','BufWritePost'],
     \ 'config': {
     \    'max_buffer_size': 5000000,
     \  },
     \ }))
 
-call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+function! s:fix_buffer_complete() abort
+    let l:info = asyncomplete#get_source_info('buffer')
+    call l:info.on_event(l:info, {}, 'BufWinEnter')
+endfunction
+autocmd User asyncomplete_setup call s:fix_buffer_complete()
+
+autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
     \ 'name': 'file',
     \ 'allowlist': ['*'],
     \ 'priority': 10,
