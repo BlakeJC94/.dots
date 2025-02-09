@@ -30,8 +30,6 @@ nnoremap N Nzv
 " Remap q and Q to stop polluting registers accidentally!
 nnoremap q gw
 nnoremap Q q
-" <Tab> : Jump to open/close bracket in normal mode
-nnoremap <Tab> %
 " Better opening of URLs and files
 nnoremap gx <cmd>silent execute 'Start open ' . shellescape(expand('<cfile>'), 1)<CR>
 " Maintain Visual Mode after >/</= actions
