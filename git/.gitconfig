@@ -1,6 +1,6 @@
 [user]
     name = BlakeJC94
-    email = blakejamescook@gmail.com
+	email = blake.c@montu.com.au
     username = BlakeJC94
 
 [includeIf "gitdir:~/Workspace/repos/work/"]
