@@ -32,7 +32,7 @@ source $HOME/.bash/modules/tab_cycle.sh
 
 
 # Alias definitions.
-[ -f ~/.bash_aliases ] && source ~/.bash_aliases
+[ -f ~/.aliases.sh ] && source ~/.aliases.sh
 
 # Run twolfson/sexy-bash-prompt
 [ -f ~/.bash_prompt ] && source ~/.bash_prompt

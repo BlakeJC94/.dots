@@ -1,10 +1,6 @@
 "" MAIN INPUT/OUTPUT
-" Allows vim to use "+ for yanks, puts, and deletes
-if system('uname') =~ "Darwin"
-  set clipboard=unnamed
-else
-  set clipboard=unnamedplus
-endif
+" Allows vim to use system clipboard "+ for yanks, puts, and deletes
+exec 'set clipboard=unnamed' . (system('uname') =~ "Darwin" ? '' : 'plus')
 set notimeout              " Allow timing out halfway into a mapping
 set ttimeoutlen=10         " Length of time for timing out on keycodes
 set virtualedit=block      " Cursor freedom ('all', 'block', 'insert')
@@ -98,5 +94,3 @@ endif
 if has_key(get(g:, 'plugs', {}), 'vim-fugitive') == 1
   set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 endif
-
-

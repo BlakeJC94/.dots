@@ -45,23 +45,7 @@ export ARCHFLAGS="-arch $(uname -m)"
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
-# Quick cd command
-alias c='cd "$(find . -maxdepth 1 -type d | fzf)"'
-alias C='cd "$(find . -type d | fzf)"'
-# Quick project navigation command
-alias g='cd $(fd ".git$" ~/Workspace/repos -H -I -d 5 -x dirname {} \; | fzf)'
-# Tmux
-alias t='tmux'
-alias a='tmux a'
-alias d='tmux detach'
-# Muscle memory
-alias q="exit"
-alias G="git"
-alias Git="git"
-
-mcdir () { mkdir "$1" && cd "$_" }
-joke () { curl https://icanhazdadjoke.com/; echo "" }
-shitcommit () { curl https:///whatthecommit.com/index.txt; echo "" }
+[ -f ~/.aliases.sh ] && source ~/.aliases.sh
 
 [ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
 [ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
