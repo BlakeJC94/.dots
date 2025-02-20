@@ -20,3 +20,8 @@ augroup speed_up_syntax
   autocmd!
   autocmd BufWinEnter,Syntax * syn sync minlines=1000 maxlines=1000
 augroup END
+
+" augroup speed_up_syntax
+"   autocmd!
+"   autocmd BufReadPre * call exec 'setl listchars+=multispace:'.repeat('-', getbufvar('%', "&shiftwidth") - 1).'+'
+" augroup END

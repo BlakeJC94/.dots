@@ -7,9 +7,9 @@ alias cpuinfo='lscpu'
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 alias todo='rg -o --hidden --iglob "!.git" --iglob "!TODO.md" "TODO.*" > TODO.md'
 
-mcdir () { mkdir "$1" && cd "$_" }
-joke () { curl https://icanhazdadjoke.com/; echo "" }
-shitcommit () { curl https:///whatthecommit.com/index.txt; echo "" }
+# mcdir () { mkdir "$1" && cd "$_" }
+# joke () { curl https://icanhazdadjoke.com/; echo "" }
+# shitcommit () { curl https:///whatthecommit.com/index.txt; echo "" }
 
 
 # Quick cd command

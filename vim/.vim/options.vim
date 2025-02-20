@@ -31,19 +31,18 @@ set undofile    " Create global undofile
 exec 'set undodir=~/.' . (has('nvim') ? 'n' : '') . 'vim/undodir'
 
 "" WINDOW DISPLAY
-" set splitbelow       " Open splits below
-" set splitright       " Open vsplits on right
 set shortmess+=I     " Disable into message
 set shortmess-=S     " Show search matches count
 set guicursor=       " Cursor
 set background=dark  " Tell Vim what the background color should be
 set termguicolors    " Use gui colors in the terminal
 set errorformat+=%f  " Parse `find`/`fd` results in the quickfix list
+set list
 
 "" LINE DISPLAY
 set scrolloff=999           " N lines to keep visible above/below cursor
 set sidescrolloff=8         " N columns to keep visible left/right of cursor
-set textwidth=100           " Margin for text input
+set textwidth=80            " Margin for text input
 set showmatch               " Highlight matching brackets
 set nowrap                  " Soft-wrap long lines and use breakindent opts
 set linebreak               " Only split/wrap long lines after words

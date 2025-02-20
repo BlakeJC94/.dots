@@ -14,7 +14,7 @@ nnoremap <Leader>w <C-w>
 nnoremap <Leader>ww <C-w><C-w>
 
 " Buffers
-nnoremap <Leader>b :ls<CR>:b<Space>
+nnoremap <Leader>b :Buffers
 
 " Notes
 nnoremap <Leader>n <cmd>Note<CR>
