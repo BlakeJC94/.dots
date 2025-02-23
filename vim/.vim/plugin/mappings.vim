@@ -46,6 +46,9 @@ nnoremap <C-s> i<C-g>u<Esc>[s1z=`]
 nmap <silent> gS :set opfunc=functions#Sort<CR>g@
 " gS : Sort action in visual mode <>
 vmap <silent> gS :sort<CR>
+" gr: Reverse lines, selected or over motion. <>
+nnoremap <silent> gr :set opfunc=functions#ReverseLines<CR>g@
+vnoremap <silent> gr :<C-u>call functions#ReverseLines('vis')<CR>
 " <C-w><Space>: Terminal normal mode
 tnoremap <C-w><Space> <C-w>N
 " Expand `%%` as current filename in command mode
