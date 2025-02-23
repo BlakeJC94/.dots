@@ -9,6 +9,7 @@ set confirm                " Ask user about unsaved buffers instead of error
 set mouse=                 " Set mouse options
 set lazyredraw             " Only redraw on changes
 set updatetime=100         " Faster update times
+set path-=/usr/include
 
 "" TABS AND INDENTS
 set smartindent    " Enable better indenting
@@ -37,7 +38,8 @@ set guicursor=       " Cursor
 set background=dark  " Tell Vim what the background color should be
 set termguicolors    " Use gui colors in the terminal
 set errorformat+=%f  " Parse `find`/`fd` results in the quickfix list
-set list
+set nolist
+set ruler
 
 "" LINE DISPLAY
 set scrolloff=999           " N lines to keep visible above/below cursor

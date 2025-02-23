@@ -21,6 +21,9 @@ set -sg escape-time 20
 
 set -g focus-events on
 
+set -g set-titles on
+set -g set-titles-string "#T"
+
 # Use login shell (sources bashrc)
 #set-option -g default-shell "/usr/bin/env bash"
 # set-option -g default-command bash
