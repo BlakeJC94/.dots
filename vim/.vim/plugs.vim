@@ -48,7 +48,7 @@ Plug 'https://github.com/romainl/vim-devdocs'
 Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
 " Use Ripgrep with `:Rg <query>` <>
-Plug 'https://github.com/jremmen/vim-ripgrep'
+" Plug 'https://github.com/jremmen/vim-ripgrep'
 " Edit quickfix items in quickfix list with `quickfix-reflector` <>
 Plug 'https://github.com/stefandtw/quickfix-reflector.vim'
 " Better filesystem navigation
@@ -58,9 +58,6 @@ Plug 'https://github.com/bounceme/remote-viewer'
 Plug 'https://github.com/mhinz/vim-signify'
 " Use <CR> in the commit window for conventional commits <>
 Plug 'https://github.com/BlakeJC94/vim-convict'
-" Plug '~/Workspace/repos/vim-convict'
-" Use Twiggy to manage branches in Fugitive with `<Tab>` in status window <>
-Plug 'https://github.com/sodapopcan/vim-twiggy'
 " Show commit hist with `:GV`, show current file history with `:GV!` <>
 Plug 'https://github.com/junegunn/gv.vim'
 " Remember vim config with reminders

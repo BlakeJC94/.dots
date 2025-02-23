@@ -13,8 +13,6 @@ nnoremap <Leader>; <cmd>edit ~/.vim/vimrc <bar> lcd %:p:h<CR>
 nnoremap <Leader>w <C-w>
 nnoremap <Leader>ww <C-w><C-w>
 
-" Buffers
-nnoremap <Leader>b :Buffers
 
 " Notes
 nnoremap <Leader>n <cmd>Note<CR>
@@ -31,6 +29,10 @@ nnoremap <Leader>= <cmd>ALEFix<cr>
 nnoremap <Leader><BS> <cmd>Files<CR>
 nnoremap <Leader>fb <cmd>Buffers<CR>
 nnoremap <leader>fh <cmd>Helptags<CR>
+nnoremap <leader>fo <cmd>History<CR>
+nnoremap <leader>f/ <cmd>History/<CR>
+nnoremap <leader>f: <cmd>History:<CR>
+nnoremap <leader>fk <cmd>Maps<CR>
 
 " Undotree
 nnoremap <Leader>u <cmd>UndotreeToggle<CR>
