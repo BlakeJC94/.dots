@@ -7,6 +7,11 @@ endif
 nnoremap <Leader>c <cmd>call ToggleGstatus()<CR>
 vnoremap <leader>b :GBrowse!<CR>
 
+"" Commands
+command! GPush :Dispatch git push
+command! GPushup :Dispatch git pushup
+command! GPull :Dispatch git pull
+
 "" Functions
 function! ToggleGstatus() abort
     let l:foo = 0

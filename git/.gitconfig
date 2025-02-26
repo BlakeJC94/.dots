@@ -1,93 +1,44 @@
 [user]
     name = BlakeJC94
-	email = blake.c@montu.com.au
+    email = blake.c@montu.com.au
     username = BlakeJC94
 
 [includeIf "gitdir:~/Workspace/repos/work/"]
     path = ~/.gitconfig-montu
 
-; TODO Put more involved aliases into scripts
 [alias]
-    pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
-    pullup = "!git pull --set-upstream origin $(git symbolic-ref --short HEAD)"
-    primebranch = "!git symbolic-ref --short HEAD"
-    hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
-    clonetree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && git fetch origin && git worktree add $(git primebranch) && cd $(git primebranch) && git pullup' -
     st = "!git status -sb"
     cm = "!git commit -m"
     cma = "!git add . && git commit -m"
-    hub = "!gh"
+    dif = "!git diff --stat"
     lg = "!git log --oneline"
     lgs = "!git log --name-status --oneline"
-    sync = "!git add . && git commit -m \"sync by $(whoami) from $(hostname) at $(date)\" ; git push"
-    last = log -1 HEAD --stat
-    vim = "!nvim $(git diff --name-only)"
-    dif = "!git diff --stat"
+    hub = "!gh"
+    vim = "!vim $(git diff --name-only)"
     forget = "!git reset --hard HEAD"
-    review = "!git fetch && branch=$(git hub pr list | fzf | cut -f 3) && ! [ -z ${branch} ] && mkdir -p review && git worktree add --guess-remote review/${branch} ${branch}"
-    foo = "!foo=$1 && echo FOO ${foo} BAR ${foo} BAZ"
-    dev = !sh -c 'branch=$1 && ! [ -z ${branch} ] && git branch ${branch} && mkdir -p dev && git worktree add dev/${branch} ${branch}' -
+    last = log -1 HEAD --stat
+    primebranch = "!git symbolic-ref --short HEAD"
+    hist = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an> %Creset' --abbrev-commit
+    clonetree = !sh -c 'url=$1 && base=$(basename ${url}) && dir=${2:-${base%.*}} && mkdir ${dir} && echo cd ${dir} && cd ${dir} && git clone --bare ${url} .git && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && git fetch origin && git worktree add $(git primebranch) && cd $(git primebranch) && git pullup' -
+    sync = "!git add . && git commit -m \"sync by $(whoami) from $(hostname) at $(date)\" ; git push"
 
 [color]
     ui = auto
 
-; [color "branch"]
-;     current = yellow reverse
-;     local = yellow
-;     remote = green
-
-; [color "diff"]
-;     meta = yellow bold
-;     frag = magenta bold
-;     old = red bold
-;     new = green bold
-
-; [color "status"]
-;     added = yellow
-;     changed = green
-;     untracked = red
-
 [core]
-    excludesfile = /.gitignore
     editor = "vim"
-    ; pager = delta
-
-; [interactive]
-;     diffFilter = delta --color-only
-
-; [delta]
-;     navigate = true    # use n and N to move between diff sections
-;     syntax-theme = gruvbox-dark
-;     side-by-side = true
-;     line-numbers = true
-;     ; light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 
 [credential]
     helper = cache --timeout=3600
 
 [diff]
-    tool = nvimdiff
-    colorMoved = default
-
-[difftool]
-    prompt = false
-
-[difftool "nvimdiff"]
-    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
-    trustExitCode = true  ; use :cq to abort commit message edit
-
-[merge]
-    tool = nfugitive
-    conflictstyle = diff3
+    colorMoved = plain
+    algorithm = histogram
+    mnemonicPrefix = true
+    renames = true
 
 [mergetool]
     prompt = true
-
-[mergetool "nvimdiff"]
-    cmd = nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'
-
-[mergetool "nfugitive"]
-    cmd = nvim -f -c "Gvdiffsplit" "$MERGED"
 
 [pull]
     rebase = false
@@ -102,6 +53,24 @@
     verbose = true
 
 [help]
-    autocorrect = 15
+    autocorrect = prompt
 [init]
     defaultBranch = main
+[branch]
+    sort = -committerdate
+[column]
+    ui = auto
+[tag]
+    sort = version:refname
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
+[rebase]
+    autoSquash = true
+    autoStash = true
+    updateRefs = true

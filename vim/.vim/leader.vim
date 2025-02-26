@@ -27,7 +27,7 @@ nnoremap <Leader>= <cmd>ALEFix<cr>
 
 " Fzf
 nnoremap <Leader><BS> <cmd>Files<CR>
-nnoremap <Leader>fb <cmd>Buffers<CR>
+nnoremap <Leader><CR> <cmd>Buffers<CR>
 nnoremap <leader>fh <cmd>Helptags<CR>
 nnoremap <leader>fo <cmd>History<CR>
 nnoremap <leader>f/ <cmd>History/<CR>

@@ -1,9 +1,12 @@
 let g:vim_chat_config = {
   \ "default": {
+  \   "model": "llama3.2:latest",
+  \   },
+  \ "phi4": {
   \   "model": "phi4:latest",
   \   },
   \ "deepseek": {
-  \   "model": "deepseek-r1:1.5b",
+  \   "model": "deepseek-r1:8b",
   \   },
   \ "brainstorm": {
   \   "model": "phi4:latest",
