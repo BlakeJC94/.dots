@@ -20,6 +20,9 @@ nnoremap <Leader>N <cmd>split \| edit ~/Workspace/repos/field-notes/notes \| lcd
 
 " Signify
 nnoremap <Leader>C <cmd>SignifyHunkDiff<CR>
+nnoremap <leader>h <cmd>SignifyHunkFold<CR>
+nnoremap <leader>H <cmd>SignifyHunkUndo<CR>
+
 
 " Ale
 nnoremap <Leader>L <cmd>ALEPopulateLocList<cr>

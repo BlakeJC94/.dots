@@ -9,7 +9,6 @@ vnoremap <leader>b :GBrowse!<CR>
 
 "" Commands
 command! GPush :Dispatch git push
-command! GPushup :Dispatch git pushup
 command! GPull :Dispatch git pull
 
 "" Functions

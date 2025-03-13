@@ -6,6 +6,7 @@ alias pscpu='ps auxf | sort -nr -k 3'
 alias cpuinfo='lscpu'
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 alias todo='rg -o --hidden --iglob "!.git" --iglob "!TODO.md" "TODO.*"'
+alias bb='git checkout $(git branch | sed "s/\*//" | tr -d " " | fzf)'
 
 # mcdir () { mkdir "$1" && cd "$_" }
 # joke () { curl https://icanhazdadjoke.com/; echo "" }
