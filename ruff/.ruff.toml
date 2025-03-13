@@ -1,5 +1,5 @@
 # https://beta.ruff.rs/docs/settings
-line-length = 100
+line-length = 80
 exclude = [".venv"]
 lint.ignore = ["I001"]
 lint.select = ["E", "F", "PL", "I"]
