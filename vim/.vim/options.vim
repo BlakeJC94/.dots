@@ -60,7 +60,7 @@ set foldtext=functions#MyFoldText()
 
 "" LEFT MARGIN
 set number             " Show line numbers
-set relativenumber     " Show rel/abs line numbers
+set norelativenumber   " Show rel/abs line numbers
 set signcolumn=yes     " Set sign column
 
 "" BOTTOM MARGIN
