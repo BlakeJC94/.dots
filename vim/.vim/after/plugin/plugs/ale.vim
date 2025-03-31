@@ -5,7 +5,6 @@ endif
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
       \'python': ['ruff'],
-      \'julia': ['languageserver'],
       \}
 let g:ale_fixers = {
       \'python': ['ruff_format', 'ruff'],

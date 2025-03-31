@@ -1,8 +1,5 @@
 let g:vim_chat_config = {
   \ "default": {
-  \   "model": "llama3.2:latest",
-  \   },
-  \ "phi4": {
   \   "model": "phi4:latest",
   \   },
   \ "deepseek": {
