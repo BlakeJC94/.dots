@@ -83,5 +83,8 @@ def __randpl(rows=10, cols=3, dtypes=None):
         return
     return pl.DataFrame(__randpd(rows, cols, dtypes))
 
+def __explore(obj):
+    for i in dir(obj):
+        print(f"{i:16} ({type(getattr(obj, i)).__name__})")
 
 print("<<<< ipython startup <<<<")
