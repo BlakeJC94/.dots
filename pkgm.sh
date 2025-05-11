@@ -8,6 +8,7 @@ list=(
     "jq"
     "rg"
     "neofetch"
+    "hugo"
     "tldr"
     "uv"
 )
