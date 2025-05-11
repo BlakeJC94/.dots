@@ -1,6 +1,6 @@
 let g:vim_chat_config = {
   \ "default": {
-  \   "model": "llama3.2:latest",
+  \   "model": "gemma3:27b-it-qat",
   \   },
   \ "phi4": {
   \   "model": "phi4:latest",

@@ -69,7 +69,7 @@ Plug 'https://github.com/BlakeJC94/vim-slime-cells', {'branch': 'fix-terminal-mo
 Plug 'https://github.com/mbbill/undotree'
 " AI plugin (`<Leader>A` or `:AI [prompt]`) <>
 " Plug 'https://github.com/madox2/vim-ai'
-Plug 'https://github.com/BlakeJC94/vim-chat'
+Plug '~/Workspace/repos/vim-chat'
 " Disable highlighting after search automatically
 Plug 'https://github.com/romainl/vim-cool'
 
