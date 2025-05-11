@@ -1,14 +1,15 @@
 # Link dotfiles
 bash link.sh
 
-# Save keybinds:
-# dconf dump / | sed -n '/\[org.gnome.desktop.wm.keybindings/,/^$/p' > .keybindings.ini
-# dconf load / < ~/.keybindings.ini
+# pkgm (interactive sudo)
+curl https://pkgx.sh | sh
+bash pkgm.sh
 
 # brew (interactive sudo)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-brew bundle --global install  # update pins w/ `$ brew bundle --global dump -f`
+brew install asdf
+# brew bundle --global install  # update pins w/ `$ brew bundle --global dump -f`
 
 # asdf
 source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh

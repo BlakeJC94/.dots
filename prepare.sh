@@ -37,11 +37,3 @@ sudo apt-get install -y \
 
 # Zoom dependecies
 sudo apt-get install -y libxcb-xinerama0 libxcb-xtest0 libxcb-cursor0
-
-# Brew deps
-sudo apt-get install -y \
-    build-essential \
-    procps \
-    curl \
-    file \
-    git
