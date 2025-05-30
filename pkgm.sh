@@ -11,6 +11,9 @@ list=(
     "hugo"
     "tldr"
     "uv"
+    "vim.org"
+    "duckdb"
+    "tree"
 )
 for item in "${list[@]}"; do
     pkgm install $item

@@ -1,7 +1,7 @@
 "" BlakeJC94s Vim configuration
 """""""""""""""""""""""""""""""
 filetype plugin indent on
-syntax on
+"syntax on
 
 "" PLUGINS
 source ~/.vim/plugs.vim

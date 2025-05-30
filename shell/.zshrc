@@ -11,9 +11,9 @@ fi
 
 
 # User configuration
-
 export PATH=$(brew --prefix)/opt/findutils/libexec/gnubin:$PATH
 export MANPATH="/usr/local/man:$MANPATH"
+
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -44,8 +44,12 @@ export ARCHFLAGS="-arch $(uname -m)"
 # - $ZSH_CUSTOM/aliases.zsh
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
-# export PYTHONPATH=.
-#
+export PYTHONPATH=.
+export VIMRUNTIME=~/.local/pkgs/vim.org/v9/share/vim/vim91
+export CLOUDSDK_PYTHON_SITEPACKAGES=1
+
+source <(fzf --zsh)
+
 [ -f ~/.aliases.sh ] && source ~/.aliases.sh
 
 [ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh

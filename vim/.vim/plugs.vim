@@ -34,8 +34,6 @@ Plug 'https://github.com/rhysd/conflict-marker.vim'
 " Sub-word text object (`iv`, `av`)
 Plug 'https://github.com/kana/vim-textobj-user'
 Plug 'https://github.com/Julian/vim-textobj-variable-segment'
-" Entire buffer textobj
-Plug 'https://github.com/kana/vim-textobj-entire'
 " Easily align selection with `tabular` (`:Tabularize /<char>`) <>
 Plug 'https://github.com/godlygeek/tabular'
 " Test
