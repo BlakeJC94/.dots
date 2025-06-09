@@ -102,9 +102,7 @@ function! functions#setPreVars()
   let g:polyglot_disabled = ['markdown']
 endfunction
 
-let g:field_notes_dir = "~/Dropbox/field-notes"
-
-function! functions#StartNote(...) abort
+function! functions#GetNoteTitle(...)
   let l:title = join(a:000, " ")
 
   if len(l:title) == 0
@@ -125,19 +123,29 @@ function! functions#StartNote(...) abort
     let l:title = join([l:project_name, l:branch_name], ": ")
   endif
 
+  return l:title
+endfunction
+
+function! functions#StartNote(...) abort
+  let l:title = call('functions#GetNoteTitle', a:000)
   let l:filename = functions#Slugify(l:title) . ".md"
   let l:filepath = join([g:field_notes_dir, l:filename], '/')
+  return l:filepath
+endfunction
 
-  " TODO open buffer and writelines only if it doesn't exist
+function! functions#GetNoteHeading(...)
+  let l:title = call('functions#GetNoteTitle', a:000)
   let l:heading = substitute(l:title, '^', '# ', '')
   let l:heading = substitute(l:heading, '$', '\n\n', '')
+  return l:heading
+endfunction
 
-  if !filereadable(expand(l:filepath))
-    call writefile(split(l:heading, '\n', 1), expand(l:filepath))
-    echo join(["Created new file", l:filepath], " : ")
+function! functions#InitializeNoteIfNeeded(...)
+  if !filereadable(expand('%'))
+    call setline(1, split(call('functions#GetNoteHeading', a:000), '\n', 1))
+    set buftype=
+    set nomodified
   endif
-
-  return l:filepath
 endfunction
 
 
@@ -147,13 +155,16 @@ function! functions#BreakHere()
 endfunction
 
 function! functions#Sort(type, ...)
-    '[,']sort
+    let marks = a:type ==? 'vis' ? '<>' : '[]'
+    let [_, l1, c1, _] = getpos("'" . marks[0])
+    let [_, l2, c2, _] = getpos("'" . marks[1])
+    execute l1 . ',' . l2 . 'sort'
 endfunction
 
 " Reverse lines, selected or over motion.
 nnoremap <silent> gr :set opfunc=functions#ReverseLines<CR>g@
 vnoremap <silent> gr :<C-u>call functions#ReverseLines('vis')<CR>
-function! Reverse(type) abort
+function! functions#ReverseLines(type) abort
     let marks = a:type ==? 'vis' ? '<>' : '[]'
     let [_, l1, c1, _] = getpos("'" . marks[0])
     let [_, l2, c2, _] = getpos("'" . marks[1])
