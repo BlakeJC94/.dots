@@ -74,3 +74,9 @@ _uv_run_mod() {
     fi
 }
 compdef _uv_run_mod uv
+
+# Netskope CLI Certificate Fix
+netskope_fp=/opt/montu-kandji/netskope-cli-certificate-fix.sh
+if [ -f "${netskope_fp}" ]; then
+    source "${netskope_fp}"
+fi

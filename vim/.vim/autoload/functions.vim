@@ -128,6 +128,7 @@ function! functions#StartNote(...) abort
   let l:filename = functions#Slugify(l:title) . ".md"
   let l:filepath = join([g:field_notes_dir, l:filename], '/')
 
+  " TODO open buffer and writelines only if it doesn't exist
   let l:heading = substitute(l:title, '^', '# ', '')
   let l:heading = substitute(l:heading, '$', '\n\n', '')
 
