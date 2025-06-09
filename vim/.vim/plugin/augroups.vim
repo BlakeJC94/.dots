@@ -3,6 +3,7 @@ augroup base
   " autocmd VimResized * wincmd =
   autocmd BufWritePre,FileWritePre * call functions#CreateDirs()
   autocmd FileType help,man,git,ale-info,fugitive,netrw call functions#SetInfoBufferOpts()
+  autocmd BufWritePost * silent! !ctags . &
 augroup END
 
 augroup jump_to_last_change_on_open
