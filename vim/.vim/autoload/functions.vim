@@ -102,7 +102,7 @@ function! functions#setPreVars()
   let g:polyglot_disabled = ['markdown']
 endfunction
 
-let g:field_notes_dir = "~/Workspace/repos/field-notes/notes"
+let g:field_notes_dir = "~/Dropbox/field-notes"
 
 function! functions#StartNote(...) abort
   let l:title = join(a:000, " ")
