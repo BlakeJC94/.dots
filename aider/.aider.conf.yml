@@ -79,13 +79,22 @@ llm-history-file: .aider.llm.history
 # Output settings:
 
 ## Use colors suitable for a dark terminal background (default: False)
-dark-mode: true
+# dark-mode: true
 
 ## Set the markdown code theme (default: default, other options include monokai, solarized-dark, solarized-light, or a Pygments builtin style, see https://pygments.org/styles for available themes)
 code-theme: gruvbox-dark
 
 ## Show diffs when committing changes (default: False)
 #show-diffs: false
+
+## Enable/disable streaming responses (default: True)
+stream: false
+
+## Set the color for user input (default: #00cc00)
+user-input-color: "#B8BB26"
+
+## Set the color for assistant output (default: #0088ff)
+assistant-output-color: "#83A598"
 
 ###############
 # Git settings:
@@ -103,7 +112,7 @@ code-theme: gruvbox-dark
 #subtree-only: false
 
 ## Enable/disable auto commit of LLM changes (default: True)
-#auto-commits: true
+auto-commits: false
 
 ## Enable/disable commits when repo is found dirty (default: True)
 #dirty-commits: true
