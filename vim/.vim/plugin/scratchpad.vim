@@ -14,4 +14,4 @@ autocmd Filetype markdown,liquid,text
 " autocmd Filetype markdown,liquid,text
 "             \ syn match markdownExt /{[.:#][^}]*}/ conceal contains=ALL
 
-command ScratchMain :call ScratchMain()
+" command ScratchMain :call ScratchMain()

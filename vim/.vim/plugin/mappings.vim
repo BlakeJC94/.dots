@@ -49,8 +49,10 @@ vmap <silent> gS :sort<CR>
 " gr: Reverse lines, selected or over motion. <>
 nnoremap <silent> gr :set opfunc=functions#ReverseLines<CR>g@
 vnoremap <silent> gr :<C-u>call functions#ReverseLines('vis')<CR>
-" <C-w><Space>: Terminal normal mode
-tnoremap <C-w><Space> <C-w>N
+" <Esc><Esc>: Terminal normal mode
+" tnoremap <C-w><Space> <C-w>N
+" Restore <C-w> in terminal mode
+tnoremap <C-w>w <C-w>.
 " Expand `%%` as current filename in command mode
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " Stop accidentally opening help in insert mode

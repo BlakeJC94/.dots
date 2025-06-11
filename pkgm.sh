@@ -15,6 +15,7 @@ list=(
     "duckdb"
     "tree"
     "pandoc"
+    "bw"
 )
 for item in "${list[@]}"; do
     pkgm install $item

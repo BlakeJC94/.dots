@@ -102,6 +102,7 @@ function! functions#setPreVars()
   let g:polyglot_disabled = ['markdown']
 endfunction
 
+
 function! functions#GetNoteTitle(...)
   let l:title = join(a:000, " ")
 
@@ -146,6 +147,19 @@ function! functions#InitializeNoteIfNeeded(...)
     set buftype=
     set nomodified
   endif
+endfunction
+
+
+function! functions#StartupIpythonCmd(foo)
+  let l:cmd = "terminal++close"
+
+  if a:foo == "uv"
+    let l:cmd = l:cmd . " uv run"
+  elseif a:foo == "poetry"
+    let l:cmd = l:cmd . " poetry run"
+  endif
+
+  return l:cmd . " ipython"
 endfunction
 
 
