@@ -22,3 +22,5 @@ augroup clear_slime
   autocmd!
   autocmd VimLeave * for i in glob('/tmp/**/*_slime', 1, 1) | call delete(i) | endfor
 augroup END
+
+autocmd FileType python let b:slime_vimterminal_cmd='uv run ipython'

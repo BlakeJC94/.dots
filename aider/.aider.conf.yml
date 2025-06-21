@@ -5,7 +5,7 @@
 # Main model:
 
 ## Specify the model to use for the main chat
-model: openrouter/google/gemini-2.5-pro-preview-05-06
+model: openrouter/anthropic/claude-sonnet-4
 
 #################
 # Model settings:
@@ -46,7 +46,7 @@ model: openrouter/google/gemini-2.5-pro-preview-05-06
 #auto-accept-architect: true
 
 ## Specify the model to use for commit messages and chat history summarization (default depends on --model)
-weak-model: openrouter/google/gemini-2.5-flash-preview-05-20
+weak-model: openrouter/google/gemini-2.5-flash
 
 ## Specify the model to use for editor tasks (default depends on --model)
 #editor-model: xxx
@@ -148,7 +148,7 @@ auto-commits: false
 #skip-sanity-check-repo: false
 
 ## Enable/disable watching files for ai coding comments (default: False)
-#watch-files: false
+watch-files: true
 
 ########################
 # Fixing and committing:
@@ -266,7 +266,7 @@ auto-commits: false
 #  - zzz
 
 ## specify a read-only file (can be used multiple times)
-#read: xxx
+read: ~/CONVENTIONS.md
 ## Specify multiple values like this:
 #read:
 #  - xxx
@@ -316,7 +316,7 @@ auto-commits: false
 #notifications: false
 
 ## Specify a command to run for notifications instead of the terminal bell. If not specified, a default command for your OS may be used.
-#notifications-command: xxx
+notifications-command: osascript -e "display alert 'Bingbong' message 'Aider is ready.'"
 
 ## Enable/disable detection and offering to add URLs to chat (default: True)
 #detect-urls: true
