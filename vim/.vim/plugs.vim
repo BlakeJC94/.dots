@@ -36,19 +36,11 @@ Plug 'https://github.com/kana/vim-textobj-user'
 Plug 'https://github.com/Julian/vim-textobj-variable-segment'
 " Easily align selection with `tabular` (`:Tabularize /<char>`) <>
 Plug 'https://github.com/godlygeek/tabular'
-" Test
-Plug 'https://github.com/vim-test/vim-test'
-" Search `devdocs.io` with `:DD [query]` <>
-Plug 'https://github.com/romainl/vim-devdocs'
 
 "" INTERFACE
 " Fzf <3 Vim
 Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
-" Use Ripgrep with `:Rg <query>` <>
-" Plug 'https://github.com/jremmen/vim-ripgrep'
-" Edit quickfix items in quickfix list with `quickfix-reflector` <>
-Plug 'https://github.com/stefandtw/quickfix-reflector.vim'
 " Better filesystem navigation
 Plug 'https://github.com/justinmk/vim-dirvish'
 Plug 'https://github.com/bounceme/remote-viewer'
@@ -65,10 +57,6 @@ Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/BlakeJC94/vim-slime-cells', {'branch': 'fix-terminal-mode-bufenter'}
 " Show undotree (`:UndotreeToggle` or `<Leader>u`) <>
 Plug 'https://github.com/mbbill/undotree'
-" AI plugin (`<Leader>A` or `:AI [prompt]`) <>
-" Plug 'https://github.com/madox2/vim-ai'
-" Plug 'https://github.com/BlakeJC94/vim-chat'
-Plug '~/Workspace/repos/vim-chat'
 " Disable highlighting after search automatically
 Plug 'https://github.com/romainl/vim-cool'
 
@@ -78,6 +66,7 @@ Plug 'https://github.com/prabirshrestha/asyncomplete.vim'
 Plug 'https://github.com/prabirshrestha/asyncomplete-lsp.vim'
 Plug 'https://github.com/prabirshrestha/asyncomplete-buffer.vim', {'commit': 'b8f00ea'}
 Plug 'https://github.com/prabirshrestha/asyncomplete-file.vim'
+Plug 'https://github.com/prabirshrestha/asyncomplete-emoji.vim'
 Plug 'https://github.com/machakann/asyncomplete-unicodesymbol.vim'
 " Tab completion
 Plug 'https://github.com/ervandew/supertab'
@@ -92,16 +81,10 @@ Plug 'https://github.com/machakann/vim-lsp-julia'
 Plug 'https://github.com/dense-analysis/ale'
 " Syntax files
 Plug 'https://github.com/sheerun/vim-polyglot'
-" Pytest compiler option
-Plug 'https://github.com/5long/pytest-vim-compiler'
-" Sync spellfiles
-Plug 'https://github.com/micarmst/vim-spellsync'
 
 "" STYLE
 " Colorscheme
 Plug 'https://github.com/gruvbox-community/gruvbox'
-Plug 'rose-pine/vim', { 'as': 'rose_pine' }
-Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 " Highlight yanked txt
 Plug 'https://github.com/machakann/vim-highlightedyank'
 

@@ -18,4 +18,4 @@ validate = true       # options: {false, true}
 # ]
 
 # Python 3.13+ only:
-exclude = []          # options: a list of file path pattern strings
+# exclude = []          # options: a list of file path pattern strings
