@@ -64,3 +64,42 @@ function! field_notes#InitializeNoteIfNeeded(...)
   endif
 endfunction
 
+" TODO
+function! field_notes#MoveImage(...)
+  " First arg is image path
+  " Parse the image path
+  " Make directory img_dir=`expand('%') . '/img'`
+  " Make target image name: img_name=`expand('%:t:r') . '_' . slugify('image_name') .  '.ext'`
+  " Copy `path/image_name.ext` to img_path=`img_dir/img_name`
+  " Insert text at cursor location: `![image_name](img_path)`
+endfunction
+
+" Installing Write on Linux:
+" ```
+" wget https://www.styluslabs.com/download/write-tgz
+" mkdir -p ~/.local/opt`
+" mv write-latest.tar.gz ~/.local/opt`
+" cd ~/.local/opt
+" tar xzfv write-latest.tar.gz
+" cd Write
+" sudo ./setup.sh
+" xdg-mime default Write.desktop image/svg+xml
+" ```
+
+" TODO
+function! field_notes#NewDiagram(...)
+  " If arg given, use that as diagram_name
+  " Otherwise, generate diagram_name based on current date and time (yyyy_mm_dd_hhmm)
+  " Make directory img_dir=`expand('%') . '/img'`
+  " Make target image name: img_name=`expand('%:t:r') . '_' . slugify(diagram_name) .  '.ext'`
+  " Touch img_path=`img_dir/img_name`
+  " Insert text at cursor location: `![image_name](img_path)`
+  " Open diagram
+  " " TODO: Ficure out how to create a new diagram from scratch with Write via cli
+  " ...
+endfunction
+
+" TODO
+function! field_notes#BlogHeader(...)
+  " ...
+endfunction

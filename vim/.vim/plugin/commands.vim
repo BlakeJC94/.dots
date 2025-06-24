@@ -8,5 +8,7 @@ command! -nargs=* Fd cexpr system('fd ' . expand(<q-args>))
 command! -nargs=* Find cexpr system('fd ' . expand(<q-args>))
 command! -nargs=* -complete=file_in_path Grep cexpr system(&grepprg . ' ' . expand(<q-args>))
 
+command! -nargs=* -complete=file_in_path Open silent! execute '!' . (system('uname') =~ "darwin" ? '' : 'xdg-') . 'open ' . shellescape(expand(len(<q-args>) ? <q-args> : '%:p'), 1) . ' > /dev/null 2>&1 &' | redraw!
+
 command! -nargs=? Ipy exec 'botright <mods> ' . functions#StartupIpythonCmd("<args>")
 command! -bang ScratchPy exec '<mods> ' . (<bang>0 ? 'edit' : 'split') . ' ' . getcwd() . '/scratch.py'

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<map>
+  <int name="lastUpdateCheck" value="1750761367" />
+  <int name="mouseMode" value="1" />
+  <int name="pageColor" value="-16777216" />
+  <int name="penType" value="11" />
+  <int name="showAdvPrefs" value="1" />
+  <int name="showPenToolbar" value="1" />
+  <int name="singleTouchMode" value="1" />
+  <int name="strokeCounter" value="145" />
+  <float name="marginLeft" value="0" />
+  <float name="pageHeight" value="1240" />
+  <float name="pageWidth" value="1755" />
+  <float name="yRuling" value="0" />
+  <string name="clippingDoc" value="/home/blake/.config/styluslabs/saved/clippings.html" />
+  <string name="currFolder" value="/home/blake/" />
+  <string name="docFileExt" value="svg" />
+  <string name="newDocTitleFmt" value="%b %e %Hh%M" />
+  <string name="recentDocs" value="/home/blake/foo.svg:::/home/blake/Jun 24 20h40.svgz" />
+  <string name="savedColors" value="#FFFFFFFF,#FFFF0000,#FF008000,#FF0000FF" />
+  <string name="savedWidths" value="1.400,2.400,4.000,8.000" />
+  <string name="toolBars2" value="docTitle,stretch,actionSave,separator,tools,separator,undoRedoBtn,separator,seltools,separator,actionShow_Bookmarks,actionShow_Clippings,actionSplitView,separator,actionOverflow_Menu" />
+  <string name="toolModes" value="14 18 27 22" />
+  <string name="windowState" value="1280 69 1280 1371 0 0" />
+  <pen color="4294967295" width="1.60000002" wRatio="0.899999976" pressure="2" speed="0" direction="0" dash="0" gap="0" flags="272" />
+  <pen color="4278190335" width="1.60000002" wRatio="0.899999976" pressure="2" speed="0" direction="0" dash="0" gap="0" flags="272" />
+  <pen color="4278222592" width="1.60000002" wRatio="0.899999976" pressure="2" speed="0" direction="0" dash="0" gap="0" flags="272" />
+  <pen color="4294901760" width="1.60000002" wRatio="0.899999976" pressure="2" speed="0" direction="0" dash="0" gap="0" flags="272" />
+  <pen color="4278190080" width="3" wRatio="0.800000012" pressure="2" speed="0" direction="45" dash="0" gap="0" flags="336" />
+  <pen color="4278190080" width="1.79999995" wRatio="0.699999988" pressure="0" speed="0.5" direction="0" dash="0" gap="0" flags="288" />
+  <pen color="4278190080" width="4" wRatio="0" pressure="0" speed="0" direction="0" dash="0" gap="0" flags="512" />
+  <pen color="2147450879" width="34" wRatio="0" pressure="0" speed="0" direction="0" dash="0" gap="0" flags="1025" />
+</map>

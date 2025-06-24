@@ -31,7 +31,7 @@ nnoremap N Nzv
 nnoremap q gw
 nnoremap Q q
 " Better opening of URLs and files
-nnoremap gx <cmd>silent execute 'Start ' . (system('uname') =~ "Darwin" ? '' : 'xdg-') . 'open ' . shellescape(expand('<cfile>'), 1)<CR>
+nnoremap gx <cmd>Open<CR>
 " Maintain Visual Mode after >/</= actions
 vnoremap < <gv
 vnoremap = =gv
