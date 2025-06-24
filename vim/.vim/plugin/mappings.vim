@@ -30,8 +30,6 @@ nnoremap N Nzv
 " Remap q and Q to stop polluting registers accidentally!
 nnoremap q gw
 nnoremap Q q
-" Better opening of URLs and files
-nnoremap gx <cmd>Open<CR>
 " Maintain Visual Mode after >/</= actions
 vnoremap < <gv
 vnoremap = =gv

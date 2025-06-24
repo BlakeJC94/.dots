@@ -22,7 +22,6 @@ if ! [ -L "${bashrc}" ]; then
     mv "${bashrc}" "${BACKUP_BASHRC}"
 fi
 
-shopt -s globstar
 pushd "${DOTS}"
 for dir in ./*/; do
     name=$(basename $dir)
