@@ -64,14 +64,61 @@ function! field_notes#InitializeNoteIfNeeded(...)
   endif
 endfunction
 
-" TODO
+" AIDEV-NOTE: Moves image to structured img directory and inserts markdown reference
 function! field_notes#MoveImage(...)
-  " First arg is image path
-  " Parse the image path
-  " Make directory img_dir=`expand('%') . '/img'`
-  " Make target image name: img_name=`expand('%:t:r') . '_' . slugify('image_name') .  '.ext'`
-  " Copy `path/image_name.ext` to img_path=`img_dir/img_name`
-  " Insert text at cursor location: `![image_name](img_path)`
+  if a:0 == 0
+    echo "Error: Target image path required"
+    return
+  endif
+
+  let l:target_image_path = expand(a:1)
+
+  " Check if target image exists
+  if !filereadable(l:target_image_path)
+    echo "Error: Target image file does not exist: " . l:target_image_path
+    return
+  endif
+
+  " Split target image path into components
+  let l:target_parent = fnamemodify(l:target_image_path, ':h')
+  let l:target_stem = fnamemodify(l:target_image_path, ':t:r')
+  let l:target_ext = fnamemodify(l:target_image_path, ':e')
+
+  " Split current filepath into components
+  let l:dest_parent = expand('%:p:h')
+  let l:dest_stem = expand('%:t:r')
+  let l:dest_ext = expand('%:e')
+
+  " Create destination directory structure
+  let l:img_subdir = field_notes#Slugify(l:dest_stem)
+  let l:dest_dir = join([l:dest_parent, 'img', l:img_subdir], '/')
+
+  " Create directory if it doesn't exist
+  if !isdirectory(l:dest_dir)
+    call mkdir(l:dest_dir, 'p')
+  endif
+
+  " Create destination file path
+  let l:slugified_target_stem = field_notes#Slugify(l:target_stem)
+  let l:dest_filename = l:slugified_target_stem . '.' . l:target_ext
+  let l:dest_path = join([l:dest_dir, l:dest_filename], '/')
+
+  " Copy the image file
+  let l:copy_cmd = 'cp "' . l:target_image_path . '" "' . l:dest_path . '"'
+  let l:result = system(l:copy_cmd)
+  if v:shell_error != 0
+    echo "Error copying file: " . l:result
+    return
+  endif
+
+  " Create relative path for markdown
+  let l:relative_path = join(['./img', l:img_subdir, l:dest_filename], '/')
+
+  " Insert markdown image reference below current line
+  let l:markdown_text = '![' . l:target_stem . '](' . l:relative_path . ')'
+  call append(line('.'), l:markdown_text)
+
+  echo "Image moved to: " . l:dest_path
 endfunction
 
 " Installing Write on Linux:
@@ -86,17 +133,59 @@ endfunction
 " xdg-mime default Write.desktop image/svg+xml
 " ```
 
-" TODO
+" Installing Write on MacOS
+" ```
+" brew install write
+" brew install duti
+" duti -s $(osascript -e 'id of app "Write"') .svg all
+" duti -s $(osascript -e 'id of app "Write"') .svgz all
+" ```
+
 function! field_notes#NewDiagram(...)
-  " If arg given, use that as diagram_name
-  " Otherwise, generate diagram_name based on current date and time (yyyy_mm_dd_hhmm)
-  " Make directory img_dir=`expand('%') . '/img'`
+  let l:title = join(a:000, " ")
+
+  if len(l:title) == 0
+    let l:title = strftime("%Y_%m_%d_%H%M")
+  endif
+
+  " Split current filepath into components
+  let l:dest_parent = expand('%:p:h')
+  let l:dest_stem = expand('%:t:r')
+  let l:dest_ext = expand('%:e')
+
+  " Create destination directory structure
+  let l:img_subdir = field_notes#Slugify(l:dest_stem)
+  let l:dest_dir = join([l:dest_parent, 'img', l:img_subdir], '/')
+  let l:dest_filename = field_notes#Slugify(l:title). ".svg"
+  let l:dest_path = join([l:dest_dir, l:dest_filename], '/')
+
+  " Create directory if it doesn't exist
+  if !isdirectory(l:dest_dir)
+    call mkdir(l:dest_dir, 'p')
+  endif
+
   " Make target image name: img_name=`expand('%:t:r') . '_' . slugify(diagram_name) .  '.ext'`
-  " Touch img_path=`img_dir/img_name`
-  " Insert text at cursor location: `![image_name](img_path)`
-  " Open diagram
-  " " TODO: Ficure out how to create a new diagram from scratch with Write via cli
-  " ...
+  let l:filename = field_notes#Slugify(l:title) . ".svg"
+
+  " Get the template path
+  let l:template_path = join([l:dest_parent, 'templates', "template.svg"], '/')
+
+  " Copy the image file
+  let l:copy_cmd = 'cp "' . l:template_path . '" "' . l:dest_path . '"'
+  let l:result = system(l:copy_cmd)
+  if v:shell_error != 0
+    echo "Error copying file: " . l:result
+    return
+  endif
+
+  " Create relative path for markdown
+  let l:relative_path = join(['./img', l:img_subdir, l:dest_filename], '/')
+
+  " Insert markdown image reference below current line
+  let l:markdown_text = '![' . l:title . '](' . l:relative_path . ')'
+  call append(line('.'), l:markdown_text)
+
+  echo "Created new canvas at: " . l:dest_path
 endfunction
 
 " TODO

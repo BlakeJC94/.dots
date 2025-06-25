@@ -11,8 +11,8 @@ command! -bang LastMonday exec '<mods> Journal<bang> ' . (- ((strftime('%w') - 1
 command! -bang NextFriday exec '<mods> Journal<bang> ' . ((5 - strftime('%w') + 7) % 7)
 command! -bang LastFriday exec '<mods> Journal<bang> ' . (- ((strftime('%w') - 5 + 7) % 7))
 " command! -nargs=* Diagram !open https://asciiflow.com/
-" command! -nargs=* Diagram call field_notes#NewDiagram(<q-args>)
-" command! -nargs=* Image call field_notes#MoveImage(<q-args>)
+command! -nargs=* Diagram call field_notes#NewDiagram(<q-args>)
+command! -nargs=* -complete=file_in_path Image call field_notes#MoveImage(<q-args>)
 
 
 

@@ -30,6 +30,7 @@ nnoremap N Nzv
 " Remap q and Q to stop polluting registers accidentally!
 nnoremap q gw
 nnoremap Q q
+nnoremap <silent> <C-l> :checktime<Bar>nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 " Maintain Visual Mode after >/</= actions
 vnoremap < <gv
 vnoremap = =gv

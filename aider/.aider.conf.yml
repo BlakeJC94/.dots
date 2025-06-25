@@ -283,7 +283,7 @@ read: ~/CONVENTIONS.md
 #commit-language: xxx
 
 ## Always say yes to every confirmation
-#yes-always: false
+yes-always: true
 
 ## Enable verbose output
 #verbose: false

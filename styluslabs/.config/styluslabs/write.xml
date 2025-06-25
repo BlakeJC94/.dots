@@ -6,16 +6,16 @@
   <int name="penType" value="11" />
   <int name="showAdvPrefs" value="1" />
   <int name="singleTouchMode" value="1" />
-  <int name="strokeCounter" value="147" />
+  <int name="strokeCounter" value="151" />
   <float name="marginLeft" value="0" />
   <float name="pageHeight" value="1240" />
   <float name="pageWidth" value="1755" />
   <float name="yRuling" value="0" />
   <string name="clippingDoc" value="/home/blake/.config/styluslabs/saved/clippings.html" />
-  <string name="currFolder" value="/home/blake/" />
+  <string name="currFolder" value="/Users/blake/Library/CloudStorage/Dropbox/field-notes/img/testing_the_image_func/" />
   <string name="docFileExt" value="svg" />
   <string name="newDocTitleFmt" value="%b %e %Hh%M" />
-  <string name="recentDocs" value="/home/blake/foo.svg:::/home/blake/Jun 24 20h40.svgz" />
+  <string name="recentDocs" value="/Users/blake/Library/CloudStorage/Dropbox/field-notes/img/testing_the_image_func/2025_06_25_2136.svg:::/Users/blake/Library/CloudStorage/Dropbox/field-notes/templates/template.svg:::/Users/blake/Library/CloudStorage/Dropbox/field-notes/img/testing_the_image_func/template.svg:::/Users/blake/Library/CloudStorage/Dropbox/field-notes/img/testing_the_image_func/foobar.svg:::/Users/blake/Jun 24 09h08.svg:::/Users/blake/Jun 23 14h18.svgz:::/home/blake/foo.svg:::/home/blake/Jun 24 20h40.svgz" />
   <string name="savedColors" value="#FFFFFFFF,#FFFF0000,#FF008000,#FF0000FF" />
   <string name="savedWidths" value="1.400,2.400,4.000,8.000" />
   <string name="toolBars2" value="docTitle,stretch,actionSave,separator,tools,separator,undoRedoBtn,separator,seltools,separator,actionShow_Bookmarks,actionShow_Clippings,actionSplitView,separator,actionOverflow_Menu" />
