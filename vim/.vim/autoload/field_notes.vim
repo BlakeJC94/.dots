@@ -64,6 +64,7 @@ function! field_notes#InitializeNoteIfNeeded(...)
   endif
 endfunction
 
+" TODO Allow a second arg to customize where the `img` directory goes?
 " AIDEV-NOTE: Moves image to structured img directory and inserts markdown reference
 function! field_notes#MoveImage(...)
   if a:0 == 0
@@ -188,7 +189,48 @@ function! field_notes#NewDiagram(...)
   echo "Created new canvas at: " . l:dest_path
 endfunction
 
-" TODO
-function! field_notes#BlogHeader(...)
-  " ...
+" AIDEV-NOTE: Adds Hugo front matter to blog post based on first heading
+function! field_notes#BlogHeader() abort
+  " Find the first line that starts with '# '
+  let l:title = ""
+  let l:heading_line_num = 0
+  let l:line_count = line('$')
+
+  for l:line_num in range(1, l:line_count)
+    let l:line_content = getline(l:line_num)
+    if l:line_content =~# '^# '
+      " Extract the text after '# '
+      let l:title = substitute(l:line_content, '^# ', '', '')
+      let l:heading_line_num = l:line_num
+      break
+    endif
+  endfor
+
+  if len(l:title) == 0
+    echo "Error: No heading found (line starting with '# ')"
+    return
+  endif
+
+  " Format the date string (ISO 8601 with timezone)
+  let l:date_str = strftime('%Y-%m-%dT%T%z')
+  " Insert colon in timezone offset: +0000 -> +00:00
+  let l:date_str = substitute(l:date_str, '\([+-]\d\d\)\(\d\d\)$', '\1:\2', '')
+
+  " Create the front matter lines
+  let l:front_matter = [
+    \ "+++",
+    \ "date = '" . l:date_str . "'",
+    \ "draft = true",
+    \ "title = '" . l:title . "'",
+    \ "+++"
+  \ ]
+
+  " Insert at the top of the file
+  call append(0, l:front_matter)
+
+  " Remove the original heading line (adjust line number for inserted front matter)
+  let l:adjusted_line_num = l:heading_line_num + len(l:front_matter)
+  execute l:adjusted_line_num . 'delete'
+
+  echo "Added blog header with title: " . l:title
 endfunction
