@@ -23,6 +23,10 @@ stty -ixon
 export PATH_LOCAL_BIN="${HOME}/.local/bin"
 [[ ":$PATH:" != *":${PATH_LOCAL_BIN}:"* ]] && PATH="${PATH_LOCAL_BIN}:${PATH}"
 
+# export VIMRUNTIME=~/.local/pkgs/vim.org/v9/share/vim/vim91
+
+eval "$(starship init bash)"
+
 source $HOME/.bash/modules/history.sh
 source $HOME/.bash/modules/color_prompt.sh
 source $HOME/.bash/modules/window_title.sh

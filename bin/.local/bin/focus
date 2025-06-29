@@ -1,0 +1,63 @@
+#!/usr/bin/env python
+import argparse
+import os
+import time
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Breathing exercise utility.")
+    parser.add_argument(
+        "n_cycles",
+        nargs="?",
+        type=int,
+        default=1,
+        help="Number of breathing cycles.",
+    )
+    parser.add_argument(
+        "duration",
+        nargs="?",
+        type=int,
+        default=3,
+        help="Duration of each phase",
+    )
+    return parser.parse_args()
+
+
+def clear_screen():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
+
+
+def text_phase(duration, phase):
+    padding = (6 - len(phase)) * " "
+    print(f"{phase}{padding} ", end="", flush=True)
+    for _ in range(duration):
+        print(".", end="", flush=True)
+        time.sleep(1)
+    print()
+
+
+def main():
+    args = parse_args()
+
+    n_cycles = args.n_cycles
+    duration = args.duration
+    clear = args.n_cycles > 1
+    if clear:
+        clear_screen()
+
+    for i in range(n_cycles):
+        if clear:
+            print(f"\n{i+1} / {n_cycles}")
+        text_phase(duration, "Inhale")
+        text_phase(duration, "Hold")
+        text_phase(duration, "Exhale")
+
+    if clear:
+        clear_screen()
+
+
+if __name__ == "__main__":
+    main()

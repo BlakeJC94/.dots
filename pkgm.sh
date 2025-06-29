@@ -1,6 +1,7 @@
 list=(
     "bat"
     "ctags"
+    "starship"
     "fd"
     "tmux"
     "fzf"
