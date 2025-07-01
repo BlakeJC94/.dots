@@ -54,6 +54,7 @@ def main():
         text_phase(duration, "Inhale")
         text_phase(duration, "Hold")
         text_phase(duration, "Exhale")
+        text_phase(duration, "Focus")
 
     if clear:
         clear_screen()
