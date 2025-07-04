@@ -46,7 +46,22 @@ function! field_notes#StartNote(...) abort
   let l:title = call('field_notes#GetNoteTitle', a:000)
   let l:filename = field_notes#Slugify(l:title) . ".md"
   let l:filepath = join([g:field_notes_dir, l:filename], '/')
+
+  if expand("%:e") == "md"
+    let l:markdown_text = '![' . l:title . '](' . './' . l:filename . ')'
+    call append(line('.'), l:markdown_text)
+  endif
+
   return l:filepath
+endfunction
+
+function! field_notes#LinkNote(title)
+  let l:filename = field_notes#Slugify(a:title) . ".md"
+  let l:filepath = join(['.', l:filename], '/')
+
+  let l:markdown_text = '![' . a:title . '](' . l:filepath . ')'
+  call append(line('.'), l:markdown_text)
+
 endfunction
 
 function! field_notes#GetNoteHeading(...)
@@ -234,3 +249,6 @@ function! field_notes#BlogHeader() abort
 
   echo "Added blog header with title: " . l:title
 endfunction
+
+
+
