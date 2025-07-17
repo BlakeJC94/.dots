@@ -266,7 +266,7 @@ watch-files: true
 #  - zzz
 
 ## specify a read-only file (can be used multiple times)
-read: ~/CONVENTIONS.md
+read: CONVENTIONS.md
 ## Specify multiple values like this:
 #read:
 #  - xxx

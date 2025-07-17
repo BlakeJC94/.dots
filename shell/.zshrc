@@ -27,6 +27,9 @@ export ARCHFLAGS="-arch $(uname -m)"
 # ...
 export CLOUDSDK_PYTHON_SITEPACKAGES=1
 
+# LLM config location
+export LLM_USER_PATH=$HOME/.config/llm
+
 
 # Aliases
 [ -f ~/.aliases.sh ] && source ~/.aliases.sh
@@ -70,3 +73,9 @@ compdef _uv_run_mod uv
 
 # Shell completions for montuflow
 command -v montuflow > /dev/null && source <(montuflow -- --completion)
+
+# Netskope CLI Certificate Fix
+netskope_fp=/opt/montu-kandji/netskope-cli-certificate-fix.sh
+if [ -f "${netskope_fp}" ]; then
+    source "${netskope_fp}"
+fi

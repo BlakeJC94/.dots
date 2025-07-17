@@ -12,7 +12,6 @@ list=(
     "hugo"
     "tldr"
     "uv"
-    "vim.org"
     "duckdb"
     "tree"
     "pandoc"
