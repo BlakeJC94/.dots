@@ -1,12 +1,14 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
+
+
+##
+# Settings
 
 # Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -19,33 +21,42 @@ shopt -s globstar
 # Disable <C-s>/<C-q> from pausing/resuming input to terminal
 stty -ixon
 
-# Add local bins to path
-export PATH_LOCAL_BIN="${HOME}/.local/bin"
-[[ ":$PATH:" != *":${PATH_LOCAL_BIN}:"* ]] && PATH="${PATH_LOCAL_BIN}:${PATH}"
-
-# export VIMRUNTIME=~/.local/pkgs/vim.org/v9/share/vim/vim91
-
-eval "$(starship init bash)"
-
 source $HOME/.bash/modules/history.sh
 source $HOME/.bash/modules/color_prompt.sh
 source $HOME/.bash/modules/window_title.sh
 source $HOME/.bash/modules/completion.sh
 source $HOME/.bash/modules/tab_cycle.sh
-# source $HOME/.bash/modules/qt.sh
+
+##
+# Env vars
+
+# Setup common env vars
+[ -f ~/.envvars.sh ] && source ~/.envvars.sh
 
 
-# Alias definitions.
+##
+# Aliases
+
+# Setup common alias definitions
 [ -f ~/.aliases.sh ] && source ~/.aliases.sh
 
-# Run twolfson/sexy-bash-prompt
-[ -f ~/.bash_prompt ] && source ~/.bash_prompt
 
+##
+# Initialisers
+
+# Linuxbrew
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-[ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
-[ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
-[ -f ~/.bash/modules/fzf.sh ] && source $HOME/.bash/modules/fzf.sh
-[ -f ~/.bash/modules/fortune.sh ] && source $HOME/.bash/modules/fortune.sh
+# Initialise Starship prompt
+eval "$(starship init bash)"
 
-[ -f ~/.bash_profile_work.sh ] && source $HOME/.bash_profile_work.sh
+# Initialise FZF
+source <(fzf --bash)
+
+# Initisliase asdf
+[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ] && source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+
+
+# TODO rfc
+[ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
+[ -f ~/.bash/modules/fortune.sh ] && source $HOME/.bash/modules/fortune.sh

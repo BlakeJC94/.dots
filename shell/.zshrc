@@ -1,39 +1,47 @@
+# ~/.zshrc: executed by zsh(1) for non-login shells.
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+
+##
+# Settings
+
+
+# Ensure the emacs bindings are working
+bindkey -e
+
+
 ##
 # Env vars
+
+# Setup common env vars
+[ -f ~/.envvars.sh ] && source ~/.envvars.sh
 
 # Replace MacOS standard tools with Unix standard tools
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 
-# Add local executable commands
-export PATH="$HOME/.local/bin:$PATH"
-
-# Language environment
-export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-export EDITOR='vim'
-
-# Force python to import stuff in wd
-export PYTHONPATH=.
-
 # Using Vim from pkgx
 export VIMRUNTIME=~/.local/pkgs/vim.org/v9/share/vim/vim91
-
-# Compilation flags
-export ARCHFLAGS="-arch $(uname -m)"
 
 # ...
 export CLOUDSDK_PYTHON_SITEPACKAGES=1
 
-# LLM config location
-export LLM_USER_PATH=$HOME/.config/llm
 
-
+##
 # Aliases
+
+# Setup common alias definitions
 [ -f ~/.aliases.sh ] && source ~/.aliases.sh
 
+
+##
+# Initialisers
 
 # Intiliase Brew package manager
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -44,14 +52,12 @@ eval "$(starship init zsh)"
 # Initialise FZF
 source <(fzf --zsh)
 
-# Ensure the emacs bindings are working
-bindkey -e
+# Initisliase asdf
+[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ] && source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 
 
-[ -f ~/.bash/modules/asdf.sh ] && source $HOME/.bash/modules/asdf.sh
-[ -f ~/.bash/modules/tex.sh ] && source $HOME/.bash/modules/tex.sh
-[ -f ~/.bash/modules/fzf.sh ] && source $HOME/.bash/modules/fzf.sh
-
+##
+# Extras
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/blake/.google-cloud-sdk/path.zsh.inc' ]; then . '/Users/blake/.google-cloud-sdk/path.zsh.inc'; fi
