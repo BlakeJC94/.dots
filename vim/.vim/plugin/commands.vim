@@ -12,4 +12,4 @@ command! -nargs=* -complete=file_in_path Grep cexpr system(&grepprg . ' ' . expa
 " let g:loaded_openPlugin = 1  " TODO Check that vim9 :Open works as expected
 
 command! -nargs=? Ipy exec 'botright <mods> ' . functions#StartupIpythonCmd("<args>")
-command! -bang ScratchPy exec '<mods> ' . (<bang>0 ? 'edit' : 'split') . ' ' . getcwd() . '/scratch.py'
+command! -bang PyScrap exec '<mods> ' . (<bang>0 ? 'edit' : 'split') . ' ' . getcwd() . '/scrap/scratch.py'

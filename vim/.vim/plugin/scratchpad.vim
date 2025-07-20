@@ -1,12 +1,12 @@
 " A place for random ideas and trying new snippets
-function! Foo()
+function! s:Foo()
   return 420
 endfunction
 
-function! ScratchMain()
-  let val = Foo()
+function! s:ScratchMain()
+  let val = s:Foo()
   echo val
 endfunction
 
 
-" command ScratchMain :call ScratchMain()
+" command ScratchMain :call s:ScratchMain()
