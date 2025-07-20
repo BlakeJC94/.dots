@@ -13,3 +13,8 @@ command! -nargs=* -complete=file_in_path Grep cexpr system(&grepprg . ' ' . expa
 
 command! -nargs=? Ipy exec 'botright <mods> ' . functions#StartupIpythonCmd("<args>")
 command! -bang PyScrap exec '<mods> ' . (<bang>0 ? 'edit' : 'split') . ' ' . getcwd() . '/scrap/scratch.py'
+
+" command! -nargs=? Link /\<<C-r>=expand('<cword>')<CR>
+" echo expand('<cWORD>')
+
+
