@@ -88,6 +88,8 @@ function! functions#BreakHere()
     call histdel("/", -1)
 endfunction
 
+nnoremap <silent> gs :set opfunc=functions#Sort<CR>g@
+vnoremap <silent> gs :<C-u>call functions#Sort('vis')<CR>
 function! functions#Sort(type, ...)
     let marks = a:type ==? 'vis' ? '<>' : '[]'
     let [_, l1, c1, _] = getpos("'" . marks[0])

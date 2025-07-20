@@ -14,3 +14,5 @@ command! -nargs=* Asciiflow !open https://asciiflow.com/
 command! -nargs=* Diagram call field_notes#NewDiagram(<q-args>)
 command! -nargs=* -complete=file_in_path Image call field_notes#MoveImage(<q-args>)
 command! BlogHeader call field_notes#BlogHeader()
+command! -nargs=* Slugify echo field_notes#Slugify(<q-args>)
+command! -nargs=1 Link exec "let pos = getpos('.') | norm! :s/" . escape(expand('<cWORD>'), '/\') . "/[" . escape(expand('<cWORD>'), '/\') . "](" . escape(<q-args>, '/\') . ")/<CR> | call setpos('.', pos)"
