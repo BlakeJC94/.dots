@@ -33,18 +33,6 @@ function! functions#TrimSpaces()
   call winrestview(winstate)
 endfunction
 
-function! functions#CreateDirs()
-  let dir = expand('<afile>:p:h')
-  if isdirectory(dir) == 0 && dir !~ ':'
-    call mkdir(dir, 'p')
-  endif
-endfunction
-
-function! functions#ToggleInsertTarget()
-  let cols_str = string(&textwidth+1) . ',' . string(&textwidth+2)
-  execute 'setl colorcolumn=' . ((&colorcolumn == "" && &fo =~ 't') ? cols_str : "")
-  execute 'setl ' . (&cursorline == 0 ? "cursorline" : "nocursorline")
-endfunction
 
 function! functions#SetInfoBufferOpts()
   setl colorcolumn=
@@ -86,29 +74,4 @@ endfunction
 function! functions#BreakHere()
     s/^\(\s*\)\(.\{-}\)\(\s*\)\(\%#\)\(\s*\)\(.*\)/\1\2\r\1\4\6
     call histdel("/", -1)
-endfunction
-
-nnoremap <silent> gs :set opfunc=functions#Sort<CR>g@
-vnoremap <silent> gs :<C-u>call functions#Sort('vis')<CR>
-function! functions#Sort(type, ...)
-    let marks = a:type ==? 'vis' ? '<>' : '[]'
-    let [_, l1, c1, _] = getpos("'" . marks[0])
-    let [_, l2, c2, _] = getpos("'" . marks[1])
-    execute l1 . ',' . l2 . 'sort'
-endfunction
-
-" Reverse lines, selected or over motion.
-nnoremap <silent> gr :set opfunc=functions#ReverseLines<CR>g@
-vnoremap <silent> gr :<C-u>call functions#ReverseLines('vis')<CR>
-function! functions#ReverseLines(type) abort
-    let marks = a:type ==? 'vis' ? '<>' : '[]'
-    let [_, l1, c1, _] = getpos("'" . marks[0])
-    let [_, l2, c2, _] = getpos("'" . marks[1])
-    if l1 == l2
-        return
-    endif
-    for line in getline(l1, l2)
-        call setline(l2, line)
-        let l2 -= 1
-    endfor
 endfunction
