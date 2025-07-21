@@ -50,23 +50,8 @@ function! s:SendToShell(command, bang) range
         let lines = [getline('.')]
     endif
     
-    " Send the lines to the pane
-    if a:bang && len(lines) > 1
-        " Bang modifier: send multi-line input for ipython
-        for i in range(len(lines))
-            if i < len(lines) - 1
-                " All lines except the last get C-o Enter
-                call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(lines[i]) . ' C-o Enter')
-            else
-                " Last line gets double Enter
-                call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(lines[i]) . ' Enter Enter')
-            endif
-        endfor
-    else
-        " Normal mode: join lines and send as one command
-        let cmd_to_send = join(lines, "\n")
-        call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(cmd_to_send) . ' Enter')
-    endif
+    " Use the helper function to send lines
+    call s:SendToShellLines(lines, a:bang)
 endfunction
 
 " Close the pane and clear the variable when vim exits
@@ -80,5 +65,63 @@ function! s:CleanupShellPane()
     endif
 endfunction
 
+" Operator function for motion support
+function! s:SendOperator(type) range
+    let saved_unnamed_register = @@
+    
+    if a:type ==# 'v'
+        " Visual selection
+        normal! `<v`>y
+    elseif a:type ==# 'char'
+        " Character-wise motion
+        normal! `[v`]y
+    else
+        " Line-wise motion
+        normal! '[V']y
+    endif
+    
+    let lines = split(@@, '\n')
+    let @@ = saved_unnamed_register
+    
+    " Send the yanked text
+    call s:SendToShellLines(lines, 0)
+endfunction
+
+" Helper function to send lines (extracted from s:SendToShell)
+function! s:SendToShellLines(lines, bang)
+    if !s:InTmux()
+        echoerr "Error: Vim is not running in tmux"
+        return
+    endif
+    
+    let pane_id = s:GetShellPane()
+    if empty(pane_id)
+        echoerr "Error: Could not create or find tmux pane"
+        return
+    endif
+    
+    " Send the lines to the pane
+    if a:bang && len(a:lines) > 1
+        " Bang modifier: send multi-line input for ipython
+        for i in range(len(a:lines))
+            if i < len(a:lines) - 1
+                " All lines except the last get C-o Enter
+                call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(a:lines[i]) . ' C-o Enter')
+            else
+                " Last line gets double Enter
+                call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(a:lines[i]) . ' Enter Enter')
+            endif
+        endfor
+    else
+        " Normal mode: join lines and send as one command
+        let cmd_to_send = join(a:lines, "\n")
+        call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(cmd_to_send) . ' Enter')
+    endif
+endfunction
+
 " Define the S command
 command! -bang -range -nargs=* S <line1>,<line2>call s:SendToShell(<q-args>, <bang>0)
+
+" Set up operator mapping
+nnoremap <silent> <C-c> :set operatorfunc=<SID>SendOperator<CR>g@
+vnoremap <silent> <C-c> :<C-u>call <SID>SendOperator(visualmode())<CR>
