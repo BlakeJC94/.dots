@@ -1,6 +1,9 @@
 " Global variable to track the tmux pane ID
 let g:tmux_shell_pane = ""
 
+" Cell delimiter pattern (matches # %%, -- %%, In[n], or ```)
+let g:tmux_cell_delimiter = "^\\(\\s*\\(\\#\\|--\\) \\(%%\\|In\\[\\d\\+\\]\\)\\|```\\)"
+
 " Function to check if we're running in tmux
 function! s:InTmux()
     return !empty($TMUX)
@@ -18,7 +21,7 @@ function! s:GetShellPane()
             let g:tmux_shell_pane = ""
         endif
     endif
-    
+
     " Create a new pane below the current one
     let pane_id = system('tmux split-window -d -p 30 -P -F "#{pane_id}"')
     let g:tmux_shell_pane = substitute(pane_id, '\n', '', 'g')
@@ -31,13 +34,13 @@ function! s:SendToShell(command, bang) range
         echoerr "Error: Vim is not running in tmux"
         return
     endif
-    
+
     let pane_id = s:GetShellPane()
     if empty(pane_id)
         echoerr "Error: Could not create or find tmux pane"
         return
     endif
-    
+
     " Determine what to send based on arguments and range
     if !empty(a:command)
         " Command argument provided
@@ -49,7 +52,7 @@ function! s:SendToShell(command, bang) range
         " No command or range, use current line
         let lines = [getline('.')]
     endif
-    
+
     " Use the helper function to send lines
     call s:SendToShellLines(lines, a:bang)
 endfunction
@@ -68,7 +71,7 @@ endfunction
 " Operator function for motion support
 function! s:SendOperator(type) range
     let saved_unnamed_register = @@
-    
+
     if a:type ==# 'v'
         " Visual selection
         normal! `<v`>y
@@ -79,10 +82,10 @@ function! s:SendOperator(type) range
         " Line-wise motion
         normal! '[V']y
     endif
-    
+
     let lines = split(@@, '\n')
     let @@ = saved_unnamed_register
-    
+
     " Send the yanked text
     call s:SendToShellLines(lines, 0)
 endfunction
@@ -93,25 +96,21 @@ function! s:SendToShellLines(lines, bang)
         echoerr "Error: Vim is not running in tmux"
         return
     endif
-    
+
     let pane_id = s:GetShellPane()
     if empty(pane_id)
         echoerr "Error: Could not create or find tmux pane"
         return
     endif
-    
+
     " Send the lines to the pane
-    if a:bang && len(a:lines) > 1
-        " Bang modifier: send multi-line input for ipython
-        for i in range(len(a:lines))
-            if i < len(a:lines) - 1
-                " All lines except the last get C-o Enter
-                call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(a:lines[i]) . ' C-o Enter')
-            else
-                " Last line gets double Enter
-                call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(a:lines[i]) . ' Enter Enter')
-            endif
+    if a:bang
+        " Bang modifier: use %cpaste for ipython
+        call system('tmux send-keys -t ' . pane_id . ' "%cpaste -q" Enter')
+        for line in a:lines
+            call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(line) . ' Enter')
         endfor
+        call system('tmux send-keys -t ' . pane_id . ' C-d')
     else
         " Normal mode: join lines and send as one command
         let cmd_to_send = join(a:lines, "\n")
@@ -122,6 +121,45 @@ endfunction
 " Define the S command
 command! -bang -range -nargs=* S <line1>,<line2>call s:SendToShell(<q-args>, <bang>0)
 
+" Function to find cell boundaries
+function! s:FindCellBoundaries()
+    let current_line = line('.')
+    let last_line = line('$')
+
+    " Find start of current cell (search backwards)
+    let start_line = current_line
+    for line_num in range(current_line - 1, 1, -1)
+        if getline(line_num) =~# g:tmux_cell_delimiter
+            let start_line = line_num + 1
+            break
+        endif
+        if line_num == 1
+            let start_line = 1
+        endif
+    endfor
+
+    " Find end of current cell (search forwards)
+    let end_line = last_line
+    for line_num in range(current_line + 1, last_line)
+        if getline(line_num) =~# g:tmux_cell_delimiter
+            let end_line = line_num - 1
+            break
+        endif
+    endfor
+
+    return [start_line, end_line]
+endfunction
+
+" Function to send current cell
+function! s:SendCell()
+    let [start_line, end_line] = s:FindCellBoundaries()
+    let lines = getline(start_line, end_line)
+    call s:SendToShellLines(lines, 1)
+endfunction
+
 " Set up operator mapping
 nnoremap <silent> <C-c> :set operatorfunc=<SID>SendOperator<CR>g@
 vnoremap <silent> <C-c> :<C-u>call <SID>SendOperator(visualmode())<CR>
+
+" Add cell motion mapping
+nnoremap <silent> <C-c><C-c> :call <SID>SendCell()<CR>
