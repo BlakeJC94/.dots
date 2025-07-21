@@ -4,6 +4,22 @@ let g:tmux_shell_pane = ""
 " Cell delimiter pattern (matches # %%, -- %%, In[n], or ```)
 let g:tmux_cell_delimiter = "^\\(\\s*\\(\\#\\|--\\) \\(%%\\|In\\[\\d\\+\\]\\)\\|```\\)"
 
+" Set up syntax highlighting for cell delimiters
+function! s:SetupCellSyntax()
+    " Define syntax match for cell delimiters - match entire line
+    syntax match TmuxCellDelimiter /^\s*\(#\|--\) \(%%\|In\[\d\+\]\).*$\|^```.*$/
+    
+    " Define highlight group - make it stand out with underline
+    highlight default TmuxCellDelimiter ctermfg=Yellow ctermbg=NONE cterm=bold,underline 
+                                      \ guifg=#ffff00 guibg=NONE gui=bold,underline
+endfunction
+
+" Apply syntax highlighting when entering buffers
+augroup TmuxCellSyntax
+    autocmd!
+    autocmd BufEnter,BufRead * call s:SetupCellSyntax()
+augroup END
+
 " Function to check if we're running in tmux
 function! s:InTmux()
     return !empty($TMUX)

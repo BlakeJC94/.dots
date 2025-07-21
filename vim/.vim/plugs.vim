@@ -52,9 +52,6 @@ Plug 'https://github.com/BlakeJC94/vim-convict'
 Plug 'https://github.com/junegunn/gv.vim'
 " Remember vim config with reminders
 Plug 'https://github.com/BlakeJC94/vim-sage'
-" Send lines to tmux (`<C-c><C-c>`)
-Plug 'https://github.com/jpalardy/vim-slime'
-Plug 'https://github.com/BlakeJC94/vim-slime-cells', {'branch': 'fix-terminal-mode-bufenter'}
 " Show undotree (`:UndotreeToggle` or `<Leader>u`) <>
 Plug 'https://github.com/mbbill/undotree'
 " Disable highlighting after search automatically
