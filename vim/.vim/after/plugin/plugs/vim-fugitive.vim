@@ -2,14 +2,12 @@ if has_key(get(g:, 'plugs', {}), 'vim-fugitive') == 0
   finish
 endif
 
+"" Abbrevs
+cnoreabbrev <expr> git (getcmdtype() ==# ':' && getcmdline() ==# 'git') ? 'Git' : 'git'
 
 "" Mappings
 nnoremap <Leader>c <cmd>call ToggleGstatus()<CR>
 vnoremap <leader>b :GBrowse!<CR>
-
-"" Commands
-command! GPush :Dispatch git push
-command! GPull :Dispatch git pull
 
 "" Functions
 function! ToggleGstatus() abort
@@ -32,4 +30,3 @@ augroup config_vim_fugitive
   " Auto-refresh status
   au WinEnter,BufWritePre,FileWritePre * call fugitive#ReloadStatus()
 augroup END
-

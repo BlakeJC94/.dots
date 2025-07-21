@@ -3,7 +3,10 @@
 filetype plugin indent on
 "syntax on
 
+let mapleader = "\<Space>"
+
 let g:field_notes_dir = "~/Dropbox/field-notes"
+
 
 "" PLUGINS
 source ~/.vim/plugs.vim
@@ -12,7 +15,7 @@ source ~/.vim/plugs.vim
 source ~/.vim/options.vim
 
 "" LEADER MAPS
-source ~/.vim/leader.vim
+" source ~/.vim/leader.vim
 
 "" Other configurations:
 " ~/.vim/plugin/abbrev.vim

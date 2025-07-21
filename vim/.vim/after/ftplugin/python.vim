@@ -107,6 +107,8 @@ endif
 command! Switch call Switch()
 nnoremap <Leader>j :call Switch()<CR>
 
+command! -bang PyScrap exec '<mods> ' . (<bang>0 ? 'edit' : 'split') . ' ' . getcwd() . '/scrap/scratch.py'
+
 " Requires pytest-compiler and vim-dispatch
 if has_key(get(g:, 'plugs', {}), 'vim-dispatch') == 0 && has_key(get(g:, 'plugs', {}), 'pytest-vim-compiler') == 0
   command! Pytest :Make -k %:p:t:r<CR>

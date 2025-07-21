@@ -7,40 +7,6 @@ function! functions#MyFoldText()
   return fold_str[0:&textwidth - len(fold_size_str)] . fold_size_str
 endfunction
 
-function! functions#ToggleQuickFix()
-    if empty(filter(getwininfo(), 'v:val.quickfix'))
-      copen
-    else
-      cclose
-    endif
-endfunction
-
-function! functions#ToggleLocation()
-    if empty(filter(getwininfo(), 'v:val.loclist'))
-      try
-        lopen
-      catch /^Vim\%((\a\+)\)\=:E776:/
-        echo 'No location list'
-      endtry
-    else
-      lclose
-    endif
-endfunction
-
-function! functions#TrimSpaces()
-  let winstate = winsaveview()
-  keeppatterns %s/\s\+$//e
-  call winrestview(winstate)
-endfunction
-
-
-function! functions#SetInfoBufferOpts()
-  setl colorcolumn=
-  setl nospell
-  setl foldlevel=99
-  setl fo-=t
-  nnoremap <buffer> K :h <C-r>=expand('<cword>')<CR><CR>
-endfunction
 
 function! functions#SetScratchBuffer() abort
   setl bufhidden=delete
@@ -48,11 +14,6 @@ function! functions#SetScratchBuffer() abort
   setl nomodifiable
   " TODO Set buffer name as commit hash?
 endfun
-
-function! functions#DebugSyntax()
-  let s = synID(line('.'), col('.'), 1)
-  echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
-endfunction
 
 function! functions#VSetSearch(cmdtype)
   let temp = @s
