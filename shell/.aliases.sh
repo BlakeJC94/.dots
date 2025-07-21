@@ -2,6 +2,8 @@ alias ls='ls --color=auto'
 alias duh='du -d 1 -h'
 alias myip='curl http://ifconfig.me/ip'
 alias wttr='curl https://wttr.in/'
+alias least='fmt -w 80 | bat --paging always --style plain'
+alias leastmd='least -l markdown'
 
 alias meminfo='free -m -l -t'
 alias psmem='ps auxf | sort -nr -k 4'
