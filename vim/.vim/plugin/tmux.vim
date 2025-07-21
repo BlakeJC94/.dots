@@ -26,7 +26,7 @@ function! s:GetShellPane()
 endfunction
 
 " Function to send command to shell pane
-function! s:SendToShell(command)
+function! s:SendToShell(command, bang) range
     if !s:InTmux()
         echoerr "Error: Vim is not running in tmux"
         return
@@ -38,12 +38,47 @@ function! s:SendToShell(command)
         return
     endif
     
-    " Send the command to the pane
-    call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(a:command) . ' Enter')
+    " Determine what to send based on arguments and range
+    if !empty(a:command)
+        " Command argument provided
+        let lines = [a:command]
+    elseif a:firstline != a:lastline
+        " Range provided, send selected lines
+        let lines = getline(a:firstline, a:lastline)
+    else
+        " No command or range, use current line
+        let lines = [getline('.')]
+    endif
+    
+    " Send the lines to the pane
+    if a:bang && len(lines) > 1
+        " Bang modifier: send multi-line input for ipython
+        for i in range(len(lines))
+            if i < len(lines) - 1
+                " All lines except the last get C-o Enter
+                call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(lines[i]) . ' C-o Enter')
+            else
+                " Last line gets double Enter
+                call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(lines[i]) . ' Enter Enter')
+            endif
+        endfor
+    else
+        " Normal mode: join lines and send as one command
+        let cmd_to_send = join(lines, "\n")
+        call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(cmd_to_send) . ' Enter')
+    endif
 endfunction
 
-" Clear the pane variable when vim exits
-autocmd VimLeave * let g:tmux_shell_pane = ""
+" Close the pane and clear the variable when vim exits
+autocmd VimLeave * call s:CleanupShellPane()
 
-" Define the Shell command
-command! -nargs=+ Shell call s:SendToShell(<q-args>)
+" Function to cleanup the shell pane on exit
+function! s:CleanupShellPane()
+    if !empty(g:tmux_shell_pane)
+        call system('tmux kill-pane -t ' . g:tmux_shell_pane)
+        let g:tmux_shell_pane = ""
+    endif
+endfunction
+
+" Define the S command
+command! -bang -range -nargs=* S <line1>,<line2>call s:SendToShell(<q-args>, <bang>0)
