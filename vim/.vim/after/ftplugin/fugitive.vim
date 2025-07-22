@@ -6,4 +6,6 @@ nnoremap <buffer> p :Git pull
 nnoremap <buffer> P :Git push
 
 " Fugitive buffers as scratch buffers
-call functions#SetScratchBuffer()
+setl bufhidden=delete
+setl buftype=nofile
+setl nomodifiable

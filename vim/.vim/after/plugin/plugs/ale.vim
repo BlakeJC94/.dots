@@ -1,7 +1,3 @@
-if has_key(get(g:, 'plugs', {}), 'ale') == 0
-  finish
-endif
-
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
       \'python': ['ruff'],
@@ -18,6 +14,9 @@ let g:ale_use_neovim_diagnostics_api = 0
 
 highlight link ALEErrorSign SpellBad
 highlight link ALEWarningSign SpellCap
+
+nnoremap <Leader>L <cmd>ALEPopulateLocList<cr>
+nnoremap <Leader>= <cmd>ALEFix<cr>
 
 nnoremap ]e <cmd>ALENextWrap<cr>
 nnoremap [e <cmd>ALEPreviousWrap<cr>

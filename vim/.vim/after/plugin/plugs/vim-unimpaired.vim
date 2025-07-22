@@ -1,7 +1,3 @@
-if has_key(get(g:, 'plugs', {}), 'vim-unimpaired') == 0
-  finish
-endif
-
 " Don't error out on args pairs if argslist is empty
 nmap [a <cmd>try <bar> exec 'norm \<Plug>(unimpaired-previous)' <bar> endtry <bar> args<CR>
 nmap ]a <cmd>try <bar> exec 'norm \<Plug>(unimpaired-next)'     <bar> endtry <bar> args<CR>

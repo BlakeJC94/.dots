@@ -56,7 +56,15 @@ set showbreak=              " Text to print at breakindent
 set fillchars=fold:\ ,eob:\ ,vert:┃
 set foldmethod=indent  " Auto-create folds by indent levels
 set foldlevel=0        " Close all folds when opening file
-set foldtext=functions#MyFoldText()
+function! g:MyFoldText()
+  let line = getline(v:foldstart)
+  let indent_str = repeat(' ', indent(v:foldstart - 1))
+  let fold_str = indent_str . line . repeat(' ', &textwidth)
+  let fold_size = v:foldend - v:foldstart + 1
+  let fold_size_str = ' (' . fold_size . ') '
+  return fold_str[0:&textwidth - len(fold_size_str)] . fold_size_str
+endfunction
+set foldtext=g:MyFoldText()
 
 "" LEFT MARGIN
 set number             " Show line numbers

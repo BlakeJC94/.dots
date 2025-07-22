@@ -1,7 +1,3 @@
-if has_key(get(g:, 'plugs', {}), 'vim-fugitive') == 0
-  finish
-endif
-
 "" Abbrevs
 cnoreabbrev <expr> git (getcmdtype() ==# ':' && getcmdline() ==# 'git') ? 'Git' : 'git'
 

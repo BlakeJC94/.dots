@@ -1,7 +1,3 @@
-if has_key(get(g:, 'plugs', {}), 'vim-signify') == 0
-  finish
-endif
-
 let g:signify_sign_change = '~'
 
 augroup config_vim_fugitive
@@ -9,6 +5,10 @@ augroup config_vim_fugitive
   " Auto-refresh gitsigns when updating git state via fugitive.vim
   au User FugitiveChanged SignifyRefresh
 augroup END
+
+nnoremap <Leader>C <cmd>SignifyHunkDiff<CR>
+nnoremap <leader>h <cmd>SignifyHunkFold<CR>
+nnoremap <leader>H <cmd>SignifyHunkUndo<CR>
 
 omap ih <plug>(signify-motion-inner-pending)
 xmap ih <plug>(signify-motion-inner-visual)

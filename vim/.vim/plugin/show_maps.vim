@@ -1,0 +1,1 @@
+command! -bang ShowMaps new | setl bufhidden=delete buftype=nofile ft=diff | exec "read!rg --sort path --heading --line-number '^\\S*map" .  (<bang>0 ? ".+\\<Leader\\>" : "") . "' ~/.vim/** --iglob '\\!**/plugged/**'"

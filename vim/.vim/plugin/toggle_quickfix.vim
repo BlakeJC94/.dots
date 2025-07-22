@@ -23,3 +23,5 @@ command! ToggleLL :call s:ToggleLocation()
 
 nnoremap <Leader>q <cmd>ToggleQL<CR>
 nnoremap <Leader>l <cmd>ToggleLL<CR>
+
+command! -nargs=* Cexpr cexpr system(expand(<q-args>))

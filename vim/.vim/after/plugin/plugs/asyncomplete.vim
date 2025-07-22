@@ -1,4 +1,3 @@
-
 let g:asyncomplete_auto_popup = 0
 
 function! s:check_back_space() abort

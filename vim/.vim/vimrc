@@ -1,36 +1,9 @@
 "" BlakeJC94s Vim configuration
 """""""""""""""""""""""""""""""
 filetype plugin indent on
-"syntax on
-
 let mapleader = "\<Space>"
 
-let g:field_notes_dir = "~/Dropbox/field-notes"
-
-
-"" PLUGINS
 source ~/.vim/plugs.vim
-
-"" OPTIONS
 source ~/.vim/options.vim
-
-"" LEADER MAPS
-" source ~/.vim/leader.vim
-
-"" Other configurations:
-" ~/.vim/plugin/abbrev.vim
-" ~/.vim/plugin/augroups.vim
-" ~/.vim/plugin/commands.vim
-" ~/.vim/plugin/mappings.vim
-
-"" Custom functions:
-" ~/.vim/autoload/functions.vim
-
-"" Filetype-specific overrides:
-" ~/.vim/ftplugin
-
-"" Plugin configs:
-" ~/.vim/after/plugin/plugs
-
-"" Vimscript playground:
-" ~/.vim/plugin/scratchpad.vim
+source ~/.vim/mappings.vim
+source ~/.vim/scratchpad.vim

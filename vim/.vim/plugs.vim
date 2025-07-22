@@ -10,8 +10,13 @@ if empty(glob(dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" Settings that need to be set before running plugins
+let g:ale_disable_lsp = 1
+let g:ale_completion_enabled = 1
+let g:ale_hover_cursor = 0
+let g:polyglot_disabled = ['markdown']
+
 " Load plugins
-call functions#setPreVars()
 call plug#begin(expand(dir . '/plugged'))
 
 " TODO learn more about vim-dispatch
