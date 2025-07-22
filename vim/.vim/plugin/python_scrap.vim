@@ -15,3 +15,30 @@ function! PyScrapFunction(bang, line1, line2)
         call setline(1, selected_lines)
     endif
 endfunction
+
+function! PyScrapOperator(type)
+    let saved_unnamed_register = @@
+
+    if a:type ==# 'v'
+        normal! `<v`>y
+    elseif a:type ==# 'char'
+        normal! `[v`]y
+    elseif a:type ==# 'line'
+        normal! '[V']y
+    else
+        return
+    endif
+
+    let selected_text = split(@@, '\n')
+    let @@ = saved_unnamed_register
+
+    let filename = getcwd() . '/scrap/scratch_'. strftime("%Y-%m-%d-%H%M"). '.py'
+    exec 'split ' . filename
+
+    if len(selected_text) > 0
+        call setline(1, selected_text)
+    endif
+endfunction
+
+nnoremap <silent> <Plug>PyScrapOperator :set opfunc=PyScrapOperator<CR>g@
+vnoremap <silent> <Plug>PyScrapOperator :<C-U>call PyScrapOperator(visualmode())<CR>
