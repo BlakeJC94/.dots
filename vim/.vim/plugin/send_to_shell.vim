@@ -62,8 +62,12 @@ function! s:SendToShell(...) range
 
     " Determine what to send based on arguments and range
     if len(command_args) > 0
-        " Command arguments provided - join them back into a single command
-        let command = join(command_args, ' ')
+        " Command arguments provided - expand % syntax and join them back into a single command
+        let expanded_args = []
+        for arg in command_args
+            call add(expanded_args, expand(arg))
+        endfor
+        let command = join(expanded_args, ' ')
         let lines = [command]
     elseif a:firstline != a:lastline
         " Range provided, send selected lines
