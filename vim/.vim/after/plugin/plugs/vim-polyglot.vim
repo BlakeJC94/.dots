@@ -18,7 +18,7 @@ let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_auto_insert_bullets = 0
 
 " Filetype names and aliases for fenced code blocks.
-let g:vim_markdown_fenced_languages = ['php', 'py=python', 'js=javascript', 'bash=sh', 'viml=vim']
+let g:vim_markdown_fenced_languages = ['sh', 'py=python', 'js=javascript', 'bash=sh', 'viml=vim']
 
 " Highlight front matter (useful for Hugo posts).
 let g:vim_markdown_toml_frontmatter = 1

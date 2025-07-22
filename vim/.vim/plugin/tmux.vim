@@ -7,10 +7,10 @@ let g:tmux_cell_delimiter = "^\\(\\s*\\(\\#\\|--\\) \\(%%\\|In\\[\\d\\+\\]\\)\\|
 " Set up syntax highlighting for cell delimiters
 function! s:SetupCellSyntax()
     " Define syntax match for cell delimiters - match entire line
-    syntax match TmuxCellDelimiter /^\s*\(#\|--\) \(%%\|In\[\d\+\]\).*$\|^```.*$/
-    
+    syntax match TmuxCellDelimiter /^\s*\(#\|--\) \(%%\|In\[\d\+\]\).*$/
+
     " Define highlight group - make it stand out with underline
-    highlight default TmuxCellDelimiter ctermfg=Yellow ctermbg=NONE cterm=bold,underline 
+    highlight default TmuxCellDelimiter ctermfg=Yellow ctermbg=NONE cterm=bold,underline
                                       \ guifg=#ffff00 guibg=NONE gui=bold,underline
 endfunction
 
