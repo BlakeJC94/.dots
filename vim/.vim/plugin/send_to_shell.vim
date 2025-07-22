@@ -10,8 +10,7 @@ function! s:SetupCellSyntax()
     syntax match TmuxCellDelimiter /^\s*\(#\|--\) \(%%\|In\[\d\+\]\).*$/
 
     " Define highlight group - make it stand out with underline
-    highlight default TmuxCellDelimiter ctermfg=Yellow ctermbg=NONE cterm=bold,underline
-                                      \ guifg=#ffff00 guibg=NONE gui=bold,underline
+    highlight default TmuxCellDelimiter guifg=#fe8019 guibg=NONE gui=bold,underline
 endfunction
 
 " Apply syntax highlighting when entering buffers
@@ -45,7 +44,7 @@ function! s:GetShellPane()
 endfunction
 
 " Function to send command to shell pane
-function! s:SendToShell(command, bang) range
+function! s:SendToShell(...) range
     if !s:InTmux()
         echoerr "Error: Vim is not running in tmux"
         return
@@ -57,10 +56,15 @@ function! s:SendToShell(command, bang) range
         return
     endif
 
+    " Last argument is always the bang flag
+    let bang = a:000[-1]
+    let command_args = a:000[:-2]
+
     " Determine what to send based on arguments and range
-    if !empty(a:command)
-        " Command argument provided
-        let lines = [a:command]
+    if len(command_args) > 0
+        " Command arguments provided - join them back into a single command
+        let command = join(command_args, ' ')
+        let lines = [command]
     elseif a:firstline != a:lastline
         " Range provided, send selected lines
         let lines = getline(a:firstline, a:lastline)
@@ -70,7 +74,7 @@ function! s:SendToShell(command, bang) range
     endif
 
     " Use the helper function to send lines
-    call s:SendToShellLines(lines, a:bang)
+    call s:SendToShellLines(lines, bang)
 endfunction
 
 " Close the pane and clear the variable when vim exits
@@ -135,7 +139,7 @@ function! s:SendToShellLines(lines, bang)
 endfunction
 
 " Define the S command
-command! -bang -range -nargs=* S <line1>,<line2>call s:SendToShell(<q-args>, <bang>0)
+command! -bang -range -complete=file_in_path -nargs=* S <line1>,<line2>call s:SendToShell(<f-args>, <bang>0)
 
 " Function to find cell boundaries
 function! s:FindCellBoundaries()

@@ -7,7 +7,7 @@ setl foldlevel=1
 hi link markdownError Normal
 hi link mkdLineBreak Normal
 
-let g:markdown_fenced_languages = ['json', 'julia', 'html', 'python', 'bash=sh', 'zsh=sh', 'css', 'vim']
+let g:markdown_fenced_languages = ['sh', 'json', 'julia', 'html', 'python', 'bash=sh', 'zsh=sh', 'css', 'vim']
 let g:markdown_folding = 1
 
 autocmd Filetype markdown,liquid,text
