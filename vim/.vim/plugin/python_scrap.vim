@@ -42,3 +42,7 @@ endfunction
 
 nnoremap <silent> <Plug>PyScrapOperator :set opfunc=PyScrapOperator<CR>g@
 vnoremap <silent> <Plug>PyScrapOperator :<C-U>call PyScrapOperator(visualmode())<CR>
+
+" Default mappings
+nmap gS <Plug>PyScrapOperator
+vmap gS <Plug>PyScrapOperator

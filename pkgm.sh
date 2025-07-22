@@ -15,7 +15,9 @@ list=(
     "duckdb"
     "tree"
     "pandoc"
-    "bw"
+    "shellcheck.net"
+    "shfmt"
+    "prettier"
 )
 for item in "${list[@]}"; do
     pkgm install $item

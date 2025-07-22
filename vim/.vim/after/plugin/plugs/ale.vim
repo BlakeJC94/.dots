@@ -1,11 +1,15 @@
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
       \'python': ['ruff'],
+      \'sh': ['shellcheck'],
+      \'vim': ['vint']
       \}
 let g:ale_fixers = {
+      \'sh': ['shfmt'],
       \'python': ['ruff_format', 'ruff'],
       \'htmldjango': ['html-beautify'],
       \'html': ['html-beautify'],
+      \'css': ['prettier'],
       \}
 let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_use_neovim_diagnostics_api = 0
