@@ -44,7 +44,7 @@ function! s:GetShellPane()
 endfunction
 
 " Function to send command to shell pane
-function! s:SendToShell(...) range
+function! s:SendToShell(args, bang) range
     if !s:InTmux()
         echoerr "Error: Vim is not running in tmux"
         return
@@ -56,18 +56,17 @@ function! s:SendToShell(...) range
         return
     endif
 
-    " Last argument is always the bang flag
-    let bang = a:000[-1]
-    let command_args = a:000[:-2]
+    " Parse arguments and expand % syntax
+    let args = a:args
+    let bang = a:bang
 
     " Determine what to send based on arguments and range
-    if len(command_args) > 0
-        " Command arguments provided - expand % syntax and join them back into a single command
-        let expanded_args = []
-        for arg in command_args
-            call add(expanded_args, expand(arg))
-        endfor
-        let command = join(expanded_args, ' ')
+    if !empty(args)
+        " Command arguments provided - handle escaped % and expand % syntax
+        " First, manually expand unescaped % to current filename
+        let command = substitute(args, '\\\@<!%', expand('%'), 'g')
+        " Then, replace escaped \% with literal %
+        let command = substitute(command, '\\%', '%', 'g')
         let lines = [command]
     elseif a:firstline != a:lastline
         " Range provided, send selected lines
@@ -143,7 +142,7 @@ function! s:SendToShellLines(lines, bang)
 endfunction
 
 " Define the S command
-command! -bang -range -complete=file_in_path -nargs=* S <line1>,<line2>call s:SendToShell(<f-args>, <bang>0)
+command! -bang -range -complete=file_in_path -nargs=* S <line1>,<line2>call s:SendToShell(<q-args>, <bang>0)
 
 " Function to find cell boundaries
 function! s:FindCellBoundaries()
