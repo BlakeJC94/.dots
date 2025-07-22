@@ -1,5 +1,6 @@
 #!/bin/bash
 dark0_hard="#1D2021"
+dark00="#202223"
 dark0="#282828"
 dark0_soft="#32302F"
 dark1="#3C3836"
@@ -56,12 +57,12 @@ set-option -wg window-status-current-style bg="#{bright_orange}",fg="#{dark1}"
 
 # Active window background
 set -g window-active-style bg="#{dark0_hard}"
-set -g window-style bg="#{dark0_hard}"
+set -g window-style bg="#{dark00}"
 
 # Pane border
 set-option -g pane-border-lines heavy
-set-option -g pane-active-border-style bg="#{light4}",fg="#{light4}"
-set-option -g pane-border-style bg="#{dark1}",fg="#{dark1}"
+set-option -g pane-active-border-style bg="#{dark0_hard}",fg="#{dark0_hard}"
+set-option -g pane-border-style bg="#{dark00}",fg="#{dark00}"
 # set-option -g pane-active-border-style bg="#{dark0_hard}",fg="#{light4}"
 # set-option -g pane-border-style bg="#{dark0_hard}",fg="#{dark1}"
 

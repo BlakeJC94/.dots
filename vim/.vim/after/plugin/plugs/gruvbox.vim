@@ -20,6 +20,9 @@ function ColorMyGruvbox()
     hi link StatusLineTerm StatusLine
     hi link StatusLineTermNC StatusLineNC
 
+    if exists('$TMUX')
+        highlight Normal ctermbg=NONE guibg=NONE
+    endif
 endfunction
 
 call ColorMyGruvbox()
