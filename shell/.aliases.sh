@@ -1,7 +1,11 @@
 alias ls='ls --color=auto'
 alias duh='du -d 1 -h'
+
+alias today='vim -c "Today!"'
+
 alias myip='curl http://ifconfig.me/ip'
 alias wttr='curl https://wttr.in/'
+
 alias least='fmt -w 80 | bat --paging always --style plain'
 alias leastmd='least -l markdown'
 
