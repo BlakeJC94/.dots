@@ -43,6 +43,35 @@ function! s:GetShellPane()
     return g:tmux_shell_pane
 endfunction
 
+" Function to check if the process in the tmux pane is ipython
+function! s:IsIpython()
+    if empty(g:tmux_shell_pane)
+        return 0
+    endif
+
+    " Get the shell PID from tmux
+    let shell_pid = system('tmux display-message -t ' . g:tmux_shell_pane . ' -p "#{pane_pid}"')
+    let shell_pid = substitute(shell_pid, '\n', '', 'g')
+
+    " Look for child processes of the shell that contain 'ipython'
+    let child_processes = system('pgrep -P ' . shell_pid . ' 2>/dev/null')
+    
+    if v:shell_error == 0 && !empty(child_processes)
+        " Check each child process
+        for child_pid in split(child_processes, '\n')
+            if !empty(child_pid)
+                let cmdline = system('ps -p ' . child_pid . ' -o args= 2>/dev/null')
+                let cmdline = substitute(cmdline, '\n', '', 'g')
+                if cmdline =~# 'ipython'
+                    return 1
+                endif
+            endif
+        endfor
+    endif
+
+    return 0
+endfunction
+
 " Function to send command to shell pane
 function! s:SendToShell(args, bang) range
     if !s:InTmux()
@@ -128,12 +157,17 @@ function! s:SendToShellLines(lines, bang)
 
     " Send the lines to the pane
     if a:bang
-        " Bang modifier: use %cpaste for ipython
-        call system('tmux send-keys -t ' . pane_id . ' "%cpaste -q" Enter')
-        for line in a:lines
-            call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(line) . ' Enter')
-        endfor
-        call system('tmux send-keys -t ' . pane_id . ' C-d')
+        " Bang modifier: use %cpaste for ipython (only if ipython is running)
+        if s:IsIpython()
+            call system('tmux send-keys -t ' . pane_id . ' "%cpaste -q" Enter')
+            for line in a:lines
+                call system('tmux send-keys -t ' . pane_id . ' ' . shellescape(line) . ' Enter')
+            endfor
+            call system('tmux send-keys -t ' . pane_id . ' C-d')
+        else
+            echoerr "Error: Bang modifier requires ipython to be running in the tmux pane"
+            return
+        endif
     else
         " Normal mode: join lines and send as one command
         let cmd_to_send = join(a:lines, "\n")
@@ -173,11 +207,31 @@ function! s:FindCellBoundaries()
     return [start_line, end_line]
 endfunction
 
+" Function to jump to the next cell
+function! s:JumpToNextCell()
+    let current_line = line('.')
+    let last_line = line('$')
+
+    " Search for the next cell delimiter
+    for line_num in range(current_line + 1, last_line)
+        if getline(line_num) =~# g:tmux_cell_delimiter
+            " Move cursor to the line after the delimiter
+            call cursor(line_num + 1, 1)
+            return
+        endif
+    endfor
+
+    " If no next cell found, stay at current position
+endfunction
+
 " Function to send current cell
 function! s:SendCell()
     let [start_line, end_line] = s:FindCellBoundaries()
     let lines = getline(start_line, end_line)
     call s:SendToShellLines(lines, 1)
+
+    " Jump to the next cell
+    call s:JumpToNextCell()
 endfunction
 
 " Set up operator mapping

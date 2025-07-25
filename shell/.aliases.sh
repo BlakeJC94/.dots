@@ -15,6 +15,7 @@ alias pscpu='ps auxf | sort -nr -k 3'
 
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
 alias todo='rg -o --hidden --iglob "!.git" --iglob "!TODO.md" "TODO.*"'
+alias genpr="git diff main..HEAD -- ':(exclude)uv.lock' > foo.md && aider foo.md --read .github/PULL_REQUEST_TEMPLATE.md --message 'I have gien you a git diff in foo.md. Can you write a pull request description for this change using the template? Replace all the content in foo.md. Please keep it as short and direct as possible'"
 
 # mcdir () { mkdir "$1" && cd "$_" }
 # joke () { curl https://icanhazdadjoke.com/; echo "" }

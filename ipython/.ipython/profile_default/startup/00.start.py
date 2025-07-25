@@ -21,6 +21,9 @@ else:
 # aliases
 q = exit
 
+import os
+os.environ["PYTHONBREAKPOINT"] = "ipdb.set_trace"
+
 # imports
 _imports = [
     "import numpy as np",
