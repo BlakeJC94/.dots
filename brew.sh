@@ -10,16 +10,23 @@ list=(
     "rg"
     "neofetch"
     "hugo"
-    "tldr"
-    "uv"
+    "teeldeer"
     "duckdb"
     "tree"
     "pandoc"
-    "shellcheck.net"
-    "shfmt"
-    "prettier"
+    "coreutils"
+    "diffutils"
+    "findutils"
+    "awk"
+    "gnu-sed"
+    "grep"
+    "nano"
+    "git"
+    "less"
+    "curl"
+    "wget"
 )
 for item in "${list[@]}"; do
-    pkgm install $item
+    brew install $item
 done
 
