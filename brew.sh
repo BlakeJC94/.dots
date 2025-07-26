@@ -25,6 +25,7 @@ list=(
     "less"
     "curl"
     "wget"
+    "bitwarden-cli"
 )
 for item in "${list[@]}"; do
     brew install $item
